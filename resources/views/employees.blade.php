@@ -84,9 +84,9 @@
                                     <div class="small text-muted">{{ $val->designation->name }}</div>
                                 </div>
                             </div>
-                            @endforeach
+                            @endforeach 
                         </div>
-                @endisset
+                @endisset 
             <!-- /Page Content -->
             
             <!-- Add Employee Modal -->

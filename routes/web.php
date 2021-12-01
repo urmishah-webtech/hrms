@@ -65,7 +65,7 @@ Route::get('/getDesignationAjax','EmployeeController@getDesignationAjax')->name(
 Route::get('/designationList','EmployeeController@designationList')->name('designationList');
 Route::post('add_employee','EmployeeController@add_employee')->name('add_employee');
 Route::post('delete_employee','EmployeeController@delete_employee')->name('delete_employee');
-
+ 
 
 
 Route::get('/holidays', function () {

@@ -171,7 +171,7 @@
 							$('#delete_department').modal('toggle');
 							$(".employeeError").show();
 						}
-						else{
+						else{ 
 							location.reload();
 						}
 					}
