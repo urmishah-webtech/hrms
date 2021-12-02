@@ -178,8 +178,58 @@
 				});
 			});
 			$(document).on("click",".edtEmpBtn",function() {
-				
+				var id= $(this).data('id');
+				$.ajax({
+					type:'POST',
+					url:"{{ route('edit_employee') }}",
+					data:{"id":id,"_token": "{{ csrf_token() }}"},
+					success:function(data){
+						$("#emp_first_name").val(data.emp[0].first_name)
+						$("#emp_last_name").val(data.emp[0].last_name)
+						$("#emp_user_name").val(data.emp[0].user_name)
+						$("#emp_email").val(data.emp[0].email)
+					
+						$("#emp_employee_id").val(data.emp[0].employee_id)
+						$("#emp_phone_no").val(data.emp[0].phone_no)
+						
+
+						var d = new Date(data.emp[0].joing_date);
+						var dd = d.getDate(); 
+						var mm = d.getMonth()+1; 
+						var yyyy = d.getFullYear(); 
+						$("#emp_joing_date").val(dd+'/'+mm+'/'+yyyy)
+						$("#emp_id").val(data.emp[0].id)
+						$("#edit_depList option[value='"+data.emp[0].department_id+"']").prop('selected',true);
+						change_designation(data.emp[0].department_id)
+						$("#edit_designationList option[value='"+data.emp[0].designation_id	+"']").prop('selected',true);
+						$.each(data.permission_modules, function(key, val) 
+						{ 
+							$(".permissionCheck[value='"+val['module_id']+"_"+val['emp_permission_id']	+"']").prop('checked',true);
+
+						});
+						
+					}
+				});
 			});
+			function change_designation(id){
+				var deptId = id;
+				if(deptId) {
+					$.ajax({
+						url:"{{ route('getDesignationAjax') }}",
+						type: "GET",
+						data:{"deptId":deptId},
+						success:function(data) {	
+							$('#edit_designationList').empty();
+							$.each(data, function(key,value) {
+								console.log(value['name'])
+								$('#edit_designationList').append('<option value="'+ value.id +'">'+ value.name +'</option>');
+							});
+						}
+					});
+				}else{
+					$('#designationList').empty();
+				}
+			}
 			$(document).on("click",".delEmpBtn",function() {
 				
 				$(".deleteEmpCont").attr('data-id', $(this).data('id'));
@@ -237,6 +287,25 @@
 					});
 				}else{
 					$('#designationList').empty();
+				}
+			});
+			$('#edit_depList').on('change', function() {
+            	var deptId = $(this).val();
+				if(deptId) {
+					$.ajax({
+						url:"{{ route('getDesignationAjax') }}",
+						type: "GET",
+						data:{"deptId":deptId},
+						success:function(data) {	
+							$('#edit_designationList').empty();
+							$.each(data, function(key,value) {
+								console.log(value['name'])
+								$('#edit_designationList').append('<option value="'+ value.id +'">'+ value.name +'</option>');
+							});
+						}
+					});
+				}else{
+					$('#edit_designationList').empty();
 				}
 			});
 		});

@@ -406,7 +406,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Contact Person</label>
-                                        <input class="form-control " value="Daniel Porter" type="text">
+                                        <input class="form-control " name="contact_person" value="{{ @$settings->contact_person }}" type="text">
                                     </div>
                                 </div>
                             </div>
@@ -414,38 +414,40 @@
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label>Address</label>
-                                        <input class="form-control " value="3864 Quiet Valley Lane, Sherman Oaks, CA, 91403" type="text">
+                                        <input class="form-control"  value="{{ @$settings->address }}" name="address" type="text">
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-md-6 col-lg-3">
                                     <div class="form-group">
                                         <label>Country</label>
-                                        <select class="form-control select">
-                                            <option>USA</option>
-                                            <option>United Kingdom</option>
+                                        <select class="form-control select" name="country">
+											<option value="">select country</option>
+                                            <option @if(@$settings->country=='usa') selected @endif value="usa">USA</option>
+                                            <option @if(@$settings->country=='united_kingdom') selected @endif value="united_kingdom">United Kingdom</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-md-6 col-lg-3">
                                     <div class="form-group">
                                         <label>City</label>
-                                        <input class="form-control" value="Sherman Oaks" type="text">
+                                        <input class="form-control" value="{{ @$settings->city }}" name="city" type="text">
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-md-6 col-lg-3">
                                     <div class="form-group">
                                         <label>State/Province</label>
-                                        <select class="form-control select">
-                                            <option>California</option>
-                                            <option>Alaska</option>
-                                            <option>Alabama</option>
+                                        <select class="form-control select" name="state">
+											<option value="">select state</option>
+                                            <option @if(@$settings->state=='california') selected @endif value="california">California</option>
+                                            <option @if(@$settings->state=='alaska') selected @endif value="alaska">Alaska</option>
+                                            <option @if(@$settings->state=='alabama') selected @endif value="alabama">Alabama</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-md-6 col-lg-3">
                                     <div class="form-group">
                                         <label>Postal Code</label>
-                                        <input class="form-control" value="91403" type="text">
+                                        <input class="form-control" value="{{ @$settings->postal_code}}" name="postal_code" type="text">
                                     </div>
                                 </div>
                             </div>
@@ -453,13 +455,13 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Email</label>
-                                        <input class="form-control" value="danielporter@example.com" type="email">
+                                        <input class="form-control" value="{{ @$settings->email }}" name="email" type="email">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Phone Number</label>
-                                        <input class="form-control" value="818-978-7102" type="text">
+                                        <input class="form-control" value="{{ @$settings->phone_no }}" name="phone_no" type="text">
                                     </div>
                                 </div>
                             </div>
@@ -467,13 +469,13 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Mobile Number</label>
-                                        <input class="form-control" value="818-635-5579" type="text">
+                                        <input class="form-control" value="{{ @$settings->mobile_no }}" name="mobile_no" type="text">
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <label>Fax</label>
-                                        <input class="form-control" value="818-978-7102" type="text">
+                                        <input class="form-control" value="{{ @$settings->fax }}" name="fax" type="text">
                                     </div>
                                 </div>
                             </div>
@@ -481,7 +483,7 @@
                                 <div class="col-sm-12">
                                     <div class="form-group">
                                         <label>Website Url</label>
-                                        <input class="form-control" value="https://www.example.com" type="text">
+                                        <input class="form-control" value="{{ @$settings->website_url }}" name="website_url" type="text">
                                     </div>
                                 </div>
                             </div>

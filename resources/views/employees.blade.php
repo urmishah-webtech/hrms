@@ -28,40 +28,48 @@
                 <!-- /Page Header -->
                 
                 <!-- Search Filter -->
-                <div class="row filter-row">
-                    <div class="col-sm-6 col-md-3">  
-                        <div class="form-group form-focus">
-                            <input type="text" class="form-control floating">
-                            <label class="focus-label">Employee ID</label>
+                <form action="{{ route('search_employee') }}" method="post">
+                    @csrf
+                    <div class="row filter-row">
+                        <div class="col-sm-6 col-md-3">  
+                            <div class="form-group form-focus">
+                                <input type="text" value="{{ @$search_employee_id }}" name="search_employee_id" class="form-control floating">
+                                <label class="focus-label">Employee ID</label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3">  
-                        <div class="form-group form-focus">
-                            <input type="text" class="form-control floating">
-                            <label class="focus-label">Employee Name</label>
+                        <div class="col-sm-6 col-md-3">  
+                            <div class="form-group form-focus">
+                                <input type="text" value="{{ @$search_name }}"  name="search_name" class="form-control floating">
+                                <label class="focus-label" >Employee Name</label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-sm-6 col-md-3"> 
-                        <div class="form-group form-focus select-focus">
-                            <select class="select floating"> 
-                                <option>Select Designation</option>
-                                <option>Web Developer</option>
-                                <option>Web Designer</option>
-                                <option>Android Developer</option>
-                                <option>Ios Developer</option>
-                            </select>
-                            <label class="focus-label">Designation</label>
+                        <div class="col-sm-6 col-md-3"> 
+                            <div class="form-group form-focus select-focus">
+                                <select class="select floating" name="search_designation"> 
+                                    <option value="">Select Designation</option>
+                                    @isset($des)
+                                        @foreach ($des as $item)
+                                            <option value="{{ $item->id }}" @if(@$search_designation==$item->id ) selected @endif>{{ $item->name }}</option>
+                                        @endforeach
+                                    @endisset
+                                </select>
+                                <label class="focus-label">Designation</label>
+                            </div>
                         </div>
-                    </div>
                     <div class="col-sm-6 col-md-3">  
-                        <a href="#" class="btn btn-success btn-block"> Search </a>  
+                        <input type="submit" class="btn btn-success btn-block" value="search">  
                     </div>
+                </form>
                 </div>
                 <!-- Search Filter -->
-                @if ($message = Session::get('error'))
+                @if ($errors->any())
                 <div class="alert alert-danger alert-block">
                     <button type="button" class="close" data-dismiss="alert">×</button>    
-                    <strong>{{ $message }}</strong>
+                   
+                    @if($errors->any())
+                    {!! implode('', $errors->all('<div>:message</div>')) !!}
+                    @endif
+                   
                 </div>
                 @endif
                 @isset($emps)
@@ -247,91 +255,92 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form>
+                            <form action="{{ route('update_employee') }}" method="post">
+                                @csrf
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class="col-form-label">First Name <span class="text-danger">*</span></label>
-                                            <input class="form-control" value="" type="text" name="first_name" required>
+                                            <input class="form-control" value="" required type="text" name="first_name" id="emp_first_name">
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class="col-form-label">Last Name</label>
-                                            <input class="form-control" value="" type="text" name="last_name">
+                                            <input class="form-control" value="" type="hidden" name="id" id="emp_id">
+                                            <input class="form-control" value="" type="text" name="last_name" id="emp_last_name">
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class="col-form-label">Username <span class="text-danger">*</span></label>
-                                            <input class="form-control" value="" type="text" name="username">
+                                            <input class="form-control" value="" type="text" name="user_name" id="emp_user_name">
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class="col-form-label">Email <span class="text-danger">*</span></label>
-                                            <input class="form-control" value="" type="email" name="" name="email">
+                                            <input class="form-control" value="" type="email"  name="email" id="emp_email">
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class="col-form-label">Password</label>
-                                            <input class="form-control" value="johndoe" type="password">
+                                            <input class="form-control" value="" type="password" name="password" placeholder="*****">
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class="col-form-label">Confirm Password</label>
-                                            <input class="form-control" value="johndoe" type="password">
+                                            <input class="form-control" value="" type="password" name="confirm_password">
                                         </div>
                                     </div>
                                     <div class="col-sm-6">  
                                         <div class="form-group">
                                             <label class="col-form-label">Employee ID <span class="text-danger">*</span></label>
-                                            <input type="text" value="FT-0001" readonly class="form-control floating">
+                                            <input type="text" value=""  class="form-control" name="employee_id" id="emp_employee_id">
                                         </div>
                                     </div>
                                     <div class="col-sm-6">  
                                         <div class="form-group">
                                             <label class="col-form-label">Joining Date <span class="text-danger">*</span></label>
-                                            <div class="cal-icon"><input class="form-control datetimepicker" type="text"></div>
+                                            <div class="cal-icon"><input class="form-control datetimepicker" name="joing_date" type="text" id="emp_joing_date"></div>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class="col-form-label">Phone </label>
-                                            <input class="form-control" value="9876543210" type="text">
+                                            <input class="form-control" value="" type="text" name="phone_no" id="emp_phone_no">
                                         </div>
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class="col-form-label">Company</label>
-                                            <select class="select">
-                                                <option>Global Technologies</option>
-                                                <option>Delta Infotech</option>
-                                                <option selected>International Software Inc</option>
+                                            <select class="select" name="company_id">
+                                                <option value="1">Global Technologies</option>
+            
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Department <span class="text-danger">*</span></label>
-                                            <select class="select">
+                                            <select class="form-control" id="edit_depList" name="department_id">
                                                 <option>Select Department</option>
-                                                <option>Web Development</option>
-                                                <option>IT Management</option>
-                                                <option>Marketing</option>
+                                                @isset($dep)
+                                                    @foreach($dep as $val)
+                                                        <option value="{{ $val->id }}">{{ $val->name }}</option>
+                                                    @endforeach
+                                                @endisset
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Designation <span class="text-danger">*</span></label>
-                                            <select class="select">
-                                                <option>Select Designation</option>
-                                                <option>Web Designer</option>
-                                                <option>Web Developer</option>
-                                                <option>Android Developer</option>
+                                            <select class="select" name="designation_id" id="edit_designationList">
+                                                <option value="">Select Designation</option>
+                      
                                             </select>
                                         </div>
                                     </div>
@@ -341,183 +350,29 @@
                                         <thead>
                                             <tr>
                                                 <th>Module Permission</th>
-                                                <th class="text-center">Read</th>
-                                                <th class="text-center">Write</th>
-                                                <th class="text-center">Create</th>
-                                                <th class="text-center">Delete</th>
-                                                <th class="text-center">Import</th>
-                                                <th class="text-center">Export</th>
+                                                @isset($emp_permissions)
+                                                    @foreach ($emp_permissions as $ep)
+                                                        <th class="text-center">{{ $ep->name }}</th>
+                                                    @endforeach
+                                                @endisset
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>Holidays</td>
-                                                <td class="text-center">
-                                                    <input checked="" type="checkbox">
-                                                </td>
-                                                <td class="text-center">
-                                                    <input type="checkbox">
-                                                </td>
-                                                <td class="text-center">
-                                                    <input type="checkbox">
-                                                </td>
-                                                <td class="text-center">
-                                                    <input type="checkbox">
-                                                </td>
-                                                <td class="text-center">
-                                                    <input type="checkbox">
-                                                </td>
-                                                <td class="text-center">
-                                                    <input type="checkbox">
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Leaves</td>
-                                                <td class="text-center">
-                                                    <input checked="" type="checkbox">
-                                                </td>
-                                                <td class="text-center">
-                                                    <input checked="" type="checkbox">
-                                                </td>
-                                                <td class="text-center">
-                                                    <input checked="" type="checkbox">
-                                                </td>
-                                                <td class="text-center">
-                                                    <input type="checkbox">
-                                                </td>
-                                                <td class="text-center">
-                                                    <input type="checkbox">
-                                                </td>
-                                                <td class="text-center">
-                                                    <input type="checkbox">
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Clients</td>
-                                                <td class="text-center">
-                                                    <input checked="" type="checkbox">
-                                                </td>
-                                                <td class="text-center">
-                                                    <input checked="" type="checkbox">
-                                                </td>
-                                                <td class="text-center">
-                                                    <input checked="" type="checkbox">
-                                                </td>
-                                                <td class="text-center">
-                                                    <input type="checkbox">
-                                                </td>
-                                                <td class="text-center">
-                                                    <input type="checkbox">
-                                                </td>
-                                                <td class="text-center">
-                                                    <input type="checkbox">
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Projects</td>
-                                                <td class="text-center">
-                                                    <input checked="" type="checkbox">
-                                                </td>
-                                                <td class="text-center">
-                                                    <input type="checkbox">
-                                                </td>
-                                                <td class="text-center">
-                                                    <input type="checkbox">
-                                                </td>
-                                                <td class="text-center">
-                                                    <input type="checkbox">
-                                                </td>
-                                                <td class="text-center">
-                                                    <input type="checkbox">
-                                                </td>
-                                                <td class="text-center">
-                                                    <input type="checkbox">
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Tasks</td>
-                                                <td class="text-center">
-                                                    <input checked="" type="checkbox">
-                                                </td>
-                                                <td class="text-center">
-                                                    <input checked="" type="checkbox">
-                                                </td>
-                                                <td class="text-center">
-                                                    <input checked="" type="checkbox">
-                                                </td>
-                                                <td class="text-center">
-                                                    <input checked="" type="checkbox">
-                                                </td>
-                                                <td class="text-center">
-                                                    <input type="checkbox">
-                                                </td>
-                                                <td class="text-center">
-                                                    <input type="checkbox">
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Chats</td>
-                                                <td class="text-center">
-                                                    <input checked="" type="checkbox">
-                                                </td>
-                                                <td class="text-center">
-                                                    <input checked="" type="checkbox">
-                                                </td>
-                                                <td class="text-center">
-                                                    <input checked="" type="checkbox">
-                                                </td>
-                                                <td class="text-center">
-                                                    <input checked="" type="checkbox">
-                                                </td>
-                                                <td class="text-center">
-                                                    <input type="checkbox">
-                                                </td>
-                                                <td class="text-center">
-                                                    <input type="checkbox">
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Assets</td>
-                                                <td class="text-center">
-                                                    <input checked="" type="checkbox">
-                                                </td>
-                                                <td class="text-center">
-                                                    <input checked="" type="checkbox">
-                                                </td>
-                                                <td class="text-center">
-                                                    <input checked="" type="checkbox">
-                                                </td>
-                                                <td class="text-center">
-                                                    <input checked="" type="checkbox">
-                                                </td>
-                                                <td class="text-center">
-                                                    <input type="checkbox">
-                                                </td>
-                                                <td class="text-center">
-                                                    <input type="checkbox">
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Timing Sheets</td>
-                                                <td class="text-center">
-                                                    <input checked="" type="checkbox">
-                                                </td>
-                                                <td class="text-center">
-                                                    <input checked="" type="checkbox">
-                                                </td>
-                                                <td class="text-center">
-                                                    <input checked="" type="checkbox">
-                                                </td>
-                                                <td class="text-center">
-                                                    <input checked="" type="checkbox">
-                                                </td>
-                                                <td class="text-center">
-                                                    <input type="checkbox">
-                                                </td>
-                                                <td class="text-center">
-                                                    <input type="checkbox">
-                                                </td>
-                                            </tr>
+                                            @isset($modules)
+                                            @foreach ($modules as $val)
+                                                <tr>
+                                                    <td>{{ $val->name }}</td>
+                                                    @isset($emp_permissions)
+                                                    @foreach ($emp_permissions as $ep)
+                                                        <td class="text-center">
+                                                            <input class="permissionCheck" name="permission_modules[]" value="{{ $val->id }}_{{ $ep->id }}" type="checkbox">
+                                                        </td>
+                                                    @endforeach
+                                                    @endisset
+                                                   
+                                                </tr>
+                                            @endforeach
+                                            @endisset 
                                         </tbody>
                                     </table>
                                 </div>

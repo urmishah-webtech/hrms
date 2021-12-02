@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Redirect;
 use App\Department;
 use App\Designation;
 use DB;
@@ -33,15 +34,17 @@ class EmployeeController extends Controller
         $validator = Validator::make($request->all(), [
             'first_name' => 'required',
             'last_name' => 'required',
-            'user_name' => 'required',
-            'email' => 'required',
+            'user_name' => 'required|unique',
+            'email' => 'required:unique',
             'password' => 'required',
-            'employee_id' => 'required',
+            'employee_id' => 'required|unique',
             'joing_date' => 'required',
             'phone_no' => 'required',
             'company_id' => 'required',
             'department_id' => 'required',
             'designation_id' => 'required',
+            'confirm_password'=>'required_with:password|same:password'
+
         ]);
         if($validator->fails()){
             return back()->with('error', 'Error in creating Employee');
@@ -75,6 +78,64 @@ class EmployeeController extends Controller
         }
         return back();
     }
+    public function update_employee(Request $request){
+    
+        $validator = Validator::make($request->all(), [
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'user_name' => 'required|unique:employees,user_name,'.$request->id,
+            'email' => 'required|unique:employees,email,'.$request->id,
+            'joing_date' => 'required',
+            'phone_no' => 'required',
+            'employee_id'=>'required|unique:employees,employee_id,'.$request->id,
+            'company_id' => 'required',
+            'department_id' => 'required',
+            'designation_id' => 'required',
+            'confirm_password'=>'required_with:password|same:password'
+        ]);
+        if($validator->fails()){
+           
+            return Redirect::back()->withErrors($validator);
+        }
+        $emp=Employee::where('id',$request->id)->first();
+        $emp->first_name=$request->first_name;
+        $emp->last_name=$request->last_name;
+        $emp->user_name=$request->user_name;
+        $emp->email=$request->email;
+        if($request->password!=''){
+        $emp->password=$request->password;
+        }
+        $emp->employee_id=$request->employee_id;
+        $emp->joing_date=Carbon::createFromFormat('d/m/Y', $request->joing_date)->format('Y-m-d')
+        ;
+        $emp->phone_no=$request->phone_no;
+        $emp->company_id=$request->company_id;
+        $emp->department_id=$request->department_id;
+        $emp->designation_id=$request->designation_id;
+
+        $emp->save();
+
+        $expl=array();
+        if(isset($request->permission_modules)){
+            foreach($request->permission_modules as $val){
+                $exp=\explode('_',$val);
+                array_push($expl,$exp);
+            }
+            foreach($expl as $value){
+                $permission_module= new PermissionModule();
+                $permission_module->module_id=$value[0];
+                $permission_module->emp_permission_id=$value[1];
+                $permission_module->employee_id=$emp->id;
+                $permission_module->save();
+            }
+        }
+        return back();
+    }
+    public function edit_employee(Request $request){
+        $emp=Employee::where('id',$request->id)->get()->toArray();
+        $permission_modules=PermissionModule::where('employee_id',$request->id)->get()->toArray();
+        return response()->json(['permission_modules'=>$permission_modules,'emp'=>$emp]);
+    }
     public function delete_employee(Request $request){
         $emp= Employee::where('id',$request->id)->delete();
         if($emp==1){
@@ -83,5 +144,28 @@ class EmployeeController extends Controller
         else{
             echo json_encode("0");
         }
+    }
+    public function search_employee(Request $request){
+        $dep=Department::get();
+        $des=Designation::get();
+        $emp=new Employee;
+        $search_employee_id=$request->search_employee_id;
+        $search_name=$request->search_name;
+        $search_designation=$request->search_designation;
+        if($search_employee_id!=""){
+            $emp=$emp->where('employee_id',$search_employee_id);
+        }
+        if($search_name!=""){
+            $emp=$emp->where('name',$search_name);
+        }
+        if($search_designation!=""){
+            $emp=$emp->where('designation_id',$search_designation);
+        }
+        $emps=$emp->get();
+        $modules=Module::get();
+        $emp_permissions=EmpPermission::get();
+        $permission_modules=PermissionModule::get();
+        return view('employees',compact('dep','des','emps','modules','emp_permissions','permission_modules',
+        'search_employee_id','search_name','search_designation'));
     }
 }
