@@ -52,11 +52,11 @@ Route::get('/contacts', function () {
     return view('contacts');
 });
 Route::get('/inbox', function () {
-    return view('inbox');
+    return view('inbox');    
 });
 Route::get('/file-manager', function () {
     return view('file-manager');
-});
+});  
 // Route::get('/employees', function () {
 //     return view('employees');
 // });
