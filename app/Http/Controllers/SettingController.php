@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Setting;
+use App\ThemeSetting;
 use Validator;
+use Redirect;
 class SettingController extends Controller
 {
     public function settings(){
@@ -48,6 +50,81 @@ class SettingController extends Controller
             $setting->mobile_no=$request->mobile_no;
             $setting->fax=$request->fax;
             $setting->website_url=$request->website_url;
+            $setting->save();
+        }
+        return back();
+    }
+    public function theme_settings()
+    {
+        $settings=ThemeSetting::first();
+        return view('theme-settings',compact('settings'));
+    }
+    public function theme_setting_update(Request $request){
+        $validator = Validator::make($request->all(), [
+            'website_name' => 'required',
+            'light_logo'=>'image|mimes:jpeg,png,jpg,gif,svg|max:2048|dimensions:max_width=500,max_height=500',
+            'favicon'=>'image|mimes:jpeg,png,jpg,gif,svg|max:2048|dimensions:max_width=300,max_height=300',
+
+        ]);
+        if($validator->fails()){
+            return Redirect::back()->withErrors($validator);
+        }
+        $setting=ThemeSetting::first();
+        if(!empty($setting)){
+            $setting->website_name=$request->website_name;
+
+            $light_logo = $request->file('light_logo');
+            if($light_logo!=''){
+            $time = microtime('.') * 10000; 
+            $light_logo_filename = $time.'.'.strtolower( $light_logo->getClientOriginalExtension() );
+            $destination = 'setting_images';
+            $light_logo->move($destination, $light_logo_filename);
+            }
+            else{
+                $light_logo_filename=null;
+            }
+            
+            $fevicon = $request->file('favicon');
+            if($fevicon!=''){
+            $time = microtime('.') * 10000; 
+            $fevicon_filename = $time.'.'.strtolower( $fevicon->getClientOriginalExtension() );
+            $destination = 'setting_images';
+            $fevicon->move($destination, $fevicon_filename);
+            }
+            else{
+                $fevicon_filename=null;
+            }
+            $setting->favicon=$fevicon_filename;
+            $setting->light_logo=$light_logo_filename;
+            $setting->save();
+        }else{
+            $setting = new ThemeSetting();
+            $setting->website_name=$request->website_name;
+            
+            $light_logo = $request->file('light_logo');
+            if($light_logo!=''){
+            $time = microtime('.') * 10000; 
+            $light_logo_filename = $time.'.'.strtolower( $light_logo->getClientOriginalExtension() );
+            $destination = 'setting_images';
+            $light_logo->move($destination, $light_logo_filename);
+            }
+            else{
+                $light_logo_filename=$setting->light_logo;
+            }
+
+            $fevicon = $request->file('favicon');
+            if($fevicon!=''){
+          
+            $time = microtime('.') * 10000; 
+            $fevicon_filename = $time.'.'.strtolower( $fevicon->getClientOriginalExtension() );
+            $destination = 'setting_images';
+            $fevicon->move($destination, $fevicon_filename);
+            }
+            else{
+                $fevicon_filename=$setting->favicon;
+            }
+            $setting->favicon=$fevicon_filename;
+            $setting->light_logo=$light_logo_filename;
             $setting->save();
         }
         return back();

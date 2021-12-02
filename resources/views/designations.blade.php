@@ -31,6 +31,10 @@
                             <strong>{{ $message }}</strong>
                         </div>
                         @endif
+                        <div class="alert alert-danger alert-block employeeError" style="display:none">
+                            <button type="button" class="close" data-dismiss="alert">×</button>    
+                            <strong>You can not delete this designation because it belongs to some employee</strong>
+                        </div>
                         <div class="table-responsive">
                             <table class="table table-striped custom-table mb-0 datatable">
                                 <thead>

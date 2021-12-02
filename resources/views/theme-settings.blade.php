@@ -385,32 +385,42 @@
 								</div>
 							</div>
 							<!-- /Page Header -->
-						
-							<form>
+							@if ($errors->any())
+							<div class="alert alert-danger alert-block">
+								<button type="button" class="close" data-dismiss="alert">×</button>    
+							   
+								@if($errors->any())
+								{!! implode('', $errors->all('<div>:message</div>')) !!}
+								@endif
+							   
+							</div>
+							@endif
+							<form action="{{ route("theme_setting_update") }}" method="post"  enctype="multipart/form-data">
+								@csrf
 								<div class="form-group row">
 									<label class="col-lg-3 col-form-label">Website Name</label>
 									<div class="col-lg-9">
-										<input name="website_name" class="form-control" value="Dreamguy's Technologies" type="text">
+										<input name="website_name" class="form-control" value="{{ @$settings->website_name }}" type="text">
 									</div>
 								</div>
 								<div class="form-group row">
 									<label class="col-lg-3 col-form-label">Light Logo</label>
 									<div class="col-lg-7">
-										<input type="file" class="form-control">
-										<span class="form-text text-muted">Recommended image size is 40px x 40px</span>
+										<input type="file" name="light_logo" class="form-control">
+										<span class="form-text text-muted">Recommended image size is 500px x 500px</span>
 									</div>
 									<div class="col-lg-2">
-										<div class="img-thumbnail float-right"><img src="img/logo2.png" alt="" width="40" height="40"></div>
+										<div class="img-thumbnail float-right"><img src="{{ url('/').'/setting_images/'.@$settings->light_logo }}" alt="" width="40" height="40"></div>
 									</div>
 								</div>
 								<div class="form-group row">
 									<label class="col-lg-3 col-form-label">Favicon</label>
 									<div class="col-lg-7">
-										<input type="file" class="form-control">
-										<span class="form-text text-muted">Recommended image size is 16px x 16px</span>
+										<input type="file" name="favicon" class="form-control">
+										<span class="form-text text-muted">Recommended image size is 300px x 300px</span>
 									</div>
 									<div class="col-lg-2">
-										<div class="settings-image img-thumbnail float-right"><img src="img/logo2.png" class="img-fluid" width="16" height="16" alt=""></div>
+										<div class="settings-image img-thumbnail float-right"><img src="{{ url('/').'/setting_images/'.@$settings->favicon }}" class="img-fluid" width="16" height="16" alt=""></div>
 									</div>
 								</div>
 								<div class="submit-section">

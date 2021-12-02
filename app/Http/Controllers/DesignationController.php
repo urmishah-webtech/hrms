@@ -6,6 +6,7 @@ use App\Department;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Designation;
+use App\Employee;
 use Validator;
 class DesignationController extends Controller
 {
@@ -50,12 +51,16 @@ class DesignationController extends Controller
         return back();
     }
     public function delete_designation(Request $request){
-        $dept= Designation::where('id',$request->id)->delete();
-        if($dept==1){
-            echo json_encode("1");
-        }
-        else{
-            echo json_encode("0");
+        if(Employee::where('designation_id',$request->id)->exists()){
+            return response()->json(['error'=>'2']);
+        }else{
+            $dept= Designation::where('id',$request->id)->delete();
+            if($dept==1){
+                echo json_encode("1");
+            }
+            else{
+                echo json_encode("0");
+            }
         }
     }
 }

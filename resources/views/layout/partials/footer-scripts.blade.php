@@ -152,9 +152,7 @@
 				$("#editDeptText").val(deptname)
 				$("#editDeptId").val($(this).data('id'))
 			});
-			$(document).on("click",".deleteBtn",function() {
-				$(".deleteDepCont").attr('data-id', $(this).data('id'));
-			});
+			 
 			$(document).on("click",".deleteDepCont",function() {
 				var id= $(this).data('id');
 				$.ajax({
@@ -179,6 +177,7 @@
 			});
 			$(document).on("click",".edtEmpBtn",function() {
 				var id= $(this).data('id');
+				$(".permissionCheck").prop('checked',false)
 				$.ajax({
 					type:'POST',
 					url:"{{ route('edit_employee') }}",
@@ -266,7 +265,12 @@
 					url:"{{ route('delete_designation') }}",
 					data:{"id":id,"_token": "{{ csrf_token() }}"},
 					success:function(data){
+						if(data.error=='2'){
+							$('#delete_designation').modal('toggle');
+							$(".employeeError").show();
+						}else{
 						location.reload();
+						}
 					}
 				});
 			});

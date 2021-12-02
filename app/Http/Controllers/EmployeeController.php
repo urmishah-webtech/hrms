@@ -47,7 +47,8 @@ class EmployeeController extends Controller
 
         ]);
         if($validator->fails()){
-            return back()->with('error', 'Error in creating Employee');
+           
+            return Redirect::back()->withErrors($validator);
         }
         $emp=new Employee();
         $emp->first_name=$request->first_name;
@@ -116,6 +117,7 @@ class EmployeeController extends Controller
         $emp->save();
 
         $expl=array();
+        $permission_modules=DB::table('permission_modules')->where('employee_id',$request->id )->delete();
         if(isset($request->permission_modules)){
             foreach($request->permission_modules as $val){
                 $exp=\explode('_',$val);

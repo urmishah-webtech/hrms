@@ -221,12 +221,24 @@ Route::post('setting_update','SettingController@setting_update')->name('setting_
 Route::get('/localization', function () {
     return view('localization');
 });
-Route::get('/theme-settings', function () {
-    return view('theme-settings');
-});
-Route::get('/roles-permissions', function () {
-    return view('roles-permissions');
-});
+Route::get('theme-settings','SettingController@theme_settings')->name('theme-settings');
+Route::post('theme_setting_update','SettingController@theme_setting_update')->name('theme_setting_update');
+
+// Route::get('/theme-settings', function () {
+//     return view('theme-settings');
+// });
+// Route::get('/roles-permissions', function () {
+//     return view('roles-permissions');
+// });
+Route::get('/roles-permissions','RoleController@roles_permissions');
+Route::post('add_role','RoleController@add_role')->name('add_role');
+Route::post('edit_role','RoleController@edit_role')->name('edit_role');
+Route::post('delete_role','RoleController@delete_role')->name('delete_role');
+Route::post('changeModuleAccess','RoleController@changeModuleAccess')->name('changeModuleAccess');
+Route::post('updateModulePermission','RoleController@updateModulePermission')->name('updateModulePermission');
+Route::get('getCheckedValues','RoleController@getCheckedValues')->name('getCheckedValues');
+
+
 Route::get('/email-settings', function () {
     return view('email-settings');
 });
