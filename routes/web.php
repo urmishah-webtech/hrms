@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\EmailsettingsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -237,6 +238,7 @@ Route::post('delete_role','RoleController@delete_role')->name('delete_role');
 Route::post('changeModuleAccess','RoleController@changeModuleAccess')->name('changeModuleAccess');
 Route::post('updateModulePermission','RoleController@updateModulePermission')->name('updateModulePermission');
 Route::get('getCheckedValues','RoleController@getCheckedValues')->name('getCheckedValues');
+
 
 
 Route::get('/email-settings', function () {
@@ -497,3 +499,7 @@ Route::get('/archived-jobs', function () {
 Route::get('/sub-category', function () {
     return view('sub-category');
 });
+
+ 
+Route::get('email-settings','EmailsettingsController@Emailsettings')->name('emailsettings');
+Route::post('email_setting_update','EmailsettingsController@Emailsetting_update')->name('emailsetting_update');
