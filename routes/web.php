@@ -162,9 +162,10 @@ Route::get('/expense-reports', function () {
 Route::get('/invoice-reports', function () {
     return view('invoice-reports');
 });
-Route::get('/performance-indicator', function () {
-    return view('performance-indicator');
-});
+// Route::get('/performance-indicator', function () {
+//     return view('performance-indicator');
+// });
+Route::get('/performance-indicator','IndicatorController@indicators');
 Route::get('/performance', function () {
     return view('performance');
 });
