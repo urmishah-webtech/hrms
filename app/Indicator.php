@@ -10,4 +10,5 @@ class Indicator extends Model
     {
         return $this->belongsTo('App\Designation');
     }
+     
 }

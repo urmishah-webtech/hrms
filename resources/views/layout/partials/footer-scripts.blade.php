@@ -312,5 +312,16 @@
 					$('#edit_designationList').empty();
 				}
 			});
+
+			
+			$(document).on("click",".editIndicateBtn",function() {
+				//var editIndicateText = $(this).closest('.trindicator').find('.tdindicator').html();
+				//$("#editDesignationText").val(editDesignationText)
+				var indiid=$(this).data('indi-id');
+				
+				$("#editIndicatorId").val($(this).data('id'))
+				
+				$(".indicatorId option[value='"+indiid+"']").prop('selected',true);
+			});
 		});
 	</script>

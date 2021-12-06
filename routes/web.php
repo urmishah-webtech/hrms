@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmailsettingsController;
+use App\Http\Controllers\IndicatorController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -166,7 +167,7 @@ Route::get('/invoice-reports', function () {
 // Route::get('/performance-indicator', function () {
 //     return view('performance-indicator');
 // });
-Route::get('/performance-indicator','IndicatorController@indicators');
+//Route::get('/performance-indicator','IndicatorController@indicators');
 Route::get('/performance', function () {
     return view('performance');
 });
@@ -504,3 +505,8 @@ Route::get('/sub-category', function () {
  
 Route::get('email-settings','EmailsettingsController@Emailsettings')->name('emailsettings');
 Route::post('email_setting_update','EmailsettingsController@Emailsetting_update')->name('emailsetting_update');
+ 
+Route::get('/performance-indicator','IndicatorController@indicators')->name('indicators');
+Route::post('add_indicator','IndicatorController@add_indicator')->name('add_indicators');
+Route::post('edit_indicator','IndicatorController@edit_indicator')->name('edit_indicators');
+Route::post('delete_indicator','IndicatorController@delete_indicator')->name('delete_indicators');
