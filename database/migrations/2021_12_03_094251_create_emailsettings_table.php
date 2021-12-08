@@ -15,15 +15,15 @@ class CreateEmailsettingsTable extends Migration
     {
         Schema::create('emailsettings', function (Blueprint $table) {
             $table->id();
-			$table->string('mailoption');
-			$table->string('email_from_address');
-            $table->string('email_from_name');
-            $table->string('smtp_host');
-            $table->string('smtp_user');
-            $table->string('smtp_password');
-            $table->integer('smtp_port');
-            $table->string('smtp_security');
-            $table->string('smtp_domain');
+			$table->string('mailoption')->nullable();
+			$table->string('email_from_address')->nullable();
+            $table->string('email_from_name')->nullable();
+            $table->string('smtp_host')->nullable();
+            $table->string('smtp_user')->nullable();
+            $table->string('smtp_password')->nullable();
+            $table->integer('smtp_port')->nullable();
+            $table->string('smtp_security')->nullable();
+            $table->string('smtp_domain')->nullable();
             $table->timestamps();
         });
     }

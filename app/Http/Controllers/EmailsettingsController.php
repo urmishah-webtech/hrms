@@ -11,18 +11,15 @@ use DB;
 
 class EmailsettingsController extends Controller
 {
-    /*public function addEmailsettings(){
-		return view('email-settings');
-	}*/
-
-	public function Emailsettings(){
+    public function Emailsettings(){
         $esettings = Emailsettings::first();
         return view('email-settings',compact('esettings'));
     }
 
 	public function Emailsetting_update(Request $request){
         $validator = Validator::make($request->all(), [
-            'email_from_address' => 'required'
+            'email_from_address' => 'required',
+			'email_from_name' => 'required', 
         ]);
         if($validator->fails()){
             return back()->with('error', 'Error in updating settings');

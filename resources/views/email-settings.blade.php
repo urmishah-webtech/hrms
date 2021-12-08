@@ -15,7 +15,6 @@
                 @endif
 				<form method="post" action="{{ route("emailsetting_update") }}">
 					 @csrf
-					 
 					 <div class="form-group">
 						<div class="form-check form-check-inline">
 							<input class="form-check-input" type="radio" name="mailoption" id="phpmail" @if(@$esettings->mailoption=='PHP Mail') checked @endif  value="PHPMail" checked>
@@ -31,13 +30,13 @@
 						<div class="col-sm-6">
 							<div class="form-group">
 								<label>Email From Address</label>
-								<input class="form-control" type="email" name="email_from_address" value="{{ @$esettings->email_from_address }}">
+								<input class="form-control" type="email" name="email_from_address" value="{{ @$esettings->email_from_address }}" required>
 							</div>
 						</div>					 
 						<div class="col-sm-6">
 							<div class="form-group">
 								<label>Emails From Name</label>
-								<input class="form-control" type="text" name="email_from_name" value="{{ @$esettings->email_from_name }}">
+								<input class="form-control" type="text" name="email_from_name" value="{{ @$esettings->email_from_name }}" required>
 							</div>
 						</div>
 					</div>
