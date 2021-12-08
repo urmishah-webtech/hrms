@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Indicator;
 use App\Designation;
 use App\Department;
+use App\Employee;
 use Validator;
  
 class IndicatorController extends Controller
@@ -14,8 +15,9 @@ class IndicatorController extends Controller
     public function indicators(){
         $indicators=Indicator::get();
         $designations=Designation::get();
+        $employees=Employee::get();
         //$designations=Designation::with('indicator_designation')->get();          
-        return view('performance-indicator',compact('indicators','designations'));
+        return view('performance-indicator',compact('indicators','designations', 'employees'));
     }
     public function add_indicator (Request $request){
         
@@ -28,6 +30,7 @@ class IndicatorController extends Controller
         }
         $indicat =new Indicator();
         $indicat->designation_id=$request->designation;
+        $indicat->employee_id=$request->employee;
         $indicat->customer_experience=$request->customer_experience;
         $indicat->marketing=$request->marketing;
         $indicat->management=$request->management;
@@ -49,8 +52,8 @@ class IndicatorController extends Controller
     }
     public function edit_indicator(Request $request){               
         $validator = Validator::make($request->all(), [
-            'customer_experience' => 'required',
-            'marketing' => 'required',
+            'designation' => 'required',
+            'employee' => 'required',
         ]);
         if($validator->fails()){
             return back()->with('error', 'Error in updating indicator');
@@ -58,6 +61,7 @@ class IndicatorController extends Controller
         $indicat= Indicator::find($request->id);        
         if($indicat){
             $indicat->designation_id=$request->designation;
+            $indicat->employee_id=$request->employee;
             $indicat->customer_experience=$request->customer_experience;
             $indicat->marketing=$request->marketing;
             $indicat->management=$request->management;

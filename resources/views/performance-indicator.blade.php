@@ -54,7 +54,7 @@
                                         <td>
                                             <h2 class="table-avatar">
                                                 <a href="profile" class="avatar"><img alt="" src="img/profiles/avatar-02.jpg"></a>
-                                                <a href="profile"></a>
+                                                <a href="profile">{{ @$val->employee->first_name }}</a>
                                             </h2>
                                         </td>
                                         <td>{{ @$val->created_at->format('d-m-y') }}</td>
@@ -73,7 +73,7 @@
                                             <div class="dropdown dropdown-action">
                                                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item editIndicateBtn" href="#" data-status="{{ @$val->status }}" data-ability_to_meet_deadline="{{ @$val->ability_to_meet_deadline }}" data-efficiency="{{ @$val->efficiency }}" data-attendance="{{ @$val->attendance }}" data-quality_of_work="{{ @$val->quality_of_work }}" data-conflict_management="{{ @$val->conflict_management }}" data-presentation_skills="{{ @$val->presentation_skills }}" data-critical_thinking="{{ @$val->critical_thinking }}" data-administration="{{ @$val->administration }}" data-teamwork="{{ @$val->teamwork }}" data-management="{{ @$val->management }}" data-professionalism="{{ @$val->professionalism }}" data-marketing="{{ @$val->marketing }}" data-integrity="{{ @$val->integrity }}" data-cust="{{ @$val->customer_experience }}" data-indi-id="{{ @$val->designation_id }}" data-id="{{ @$val->id }}" data-toggle="modal" data-target="#edit_indicator"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                                    <a class="dropdown-item editIndicateBtn" href="#" data-employee_id="{{ @$val->employee_id }}" data-status="{{ @$val->status }}" data-ability_to_meet_deadline="{{ @$val->ability_to_meet_deadline }}" data-efficiency="{{ @$val->efficiency }}" data-attendance="{{ @$val->attendance }}" data-quality_of_work="{{ @$val->quality_of_work }}" data-conflict_management="{{ @$val->conflict_management }}" data-presentation_skills="{{ @$val->presentation_skills }}" data-critical_thinking="{{ @$val->critical_thinking }}" data-administration="{{ @$val->administration }}" data-teamwork="{{ @$val->teamwork }}" data-management="{{ @$val->management }}" data-professionalism="{{ @$val->professionalism }}" data-marketing="{{ @$val->marketing }}" data-integrity="{{ @$val->integrity }}" data-cust="{{ @$val->customer_experience }}" data-indi-id="{{ @$val->designation_id }}" data-id="{{ @$val->id }}" data-toggle="modal" data-target="#edit_indicator"><i class="fa fa-pencil m-r-5"></i> Edit</a>
                                                     <a class="dropdown-item deleteIndicateBtn" href="#" data-id="{{ @$val->id }}" data-toggle="modal" data-target="#delete_indicator"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                                                 </div>
                                             </div>
@@ -103,25 +103,37 @@
                             <form action="{{ route('add_indicators') }}" method="post">
                              @csrf
                                 <div class="row">
-                                    <div class="col-sm-12">
+                                    <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class="col-form-label">Designation</label>
-                                            <select class="select" name="designation">
+                                            <select class="form-control" name="designation" required>
                                                 <option value="">Select Designation</option>
                                                 @isset($designations)
                                                     @foreach ($designations as $item)
                                                     <option value="{{ $item->id }}">{{ $item->name }}</option> 
                                                     @endforeach
                                                 @endisset
-                                            </select>
-                                           
+                                            </select>                                           
                                         </div>
-                                    </div>                    
+                                    </div> 
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Employee</label>
+                                            <select class="form-control" name="employee" required>
+                                                <option value="">Select Employee</option>
+                                                @isset($employees)
+                                                    @foreach ($employees as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->first_name }}</option> 
+                                                    @endforeach
+                                                @endisset
+                                            </select>                                           
+                                        </div>
+                                    </div>                   
                                    <div class="col-sm-6">
                                         <h4 class="modal-sub-title">Technical</h4>
                                         <div class="form-group">
                                             <label class="col-form-label">Customer Experience</label>
-                                            <select class="select" name="customer_experience" required>
+                                            <select class="form-control" name="customer_experience">
                                                 <option value="0" selected>None</option>
                                                 <option value="1">Beginner</option>
                                                 <option value="2">Intermediate</option>
@@ -131,7 +143,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="col-form-label">Marketing</label>
-                                            <select class="select" name="marketing" required>
+                                            <select class="form-control" name="marketing" required>
                                                 <option value="0">None</option>
                                                 <option value="1">Beginner</option>
                                                 <option value="2">Intermediate</option>
@@ -141,7 +153,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="col-form-label">Management</label>
-                                            <select class="select" name="management">
+                                            <select class="form-control" name="management">
                                                 <option value="0">None</option>
                                                 <option value="1">Beginner</option>
                                                 <option value="2">Intermediate</option>
@@ -151,7 +163,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="col-form-label">Administration</label>
-                                            <select class="select" name="administration">
+                                            <select class="form-control" name="administration">
                                                 <option  value="0">None</option>
                                                 <option  value="1">Beginner</option>
                                                 <option  value="2">Intermediate</option>
@@ -161,7 +173,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="col-form-label">Presentation Skill</label>
-                                            <select class="select" name="presentation_skills">
+                                            <select class="form-control" name="presentation_skills">
                                                 <option value="0">None</option>
                                                 <option value="1">Beginner</option>
                                                 <option value="2">Intermediate</option>
@@ -171,7 +183,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="col-form-label">Quality Of Work</label>
-                                            <select class="select" name="quality_of_work">
+                                            <select class="form-control" name="quality_of_work">
                                                 <option value="0">None</option>
                                                 <option value="1">Beginner</option>
                                                 <option value="2">Intermediate</option>
@@ -181,7 +193,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="col-form-label">Efficiency</label>
-                                            <select class="select" name="efficiency">
+                                            <select class="form-control" name="efficiency">
                                                 <option value="0">None</option>
                                                 <option value="1">Beginner</option>
                                                 <option value="2">Intermediate</option>
@@ -194,7 +206,7 @@
                                         <h4 class="modal-sub-title">Organizational</h4>
                                         <div class="form-group">
                                             <label class="col-form-label">Integrity</label>
-                                            <select class="select" name="integrity">
+                                            <select class="form-control" name="integrity">
                                                 <option value="0">None</option>
                                                 <option value="1">Beginner</option>
                                                 <option value="2">Intermediate</option>
@@ -204,7 +216,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="col-form-label">Professionalism</label>
-                                            <select class="select" name="professionalism">
+                                            <select class="form-control" name="professionalism">
                                                 <option value="0">None</option>
                                                 <option value="1">Beginner</option>
                                                 <option value="2">Intermediate</option>
@@ -214,7 +226,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="col-form-label">Team Work</label>
-                                            <select class="select" name="teamwork">
+                                            <select class="form-control" name="teamwork">
                                                 <option value="0">None</option>
                                                 <option value="1">Beginner</option>
                                                 <option value="2">Intermediate</option>
@@ -224,7 +236,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="col-form-label">Critical Thinking</label>
-                                            <select class="select" name="critical_thinking">
+                                            <select class="form-control" name="critical_thinking">
                                                 <option value="0">None</option>
                                                 <option value="1">Beginner</option>
                                                 <option value="2">Intermediate</option>
@@ -234,7 +246,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="col-form-label">Conflict Management</label>
-                                            <select class="select" name="conflict_management">
+                                            <select class="form-control" name="conflict_management">
                                                 <option value="0">None</option>
                                                 <option value="1">Beginner</option>
                                                 <option  value="2">Intermediate</option>
@@ -244,7 +256,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="col-form-label">Attendance</label>
-                                            <select class="select" name="attendance">
+                                            <select class="form-control" name="attendance">
                                                 <option value="0">None</option>
                                                 <option value="1">Beginner</option>
                                                 <option value="2">Intermediate</option>
@@ -254,7 +266,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label class="col-form-label">Ability To Meet Deadline</label>
-                                            <select class="select" name="ability_to_meet_deadline">
+                                            <select class="form-control" name="ability_to_meet_deadline">
                                                 <option value="0">None</option>
                                                 <option value="1">Beginner</option>
                                                 <option value="2">Intermediate</option>
@@ -266,7 +278,7 @@
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label class="col-form-label">Status</label>
-                                            <select class="select" name="status">
+                                            <select class="form-control" name="status">
                                                 <option value="1">Active</option>
                                                 <option value="0">Inactive</option>
                                             </select>
@@ -298,7 +310,7 @@
                                 @csrf   
                                 <input class="form-control" value="" name="id" type="hidden" required id="editIndicatorId">                                                           
                                 <div class="row">
-                                    <div class="col-sm-12">
+                                    <div class="col-sm-6">
                                         <div class="form-group"> 
                                             <label class="col-form-label">Designation</label> 
                                             <select class="form-control indicatorId" id="edit_designationlist" name="designation" required>
@@ -310,6 +322,19 @@
                                                 @endisset
                                             </select>  
                                         </div> 
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Employee</label>
+                                            <select class="form-control" id="employee" name="employee">
+                                                <option value="">Select Employee</option>
+                                                @isset($employees)
+                                                    @foreach ($employees as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->first_name }}</option> 
+                                                    @endforeach
+                                                @endisset
+                                            </select>                                           
+                                        </div>
                                     </div>                                                                                                          
                                     <div class="col-sm-6">
                                         <h4 class="modal-sub-title">Technical</h4>

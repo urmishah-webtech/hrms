@@ -3,6 +3,7 @@
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmailsettingsController;
 use App\Http\Controllers\IndicatorController;
+use App\Http\Controllers\AppraisalController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -510,6 +511,8 @@ Route::get('/performance-indicator','IndicatorController@indicators')->name('ind
 Route::post('add_indicator','IndicatorController@add_indicator')->name('add_indicators');
 Route::post('edit_indicator','IndicatorController@edit_indicator')->name('edit_indicators');
 Route::post('delete_indicator','IndicatorController@delete_indicator')->name('delete_indicator');
-//Route::post('delete_indicator','IndicatorController@delete_indicator')->name('delete_indicators');
-//Route::get('/getIndicatorAjax','EmployeeController@getIndicatorAjax')->name('getIndicatorAjax');
-//Route::post('edit_indicat','EmployeeController@edit_indicat')->name('edit_indicat');
+ 
+Route::get('/performance-appraisal','AppraisalController@appraisal')->name('appraisal');
+Route::post('add_appraisal','AppraisalController@add_appraisal')->name('add_appraisal');
+Route::post('edit_appraisal','AppraisalController@edit_appraisal')->name('edit_appraisal');
+Route::post('delete_appraisal','AppraisalController@delete_appraisal')->name('delete_appraisal');

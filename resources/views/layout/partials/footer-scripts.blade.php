@@ -317,6 +317,8 @@
 				var indiid=$(this).data('indi-id');							
 				$("#editIndicatorId").val($(this).data('id'))				
 				$("#edit_designationlist option[value='"+indiid+"']").prop('selected',true);
+				var employee_id=$(this).data('employee_id');	
+				$("#employee option[value='"+employee_id+"']").prop('selected',true);
 				var cust_exp =$(this).data('cust');	
 				$("#customer_experience option[value='"+cust_exp+"']").prop('selected',true);
 				var integrity =$(this).data('integrity');	
@@ -360,6 +362,62 @@
 					success:function(data){
 						if(data.error=='2'){
 							$('#delete_indicator').modal('toggle');
+							$(".employeeError").show();
+						}else{
+						location.reload();
+						}
+					}
+				});
+			}); 
+			$(document).on("click",".editAppraisalBtn",function() {				 
+				var empid=$(this).data('emp-id');							
+				$("#editAppraisalId").val($(this).data('id'))				
+				$("#edit_employeeslist option[value='"+empid+"']").prop('selected',true);
+				var appraisal_date = $(this).data('appraisal_date');	
+				$("#appraisal_date").val(appraisal_date)				 
+				var cust_exp =$(this).data('cust');	
+				$("#customer_experience option[value='"+cust_exp+"']").prop('selected',true);
+				var integrity =$(this).data('integrity');	
+				$("#integrity option[value='"+integrity+"']").prop('selected',true);
+				var marketing =$(this).data('marketing');	
+				$("#marketing option[value='"+marketing+"']").prop('selected',true);
+				var professionalism =$(this).data('professionalism');	
+				$("#professionalism option[value='"+professionalism+"']").prop('selected',true);
+				var management =$(this).data('management');	
+				$("#management option[value='"+management+"']").prop('selected',true);
+				var teamwork =$(this).data('teamwork');	
+				$("#teamwork option[value='"+teamwork+"']").prop('selected',true);
+				var administration =$(this).data('administration');	
+				$("#administration option[value='"+administration+"']").prop('selected',true);
+				var critical_thinking =$(this).data('critical_thinking');	
+				$("#critical_thinking option[value='"+critical_thinking+"']").prop('selected',true);
+				var presentation_skills =$(this).data('presentation_skills');	
+				$("#presentation_skills option[value='"+presentation_skills+"']").prop('selected',true);
+				var conflict_management =$(this).data('conflict_management');	
+				$("#conflict_management option[value='"+conflict_management+"']").prop('selected',true);
+				var quality_of_work =$(this).data('quality_of_work');	
+				$("#quality_of_work option[value='"+quality_of_work+"']").prop('selected',true);
+				var attendance =$(this).data('attendance');	
+				$("#attendance option[value='"+attendance+"']").prop('selected',true);
+				var efficiency =$(this).data('efficiency');	
+				$("#efficiency option[value='"+efficiency+"']").prop('selected',true);
+				var ability_to_meet_deadline =$(this).data('ability_to_meet_deadline');	
+				$("#ability_to_meet_deadline option[value='"+ability_to_meet_deadline+"']").prop('selected',true);
+				var status =$(this).data('status');	
+				$("#status option[value='"+status+"']").prop('selected',true);									 
+			});
+			$(document).on("click",".deleteAppraisalBtn",function() {
+				$(".appraisalContDel").attr('data-id', $(this).data('id'));
+			});
+			$(document).on("click",".appraisalContDel",function() {
+				var id= $(this).data('id');
+				$.ajax({
+					type:'POST',
+					url:"{{ route('delete_appraisal') }}",
+					data:{"id":id,"_token": "{{ csrf_token() }}"},
+					success:function(data){
+						if(data.error=='2'){
+							$('#delete_appraisal').modal('toggle');
 							$(".employeeError").show();
 						}else{
 						location.reload();

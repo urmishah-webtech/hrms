@@ -25,6 +25,12 @@
                 
                 <div class="row">
                     <div class="col-md-12">
+                        @if ($message = Session::get('error'))
+                        <div class="alert alert-danger alert-block">
+                            <button type="button" class="close" data-dismiss="alert">×</button>    
+                            <strong>{{ $message }}</strong>
+                        </div>
+                        @endif
                         <div class="table-responsive">
                             <table class="table table-striped custom-table mb-0 datatable">
                                 <thead>
@@ -39,23 +45,24 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                @isset($appraisal)
+                                @foreach($appraisal as $val)
                                     <tr>
-                                        <td>1</td>
+                                        <td>{{ @$val->id }}</td>
                                         <td>
                                             <h2 class="table-avatar">
                                                 <a href="profile" class="avatar"><img alt="" src="img/profiles/avatar-02.jpg"></a>
-                                                <a href="profile">John Doe </a>
+                                                <a href="profile">{{ @$val->employee->first_name }} </a>
+                                                
                                             </h2>
                                         </td>
-                                        <td>Web Designer </td>
-                                        <td>Designing</td>
-                                        <td>
-                                            7 May 2019
-                                        </td>
+                                        <td>{{ @$val->employee->designation->name }} </td>
+                                        <td>{{ @$val->employee->department->name }}</td>
+                                        <td>{{ @$val->appraisal_date }}</td>
                                         <td>
                                             <div class="dropdown action-label">
                                                 <a class="btn btn-white btn-sm btn-rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
-                                                    <i class="fa fa-dot-circle-o text-success"></i> Active
+                                                    <i class="fa fa-dot-circle-o text-success"></i>  @if(@$val->status== '1') Active @else Inactive @endif
                                                 </a>
                                                 <div class="dropdown-menu">
                                                     <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-success"></i> Active</a>
@@ -67,148 +74,14 @@
                                             <div class="dropdown dropdown-action">
                                                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#edit_appraisal"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_appraisal"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                                                    <a class="dropdown-item editAppraisalBtn" href="#" data-appraisal_date="{{ @$val->appraisal_date }}" data-status="{{ @$val->status }}" data-ability_to_meet_deadline="{{ @$val->ability_to_meet_deadline }}" data-efficiency="{{ @$val->efficiency }}" data-attendance="{{ @$val->attendance }}" data-quality_of_work="{{ @$val->quality_of_work }}" data-conflict_management="{{ @$val->conflict_management }}" data-presentation_skills="{{ @$val->presentation_skills }}" data-critical_thinking="{{ @$val->critical_thinking }}" data-administration="{{ @$val->administration }}" data-teamwork="{{ @$val->teamwork }}" data-management="{{ @$val->management }}" data-professionalism="{{ @$val->professionalism }}" data-marketing="{{ @$val->marketing }}" data-integrity="{{ @$val->integrity }}" data-cust="{{ @$val->customer_experience }}" data-emp-id="{{ @$val->employee_id }}" data-id="{{ @$val->id }}" data-toggle="modal" data-target="#edit_appraisal"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                                    <a class="dropdown-item deleteAppraisalBtn" data-id="{{ @$val->id }}" href="#" data-toggle="modal" data-target="#delete_appraisal"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                                                 </div>
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>
-                                            <h2 class="table-avatar">
-                                                <a href="profile" class="avatar"><img alt="" src="img/profiles/avatar-05.jpg"></a>
-                                                <a href="profile">Mike Litorus </a>
-                                            </h2>
-                                        </td>
-                                        <td>IOS Developer </td>
-                                        <td>IOS</td>
-                                        <td>
-                                            7 May 2019
-                                        </td>
-                                        <td>
-                                            <div class="dropdown action-label">
-                                                <a class="btn btn-white btn-sm btn-rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
-                                                    <i class="fa fa-dot-circle-o text-success"></i> Active
-                                                </a>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-success"></i> Active</a>
-                                                    <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-danger"></i> Inactive</a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="text-right">
-                                            <div class="dropdown dropdown-action">
-                                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#edit_appraisal"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_appraisal"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>
-                                            <h2 class="table-avatar">
-                                                <a href="profile" class="avatar"><img alt="" src="img/profiles/avatar-13.jpg"></a>
-                                                <a href="profile">Bernardo Galaviz </a>
-                                            </h2>
-                                        </td>
-                                        <td>Web Developer </td>
-                                        <td>Designing</td>
-                                        <td>
-                                            7 May 2019
-                                        </td>
-                                        <td>
-                                            <div class="dropdown action-label">
-                                                <a class="btn btn-white btn-sm btn-rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
-                                                    <i class="fa fa-dot-circle-o text-success"></i> Active
-                                                </a>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-success"></i> Active</a>
-                                                    <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-danger"></i> Inactive</a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="text-right">
-                                            <div class="dropdown dropdown-action">
-                                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#edit_appraisal"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_appraisal"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>4</td>
-                                        <td>
-                                            <h2 class="table-avatar">
-                                                <a href="profile" class="avatar"><img alt="" src="img/profiles/avatar-12.jpg"></a>
-                                                <a href="profile">Jeffrey Warden </a>
-                                            </h2>
-                                        </td>
-                                        <td>Web Developer </td>
-                                        <td>Designing</td>
-                                        <td>
-                                            7 May 2019
-                                        </td>
-                                        <td>
-                                            <div class="dropdown action-label">
-                                                <a class="btn btn-white btn-sm btn-rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
-                                                    <i class="fa fa-dot-circle-o text-success"></i> Active
-                                                </a>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-success"></i> Active</a>
-                                                    <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-danger"></i> Inactive</a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="text-right">
-                                            <div class="dropdown dropdown-action">
-                                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#edit_appraisal"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_appraisal"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>5</td>
-                                        <td>
-                                            <h2 class="table-avatar">
-                                                <a href="profile" class="avatar"><img alt="" src="img/profiles/avatar-11.jpg"></a>
-                                                <a href="profile">Wilmer Deluna </a>
-                                            </h2>
-                                        </td>
-                                        <td>Team Leader </td>
-                                        <td>IOS</td>
-                                        <td>
-                                            7 May 2019
-                                        </td>
-                                        <td>
-                                            <div class="dropdown action-label">
-                                                <a class="btn btn-white btn-sm btn-rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
-                                                    <i class="fa fa-dot-circle-o text-success"></i> Active
-                                                </a>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-success"></i> Active</a>
-                                                    <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-danger"></i> Inactive</a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td class="text-right">
-                                            <div class="dropdown dropdown-action">
-                                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#edit_appraisal"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_appraisal"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                @endforeach
+                                @endisset
                                 </tbody>
                             </table>
                         </div>
@@ -228,20 +101,24 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form>
+                        <form action="{{route('add_appraisal')}}" method="post">
+                            @csrf
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label class="col-form-label">Employee</label>
-                                            <select class="select">
+                                            <select class="select" name="employees">
                                                 <option>Select Employee</option>
-                                                <option>John Doe</option>
-                                                <option>Mike Litorus</option>
+                                                @isset($employees)
+                                                    @foreach ($employees as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->first_name }}</option> 
+                                                    @endforeach
+                                                @endisset                                                 
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <label>Select Date <span class="text-danger">*</span></label>
-                                            <div class="cal-icon"><input class="form-control datetimepicker" type="text"></div>
+                                            <div class="cal-icon"><input class="form-control datetimepicker" type="text" name="appraisal_date"></div>
                                         </div>
                                     </div>
                                     <div class="col-sm-12">
@@ -278,7 +155,7 @@
                                                                             <td scope="row" colspan="2">Customer Experience</td>
                                                                             <td colspan="2">Intermediate</td>
                                                                             <td><select name="customer_experience" class="form-control">
-                                                                                <option value="">None</option>
+                                                                                <option value="0">None</option>
                                                                                 <option value="1"> Beginner</option>
                                                                                 <option value="2"> Intermediate</option>
                                                                                 <option value="3"> Advanced</option>
@@ -289,7 +166,7 @@
                                                                             <td scope="row" colspan="2">Marketing</td>
                                                                             <td colspan="2">Advanced</td>
                                                                             <td><select name="marketing" class="form-control">
-                                                                                <option value="">None</option>
+                                                                                <option value="0">None</option>
                                                                                 <option value="1"> Beginner</option>
                                                                                 <option value="2"> Intermediate</option>
                                                                                 <option value="3"> Advanced</option>
@@ -300,7 +177,7 @@
                                                                             <td scope="row" colspan="2">Management</td>
                                                                             <td colspan="2">Advanced</td>
                                                                             <td><select name="management" class="form-control">
-                                                                                <option value="">None</option>
+                                                                                <option value="0">None</option>
                                                                                 <option value="1"> Beginner</option>
                                                                                 <option value="2"> Intermediate</option>
                                                                                 <option value="3"> Advanced</option>
@@ -311,7 +188,7 @@
                                                                             <td scope="row" colspan="2">Administration</td>
                                                                             <td colspan="2">Advanced</td>
                                                                             <td><select name="administration" class="form-control">
-                                                                                <option value="">None</option>
+                                                                                <option value="0">None</option>
                                                                                 <option value="1"> Beginner</option>
                                                                                 <option value="2"> Intermediate</option>
                                                                                 <option value="3"> Advanced</option>
@@ -321,8 +198,8 @@
                                                                           <tr>
                                                                             <td scope="row" colspan="2">Presentation Skill</td>
                                                                             <td colspan="2">Expert / Leader</td>
-                                                                            <td><select name="presentation_skill" class="form-control">
-                                                                                <option value="">None</option>
+                                                                            <td><select name="presentation_skills" class="form-control">
+                                                                                <option value="0">None</option>
                                                                                 <option value="1"> Beginner</option>
                                                                                 <option value="2"> Intermediate</option>
                                                                                 <option value="3"> Advanced</option>
@@ -333,7 +210,7 @@
                                                                             <td scope="row" colspan="2">Quality Of Work</td>
                                                                             <td colspan="2">Expert / Leader</td>
                                                                             <td><select name="quality_of_work" class="form-control">
-                                                                                <option value="">None</option>
+                                                                                <option value="0">None</option>
                                                                                 <option value="1"> Beginner</option>
                                                                                 <option value="2"> Intermediate</option>
                                                                                 <option value="3"> Advanced</option>
@@ -344,7 +221,7 @@
                                                                             <td scope="row" colspan="2">Efficiency</td>
                                                                             <td colspan="2">Expert / Leader</td>
                                                                             <td><select name="efficiency" class="form-control">
-                                                                                <option value="">None</option>
+                                                                                <option value="0">None</option>
                                                                                 <option value="1"> Beginner</option>
                                                                                 <option value="2"> Intermediate</option>
                                                                                 <option value="3"> Advanced</option>
@@ -378,10 +255,11 @@
                                                                                 <td colspan="2">Beginner</td>
                                                                                 <td>
                                                                                     <select name="integrity" class="form-control">
-                                                                                        <option value="">None</option>
+                                                                                        <option value="0">None</option>
                                                                                         <option value="1"> Beginner</option>
                                                                                         <option value="2"> Intermediate</option>
                                                                                         <option value="3"> Advanced</option>
+                                                                                        <option value="4"> Expert / Leader</option>
                                                                                     </select>
                                                                                 </td>
                                                                             </tr>
@@ -390,10 +268,11 @@
                                                                                 <td colspan="2">Beginner</td>
                                                                                 <td>
                                                                                     <select name="professionalism" class="form-control">
-                                                                                        <option value="">None</option>
+                                                                                        <option value="0">None</option>
                                                                                         <option value="1"> Beginner</option>
                                                                                         <option value="2"> Intermediate</option>
                                                                                         <option value="3"> Advanced</option>
+                                                                                        <option value="4"> Expert / Leader</option>
                                                                                     </select>
                                                                                 </td>
                                                                             </tr>
@@ -401,11 +280,12 @@
                                                                                 <td scope="row" colspan="2">Team Work</td>
                                                                                 <td colspan="2">Intermediate</td>
                                                                                 <td>
-                                                                                    <select name="team_work" class="form-control">
-                                                                                        <option value="">None</option>
+                                                                                    <select name="teamwork" class="form-control">
+                                                                                        <option value="0">None</option>
                                                                                         <option value="1"> Beginner</option>
                                                                                         <option value="2"> Intermediate</option>
                                                                                         <option value="3"> Advanced</option>
+                                                                                        <option value="4"> Expert / Leader</option>
                                                                                     </select>
                                                                                 </td>
                                                                             </tr>
@@ -414,10 +294,11 @@
                                                                                 <td colspan="2">Advanced</td>
                                                                                 <td>
                                                                                     <select name="critical_thinking" class="form-control">
-                                                                                        <option value="">None</option>
+                                                                                        <option value="0">None</option>
                                                                                         <option value="1"> Beginner</option>
                                                                                         <option value="2"> Intermediate</option>
                                                                                         <option value="3"> Advanced</option>
+                                                                                        <option value="4"> Expert / Leader</option>
                                                                                     </select>
                                                                                 </td>
                                                                             </tr>
@@ -426,10 +307,11 @@
                                                                                 <td colspan="2">Intermediate</td>
                                                                                 <td>
                                                                                     <select name="conflict_management" class="form-control">
-                                                                                        <option value="">None</option>
+                                                                                        <option value="0">None</option>
                                                                                         <option value="1"> Beginner</option>
                                                                                         <option value="2"> Intermediate</option>
                                                                                         <option value="3"> Advanced</option>
+                                                                                        <option value="4"> Expert / Leader</option>
                                                                                     </select>
                                                                                 </td>
                                                                             </tr>
@@ -438,10 +320,11 @@
                                                                                 <td colspan="2">Intermediate</td>
                                                                                 <td>
                                                                                     <select name="attendance" class="form-control">
-                                                                                        <option value="">None</option>
+                                                                                        <option value="0">None</option>
                                                                                         <option value="1"> Beginner</option>
                                                                                         <option value="2"> Intermediate</option>
                                                                                         <option value="3"> Advanced</option>
+                                                                                        <option value="4"> Expert / Leader</option>
                                                                                     </select>
                                                                                 </td>
                                                                             </tr>
@@ -450,10 +333,11 @@
                                                                                 <td colspan="2">Advanced</td>
                                                                                 <td>
                                                                                     <select name="ability_to_meet_deadline" class="form-control">
-                                                                                        <option value="">None</option>
+                                                                                        <option value="0">None</option>
                                                                                         <option value="1"> Beginner</option>
                                                                                         <option value="2"> Intermediate</option>
                                                                                         <option value="3"> Advanced</option>
+                                                                                        <option value="4"> Expert / Leader</option>
                                                                                     </select>
                                                                                 </td>
                                                                             </tr>
@@ -470,9 +354,9 @@
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label class="col-form-label">Status</label>
-                                            <select class="select">
-                                                <option>Active</option>
-                                                <option>Inactive</option>
+                                            <select class="select" name="status">
+                                                <option value="1">Active</option>
+                                                <option value="0">Inactive</option>
                                             </select>
                                         </div>
                                     </div>
@@ -499,20 +383,24 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form>
+                            <form action="{{ route('edit_appraisal') }}" method="post">
+                            @csrf   
+                                <input class="form-control" value="" name="id" type="hidden" required id="editAppraisalId"> 
                                 <div class="row">
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label class="col-form-label">Employee</label>
-                                            <select class="select">
-                                                <option>Select Employee</option>
-                                                <option>John Doe</option>
-                                                <option selected>Mike Litorus</option>
+                                            <select class="form-control" id="edit_employeeslist" name="employees">
+                                                @isset($employees)
+                                                    @foreach ($employees as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->first_name }}</option> 
+                                                    @endforeach
+                                                @endisset 
                                             </select>
                                         </div>
                                         <div class="form-group">
                                             <label>Select Date <span class="text-danger">*</span></label>
-                                            <div class="cal-icon"><input class="form-control datetimepicker" value="7/08/2019" type="text"></div>
+                                            <div class="cal-icon"><input class="form-control datetimepicker" value="" id="appraisal_date" name="appraisal_date" type="text"></div>
                                         </div>
                                     </div>
                                     <div class="col-sm-12">
@@ -550,8 +438,8 @@
                                                                                 <td scope="row" colspan="2">Customer Experience</td>
                                                                                 <td colspan="2">Intermediate</td>
                                                                                 <td>
-                                                                                    <select name="customer_experience" class="form-control">
-                                                                                        <option value="">None</option>
+                                                                                    <select id="customer_experience" name="customer_experience" class="form-control">
+                                                                                        <option value="0">None</option>
                                                                                         <option value="1"> Beginner</option>
                                                                                         <option value="2"> Intermediate</option>
                                                                                         <option value="3"> Advanced</option>
@@ -563,8 +451,8 @@
                                                                                 <td scope="row" colspan="2">Marketing</td>
                                                                                 <td colspan="2">Advanced</td>
                                                                                 <td>
-                                                                                    <select name="marketing" class="form-control">
-                                                                                        <option value="">None</option>
+                                                                                    <select id="marketing" name="marketing" class="form-control">
+                                                                                        <option value="0">None</option>
                                                                                         <option value="1"> Beginner</option>
                                                                                         <option value="2"> Intermediate</option>
                                                                                         <option value="3"> Advanced</option>
@@ -576,8 +464,8 @@
                                                                                 <td scope="row" colspan="2">Management</td>
                                                                                 <td colspan="2">Advanced</td>
                                                                                 <td>
-                                                                                    <select name="management" class="form-control">
-                                                                                        <option value="">None</option>
+                                                                                    <select id="management" name="management" class="form-control">
+                                                                                        <option value="0">None</option>
                                                                                         <option value="1"> Beginner</option>
                                                                                         <option value="2"> Intermediate</option>
                                                                                         <option value="3"> Advanced</option>
@@ -589,8 +477,8 @@
                                                                                 <td scope="row" colspan="2">Administration</td>
                                                                                 <td colspan="2">Advanced</td>
                                                                                 <td>
-                                                                                    <select name="administration" class="form-control">
-                                                                                        <option value="">None</option>
+                                                                                    <select id="administration" name="administration" class="form-control">
+                                                                                        <option value="0">None</option>
                                                                                         <option value="1"> Beginner</option>
                                                                                         <option value="2"> Intermediate</option>
                                                                                         <option value="3"> Advanced</option>
@@ -602,8 +490,8 @@
                                                                                 <td scope="row" colspan="2">Presentation Skill</td>
                                                                                 <td colspan="2">Expert / Leader</td>
                                                                                 <td>
-                                                                                    <select name="presentation_skill" class="form-control">
-                                                                                        <option value="">None</option>
+                                                                                    <select id="presentation_skills" name="presentation_skills" class="form-control">
+                                                                                        <option value="0">None</option>
                                                                                         <option value="1"> Beginner</option>
                                                                                         <option value="2"> Intermediate</option>
                                                                                         <option value="3"> Advanced</option>
@@ -615,8 +503,8 @@
                                                                                 <td scope="row" colspan="2">Quality Of Work</td>
                                                                                 <td colspan="2">Expert / Leader</td>
                                                                                 <td>
-                                                                                    <select name="quality_of_work" class="form-control">
-                                                                                        <option value="">None</option>
+                                                                                    <select id="quality_of_work" name="quality_of_work" class="form-control">
+                                                                                        <option value="0">None</option>
                                                                                         <option value="1"> Beginner</option>
                                                                                         <option value="2"> Intermediate</option>
                                                                                         <option value="3"> Advanced</option>
@@ -628,8 +516,8 @@
                                                                                 <td scope="row" colspan="2">Efficiency</td>
                                                                                 <td colspan="2">Expert / Leader</td>
                                                                                 <td>
-                                                                                    <select name="efficiency" class="form-control">
-                                                                                        <option value="">None</option>
+                                                                                    <select id="efficiency" name="efficiency" class="form-control">
+                                                                                        <option value="0">None</option>
                                                                                         <option value="1"> Beginner</option>
                                                                                         <option value="2"> Intermediate</option>
                                                                                         <option value="3"> Advanced</option>
@@ -663,11 +551,12 @@
                                                                                 <td scope="row" colspan="2">Integrity</td>
                                                                                 <td colspan="2">Beginner</td>
                                                                                 <td>
-                                                                                    <select name="integrity" class="form-control">
-                                                                                        <option value="">None</option>
+                                                                                    <select id="integrity" name="integrity" class="form-control">
+                                                                                        <option value="0">None</option>
                                                                                         <option value="1"> Beginner</option>
                                                                                         <option value="2"> Intermediate</option>
                                                                                         <option value="3"> Advanced</option>
+                                                                                        <option value="4"> Expert / Leader</option>
                                                                                     </select>
                                                                                 </td>
                                                                             </tr>
@@ -675,11 +564,12 @@
                                                                                 <td scope="row" colspan="2">Professionalism</td>
                                                                                 <td colspan="2">Beginner</td>
                                                                                 <td>
-                                                                                    <select name="professionalism" class="form-control">
-                                                                                        <option value="">None</option>
+                                                                                    <select id="professionalism" name="professionalism" class="form-control">
+                                                                                        <option value="0">None</option>
                                                                                         <option value="1"> Beginner</option>
                                                                                         <option value="2"> Intermediate</option>
                                                                                         <option value="3"> Advanced</option>
+                                                                                        <option value="4"> Expert / Leader</option>
                                                                                     </select>
                                                                                 </td>
                                                                             </tr>
@@ -687,11 +577,12 @@
                                                                                 <td scope="row" colspan="2">Team Work</td>
                                                                                 <td colspan="2">Intermediate</td>
                                                                                 <td>
-                                                                                    <select name="team_work" class="form-control">
-                                                                                        <option value="">None</option>
+                                                                                    <select id="teamwork" name="teamwork" class="form-control">
+                                                                                        <option value="0">None</option>
                                                                                         <option value="1"> Beginner</option>
                                                                                         <option value="2"> Intermediate</option>
                                                                                         <option value="3"> Advanced</option>
+                                                                                        <option value="4"> Expert / Leader</option>
                                                                                     </select>
                                                                                 </td>
                                                                             </tr>
@@ -699,11 +590,12 @@
                                                                                 <td scope="row" colspan="2">Critical Thinking</td>
                                                                                 <td colspan="2">Advanced</td>
                                                                                 <td>
-                                                                                    <select name="critical_thinking" class="form-control">
-                                                                                        <option value="">None</option>
+                                                                                    <select id="critical_thinking" name="critical_thinking" class="form-control">
+                                                                                        <option value="0">None</option>
                                                                                         <option value="1"> Beginner</option>
                                                                                         <option value="2"> Intermediate</option>
                                                                                         <option value="3"> Advanced</option>
+                                                                                        <option value="4"> Expert / Leader</option>
                                                                                     </select>
                                                                                 </td>
                                                                             </tr>
@@ -711,11 +603,12 @@
                                                                                 <td scope="row" colspan="2">Conflict Management</td>
                                                                                 <td colspan="2">Intermediate</td>
                                                                                 <td>
-                                                                                    <select name="conflict_management" class="form-control">
-                                                                                        <option value="">None</option>
+                                                                                    <select id="conflict_management" name="conflict_management" class="form-control">
+                                                                                        <option value="0">None</option>
                                                                                         <option value="1"> Beginner</option>
                                                                                         <option value="2"> Intermediate</option>
                                                                                         <option value="3"> Advanced</option>
+                                                                                        <option value="4"> Expert / Leader</option>
                                                                                     </select>
                                                                                 </td>
                                                                             </tr>
@@ -723,11 +616,12 @@
                                                                                 <td scope="row" colspan="2">Attendance</td>
                                                                                 <td colspan="2">Intermediate</td>
                                                                                 <td>
-                                                                                    <select name="attendance" class="form-control">
-                                                                                        <option value="">None</option>
+                                                                                    <select id="attendance" name="attendance" class="form-control">
+                                                                                        <option value="0">None</option>
                                                                                         <option value="1"> Beginner</option>
                                                                                         <option value="2"> Intermediate</option>
                                                                                         <option value="3"> Advanced</option>
+                                                                                        <option value="4"> Expert / Leader</option>
                                                                                     </select>
                                                                                 </td>
                                                                             </tr>
@@ -735,11 +629,12 @@
                                                                                 <td scope="row" colspan="2">Ability To Meet Deadline</td>
                                                                                 <td colspan="2">Advanced</td>
                                                                                 <td>
-                                                                                    <select name="ability_to_meet_deadline" class="form-control">
-                                                                                        <option value="">None</option>
+                                                                                    <select id="ability_to_meet_deadline" name="ability_to_meet_deadline" class="form-control">
+                                                                                        <option value="0">None</option>
                                                                                         <option value="1"> Beginner</option>
                                                                                         <option value="2"> Intermediate</option>
                                                                                         <option value="3"> Advanced</option>
+                                                                                        <option value="4"> Expert / Leader</option>
                                                                                     </select>
                                                                                 </td>
                                                                             </tr>
@@ -756,9 +651,9 @@
                                     <div class="col-sm-12">
                                         <div class="form-group">
                                             <label class="col-form-label">Status</label>
-                                            <select class="select">
-                                                <option>Active</option>
-                                                <option>Inactive</option>
+                                            <select class="form-control" name="status" id="status">
+                                                <option value="1">Active</option>
+                                                <option value="0">Inactive</option>
                                             </select>
                                         </div>
                                     </div>
@@ -785,7 +680,7 @@
                             <div class="modal-btn delete-action">
                                 <div class="row">
                                     <div class="col-6">
-                                        <a href="javascript:void(0);" class="btn btn-primary continue-btn">Delete</a>
+                                        <a href="javascript:void(0);" class="btn btn-primary continue-btn appraisalContDel">Delete</a>
                                     </div>
                                     <div class="col-6">
                                         <a href="javascript:void(0);" data-dismiss="modal" class="btn btn-primary cancel-btn">Cancel</a>
