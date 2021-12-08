@@ -8,7 +8,7 @@ use App\Indicator;
 use App\Designation;
 use App\Department;
 use Validator;
-use DB;
+ 
 class IndicatorController extends Controller
 {
     public function indicators(){
@@ -47,15 +47,15 @@ class IndicatorController extends Controller
         return back();
         
     }
-    public function edit_indicator(Request $request){         
+    public function edit_indicator(Request $request){               
         $validator = Validator::make($request->all(), [
             'customer_experience' => 'required',
             'marketing' => 'required',
         ]);
         if($validator->fails()){
-            return back()->with('error', 'Error in updating designataion');
+            return back()->with('error', 'Error in updating indicator');
         }
-        $indicat= Indicator::find($request->id);
+        $indicat= Indicator::find($request->id);        
         if($indicat){
             $indicat->designation_id=$request->designation;
             $indicat->customer_experience=$request->customer_experience;
@@ -80,8 +80,7 @@ class IndicatorController extends Controller
         }
         return back();
     }
-    public function delete_indicator(Request $request){
-         
+    public function delete_indicator(Request $request){         
             $indicat= Indicator::where('id',$request->id)->delete();
             if($indicat==1){
                 echo json_encode("1");
@@ -91,4 +90,5 @@ class IndicatorController extends Controller
             }
          
     }
+    
 }

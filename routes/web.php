@@ -509,4 +509,7 @@ Route::post('email_setting_update','EmailsettingsController@Emailsetting_update'
 Route::get('/performance-indicator','IndicatorController@indicators')->name('indicators');
 Route::post('add_indicator','IndicatorController@add_indicator')->name('add_indicators');
 Route::post('edit_indicator','IndicatorController@edit_indicator')->name('edit_indicators');
-Route::post('delete_indicator','IndicatorController@delete_indicator')->name('delete_indicators');
+Route::post('delete_indicator','IndicatorController@delete_indicator')->name('delete_indicator');
+//Route::post('delete_indicator','IndicatorController@delete_indicator')->name('delete_indicators');
+//Route::get('/getIndicatorAjax','EmployeeController@getIndicatorAjax')->name('getIndicatorAjax');
+//Route::post('edit_indicat','EmployeeController@edit_indicat')->name('edit_indicat');
