@@ -1,3 +1,4 @@
+.idea/*
 /node_modules
 /public/hot
 /public/storage
@@ -5,7 +6,6 @@
 /public/vendor
 /storage/*.key
 /vendor
-/storage
 /resources/lang
 .env
 .env.backup
@@ -15,17 +15,7 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 /resources/lang
-/public/videocallAttachments
-may11bkp_withoutstorage.zip
 .env.example
-/wolves
-/wolves_old
-/email-test
-old.zip
-test.php
 index.html
 .htaccess
 /public/uploads
-composer.json
-composer.lock
-bootstrap
