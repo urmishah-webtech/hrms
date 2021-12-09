@@ -25,3 +25,6 @@ test.php
 index.html
 .htaccess
 /public/uploads
+composer.json
+composer.lock
+bootstrap
