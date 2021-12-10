@@ -53,7 +53,7 @@
 				
 				<!-- Header Title -->
                 <div class="page-title-box">
-					<h3><?php echo e(@$settings->company_name); ?></h3>
+					<h3>Dreamguy's Technologies</h3>
                 </div>
 				<!-- /Header Title -->
 				
@@ -325,7 +325,7 @@
                 <div class="sidebar-inner slimscroll">
 					<div class="sidebar-menu">
 						<ul>
-                        <li class="<?php echo e(Request::is('index') ? 'active' : ''); ?>">
+                                           <li class="<?php echo e(Request::is('index') ? 'active' : ''); ?>">
         <a  href="<?php echo e(url('index')); ?>"><i class="la la-home"></i> <span>Back to Home</span>  </a></li>
 
 							
@@ -364,141 +364,107 @@
 							</li>
 							<li class="<?php echo e(Request::is('cron-setting') ? 'active' : ''); ?>"> 
 								<a href="<?php echo e(url('cron-setting')); ?>"><i class="la la-rocket"></i> <span>Cron Settings</span></a>
-							</li>
+							</li>	
 						</ul>
 					</div>
                 </div>
             </div>
 			<!-- Sidebar -->
-		
-<!-- Page Wrapper -->
-<div class="page-wrapper">
+			<!-- Sidebar -->
 			
-            <!-- Page Content -->
-            <div class="content container-fluid">
-                <div class="row">
-                    <div class="col-md-8 offset-md-2">
-                    
-                        <!-- Page Header -->
-                        <div class="page-header">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <h3 class="page-title">Company Settings</h3>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /Page Header -->
-						<?php if($message = Session::get('error')): ?>
-                        <div class="alert alert-danger alert-block">
-                            <button type="button" class="close" data-dismiss="alert">×</button>    
-                            <strong><?php echo e($message); ?></strong>
-                        </div>
-                        <?php endif; ?>
-                        <form action="<?php echo e(route("setting_update")); ?>" method="post">
-                            <?php echo csrf_field(); ?>
-							<div class="row">
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label>Company Name <span class="text-danger">*</span></label>
-                                        <input class="form-control" type="text"  name="company_name" value="<?php echo e(@$settings->company_name); ?>">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label>Contact Person</label>
-                                        <input class="form-control " name="contact_person" value="<?php echo e(@$settings->contact_person); ?>" type="text">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <label>Address</label>
-                                        <input class="form-control"  value="<?php echo e(@$settings->address); ?>" name="address" type="text">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-md-6 col-lg-3">
-                                    <div class="form-group">
-                                        <label>Country</label>
-                                        <select class="form-control select" name="country">
-											<option value="">select country</option>
-                                            <option <?php if(@$settings->country=='usa'): ?> selected <?php endif; ?> value="usa">USA</option>
-                                            <option <?php if(@$settings->country=='united_kingdom'): ?> selected <?php endif; ?> value="united_kingdom">United Kingdom</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-md-6 col-lg-3">
-                                    <div class="form-group">
-                                        <label>City</label>
-                                        <input class="form-control" value="<?php echo e(@$settings->city); ?>" name="city" type="text">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-md-6 col-lg-3">
-                                    <div class="form-group">
-                                        <label>State/Province</label>
-                                        <select class="form-control select" name="state">
-											<option value="">select state</option>
-                                            <option <?php if(@$settings->state=='california'): ?> selected <?php endif; ?> value="california">California</option>
-                                            <option <?php if(@$settings->state=='alaska'): ?> selected <?php endif; ?> value="alaska">Alaska</option>
-                                            <option <?php if(@$settings->state=='alabama'): ?> selected <?php endif; ?> value="alabama">Alabama</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-md-6 col-lg-3">
-                                    <div class="form-group">
-                                        <label>Postal Code</label>
-                                        <input class="form-control" value="<?php echo e(@$settings->postal_code); ?>" name="postal_code" type="text">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label>Email</label>
-                                        <input class="form-control" value="<?php echo e(@$settings->email); ?>" name="email" type="email">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label>Phone Number</label>
-                                        <input class="form-control" value="<?php echo e(@$settings->phone_no); ?>" name="phone_no" type="text">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label>Mobile Number</label>
-                                        <input class="form-control" value="<?php echo e(@$settings->mobile_no); ?>" name="mobile_no" type="text">
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <label>Fax</label>
-                                        <input class="form-control" value="<?php echo e(@$settings->fax); ?>" name="fax" type="text">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <label>Website Url</label>
-                                        <input class="form-control" value="<?php echo e(@$settings->website_url); ?>" name="website_url" type="text">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="submit-section">
-                                <button class="btn btn-primary submit-btn">Save</button>
-                            </div>
-                        </form>
-                    </div>
+			<!-- Page Wrapper -->
+            <div class="page-wrapper">
+			
+				<!-- Page Content -->
+                <div class="content container-fluid">
+					<div class="row">
+						<div class="col-md-8 offset-md-2">
+						
+							<!-- Page Header -->
+							<div class="page-header">
+								<div class="row">
+									<div class="col-sm-12">
+										<h3 class="page-title">Basic Settings</h3>
+									</div>
+								</div>
+							</div>
+							<!-- /Page Header -->
+							
+							<form>
+								<div class="row">
+									<div class="col-sm-6">
+										<div class="form-group">
+											<label>Default Country</label>
+											<select class="select">
+												<option selected="selected">USA</option>
+												<option>United Kingdom</option>
+											</select>
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<div class="form-group">
+											<label>Date Format</label>
+											<select class="select">
+												<option value="d/m/Y">15/05/2016</option>
+												<option value="d.m.Y">15.05.2016</option>
+												<option value="d-m-Y">15-05-2016</option>
+												<option value="m/d/Y">05/15/2016</option>
+												<option value="Y/m/d">2016/05/15</option>
+												<option value="Y-m-d">2016-05-15</option>
+												<option value="M d Y">May 15 2016</option>
+												<option selected="selected" value="d M Y">15 May 2016</option>
+											</select>
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<div class="form-group">
+											<label>Timezone</label>
+											<select class="select">
+												<option>(UTC +5:30) Antarctica/Palmer</option>
+											</select>
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<div class="form-group">
+											<label>Default Language</label>
+											<select class="select">
+												<option selected="selected">English</option>
+												<option>French</option>
+											</select>
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<div class="form-group">
+											<label>Currency Code</label>
+											<select class="select">
+												<option selected="selected">USD</option>
+												<option>Pound</option>
+												<option>EURO</option>
+												<option>Ringgit</option>
+											</select>
+										</div>
+									</div>
+									<div class="col-sm-6">
+										<div class="form-group">
+											<label>Currency Symbol</label>
+											<input class="form-control" readonly value="$" type="text">
+										</div>
+									</div>
+									<div class="col-sm-12">
+										<div class="submit-section">
+											<button class="btn btn-primary submit-btn">Save</button>
+										</div>
+									</div>
+								</div>
+                            </form>
+						</div>
+					</div>
                 </div>
+				<!-- /Page Content -->
+				
             </div>
-            <!-- /Page Content -->
-            
-        </div>
-        <!-- /Page Wrapper -->
-        </div>
+			<!-- /Page Wrapper -->
+			</div>
 		<!-- /Main Wrapper -->
 
 		<!-- jQuery -->
@@ -518,4 +484,4 @@
 		<script src="js/app.js"></script>
 		
     </body>
-</html><?php /**PATH C:\xampp\htdocs\orange\resources\views/settings.blade.php ENDPATH**/ ?>
+</html><?php /**PATH C:\xampp\htdocs\orange\resources\views/localization.blade.php ENDPATH**/ ?>
