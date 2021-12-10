@@ -516,3 +516,6 @@ Route::get('/performance-appraisal','AppraisalController@appraisal')->name('appr
 Route::post('add_appraisal','AppraisalController@add_appraisal')->name('add_appraisal');
 Route::post('edit_appraisal','AppraisalController@edit_appraisal')->name('edit_appraisal');
 Route::post('delete_appraisal','AppraisalController@delete_appraisal')->name('delete_appraisal');
+
+Route::get('/notifications-settings','NotificationsettController@notificationsetting');
+Route::post('changeNotificationAccess','NotificationsettController@changeNotificationAccess')->name('chg_Notifi');

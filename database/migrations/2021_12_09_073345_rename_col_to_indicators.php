@@ -18,7 +18,9 @@ class RenameColToIndicators extends Migration
             $table->tinyInteger('ability_to_meet_deadline')->default(0)->comment("0=>none,1=>beginner
             ,2=>intermedidate,3=>advanced,4=>expert/leader");
         });
+
     }
+
 
     /**
      * Reverse the migrations.

@@ -7,11 +7,11 @@
 		
 		<!-- Slimscroll JS -->
 		<script src="js/jquery.slimscroll.min.js"></script>
-		@if(Route::is(['jobs-dashboard','user-dashboard']))
+		<?php if(Route::is(['jobs-dashboard','user-dashboard'])): ?>
 		<!-- Chart JS -->
 		<script src="js/Chart.min.js"></script>
 		<script src="js/line-chart.js"></script>
-		@endif
+		<?php endif; ?>
 		<!-- Select2 JS -->
 		<script src="js/select2.min.js"></script>
 
@@ -157,8 +157,8 @@
 				var id= $(this).data('id');
 				$.ajax({
 					type:'POST',
-					url:"{{ route('delete_department') }}",
-					data:{"id":id,"_token": "{{ csrf_token() }}"},
+					url:"<?php echo e(route('delete_department')); ?>",
+					data:{"id":id,"_token": "<?php echo e(csrf_token()); ?>"},
 					success:function(data){
 						if(data.error=='2'){
 							$('#delete_department').modal('toggle');
@@ -180,8 +180,8 @@
 				$(".permissionCheck").prop('checked',false)
 				$.ajax({
 					type:'POST',
-					url:"{{ route('edit_employee') }}",
-					data:{"id":id,"_token": "{{ csrf_token() }}"},
+					url:"<?php echo e(route('edit_employee')); ?>",
+					data:{"id":id,"_token": "<?php echo e(csrf_token()); ?>"},
 					success:function(data){
 						$("#emp_first_name").val(data.emp[0].first_name)
 						$("#emp_last_name").val(data.emp[0].last_name)
@@ -214,7 +214,7 @@
 				var deptId = id;
 				if(deptId) {
 					$.ajax({
-						url:"{{ route('getDesignationAjax') }}",
+						url:"<?php echo e(route('getDesignationAjax')); ?>",
 						type: "GET",
 						data:{"deptId":deptId},
 						success:function(data) {	
@@ -238,8 +238,8 @@
 				var id= $(this).data('id');
 				$.ajax({
 					type:'POST',
-					url:"{{ route('delete_employee') }}",
-					data:{"id":id,"_token": "{{ csrf_token() }}"},
+					url:"<?php echo e(route('delete_employee')); ?>",
+					data:{"id":id,"_token": "<?php echo e(csrf_token()); ?>"},
 					success:function(data){
 						location.reload();
 					}
@@ -262,8 +262,8 @@
 				var id= $(this).data('id');
 				$.ajax({
 					type:'POST',
-					url:"{{ route('delete_designation') }}",
-					data:{"id":id,"_token": "{{ csrf_token() }}"},
+					url:"<?php echo e(route('delete_designation')); ?>",
+					data:{"id":id,"_token": "<?php echo e(csrf_token()); ?>"},
 					success:function(data){
 						if(data.error=='2'){
 							$('#delete_designation').modal('toggle');
@@ -278,7 +278,7 @@
             	var deptId = $(this).val();
 				if(deptId) {
 					$.ajax({
-						url:"{{ route('getDesignationAjax') }}",
+						url:"<?php echo e(route('getDesignationAjax')); ?>",
 						type: "GET",
 						data:{"deptId":deptId},
 						success:function(data) {	
@@ -297,7 +297,7 @@
             	var deptId = $(this).val();
 				if(deptId) {
 					$.ajax({
-						url:"{{ route('getDesignationAjax') }}",
+						url:"<?php echo e(route('getDesignationAjax')); ?>",
 						type: "GET",
 						data:{"deptId":deptId},
 						success:function(data) {	
@@ -357,8 +357,8 @@
 				var id= $(this).data('id');
 				$.ajax({
 					type:'POST',
-					url:"{{ route('delete_indicator') }}",
-					data:{"id":id,"_token": "{{ csrf_token() }}"},
+					url:"<?php echo e(route('delete_indicator')); ?>",
+					data:{"id":id,"_token": "<?php echo e(csrf_token()); ?>"},
 					success:function(data){
 						if(data.error=='2'){
 							$('#delete_indicator').modal('toggle');
@@ -372,12 +372,9 @@
 			$(document).on("click",".editAppraisalBtn",function() {				 
 				var empid=$(this).data('emp-id');							
 				$("#editAppraisalId").val($(this).data('id'))				
-				$("#edit_employeeslist option[value='"+empid+"']").prop('selected',true);				
-				var d = new Date($(this).data('appraisal_date'));
-				var dd = d.getDate(); 
-				var mm = d.getMonth()+1; 
-				var yyyy = d.getFullYear(); 
-				$("#appraisal_date").val(dd+'/'+mm+'/'+yyyy);				
+				$("#edit_employeeslist option[value='"+empid+"']").prop('selected',true);
+				var appraisal_date = $(this).data('appraisal_date');	
+				$("#appraisal_date").val(appraisal_date)				 
 				var cust_exp =$(this).data('cust');	
 				$("#customer_experience option[value='"+cust_exp+"']").prop('selected',true);
 				var integrity =$(this).data('integrity');	
@@ -416,8 +413,8 @@
 				var id= $(this).data('id');
 				$.ajax({
 					type:'POST',
-					url:"{{ route('delete_appraisal') }}",
-					data:{"id":id,"_token": "{{ csrf_token() }}"},
+					url:"<?php echo e(route('delete_appraisal')); ?>",
+					data:{"id":id,"_token": "<?php echo e(csrf_token()); ?>"},
 					success:function(data){
 						if(data.error=='2'){
 							$('#delete_appraisal').modal('toggle');
@@ -429,4 +426,4 @@
 				});
 			}); 
 		});
-	</script>
+	</script><?php /**PATH C:\xampp\htdocs\hrms\resources\views/layout/partials/footer-scripts.blade.php ENDPATH**/ ?>
