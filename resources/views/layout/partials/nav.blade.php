@@ -8,13 +8,16 @@
 							</li>
 							<li class="submenu">
 								<a href="#"><i class="la la-dashboard"></i> <span> Dashboard</span> <span class="menu-arrow"></span></a>
-								<ul style="display: none;">
-
-								<li>
-        <a  class="{{ Request::is('index') ? 'active' : '' }}" href="{{ url('index') }}">Admin Dashboard</a></li>
-		<li>
-        <a class="{{ Request::is('employee-dashboard') ? 'active' : '' }}" href="{{ url('employee-dashboard') }}">Employee Dashboard</a></li>
-
+								<ul style="display: none;">								
+									@if (Auth::user()->role_type == "admin")
+									<li>
+									<a  class="{{ Request::is('index') ? 'active' : '' }}" href="{{ url('index') }}">Admin Dashboard</a>
+									</li>
+									@else
+									<li>
+									<a class="{{ Request::is('employee-dashboard') ? 'active' : '' }}" href="{{ url('employee-dashboard') }}">Employee Dashboard</a>
+									</li>
+									@endif
 								</ul>
 							</li>
 							<li class="submenu">
@@ -237,6 +240,11 @@
 
 		<li>
         <a class="{{ Request::is('performance') ? 'active' : '' }}" href="{{ url('performance') }}"> Performance Review  </a></li>
+								
+		<li>
+		
+		<li>
+        <a class="{{ Request::is('employees-performance') ? 'active' : '' }}" href="{{ url('employees-performance') }}"> Employee Performance </a></li>
 								
 		<li>
         <a class="{{ Request::is('performance-appraisal') ? 'active' : '' }}" href="{{ url('performance-appraisal') }}"> Performance Appraisal  </a></li>
