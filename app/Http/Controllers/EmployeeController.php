@@ -66,16 +66,18 @@ class EmployeeController extends Controller
         $emp->save();
 
         $expl=array();
-        foreach($request->permission_modules as $val){
-            $exp=\explode('_',$val);
-            array_push($expl,$exp);
-        }
-        foreach($expl as $value){
-            $permission_module= new PermissionModule();
-            $permission_module->module_id=$value[0];
-            $permission_module->emp_permission_id=$value[1];
-            $permission_module->employee_id=$emp->id;
-            $permission_module->save();
+        if($request->permission_modules!=''){
+            foreach($request->permission_modules as $val){
+                $exp=\explode('_',$val);
+                array_push($expl,$exp);
+            }
+            foreach($expl as $value){
+                $permission_module= new PermissionModule();
+                $permission_module->module_id=$value[0];
+                $permission_module->emp_permission_id=$value[1];
+                $permission_module->employee_id=$emp->id;
+                $permission_module->save();
+            }
         }
         return back();
     }
@@ -158,7 +160,7 @@ class EmployeeController extends Controller
             $emp=$emp->where('employee_id',$search_employee_id);
         }
         if($search_name!=""){
-            $emp=$emp->where('name',$search_name);
+            $emp=$emp->where('first_name',$search_name);
         }
         if($search_designation!=""){
             $emp=$emp->where('designation_id',$search_designation);
