@@ -24,11 +24,15 @@
                    
                 ?>
                 <h3>
+                    @if($setting!=null)
                     @if($setting->company_name==null)
                     Dreamguy's Technologie1s
                     @else
                         {{ $setting->company_name }}
                     @endif</h3>
+                    @else
+                        Dreamguy's Technologie1s
+                    @endif
             </div>
             <!-- /Header Title -->
             
