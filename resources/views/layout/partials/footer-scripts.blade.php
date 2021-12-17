@@ -368,7 +368,7 @@
 						}
 					}
 				});
-			}); 
+			});  
 			$(document).on("click",".editAppraisalBtn",function() {				 
 				var empid=$(this).data('emp-id');							
 				$("#editAppraisalId").val($(this).data('id'))				

@@ -15,8 +15,7 @@ class Indicators extends Migration
     {
         Schema::create('indicators', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('designation_id')->unsigned();
-            $table->bigInteger('employee_id')->unsigned();
+            $table->bigInteger('designation_id')->unsigned();           
             $table->tinyInteger('customer_experience')->default(0)->comment("0=>none,1=>beginner
             ,2=>intermedidate,3=>advanced,4=>expert/leader");
             $table->tinyInteger('integrity')->default(0)->comment("0=>none,1=>beginner
@@ -46,8 +45,7 @@ class Indicators extends Migration
             $table->tinyInteger('ability_to_meet_deadline')->default(0)->comment("0=>none,1=>beginner
             ,2=>intermedidate,3=>advanced,4=>expert/leader");
             $table->tinyInteger('status')->default(0)->comment("0=>deactive,1=>active");
-            $table->foreign('designation_id')->references('id')->on('designations')->onDelete('cascade');
-            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
+            $table->foreign('designation_id')->references('id')->on('designations')->onDelete('cascade');           
             $table->timestamps(); 
         });
         

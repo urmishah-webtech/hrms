@@ -295,12 +295,16 @@
 						<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
 							<span class="user-img"><img src="img/profiles/avatar-21.jpg" alt="">
 							<span class="status online"></span></span>
-							<span>Admin</span>
+							<span>{{ Auth::user()->name }}</span>
 						</a>
 						<div class="dropdown-menu">
 							<a class="dropdown-item" href="profile">My Profile</a>
 							<a class="dropdown-item" href="settings">Settings</a>
-							<a class="dropdown-item" href="login">Logout</a>
+							<a class="dropdown-item" href="{{ route('logout') }}"
+                        onclick="event.preventDefault();                                document.getElementById('logout-form').submit();">Logout</a>
+							<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+							@csrf
+							</form>
 						</div>
 					</li>
 				</ul>
@@ -329,13 +333,16 @@
 							</li>
 							<li class="submenu">
 								<a href="#"><i class="la la-dashboard"></i> <span> Dashboard</span> <span class="menu-arrow"></span></a>
-								<ul style="display: none;">
-
-								<li>
-        <a class="{{ Request::is('index') ? 'active' : '' }}" href="{{ url('index') }}">Admin Dashboard</a></li>
-		<li>
-        <a class="{{ Request::is('employee-dashboard') ? 'active' : '' }}" href="{{ url('employee-dashboard') }}">Employee Dashboard</a></li>
-
+								<ul style="display: none;">								
+									@if (Auth::user()->role_type == "admin")
+									<li>
+									<a  class="{{ Request::is('index') ? 'active' : '' }}" href="{{ url('index') }}">Admin Dashboard</a>
+									</li>
+									@else
+									<li>
+									<a class="{{ Request::is('employee-dashboard') ? 'active' : '' }}" href="{{ url('employee-dashboard') }}">Employee Dashboard</a>
+									</li>
+									@endif
 								</ul>
 							</li>
 							<li class="submenu">
