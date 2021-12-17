@@ -144,7 +144,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class="col-form-label">Confirm Password</label>
-                                            <input class="form-control" type="password" required>
+                                            <input class="form-control" name="confirm_password" type="password" required>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">  

@@ -34,10 +34,10 @@ class EmployeeController extends Controller
         $validator = Validator::make($request->all(), [
             'first_name' => 'required',
             'last_name' => 'required',
-            'user_name' => 'required|unique',
-            'email' => 'required:unique',
+            'user_name' => 'required|unique:employees',
+            'email' => 'required:unique:employees',
             'password' => 'required',
-            'employee_id' => 'required|unique',
+            'employee_id' => 'required|unique:employees',
             'joing_date' => 'required',
             'phone_no' => 'required',
             'company_id' => 'required',
