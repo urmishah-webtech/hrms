@@ -146,6 +146,10 @@
 		$(document).ready(function(){
 			$(".departmentError").hide();
 			var deptname=''
+			$(document).on("click",".delDepBtn",function() {
+				
+				$(".deleteDepCont").attr('data-id', $(this).data('id'));
+			});
 		  $(document).on("click",".editBtn",function() {
 			  
 				deptname = $(this).closest('.trTag').find('.tdTag').html();

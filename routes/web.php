@@ -279,9 +279,7 @@ Route::get('/client-profile', function () {
 Route::get('/login', function () {
     return view('login');
 });
-Route::get('/register', function () {
-    return view('register');
-});
+
 Route::get('/forgot-password', function () {
     return view('forgot-password');
 });
@@ -549,7 +547,6 @@ Route::get('/employees-performance', function () {
     return view('employees-performance');
 });
 
-Auth::routes();
 Route::get('/employee-dashboard','HomeController@index')->name('emp.home');
 Route::get('/index', 'HomeController@adminHome')->name('index')->middleware('is_admin');
 Route::get('/home', 'HomeController@index')->name('home');
@@ -572,4 +569,8 @@ Route::namespace('Auth')->group(function(){
 
 });
 
+Auth::routes();
+// Route::get('/register', function () {
+//     return view('authregister');
+// });
  
