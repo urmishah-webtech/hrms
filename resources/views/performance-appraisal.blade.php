@@ -65,9 +65,9 @@
                                                     <i class="fa fa-dot-circle-o @if(@$val->status== '1') text-success @else text-danger @endif"></i>  @if(@$val->status== '1') Active @else Inactive @endif
                                                 </a>
                                                 <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-success"></i> Active</a>
-                                                    <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-danger"></i> Inactive</a>
-                                                </div>
+                                                    <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-success"></i> <input type="radio" class="list_status10" name="status" id="status1"  data-id="{{ @$val->id }}"> <label for="status1">Active</label></a>
+                                                    <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-danger"></i> <input type="radio" class="list_status10" name="status" id="status0"  data-id="{{ @$val->id }}"><label for="status0">Inactive</label></a>
+                                                </div>                                                
                                             </div>
                                         </td>
                                         <td class="text-right">
@@ -696,3 +696,31 @@
         </div>
         <!-- /Page Wrapper -->
 @endsection
+<style>input.list_status10{display:none;}</style>
+<script src="js/jquery-3.5.1.min.js"></script>
+<script>
+		$( document ).ready(function() {  	
+			$(document).on("click","*[id^=status]",function() {	
+                
+				var id=$(this).data('id');	
+                		
+				var status;
+				if($("#status1").is(":checked")) 
+				{
+					status=1;
+				}
+				else{
+					status=0;
+				}
+				 
+				$.ajax({
+					type:'POST',
+					url:"{{ route('chang_appraisal_status') }}",
+					data:{"id":id,"status":status,"_token": "{{ csrf_token() }}"},
+					success:function(data){	
+						location.reload();
+					}
+				});
+			});
+		});
+	</script>
