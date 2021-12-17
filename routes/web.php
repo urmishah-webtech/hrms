@@ -4,7 +4,9 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\EmailsettingsController;
 use App\Http\Controllers\IndicatorController;
 use App\Http\Controllers\AppraisalController;
+use App\Http\Controllers\UserRegister_Controller;
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\AuthCheck;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,15 +18,21 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+//Route::middleware(['checkRole'])->group(function () {
+//Route::middleware([AuthCheck::class])->group(function () {
+
+
 Route::get('/', function () {
-        return view('index');
+        //return view('index');
+        return view('auth/login');
     });
     
-    Route::get('/home', function () {
-        return view('index');
-    });
+    /* Route::get('/home', function () {
+        //return view('index');
+        return view('login');
+    }); */
 
-
+Route::middleware([AuthCheck::class])->group(function () {
 
 Route::get('/index', function () {
     return view('index');
@@ -519,3 +527,49 @@ Route::post('delete_appraisal','AppraisalController@delete_appraisal')->name('de
 
 Route::get('/notifications-settings','NotificationsettController@notificationsetting');
 Route::post('changeNotificationAccess','NotificationsettController@changeNotificationAccess')->name('chg_Notifi');
+
+//Route::get('/login',[UserRegister_Controller::class,'login'])->middleware('alreadyLoggedIn');
+//Route::get('/register',[UserRegister_Controller::class,'registration'])->middleware('alreadyLoggedIn');
+//Route::get('/employee-dashboard',[UserRegister_Controller::class,'dashboardlogin'])->middleware('isLoggedIn');
+//Route::get('/index',[UserRegister_Controller::class,'dashboardlogin'])->middleware('isLoggedIn');
+//Route::get('/email-settings',[UserRegister_Controller::class,'dashboardlogin'])->middleware('isLoggedIn');
+//Route::post('/register-user',[UserRegister_Controller::class,'Register_user'])->name('register-user');
+//Route::post('/logs',[UserRegister_Controller::class,'logs'])->name('login-user');
+//Route::get('/logout',[UserRegister_Controller::class,'logout']);
+
+//Route::get('index', 'UserRegister_Controller@adminHome')->name('admin.home')->middleware('is_admin');
+
+//Auth::routes();
+//Route::get('/employees-dashboard', 'UserRegister_Controller@dashboardlogin')->name('employee')->middleware('employee');
+//Route::get('/index', 'UserRegister_Controller@dashboardlogin')->name('index')->middleware('admin');
+
+//Route::get('index', 'UserRegister_Controller@adminHome')->name('admin.home')->middleware('is_admin');
+
+Route::get('/employees-performance', function () {
+    return view('employees-performance');
+});
+
+Auth::routes();
+Route::get('/employee-dashboard','HomeController@index')->name('emp.home');
+Route::get('/index', 'HomeController@adminHome')->name('index')->middleware('is_admin');
+Route::get('/home', 'HomeController@index')->name('home');
+
+});
+Route::namespace('Auth')->group(function(){
+        
+    //Login Routes
+    Route::get('/login','LoginController@showLoginForm')->name('login');
+    Route::post('/login','LoginController@login');
+    Route::post('/logout','LoginController@logout')->name('logout');
+
+    //Forgot Password Routes
+    Route::get('/password/reset','ForgotPasswordController@showLinkRequestForm')->name('password.request');
+    Route::post('/password/email','ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+
+    //Reset Password Routes
+    Route::get('/password/reset/{token}','ResetPasswordController@showResetForm')->name('password.reset');
+    Route::post('/password/reset','ResetPasswordController@reset')->name('password.update');
+
+});
+
+ 
