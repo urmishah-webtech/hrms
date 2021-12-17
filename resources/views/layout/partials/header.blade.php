@@ -19,7 +19,20 @@
             
             <!-- Header Title -->
             <div class="page-title-box">
-                <h3>Dreamguy's Technologies</h3>
+                <?php
+                    $setting=DB::table('settings')->first();
+                   
+                ?>
+                <h3>
+                    @if($setting!=null)
+                    @if($setting->company_name==null)
+                    Dreamguy's Technologie1s
+                    @else
+                        {{ $setting->company_name }}
+                    @endif</h3>
+                    @else
+                        Dreamguy's Technologie1s
+                    @endif
             </div>
             <!-- /Header Title -->
             

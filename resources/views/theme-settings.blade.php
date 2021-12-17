@@ -52,8 +52,22 @@
 				</a>
 				
 				<!-- Header Title -->
-                <div class="page-title-box">
-					<h3>Dreamguy's Technologies</h3>
+				<div class="page-title-box">
+				<?php
+				$setting=DB::table('settings')->first();
+			   
+				?>
+				<h3>
+				@if($setting!=null)
+				@if($setting->company_name==null)
+				Dreamguy's Technologie1s
+				@else
+					{{ $setting->company_name }}
+				@endif
+				@else
+					Dreamguy's Technologies
+				@endif
+				</h3>
                 </div>
 				<!-- /Header Title -->
 				
