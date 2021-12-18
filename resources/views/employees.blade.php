@@ -88,8 +88,9 @@
                                             <a class="dropdown-item delEmpBtn" href="#" data-toggle="modal" data-id="{{ @$val->id }}" data-target="#delete_employee"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                                         </div>
                                     </div>
-                                    <h4 class="user-name m-t-10 mb-0 text-ellipsis"><a href="profile">{{ $val->first_name }} {{ $val->last_name }}</a></h4>
-                                    <div class="small text-muted">{{ $val->designation->name }}</div>
+                                    <h4 class="user-name m-t-10 mb-0 text-ellipsis"><a href="profile">{{ @$val->first_name }} {{ @$val->last_name }}</a></h4>
+                                    <div class="small text-muted">
+                                        {{ @$val->designation->name }}</div>
                                 </div>
                             </div>
                             @endforeach 
