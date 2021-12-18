@@ -540,8 +540,8 @@ Route::get('/index', 'HomeController@adminHome')->name('index')->middleware('is_
 Route::get('/home', 'HomeController@index')->name('home');
 
  
-//Route::get('/register',[RegisterController::class,'add_Register_Employee'])->name('reg');
-Route::post('/register-user',[RegisterController::class,'add_Register_Employee'])->name('regi-user');
+ 
+ 
 
 });
 Route::namespace('Auth')->group(function(){
