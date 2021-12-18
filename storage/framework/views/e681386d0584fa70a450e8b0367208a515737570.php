@@ -34,7 +34,15 @@
                                             <td>
                                                 <form>
                                                     <div class="form-group">
-                                                        <label for="name">Name</label>
+                                                        <label for="name">Employee</label>
+                                                        <select class="form-control employee" id="edit_designationlist" name="designation" required>
+                                                            <option value>Select Designation</option>
+                                                            <?php if(isset($emps)): ?>
+                                                                <?php $__currentLoopData = $emps; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $item): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?> 
+                                                                    <option value="<?php echo e($item->id); ?>"><?php echo e($item->first_name); ?></option>
+                                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                                            <?php endif; ?>
+                                                        </select>
                                                         <input type="text" class="form-control" id="name">
                                                     </div>
                                                     <div class="form-group">
@@ -74,11 +82,11 @@
                                             <td>
                                                 <form>
                                                     <div class="form-group">
-                                                        <label for="name1"> RO's Name</label>
+                                                        <label for="name1"> Manager's Name</label>
                                                         <input type="text" class="form-control" id="name1">
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="depart1"> RO Designation: </label>
+                                                        <label for="depart1"> Manager Designation: </label>
                                                         <input type="text" class="form-control" id="depart1">
                                                     </div>
                                                 </form>

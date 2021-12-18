@@ -61,7 +61,7 @@
                                         <td>
                                             <div class="dropdown action-label">
                                                 <a class="btn btn-white btn-sm btn-rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
-                                                    <i class="fa fa-dot-circle-o text-success"></i> <?php if(@$val->status== '1'): ?> Active <?php else: ?> Inactive <?php endif; ?>
+                                                    <i class="fa fa-dot-circle-o <?php if(@$val->status== '1'): ?>text-success <?php else: ?> text-danger <?php endif; ?>"></i> <?php if(@$val->status== '1'): ?> Active <?php else: ?> Inactive <?php endif; ?>
                                                 </a>
                                                 <div class="dropdown-menu">
                                                     <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-success"></i> Active</a>

@@ -368,13 +368,16 @@
 						}
 					}
 				});
-			}); 
+			});  
 			$(document).on("click",".editAppraisalBtn",function() {				 
 				var empid=$(this).data('emp-id');							
 				$("#editAppraisalId").val($(this).data('id'))				
-				$("#edit_employeeslist option[value='"+empid+"']").prop('selected',true);
-				var appraisal_date = $(this).data('appraisal_date');	
-				$("#appraisal_date").val(appraisal_date)				 
+				$("#edit_employeeslist option[value='"+empid+"']").prop('selected',true);				
+				var d = new Date($(this).data('appraisal_date'));
+				var dd = d.getDate(); 
+				var mm = d.getMonth()+1; 
+				var yyyy = d.getFullYear(); 
+				$("#appraisal_date").val(dd+'/'+mm+'/'+yyyy);				
 				var cust_exp =$(this).data('cust');	
 				$("#customer_experience option[value='"+cust_exp+"']").prop('selected',true);
 				var integrity =$(this).data('integrity');	

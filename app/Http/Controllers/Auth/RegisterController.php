@@ -73,4 +73,24 @@ class RegisterController extends Controller
         ]);
 		
     }
+    public function add_Register_Employee (Request $request){
+        dd($request);
+        $validator = Validator::make($request->all(), [
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+			'role_type' => ['required', 'string', 'max:255'],
+        ]);
+        if($validator->fails()){
+            return back()->with('error', 'Error in Registration');
+        }
+        $empl =new Employee();
+        $empl->user_name = $request->name;
+        $empl->email = $request->email;
+        $empl->password = $request->password;
+        $empl->role_type = $request->role_type;       
+        $empl->save();
+        return back();
+        dd($empl);
+    }
 }

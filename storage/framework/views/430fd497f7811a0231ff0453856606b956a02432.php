@@ -260,12 +260,16 @@
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                         <span class="user-img"><img src="img/profiles/avatar-21.jpg" alt="">
                         <span class="status online"></span></span>
-                        <span>Admin</span>
+                        <span><?php echo e(Auth::user()->name); ?></span>
                     </a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="profile">My Profile</a>
                         <a class="dropdown-item" href="settings">Settings</a>
-                        <a class="dropdown-item" href="login">Logout</a>
+                        <a class="dropdown-item" href="<?php echo e(route('logout')); ?>"
+                        onclick="event.preventDefault();                                document.getElementById('logout-form').submit();">Logout</a>
+							<form id="logout-form" action="<?php echo e(route('logout')); ?>" method="POST" class="d-none">
+							<?php echo csrf_field(); ?>
+							</form>
                     </div>
                 </li>
             </ul>
@@ -277,7 +281,7 @@
                 <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" href="profile">My Profile</a>
                     <a class="dropdown-item" href="settings">Settings</a>
-                    <a class="dropdown-item" href="login">Logout</a>
+                    <a class="dropdown-item" href="<?php echo e(url('/logout')); ?>">Logout</a>
                 </div>
             </div>
             <!-- /Mobile Menu -->

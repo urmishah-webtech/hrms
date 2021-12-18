@@ -239,6 +239,11 @@
         <a class="<?php echo e(Request::is('performance') ? 'active' : ''); ?>" href="<?php echo e(url('performance')); ?>"> Performance Review  </a></li>
 								
 		<li>
+		
+		<li>
+        <a class="<?php echo e(Request::is('employees-performance') ? 'active' : ''); ?>" href="<?php echo e(url('employees-performance')); ?>"> Employee Performance </a></li>
+								
+		<li>
         <a class="<?php echo e(Request::is('performance-appraisal') ? 'active' : ''); ?>" href="<?php echo e(url('performance-appraisal')); ?>"> Performance Appraisal  </a></li>
 
 					
