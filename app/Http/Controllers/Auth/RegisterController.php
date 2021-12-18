@@ -68,6 +68,7 @@ class RegisterController extends Controller
     {	
         if($data['role_type'] == "employee"){
         $empl =new Employee();
+        $empl->first_name = $data['name'];
         $empl->user_name = $data['name'];
         $empl->email = $data['email'];
         $empl->password = $data['email'];
