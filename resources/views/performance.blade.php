@@ -34,8 +34,8 @@
                                             <td>
                                                 <form>
                                                     <div class="form-group">
-                                                        <label for="name">Name</label>
-                                                        <input type="text" class="form-control" id="name">
+                                                        <label for="name">Employee</label>                                                        
+                                                        <input type="text" class="form-control" id="name" value="{{ Auth::user()->name }}">
                                                     </div>
                                                     <div class="form-group">
                                                         <label for="depart3">Department</label>
@@ -74,11 +74,11 @@
                                             <td>
                                                 <form>
                                                     <div class="form-group">
-                                                        <label for="name1"> RO's Name</label>
+                                                        <label for="name1"> Manager's Name</label>
                                                         <input type="text" class="form-control" id="name1">
                                                     </div>
                                                     <div class="form-group">
-                                                        <label for="depart1"> RO Designation: </label>
+                                                        <label for="depart1"> Manager Designation: </label>
                                                         <input type="text" class="form-control" id="depart1">
                                                     </div>
                                                 </form>

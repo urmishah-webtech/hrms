@@ -5,6 +5,7 @@ use App\Http\Controllers\EmailsettingsController;
 use App\Http\Controllers\IndicatorController;
 use App\Http\Controllers\AppraisalController;
 use App\Http\Controllers\UserRegister_Controller;
+use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\AuthCheck;
 
@@ -517,31 +518,18 @@ Route::get('/performance-indicator','IndicatorController@indicators')->name('ind
 Route::post('add_indicator','IndicatorController@add_indicator')->name('add_indicators');
 Route::post('edit_indicator','IndicatorController@edit_indicator')->name('edit_indicators');
 Route::post('delete_indicator','IndicatorController@delete_indicator')->name('delete_indicator');
- 
+Route::post('changestatus','IndicatorController@changestatusDropdown')->name('chang_status'); 
+
 Route::get('/performance-appraisal','AppraisalController@appraisal')->name('appraisal');
 Route::post('add_appraisal','AppraisalController@add_appraisal')->name('add_appraisal');
 Route::post('edit_appraisal','AppraisalController@edit_appraisal')->name('edit_appraisal');
 Route::post('delete_appraisal','AppraisalController@delete_appraisal')->name('delete_appraisal');
+Route::post('change_apstatus','AppraisalController@change_appraisal_status')->name('chang_appraisal_status');
 
 Route::get('/notifications-settings','NotificationsettController@notificationsetting');
 Route::post('changeNotificationAccess','NotificationsettController@changeNotificationAccess')->name('chg_Notifi');
 
-//Route::get('/login',[UserRegister_Controller::class,'login'])->middleware('alreadyLoggedIn');
-//Route::get('/register',[UserRegister_Controller::class,'registration'])->middleware('alreadyLoggedIn');
-//Route::get('/employee-dashboard',[UserRegister_Controller::class,'dashboardlogin'])->middleware('isLoggedIn');
-//Route::get('/index',[UserRegister_Controller::class,'dashboardlogin'])->middleware('isLoggedIn');
-//Route::get('/email-settings',[UserRegister_Controller::class,'dashboardlogin'])->middleware('isLoggedIn');
-//Route::post('/register-user',[UserRegister_Controller::class,'Register_user'])->name('register-user');
-//Route::post('/logs',[UserRegister_Controller::class,'logs'])->name('login-user');
-//Route::get('/logout',[UserRegister_Controller::class,'logout']);
 
-//Route::get('index', 'UserRegister_Controller@adminHome')->name('admin.home')->middleware('is_admin');
-
-//Auth::routes();
-//Route::get('/employees-dashboard', 'UserRegister_Controller@dashboardlogin')->name('employee')->middleware('employee');
-//Route::get('/index', 'UserRegister_Controller@dashboardlogin')->name('index')->middleware('admin');
-
-//Route::get('index', 'UserRegister_Controller@adminHome')->name('admin.home')->middleware('is_admin');
 
 Route::get('/employees-performance', function () {
     return view('employees-performance');
@@ -550,6 +538,10 @@ Route::get('/employees-performance', function () {
 Route::get('/employee-dashboard','HomeController@index')->name('emp.home');
 Route::get('/index', 'HomeController@adminHome')->name('index')->middleware('is_admin');
 Route::get('/home', 'HomeController@index')->name('home');
+
+ 
+ 
+ 
 
 });
 Route::namespace('Auth')->group(function(){

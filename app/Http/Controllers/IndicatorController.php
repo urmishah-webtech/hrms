@@ -58,7 +58,7 @@ class IndicatorController extends Controller
         if($validator->fails()){
             return back()->with('error', 'Error in updating indicator');
         }
-        $indicat= Indicator::find($request->id);        
+        $indicat= Indicator::find($request->id);              
         if($indicat){
             $indicat->designation_id=$request->designation;
             $indicat->employee_id=$request->employee;
@@ -93,6 +93,11 @@ class IndicatorController extends Controller
                 echo json_encode("0");
             }
          
+    }    
+    public function changestatusDropdown(Request $request){     
+        $modules=Indicator::where('id',$request->id)->first();         
+        $modules->status=$request->status;
+        $modules->save();
+        return json_encode("1");
     }
-    
 }

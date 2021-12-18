@@ -8,13 +8,16 @@
 							</li>
 							<li class="submenu">
 								<a href="#"><i class="la la-dashboard"></i> <span> Dashboard</span> <span class="menu-arrow"></span></a>
-								<ul style="display: none;">
-
-								<li>
-        <a  class="<?php echo e(Request::is('index') ? 'active' : ''); ?>" href="<?php echo e(url('index')); ?>">Admin Dashboard</a></li>
-		<li>
-        <a class="<?php echo e(Request::is('employee-dashboard') ? 'active' : ''); ?>" href="<?php echo e(url('employee-dashboard')); ?>">Employee Dashboard</a></li>
-
+								<ul style="display: none;">								
+									<?php if(Auth::user()->role_type == "admin"): ?>
+									<li>
+									<a  class="<?php echo e(Request::is('index') ? 'active' : ''); ?>" href="<?php echo e(url('index')); ?>">Admin Dashboard</a>
+									</li>
+									<?php else: ?>
+									<li>
+									<a class="<?php echo e(Request::is('employee-dashboard') ? 'active' : ''); ?>" href="<?php echo e(url('employee-dashboard')); ?>">Employee Dashboard</a>
+									</li>
+									<?php endif; ?>
 								</ul>
 							</li>
 							<li class="submenu">
@@ -237,6 +240,11 @@
 
 		<li>
         <a class="<?php echo e(Request::is('performance') ? 'active' : ''); ?>" href="<?php echo e(url('performance')); ?>"> Performance Review  </a></li>
+								
+		<li>
+		
+		<li>
+        <a class="<?php echo e(Request::is('employees-performance') ? 'active' : ''); ?>" href="<?php echo e(url('employees-performance')); ?>"> Employee Performance </a></li>
 								
 		<li>
         <a class="<?php echo e(Request::is('performance-appraisal') ? 'active' : ''); ?>" href="<?php echo e(url('performance-appraisal')); ?>"> Performance Appraisal  </a></li>

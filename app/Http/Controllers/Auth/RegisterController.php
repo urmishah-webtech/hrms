@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
+use App\Employee;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -64,7 +65,15 @@ class RegisterController extends Controller
      * @return \App\User
      */
     protected function create(array $data)
-    {	 
+    {	
+        if($data['role_type'] == "employee"){
+        $empl =new Employee();
+        $empl->user_name = $data['name'];
+        $empl->email = $data['email'];
+        $empl->password = $data['email'];
+        $empl->role_type = $data['role_type'];       
+        $empl->save(); 
+        }
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -73,4 +82,5 @@ class RegisterController extends Controller
         ]);
 		
     }
+     
 }

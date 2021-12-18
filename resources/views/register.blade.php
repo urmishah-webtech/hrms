@@ -47,21 +47,44 @@
 							<p class="account-subtitle">Access to our dashboard</p>
 							
 							<!-- Account Form -->
-							<form action="index">
+							<form action="{{route('register-user')}}" method="post">
+								@if(Session::has('success'))
+								<div>{{Session::get('success')}}</div>
+								@endif
+								@if(Session::has('fail'))
+								<div>{{Session::get('fail')}}</div>
+								@endif
+								@csrf
 								<div class="form-group">
+									<label>Name</label>
+									<input type="text" class="form-control" name="name" value="">
+									<span>@error('name') {{$message}} @enderror</span>
+								</div>								
+							  	<div class="form-group">
 									<label>Email</label>
-									<input class="form-control" type="text">
+									<input class="form-control" type="email" name="email">
+									<span>@error('email') {{$message}} @enderror</span>
 								</div>
 								<div class="form-group">
 									<label>Password</label>
-									<input class="form-control" type="password">
+									<input class="form-control" type="password" name="password">
+									<span>@error('password') {{$message}} @enderror</span>
 								</div>
-								<div class="form-group">
+								<!--<div class="form-group">
 									<label>Repeat Password</label>
 									<input class="form-control" type="password">
+								</div>-->
+								<div class="form-group">
+									<label>Select Role</label>									
+									<select class="form-control" id="role_type" name="role_type" required>
+										<option value>Role</option>
+										<option value="admin">Admin</option>
+										<option value="employee">Employee</option>
+									</select>
 								</div>
+								<input type="hidden" name="_token" value="{{csrf_token()}}"> 
 								<div class="form-group text-center">
-									<button class="btn btn-primary account-btn" type="submit">Register</button>
+									<button name="button" class="btn btn-primary account-btn" type="submit">Register</button>
 								</div>
 								<div class="account-footer">
 									<p>Already have an account? <a href="login">Login</a></p>

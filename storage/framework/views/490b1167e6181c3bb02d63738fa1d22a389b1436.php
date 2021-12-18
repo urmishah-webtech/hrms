@@ -265,7 +265,7 @@
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="profile">My Profile</a>
                         <a class="dropdown-item" href="settings">Settings</a>
-                        <a class="dropdown-item" href="login">Logout</a>
+                        <a class="dropdown-item" href="<?php echo e(url('/logout')); ?>">Logout</a>
                     </div>
                 </li>
             </ul>
@@ -277,7 +277,7 @@
                 <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" href="profile">My Profile</a>
                     <a class="dropdown-item" href="settings">Settings</a>
-                    <a class="dropdown-item" href="login">Logout</a>
+                    <a class="dropdown-item" href="<?php echo e(url('/logout')); ?>">Logout</a>
                 </div>
             </div>
             <!-- /Mobile Menu -->

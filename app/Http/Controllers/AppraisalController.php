@@ -91,5 +91,11 @@ class AppraisalController extends Controller
             echo json_encode("0");
         }
      
-}
+    }
+    public function change_appraisal_status(Request $request){     
+        $modules=Appraisal::where('id',$request->id)->first();         
+        $modules->status=$request->status;
+        $modules->save();
+        return json_encode("1");
+    }
 }

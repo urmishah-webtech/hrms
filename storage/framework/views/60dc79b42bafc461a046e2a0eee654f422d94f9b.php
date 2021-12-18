@@ -61,11 +61,11 @@
                                         <td>
                                             <div class="dropdown action-label">
                                                 <a class="btn btn-white btn-sm btn-rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
-                                                    <i class="fa fa-dot-circle-o text-success"></i> <?php if(@$val->status== '1'): ?> Active <?php else: ?> Inactive <?php endif; ?>
+                                                    <i class="fa fa-dot-circle-o <?php if(@$val->status== '1'): ?>text-success <?php else: ?> text-danger <?php endif; ?>"></i> <?php if(@$val->status== '1'): ?> Active <?php else: ?> Inactive <?php endif; ?>
                                                 </a>
                                                 <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-success"></i> Active</a>
-                                                    <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-danger"></i> Inactive</a>
+                                                    <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-success"></i> <input type="radio" class="list_status10" name="status" id="status1"  data-id="<?php echo e(@$val->id); ?>"> <label for="status1">Active</label></a>
+                                                    <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-danger"></i> <input type="radio" class="list_status10" name="status" id="status0"  data-id="<?php echo e(@$val->id); ?>"><label for="status0">Inactive</label></a>
                                                 </div>
                                             </div>
                                         </td>
@@ -530,4 +530,32 @@
         </div>
         <!-- /Page Wrapper -->
 <?php $__env->stopSection(); ?>
+<style>input.list_status10{display:none;}</style>
+<script src="js/jquery-3.5.1.min.js"></script>
+<script>
+		$( document ).ready(function() {  	
+			$(document).on("click","*[id^=status]",function() {	
+                
+				var id=$(this).data('id');	
+                		
+				var status;
+				if($("#status1").is(":checked")) 
+				{
+					status=1;
+				}
+				else{
+					status=0;
+				}
+				 
+				$.ajax({
+					type:'POST',
+					url:"<?php echo e(route('chang_status')); ?>",
+					data:{"id":id,"status":status,"_token": "<?php echo e(csrf_token()); ?>"},
+					success:function(data){	
+						location.reload();
+					}
+				});
+			});
+		});
+	</script>
 <?php echo $__env->make('layout.mainlayout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\hrms\resources\views/performance-indicator.blade.php ENDPATH**/ ?>
