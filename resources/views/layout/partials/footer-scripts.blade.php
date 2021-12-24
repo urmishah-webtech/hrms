@@ -1,53 +1,53 @@
 <!-- jQuery -->
-<script src="js/jquery-3.5.1.min.js"></script>
+<script src="/js/jquery-3.5.1.min.js"></script>
 		
 		<!-- Bootstrap Core JS -->
-        <script src="js/popper.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
+        <script src="/js/popper.min.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
 		
 		<!-- Slimscroll JS -->
-		<script src="js/jquery.slimscroll.min.js"></script>
+		<script src="/js/jquery.slimscroll.min.js"></script>
 		@if(Route::is(['jobs-dashboard','user-dashboard']))
 		<!-- Chart JS -->
-		<script src="js/Chart.min.js"></script>
-		<script src="js/line-chart.js"></script>
+		<script src="/js/Chart.min.js"></script>
+		<script src="/js/line-chart.js"></script>
 		@endif
 		<!-- Select2 JS -->
-		<script src="js/select2.min.js"></script>
+		<script src="/js/select2.min.js"></script>
 
-		<script src="js/jquery-ui.min.js"></script>
-		<script src="js/jquery.ui.touch-punch.min.js"></script>
+		<script src="/js/jquery-ui.min.js"></script>
+		<script src="/js/jquery.ui.touch-punch.min.js"></script>
 		
 		<!-- Datetimepicker JS -->
-		<script src="js/moment.min.js"></script>
-		<script src="js/bootstrap-datetimepicker.min.js"></script>
+		<script src="/js/moment.min.js"></script>
+		<script src="/js/bootstrap-datetimepicker.min.js"></script>
 		
 		<!-- Calendar JS -->
-		<script src="js/jquery-ui.min.js"></script>
-        <script src="js/fullcalendar.min.js"></script>
-        <script src="js/jquery.fullcalendar.js"></script>
+		<script src="/js/jquery-ui.min.js"></script>
+        <script src="/js/fullcalendar.min.js"></script>
+        <script src="/js/jquery.fullcalendar.js"></script>
 
 		<!-- Multiselect JS -->
-		<script src="js/multiselect.min.js"></script>
+		<script src="/js/multiselect.min.js"></script>
 
 		<!-- Datatable JS -->
-		<script src="js/jquery.dataTables.min.js"></script>
-		<script src="js/dataTables.bootstrap4.min.js"></script>
+		<script src="/js/jquery.dataTables.min.js"></script>
+		<script src="/js/dataTables.bootstrap4.min.js"></script>
 
 		<!-- Summernote JS -->
-		<script src="plugins/summernote/dist/summernote-bs4.min.js"></script>
+		<script src="/plugins/summernote/dist/summernote-bs4.min.js"></script>
 		
 			
-		<script src="plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
+		<script src="/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
 
 		<!-- Task JS -->
-		<script src="js/task.js"></script>
+		<script src="/js/task.js"></script>
 
 		<!-- Dropfiles JS
 		<script src="js/dropfiles.js"></script> -->
 
 		<!-- Custom JS -->
-		<script src="js/app.js"></script>
+		<script src="/js/app.js"></script>
 		<script>
 		 $(document).ready(function(){
 
@@ -132,7 +132,7 @@
 			function GetDynamicTextBox(table_id) {
 				$('#comments_remove').remove();
 				var rowsLength = document.getElementById(table_id).getElementsByTagName("tbody")[0].getElementsByTagName("tr").length+1;
-				return '<td>'+rowsLength+'</td>' + '<td><input type="text" name = "DynamicTextBox" class="form-control" value = "" ></td>' + '<td><input type="text" name = "DynamicTextBox" class="form-control" value = "" ></td>' + '<td><input type="text" name = "DynamicTextBox" class="form-control" value = "" ></td>' + '<td><button type="button" class="btn btn-danger" id="comments_remove"><i class="fa fa-trash-o"></i></button></td>'
+				return '<td>'+rowsLength+'</td>' + '<td><input type="text" name = "DynamicTextBoxemp[]" class="form-control" value = "" ></td>' + '<td><input type="text" name = "DynamicTextBoxman[]" class="form-control" value = "" ></td>' + '<td><button type="button" class="btn btn-danger" id="comments_remove"><i class="fa fa-trash-o"></i></button></td>'
 			}
 		});
 		</script>
@@ -432,5 +432,33 @@
 					}
 				});
 			}); 
+			$('.percentage_employee').on('change', function() {            	 
+				 var ret = Number($("#quality_id").val()) + Number($("#tat_id").val()) + Number($("#pms_new_ideas").val()) + Number($("#team_productivity").val()) + Number($("#knowledge_sharing").val()) + Number($("#emails_calls").val());
+				$("#total_percentage_employee").val(ret);	
+			});
+			$('.percentage_manager').on('change', function() {            	 
+				 var ret = Number($("#quality_manager").val()) + Number($("#tat_manager").val()) + Number($("#pms_new_ideas_manager").val()) + Number($("#team_productivity_manager").val()) + Number($("#knowledge_sharing_manager").val()) + Number($("#emails_calls_manager").val());
+				$("#total_percentage_manager").val(ret);	
+			});
+			$('.personal_employee').on('change', function() {            	 
+				 var ret = Number($("#plan_leave_employee").val()) + Number($("#time_cons_employee").val()) + Number($("#team_collaboration_employee").val()) + Number($("#professionalism_employee").val()) + Number($("#policy_employee").val()) + Number($("#initiatives_employee").val()) + Number($("#improvement_employee").val());
+				$("#total_score_employee").val(ret);
+				var percent = Math.round((ret/ 15)*100);
+				$("#total_percentage_empl").val(percent);
+			});
+			$('.personal_manager').on('change', function() {            	 
+				 var ret = Number($("#plan_leave_manager").val()) + Number($("#time_cons_manager").val()) + Number($("#team_collaboration_manager").val()) + Number($("#professionalism_manager").val()) + Number($("#policy_manager").val()) + Number($("#initiatives_manager").val()) + Number($("#improvement_manager").val());
+				$("#total_score_manager").val(ret);	
+				var percent_man = Math.round((ret/ 15)*100);
+				$("#total_percentage_man").val(percent_man);
+			});
+
+			$('.percentage_employee_man').on('change', function() {
+				           	 
+				 var ret = Number($("#quality_id").val()) + Number($("#tat_id").val()) + Number($("#pms_new_ideas").val()) + Number($("#team_productivity").val()) + Number($("#knowledge_sharing").val()) + Number($("#emails_calls").val());
+				$("#total_percentage_employee").val(ret);	
+			});
+
+			 
 		});
 	</script>

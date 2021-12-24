@@ -529,15 +529,13 @@
         
         </div>
         <!-- /Page Wrapper -->
-@endsection
+
 <style>input.list_status10{display:none;}</style>
 <script src="js/jquery-3.5.1.min.js"></script>
 <script>
 		$( document ).ready(function() {  	
-			$(document).on("click","*[id^=status]",function() {	
-                
-				var id=$(this).data('id');	
-                		
+			$(document).on("click","*[id^=status]",function() {	                
+				var id=$(this).data('id');	                		
 				var status;
 				if($("#status1").is(":checked")) 
 				{
@@ -545,8 +543,7 @@
 				}
 				else{
 					status=0;
-				}
-				 
+				}				 
 				$.ajax({
 					type:'POST',
 					url:"{{ route('chang_status') }}",
@@ -558,3 +555,4 @@
 			});
 		});
 	</script>
+@endsection

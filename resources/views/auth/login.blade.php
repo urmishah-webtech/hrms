@@ -31,7 +31,7 @@
 	
 	<div class="main-wrapper">
 			<div class="account-content">
-				<a href="job-list" class="btn btn-primary apply-btn">Apply Job</a>
+				 
 				<div class="container">
 				
 					<!-- Account Logo -->

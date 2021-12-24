@@ -695,7 +695,7 @@
         
         </div>
         <!-- /Page Wrapper -->
-@endsection
+
 <style>input.list_status10{display:none;}</style>
 <script src="js/jquery-3.5.1.min.js"></script>
 <script>
@@ -724,3 +724,4 @@
 			});
 		});
 	</script>
+    @endsection

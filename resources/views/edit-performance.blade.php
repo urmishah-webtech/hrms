@@ -1,5 +1,430 @@
-@extends('layout.mainlayout')
-@section('content')
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
+        <meta name="description" content="Smarthr - Bootstrap Admin Template">
+		<meta name="keywords" content="admin, estimates, bootstrap, business, corporate, creative, management, minimal, modern, accounts, invoice, html5, responsive, CRM, Projects">
+        <meta name="author" content="Dreamguys - Bootstrap Admin Template">
+        <meta name="robots" content="noindex, nofollow">
+        <title>Dashboard - HRMS admin template</title>
+		
+		<!-- Favicon -->
+        <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.png">
+		
+		<!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+		
+		<!-- Fontawesome CSS -->
+        <link rel="stylesheet" href="/css/font-awesome.min.css">
+		
+		<!-- Lineawesome CSS -->
+        <link rel="stylesheet" href="/css/line-awesome.min.css">
+		<link rel="stylesheet" href="/css/select2.min.css">
+		
+		<!-- Datetimepicker CSS -->
+		<link rel="stylesheet" href="/css/bootstrap-datetimepicker.min.css">
+		
+		<!-- Calendar CSS -->
+		<link rel="stylesheet" href="/css/fullcalendar.min.css">
+
+        <!-- Tagsinput CSS -->
+		<link rel="stylesheet" href="/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css">
+
+		<!-- Datatable CSS -->
+		<link rel="stylesheet" href="/css/dataTables.bootstrap4.min.css">
+         
+		<!-- Summernote CSS -->
+		<link rel="stylesheet" href="/plugins/summernote/dist/summernote-bs4.css">
+		<!-- Chart CSS -->
+		<link rel="stylesheet" href="/plugins/morris/morris.css">
+		
+		<!-- Main CSS -->
+        <link rel="stylesheet" href="/css/style.css">
+       
+    </head>	
+<body>
+ 
+@include('layout.partials.footer-scripts')
+    <!-- Main Wrapper -->
+    <div class="main-wrapper">
+    
+        <!-- Header -->
+        <div class="header">
+        
+            <!-- Logo -->
+            <div class="header-left">
+                <a href="index" class="logo">
+                    <img src="/img/logo.png" width="40" height="40" alt="">
+                </a>
+            </div>
+            <!-- /Logo -->
+            
+            <a id="toggle_btn" href="javascript:void(0);">
+                <span class="bar-icon">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </span>
+            </a>
+            
+            <!-- Header Title -->
+            <div class="page-title-box">
+                <h3>Dreamguy's Technologies</h3>
+            </div>
+            <!-- /Header Title -->
+            
+            <a id="mobile_btn" class="mobile_btn" href="#sidebar"><i class="fa fa-bars"></i></a>
+            
+            <!-- Header Menu -->
+            <ul class="nav user-menu">
+            
+                <!-- Search -->
+                <li class="nav-item">
+                    <div class="top-nav-search">
+                        <a href="javascript:void(0);" class="responsive-search">
+                            <i class="fa fa-search"></i>
+                        </a>
+                        <form action="search">
+                            <input class="form-control" type="text" placeholder="Search here">
+                            <button class="btn" type="submit"><i class="fa fa-search"></i></button>
+                        </form>
+                    </div>
+                </li>
+                <!-- /Search -->
+            
+                <!-- Flag -->
+                <li class="nav-item dropdown has-arrow flag-nav">
+                    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button">
+                        <img src="/img/flags/us.png" alt="" height="20"> <span>English</span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a href="javascript:void(0);" class="dropdown-item">
+                            <img src="/img/flags/us.png" alt="" height="16"> English
+                        </a>
+                        <a href="javascript:void(0);" class="dropdown-item">
+                            <img src="/img/flags/fr.png" alt="" height="16"> French
+                        </a>
+                        <a href="javascript:void(0);" class="dropdown-item">
+                            <img src="/img/flags/es.png" alt="" height="16"> Spanish
+                        </a>
+                        <a href="javascript:void(0);" class="dropdown-item">
+                            <img src="/img/flags/de.png" alt="" height="16"> German
+                        </a>
+                    </div>
+                </li>
+                <!-- /Flag -->
+            
+                <!-- Notifications -->
+                <li class="nav-item dropdown">
+                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                        <i class="fa fa-bell-o"></i> <span class="badge badge-pill">3</span>
+                    </a>
+                    <div class="dropdown-menu notifications">
+                        <div class="topnav-dropdown-header">
+                            <span class="notification-title">Notifications</span>
+                            <a href="javascript:void(0)" class="clear-noti"> Clear All </a>
+                        </div>
+                        <div class="noti-content">
+                            <ul class="notification-list">
+                                <li class="notification-message">
+                                    <a href="activities">
+                                        <div class="media">
+                                            <span class="avatar">
+                                                <img alt="" src="/img/profiles/avatar-02.jpg">
+                                            </span>
+                                            <div class="media-body">
+                                                <p class="noti-details"><span class="noti-title">John Doe</span> added new task <span class="noti-title">Patient appointment booking</span></p>
+                                                <p class="noti-time"><span class="notification-time">4 mins ago</span></p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="notification-message">
+                                    <a href="activities">
+                                        <div class="media">
+                                            <span class="avatar">
+                                                <img alt="" src="/img/profiles/avatar-03.jpg">
+                                            </span>
+                                            <div class="media-body">
+                                                <p class="noti-details"><span class="noti-title">Tarah Shropshire</span> changed the task name <span class="noti-title">Appointment booking with payment gateway</span></p>
+                                                <p class="noti-time"><span class="notification-time">6 mins ago</span></p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="notification-message">
+                                    <a href="activities">
+                                        <div class="media">
+                                            <span class="avatar">
+                                                <img alt="" src="/img/profiles/avatar-06.jpg">
+                                            </span>
+                                            <div class="media-body">
+                                                <p class="noti-details"><span class="noti-title">Misty Tison</span> added <span class="noti-title">Domenic Houston</span> and <span class="noti-title">Claire Mapes</span> to project <span class="noti-title">Doctor available module</span></p>
+                                                <p class="noti-time"><span class="notification-time">8 mins ago</span></p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="notification-message">
+                                    <a href="activities">
+                                        <div class="media">
+                                            <span class="avatar">
+                                                <img alt="" src="/img/profiles/avatar-17.jpg">
+                                            </span>
+                                            <div class="media-body">
+                                                <p class="noti-details"><span class="noti-title">Rolland Webber</span> completed task <span class="noti-title">Patient and Doctor video conferencing</span></p>
+                                                <p class="noti-time"><span class="notification-time">12 mins ago</span></p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="notification-message">
+                                    <a href="activities">
+                                        <div class="media">
+                                            <span class="avatar">
+                                                <img alt="" src="/img/profiles/avatar-13.jpg">
+                                            </span>
+                                            <div class="media-body">
+                                                <p class="noti-details"><span class="noti-title">Bernardo Galaviz</span> added new task <span class="noti-title">Private chat module</span></p>
+                                                <p class="noti-time"><span class="notification-time">2 days ago</span></p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="topnav-dropdown-footer">
+                            <a href="activities">View all Notifications</a>
+                        </div>
+                    </div>
+                </li>
+                <!-- /Notifications -->
+                
+                <!-- Message Notifications -->
+                <li class="nav-item dropdown">
+                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                        <i class="fa fa-comment-o"></i> <span class="badge badge-pill">8</span>
+                    </a>
+                    <div class="dropdown-menu notifications">
+                        <div class="topnav-dropdown-header">
+                            <span class="notification-title">Messages</span>
+                            <a href="javascript:void(0)" class="clear-noti"> Clear All </a>
+                        </div>
+                        <div class="noti-content">
+                            <ul class="notification-list">
+                                <li class="notification-message">
+                                    <a href="chat">
+                                        <div class="list-item">
+                                            <div class="list-left">
+                                                <span class="avatar">
+                                                    <img alt="" src="/img/profiles/avatar-09.jpg">
+                                                </span>
+                                            </div>
+                                            <div class="list-body">
+                                                <span class="message-author">Richard Miles </span>
+                                                <span class="message-time">12:28 AM</span>
+                                                <div class="clearfix"></div>
+                                                <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="notification-message">
+                                    <a href="chat">
+                                        <div class="list-item">
+                                            <div class="list-left">
+                                                <span class="avatar">
+                                                    <img alt="" src="/img/profiles/avatar-02.jpg">
+                                                </span>
+                                            </div>
+                                            <div class="list-body">
+                                                <span class="message-author">John Doe</span>
+                                                <span class="message-time">6 Mar</span>
+                                                <div class="clearfix"></div>
+                                                <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="notification-message">
+                                    <a href="chat">
+                                        <div class="list-item">
+                                            <div class="list-left">
+                                                <span class="avatar">
+                                                    <img alt="" src="/img/profiles/avatar-03.jpg">
+                                                </span>
+                                            </div>
+                                            <div class="list-body">
+                                                <span class="message-author"> Tarah Shropshire </span>
+                                                <span class="message-time">5 Mar</span>
+                                                <div class="clearfix"></div>
+                                                <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="notification-message">
+                                    <a href="chat">
+                                        <div class="list-item">
+                                            <div class="list-left">
+                                                <span class="avatar">
+                                                    <img alt="" src="/img/profiles/avatar-05.jpg">
+                                                </span>
+                                            </div>
+                                            <div class="list-body">
+                                                <span class="message-author">Mike Litorus</span>
+                                                <span class="message-time">3 Mar</span>
+                                                <div class="clearfix"></div>
+                                                <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="notification-message">
+                                    <a href="chat">
+                                        <div class="list-item">
+                                            <div class="list-left">
+                                                <span class="avatar">
+                                                    <img alt="" src="/img/profiles/avatar-08.jpg">
+                                                </span>
+                                            </div>
+                                            <div class="list-body">
+                                                <span class="message-author"> Catherine Manseau </span>
+                                                <span class="message-time">27 Feb</span>
+                                                <div class="clearfix"></div>
+                                                <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="topnav-dropdown-footer">
+                            <a href="chat">View all Messages</a>
+                        </div>
+                    </div>
+                </li>
+                <!-- /Message Notifications -->
+
+                <li class="nav-item dropdown has-arrow main-drop">
+                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                        <span class="user-img"><img src="/img/profiles/avatar-21.jpg" alt="">
+                        <span class="status online"></span></span>
+                        <span>{{ Auth::user()->name }}</span>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="profile">My Profile</a>
+                        <a class="dropdown-item" href="settings">Settings</a>
+                        <a class="dropdown-item" href="{{ route('logout') }}"
+                    onclick="event.preventDefault();                                document.getElementById('logout-form').submit();">Logout</a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                        </form>
+                    </div>
+                </li>
+            </ul>
+            <!-- /Header Menu -->
+            
+            <!-- Mobile Menu -->
+            <div class="dropdown mobile-user-menu">
+                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item" href="profile">My Profile</a>
+                    <a class="dropdown-item" href="settings">Settings</a>
+                    <a class="dropdown-item" href="login">Logout</a>
+                </div>
+            </div>
+            <!-- /Mobile Menu -->
+            
+        </div>
+        <!-- /Header -->
+        
+        <div class="sidebar" id="sidebar">
+		<div class="sidebar-inner slimscroll">
+			<div id="sidebar-menu" class="sidebar-menu">
+				<ul>
+					<li class="menu-title"> 
+						<span>Main</span>
+					</li>
+					<li class="">						
+						@if (Auth::user()->role_type == "admin")
+						<a href="{{ url('index') }}"><i class="la la-dashboard"></i><span>Admin Dashboard</span></a>
+						@elseif (Auth::user()->role_type == "manager")
+						<a href="{{ url('index') }}"><i class="la la-dashboard"></i><span>Manager Dashboard</span></a>
+						@else
+						<a href="{{ url('employee-dashboard') }}"><i class="la la-dashboard"></i><span>Employee Dashboard</span></a>
+						@endif								
+						 </a>								 
+					</li>					 
+					<li class="menu-title"> 
+						<span>Employees</span>
+					</li>
+					<li class="submenu">
+						<a href="#" class="noti-dot"><i class="la la-user"></i> <span> Employees</span> <span class="menu-arrow"></span></a>
+						<ul style="display: none;">
+							<li>
+								<a class="{{ Request::is('employees') ? 'active' : '' }}" href="{{ url('employees') }}">All Employees</a>
+							</li>			
+							<li>
+								<a class="{{ Request::is('departments') ? 'active' : '' }}" href="{{ url('departments') }}">Departments</a>
+							</li>	
+							<li>
+								<a class="{{ Request::is('designations') ? 'active' : '' }}" href="{{ url('designations') }}">Designations</a>
+							</li>		
+						</ul>
+					</li>
+					<li class="menu-title"> 
+						<span>Performance</span>
+					</li>
+					<li class="submenu">
+						<a href="#"><i class="la la-graduation-cap"></i> <span> Performance </span> <span class="menu-arrow"></span></a>
+						<ul style="display: none;">
+							<li>
+								<a class="{{ Request::is('performance-indicator') ? 'active' : '' }}" href="{{ url('performance-indicator') }}"> Performance Indicator  </a>
+							</li>
+							<li>
+								<a class="{{ Request::is('performance') ? 'active' : '' }}" href="{{ url('performance') }}"> Performance Review  </a>
+							</li>
+							<li>
+								<a class="{{ Request::is('employees-performance/') ? 'active' : '' }}" href="{{ url('employees-performance') }}"> Employee Performance </a>
+							</li>		
+							<li>
+								<a class="{{ Request::is('performance-appraisal') ? 'active' : '' }}" href="{{ url('performance-appraisal') }}"> Performance Appraisal  </a>
+							</li>
+						</ul>	
+					</li>	
+					<li class="menu-title"> 
+						<span>Administration</span>
+					</li> 
+					<li class="{{ Request::is('settings') ? 'active' : '' }}">
+						<a  href="{{ url('settings') }}"><i class="la la-cog"></i><span>Settings</span>  </a>
+					</li>
+					<li class="menu-title"> 
+						<span>Pages</span>
+					</li>
+					<li class="submenu">
+						<a href="#"><i class="la la-user"></i> <span> Profile </span> <span class="menu-arrow"></span></a>
+						<ul style="display: none;">
+							<li>
+								<a class="{{ Request::is('profile') ? 'active' : '' }}" href="{{ url('profile') }}"> Employee Profile  </a>
+							</li>
+						</ul>
+					</li>
+					<li class="submenu">
+						<a href="#"><i class="la la-key"></i> <span> Authentication </span> <span class="menu-arrow"></span></a>
+						<ul style="display: none;">						
+							<li class="{{ Request::is('forgot-password') ? 'active' : '' }}">
+								<a  href="{{ url('forgot-password') }}"> Forgot Password </a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+            </div>
+        </div>
 	<!-- Page Wrapper -->
     <div class="page-wrapper">
 			
@@ -13,7 +438,7 @@
                             <h3 class="page-title">Performance</h3>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="index">Dashboard</a></li>
-                                <li class="breadcrumb-item active">Performance</li>
+                                <li class="breadcrumb-item active">Edit Performance</li>
                             </ul>
                         </div>
                     </div>
@@ -64,7 +489,8 @@
 												<div class="form-group">
 													<label for="name1"> Manager's Name</label>
 													<input type="text" class="form-control" id="name1" @if (Auth::user()->role_type == "employee")readonly @endif value="@if (Auth::user()->role_type == "manager"){{Auth::user()->name}}@endif">
-												</div>                                      
+												</div>
+												                                         
                                             </td>
                                         </tr>
 									</form>
@@ -83,9 +509,9 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="table-responsive">
-							 <form action="{{ route('add_professionalexcel') }}" method="post">
-                             @csrf
-								
+							 <form action="{{ route('edit_man_professionalExcellence') }}" method="post">
+                             @csrf  
+								 
 								 
                                 <table class="table table-bordered review-table mb-0">
                                     <thead>
@@ -101,7 +527,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    
+                                       
                                         <tr>
                                             <td rowspan="2">1</td>
                                             <td rowspan="2">Production</td>
@@ -109,8 +535,10 @@
                                             <td><input type="text" class="form-control" readonly value="30"></td>
                                             <td><input type="text" class="form-control percentage_employee" name="quality_employee" id="quality_id"value="{{ @$professional->quality_employee }}"  ></td>
                                             <td><input type="text" class="form-control" readonly value="0"></td>
-                                            <td><input type="text" class="form-control percentage_manager" name="quality_manager" id="quality_manager" @if (Auth::user()->role_type == "employee")readonly @endif value="{{ @$val->quality_manager }}"></td>
+                                            <td><input type="text" class="form-control percentage_manager" name="quality_manager" id="quality_manager" @if (Auth::user()->role_type == "employee")readonly @endif value="{{ @$professional->quality_manager }}"></td>
                                             <td><input type="text" class="form-control" readonly value="0"></td>
+                                            <input type="hidden" name="getid" value="@if(isset($professional)){{ $professional->emp_id}}@endif">
+                                            <input type="hidden" name="empid" value="@if(isset($emp_id)){{ $emp_id->id}}@endif">
                                         </tr>
                                         <tr>
                                             <td>TAT (turn around time)</td>
@@ -119,6 +547,7 @@
                                             <td><input type="text" class="form-control" readonly value="0"></td>
                                             <td><input type="text" class="form-control percentage_manager" name="tat_manager" id="tat_manager" @if (Auth::user()->role_type == "employee")readonly @endif value="{{ @$professional->tat_manager }}"></td>
                                             <td><input type="text" class="form-control" readonly value="0"></td>
+                                             
                                         </tr>
                                         <tr>
                                             <td>2</td>
@@ -129,6 +558,7 @@
                                             <td><input type="text" class="form-control" readonly value="0"></td>
                                             <td><input type="text" class="form-control percentage_manager" name="pms_new_ideas_manager" id="pms_new_ideas_manager" @if (Auth::user()->role_type == "employee")readonly @endif value="{{ @$professional->pms_new_ideas_manager }}"></td>
                                             <td><input type="text" class="form-control" readonly value="0"></td>
+                                            
                                         </tr>
                                         <tr>
                                             <td>3</td>
@@ -139,6 +569,7 @@
                                             <td><input type="text" class="form-control" readonly value="0"></td>
                                             <td><input type="text" class="form-control percentage_manager" name="team_productivity_manager" id="team_productivity_manager" @if (Auth::user()->role_type == "employee")readonly @endif value="{{ @$professional->team_productivity_manager }}"></td>
                                             <td><input type="text" class="form-control" readonly value="0"></td>
+                                             
                                         </tr>
                                         <tr>
                                             <td>4</td>
@@ -149,6 +580,7 @@
                                             <td><input type="text" class="form-control" readonly value="0"></td>
                                             <td><input type="text" class="form-control percentage_manager" name="knowledge_sharing_manager" id="knowledge_sharing_manager" @if (Auth::user()->role_type == "employee")readonly @endif value="{{ @$professional->knowledge_sharing_manager }}"></td>
                                             <td><input type="text" class="form-control" readonly value="0"></td>
+                                            
                                         </tr>
                                         <tr>
                                             <td>5</td>
@@ -159,6 +591,7 @@
                                             <td><input type="text" class="form-control" readonly value="0"></td>
                                             <td><input type="text" class="form-control percentage_manager" name="emails_calls_manager" id="emails_calls_manager" @if (Auth::user()->role_type == "employee")readonly @endif value="{{ @$professional->emails_calls_manager }}"></td>
                                             <td><input type="text" class="form-control" readonly value="0"></td>
+                                             
                                         </tr>
                                         <tr>
                                             <td colspan="3" class="text-center">Total </td>
@@ -167,8 +600,9 @@
                                             <td><input type="text" class="form-control" readonly value="0"></td>
                                             <td><input type="text" class="form-control" readonly name="total_percentage_manager" id="total_percentage_manager" value="{{ @$professional->total_percentage_manager }}"></td>
                                             <td><input type="text" class="form-control" readonly value="0"></td>
+                                            
                                         </tr>
-                                       										
+                                        							
                                     </tbody>
                                 </table>	
 								<div class="review-header text-center">
@@ -187,7 +621,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="table-responsive">
-                            <form action="{{ route('add_personalexcel') }}" method="post">
+                            <form action="{{ route('edit_man_PersonalExcellence') }}" method="post">
                              @csrf
                                 <table class="table table-bordered review-table mb-0">
                                     <thead>
@@ -212,6 +646,8 @@
                                             <td><input type="text" class="form-control" readonly value="0"></td>
                                             <td><input type="text" class="form-control" name="plan_leave_manager" id="plan_leave_manager" @if (Auth::user()->role_type == "employee")readonly @endif value="{{ @$personal->plan_leave_manager }}"></td>
                                             <td><input type="text" class="form-control" readonly value="0"></td>
+                                            <input type="hidden" name="getid" value="@if(isset($personal)){{ $personal->emp_id}}@endif">
+                                            <input type="hidden" name="empid" value="@if(isset($emp_id)){{ $emp_id->id}}@endif">
                                         </tr>
                                         <tr>
                                             <td>Time Consciousness</td>
@@ -281,7 +717,7 @@
                                             <td colspan="3" class="text-center"><b>Total Percentage(%)</b></td>
                                             <td></td>
                                             <td colspan="2" class="text-center"><input type="text" class="form-control" name="total_percentage_employee" id="total_percentage_empl" readonly value="{{ @$personal->total_percentage_employee }}"></td>
-                                            <td colspan="2" class="text-center"><input type="text" class="form-control" name="total_percentage_manager" id="total_percentage_man" readonly value="{{ @$personal->total_percentage_manager }}"></td>                                            
+                                            <td colspan="2" class="text-center"><input type="text" class="form-control" name="total_percentage_manager" id="total_percentage_man" readonly value="{{ @$personal->total_percentage_manager }}"></td>
                                         </tr>
                                         <tr>
                                             <td colspan="8" class="text-center">
@@ -314,8 +750,9 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="table-responsive">
-                            <form action="{{ route('add_specialInitiatives') }}" method="post">
+                            <form action="{{ route('edit_man_SpecialInitiatives') }}" method="post">
                              @csrf
+                                
                                 <table class="table table-bordered table-review review-table mb-0" id="table_achievements">
                                     <thead>
                                         <tr>
@@ -326,15 +763,18 @@
                                         </tr>
                                     </thead>
                                     <tbody id="table_achievements_tbody">
+                                        <input type="hidden" name="empid" value="@if(isset($emp_id)){{ $emp_id->id}}@endif">
                                         @php $i = 1; @endphp
                                         @if(!empty($specialInitiatives) && count($specialInitiatives) > 0)
                                         @foreach($specialInitiatives as $val)
                                         <tr>
+                                        <input type="hidden" name="getid" value="@if(isset($specialInitiatives)){{ $val->emp_id}}@endif">
+                                        
                                             <td>{{$i}}</td>
                                             <td><input type="text" class="form-control" name="DynamicTextBoxemp[]" value="{{ $val->by_employee}}"></td>
                                             <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="{{ $val->managers_comment}}"></td>
                                             <td></td>
-                                            <input type="hidden" class="form-control" name="getid[]" value="{{ $val->id}}">
+                                            <input type="hidden" class="form-control" name="getid_arry[]" value="{{ $val->id}}">
                                         </tr>
                                         @php $i++; @endphp
                                         @endforeach  
@@ -365,7 +805,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="table-responsive">
-                            <form action="{{ route('add_commentsRole') }}" method="post">
+                            <form action="{{ route('edit_man_CommentsRole') }}" method="post">
                              @csrf
                              <input class="form-control" value="" name="id" type="hidden" required> 
                                 <table class="table table-bordered table-review review-table mb-0" id="table_alterations">
@@ -378,15 +818,17 @@
                                         </tr>
                                     </thead>
                                     <tbody id="table_alterations_tbody">
+                                        <input type="hidden" name="empid" value="@if(isset($emp_id)){{ $emp_id->id}}@endif">
                                         @php $i = 1; @endphp
                                         @if(!empty($comments_role) && count($comments_role) > 0)
                                         @foreach($comments_role as $val)
                                         <tr>
+                                            <input type="hidden" name="getid" value="@if(isset($comments_role)){{ $val->emp_id}}@endif">
                                             <td>{{$i}}</td>
                                             <td><input type="text" class="form-control" name="DynamicTextBoxemp[]" value="{{ $val->by_employee}}"></td>
                                             <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="{{ $val->managers_comment}}"></td>                                            
                                             <td></td>
-                                            <input type="hidden" class="form-control" name="getid[]" value="{{ $val->id}}">
+                                            <input type="hidden" class="form-control" name="getid_arry[]" value="{{ $val->id}}">
                                         </tr>
                                         @php $i++; @endphp
                                         @endforeach  
@@ -395,8 +837,7 @@
                                             <td>1</td>
                                             <td><input type="text" class="form-control" name="DynamicTextBoxemp[]" value=""></td>
                                             <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value=""></td>
-                                            <td></td>
-                                            
+                                            <td></td>                                            
                                         </tr>
                                         @endif  
                                     </tbody>
@@ -418,11 +859,14 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="table-responsive">
-                            <form action="{{ route('add_additioncommentRole') }}" method="post">
+                            <form action="{{ route('edit_man_AdditionComment') }}" method="post">
                              @csrf
+                             
+                             <input type="hidden" name="empid" value="@if(isset($emp_id)){{ $emp_id->id}}@endif">
                              @php $i = 1; @endphp
                                @foreach($add_comments_id as $val)
-                               <input type="hidden" class="form-control" name="getid[]" value="{{$val->id}}">
+                               <input type="hidden" class="form-control" name="getid_arry[]" value="{{$val->id}}">
+                               <input type="hidden" name="getid" value="@if(isset($add_comments_id)){{ $val->emp_id}}@endif">
                                @php $i++; @endphp
                               @endforeach                              
                                 <table class="table table-bordered review-table mb-0">
@@ -477,11 +921,13 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="table-responsive">
-                                <form action="{{ route('add_appraiseestrength') }}" method="post">
+                                <form action="{{ route('edit_man_AppraiseeStrength') }}" method="post">
                                 @csrf
+                                <input type="hidden" name="empid" value="@if(isset($emp_id)){{ $emp_id->id}}@endif">
                                 @php $i = 1; @endphp
                                 @foreach($add_appraiseest_id as $val)
-                                <input type="hidden" class="form-control" name="getid[]" value="{{$val->id}}">
+                                <input type="hidden" class="form-control" name="getid_arry[]" value="{{$val->id}}">
+                               <input type="hidden" name="getid" value="@if(isset($add_appraiseest_id)){{ $val->emp_id}}@endif">                                 
                                 @php $i++; @endphp
                                 @endforeach      
                                 <table class="table table-bordered review-table mb-0">
@@ -527,11 +973,13 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="table-responsive">
-                                <form action="{{ route('add_personalGoal') }}" method="post">
+                                <form action="{{ route('edit_man_PersonalGoal') }}" method="post">
                                 @csrf
+                                <input type="hidden" name="empid" value="@if(isset($emp_id)){{ $emp_id->id}}@endif">
                                 @php $i = 1; @endphp
                                 @foreach($add_personalgoal_id as $val)
-                                <input type="hidden" class="form-control" name="getid[]" value="{{$val->id}}">
+                                <input type="hidden" class="form-control" name="getid_arry[]" value="{{$val->id}}">
+                               <input type="hidden" name="getid" value="@if(isset($add_personalgoal_id)){{ $val->emp_id}}@endif">
                                 @php $i++; @endphp
                                 @endforeach
                                 <table class="table table-bordered review-table mb-0">
@@ -577,7 +1025,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="table-responsive">
-                            <form action="{{ route('add_professional_achived') }}" method="post">
+                            <form action="{{ route('edit_man_ProfessionalGoalsAchieved') }}" method="post">
                              @csrf
                                 <table class="table table-bordered table-review review-table mb-0" id="table_goals">
                                     <thead>
@@ -589,6 +1037,7 @@
                                         </tr>
                                     </thead>
                                     <tbody id="table_goals_tbody">
+                                        <input type="hidden" name="empid" value="@if(isset($emp_id)){{ $emp_id->id}}@endif">
                                         @php $i = 1; @endphp
                                         @if(!empty($professional_achived) && count($professional_achived) > 0)
                                         @foreach($professional_achived as $val)
@@ -597,7 +1046,8 @@
                                             <td><input type="text" class="form-control" name="DynamicTextBoxemp[]" value="{{ $val->by_employee}}"></td>
                                             <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="{{ $val->managers_comment}}"></td>
                                             <td></td>
-                                            <input type="hidden" class="form-control" name="getid[]" value="{{ $val->id}}">
+                                            <input type="hidden" name="getid" value="@if(isset($professional_achived)){{ $val->emp_id}}@endif">
+                                            <input type="hidden" class="form-control" name="getid_arry[]" value="{{ $val->id}}">
                                         </tr>
                                         @php $i++; @endphp
                                         @endforeach  
@@ -628,7 +1078,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="table-responsive">
-                            <form action="{{ route('add_professional_forthcoming') }}" method="post">
+                            <form action="{{ route('edit_man_ProfessionalGoalsForthcoming') }}" method="post">
                              @csrf
                                 <table class="table table-bordered table-review review-table mb-0" id="table_forthcoming">
                                     <thead>
@@ -640,6 +1090,7 @@
                                         </tr>
                                     </thead>
                                     <tbody id="table_forthcoming_tbody">
+                                        <input type="hidden" name="empid" value="@if(isset($emp_id)){{ $emp_id->id}}@endif">
                                         @php $i = 1; @endphp
                                         @if(!empty($professional_forthcoming) && count($professional_forthcoming) > 0)
                                         @foreach($professional_forthcoming as $val)
@@ -649,6 +1100,8 @@
                                             <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="{{ $val->managers_comment}}"></td>
                                             <td></td>
                                             <input type="hidden" class="form-control" name="getid[]" value="{{ $val->id}}">
+                                            <input type="hidden" name="getid" value="@if(isset($professional_forthcoming)){{ $val->emp_id}}@endif">
+                                            <input type="hidden" class="form-control" name="getid_arry[]" value="{{ $val->id}}">
                                         </tr>
                                         @php $i++; @endphp
                                         @endforeach  
@@ -679,7 +1132,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="table-responsive">
-                            <form action="{{ route('add_training_requirements') }}" method="post">
+                            <form action="{{ route('edit_man_TrainingRequirements') }}" method="post">
                              @csrf
                                 <table class="table table-bordered table-review review-table mb-0" id="table_targets">
                                     <thead>
@@ -691,6 +1144,7 @@
                                         </tr>
                                     </thead>
                                     <tbody id="table_targets_tbody">
+                                        <input type="hidden" name="empid" value="@if(isset($emp_id)){{ $emp_id->id}}@endif">
                                         @php $i = 1; @endphp
                                         @if(!empty($training_requirements) && count($training_requirements) > 0)
                                         @foreach($training_requirements as $val)
@@ -699,7 +1153,8 @@
                                             <td><input type="text" class="form-control" name="DynamicTextBoxemp[]" value="{{ $val->by_employee}}"></td>
                                             <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="{{ $val->managers_comment}}"></td>
                                             <td></td>
-                                            <input type="hidden" class="form-control" name="getid[]" value="{{ $val->id}}">
+                                            <input type="hidden" class="form-control" name="getid_arry[]" value="{{ $val->id}}">
+                                            <input type="hidden" name="getid" value="@if(isset($training_requirements)){{ $val->emp_id}}@endif">
                                         </tr>
                                         @php $i++; @endphp
                                         @endforeach  
@@ -730,7 +1185,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="table-responsive">
-                            <form action="{{ route('add_general_comment') }}" method="post">
+                            <form action="{{ route('edit_man_OtherGeneralComment') }}" method="post">
                              @csrf
                                 <table class="table table-bordered table-review review-table mb-0" id="general_comments">
                                     <thead>
@@ -742,6 +1197,7 @@
                                         </tr>
                                     </thead>
                                     <tbody id="general_comments_tbody" >
+                                        <input type="hidden" name="empid" value="@if(isset($emp_id)){{ $emp_id->id}}@endif">
                                         @php $i = 1; @endphp
                                         @if(!empty($general_comment) && count($general_comment) > 0)
                                         @foreach($general_comment as $val)
@@ -750,7 +1206,8 @@
                                             <td><input type="text" class="form-control" name="DynamicTextBoxemp[]" value="{{ $val->employee_comments}}"></td>
                                             <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="{{ $val->managers_comments}}"></td>
                                            <td></td>
-                                           <input type="hidden" class="form-control" name="getid[]" value="{{ $val->id}}">
+                                           <input type="hidden" name="getid" value="@if(isset($general_comment)){{ $val->emp_id}}@endif">
+                                           <input type="hidden" class="form-control" name="getid_arry[]" value="{{ $val->id}}">
                                         </tr>
                                         @php $i++; @endphp
                                         @endforeach  
@@ -781,11 +1238,13 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="table-responsive">
-                            <form action="{{ route('add_perfomancemanageruse') }}" method="post">
+                            <form action="{{ route('edit_man_PerfomanceManagerUse') }}" method="post">
                              @csrf
+                             <input type="hidden" name="empid" value="@if(isset($emp_id)){{ $emp_id->id}}@endif">
                              @php $i = 1; @endphp
-                               @foreach($add_manager_id as $val)
-                               <input type="hidden" class="form-control" name="getid[]" value="{{$val->id}}">
+                               @foreach($perfomancemanageruse as $val)
+                               <input type="hidden" class="form-control" name="getid_arry[]" value="{{$val->id}}">
+                               <input type="hidden" name="getid" value="@if(isset($perfomancemanageruse)){{ $val->emp_id}}@endif">
                                @php $i++; @endphp
                               @endforeach 
                                 <table class="table table-bordered review-table mb-0">
@@ -883,11 +1342,13 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="table-responsive">
-                        <form action="{{ route('add_perfomanceIdentitie') }}" method="post">
+                        <form action="{{ route('edit_manPerformanceIdentity') }}" method="post">
                             @csrf
+                            <input type="hidden" name="empid" value="@if(isset($emp_id)){{ $emp_id->id}}@endif">
                             @php $i = 1; @endphp
                                @foreach($add_perfoIdent as $val)
-                               <input type="hidden" class="form-control" name="getid[]" value="{{$val->id}}">
+                               <input type="hidden" class="form-control" name="getid_arry[]" value="{{$val->id}}">
+                               <input type="hidden" name="getid" value="@if(isset($add_perfoIdent)){{ $val->emp_id}}@endif">
                                @php $i++; @endphp
                               @endforeach 
                             <table class="table table-bordered review-table mb-0">
@@ -905,20 +1366,20 @@
                                         <input type="hidden" name="user_role[]" value="Employee">
                                         <td><input type="text" class="form-control" name="name[]" value="@if(isset($add_perfoIdent[0])){{$add_perfoIdent[0]['name']}} @endif"></td>
                                         <td><input type="text" class="form-control" name="signature[]" value="@if(isset($add_perfoIdent[0])){{$add_perfoIdent[0]['signature']}} @endif"></td>
-                                        <td><div class="cal-icon"><input type="text" class="form-control " name="date[]" value="@if(isset($add_perfoIdent[0])){{$add_perfoIdent[0]['date']}} @endif"></div></td>
+                                        <td><div class="cal-icon"><input type="text" class="form-control datetimepicker" name="date[]" value="@if(isset($add_perfoIdent[0])){{$add_perfoIdent[0]['date']}} @endif"></div></td>
                                     </tr>
                                     <tr>
                                         <td>Manager</td>
                                         <input type="hidden" name="user_role[]" value="Manager">
                                         <td><input type="text" class="form-control" name="name[]" value="@if(isset($add_perfoIdent[1])){{$add_perfoIdent[1]['name']}} @endif"></td>
                                         <td><input type="text" class="form-control" name="signature[]" value="@if(isset($add_perfoIdent[1])){{$add_perfoIdent[1]['signature']}} @endif"></td>
-                                        <td><div class="cal-icon"><input type="text" class="form-control" name="date[]" value="@if(isset($add_perfoIdent[1])){{$add_perfoIdent[1]['date']}} @endif"></div></td>
+                                        <td><div class="cal-icon"><input type="text" class="form-control datetimepicker" name="date[]" value="@if(isset($add_perfoIdent[1])){{$add_perfoIdent[1]['date']}} @endif"></div></td>
                                     </tr>
                                      
                                 </tbody>
                             </table>
                             <div class="review-header text-center">
-									<button type="submit" name="email_setting_submit" class="btn btn-primary submit-btn">Save &amp; update</button>
+									<button type="submit" class="btn btn-primary submit-btn">Save &amp; update</button>
 								</div>
                             </form>
                         </div>
@@ -930,5 +1391,14 @@
             
         </div>
         <!-- /Page Wrapper -->
-@endsection
+        </div>
+		<!-- /Main Wrapper -->
+		
+		<!-- jQuery -->
+         
+		 
+		 
+		 
+    </body>
+</html>
  

@@ -31,7 +31,7 @@
 	
 		<div class="main-wrapper">
 			<div class="account-content">
-				<a href="job-list" class="btn btn-primary apply-btn">Apply Job</a>
+				 
 				<div class="container">
 				
 					<!-- Account Logo -->
@@ -49,7 +49,7 @@
 							<form action="{{ route('register') }}" method="post">
 								@csrf
 								<div class="form-group">
-									<label>Name</label>
+									<label>Name</label>									 
 									<input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
 									
 									@error('name')
@@ -87,6 +87,7 @@
 									<select class="form-control" id="role_type" name="role_type" required>
 										<option value>Role</option>
 										<option value="admin">Admin</option>
+										<option value="manager">Manager</option>
 										<option value="employee">Employee</option>
 									</select>
 								</div>

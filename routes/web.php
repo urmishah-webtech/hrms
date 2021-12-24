@@ -529,19 +529,56 @@ Route::post('change_apstatus','AppraisalController@change_appraisal_status')->na
 Route::get('/notifications-settings','NotificationsettController@notificationsetting');
 Route::post('changeNotificationAccess','NotificationsettController@changeNotificationAccess')->name('chg_Notifi');
 
-
-
-Route::get('/employees-performance', function () {
-    return view('employees-performance');
-});
+Route::get('/performance','PerfomanceController@Perfomance_emp')->name('perfomanceemp');
 
 Route::get('/employee-dashboard','HomeController@index')->name('emp.home');
 Route::get('/index', 'HomeController@adminHome')->name('index')->middleware('is_admin');
 Route::get('/home', 'HomeController@index')->name('home');
 
- 
- 
- 
+Route::get('/performance','ProfessionalExcellenceController@ProfessionalExcellence')->name('professionals');
+Route::post('add_professionalexcel','ProfessionalExcellenceController@add_ProfessionalExcellence')->name('add_professionalexcel');
+
+Route::post('add_personalexcel','PersonalExcellencesController@add_PersonalExcellence')->name('add_personalexcel');
+
+Route::post('add_specialInitiatives','SpecialInitiativesController@store_SpecialInitiatives')->name('add_specialInitiatives');
+Route::post('add_commentsRole','CommentsRolesController@store_CommentsRole')->name('add_commentsRole');
+Route::post('add_additioncommentRole','AdditionCommentRoleController@store_AdditionCommentRole')->name('add_additioncommentRole');
+Route::post('add_appraiseestrength','AppraiseeStrengthsController@store_AppraiseeStrength')->name('add_appraiseestrength');  
+Route::post('add_personalGoal','PersonalGoalController@store_PersonalGoal')->name('add_personalGoal'); 
+Route::post('add_professional_achived','ProfessionalGoalsAchievedController@store_ProfessionalGoalsAchieved')->name('add_professional_achived');  
+Route::post('add_professional_forthcoming','ProfessionalGoalsForthcomingController@store_ProfessionalGoalsForthcoming')->name('add_professional_forthcoming'); 
+Route::post('add_training_requirements','TrainingRequirementsController@store_TrainingRequirements')->name('add_training_requirements'); 
+Route::post('add_general_comment','OtherGeneralCommentController@store_OtherGeneralComment')->name('add_general_comment'); 
+Route::post('add_perfomancemanageruse','PerfomanceManagerUseController@store_PerfomanceManagerUse')->name('add_perfomancemanageruse'); 
+Route::post('add_perfomanceIdentitie','PerformanceIdentitiesController@store_PerformanceIdentity')->name('add_perfomanceIdentitie');
+
+Route::get('/employees-performance','EmployeePerformanceController@get_employees')->name('employees_perfomance');
+Route::get('/edit-performance/{id}','EmployeePerformanceController@edit_employees')->name('employees_per'); 
+Route::post('/edit_man_professionalExcellence','EmployeePerformanceController@add_manager_ProfessionalExcellence')->name('edit_man_professionalExcellence');
+Route::post('/edit_man_PersonalExcellence','EmployeePerformanceController@add_manager_PersonalExcellence')->name('edit_man_PersonalExcellence');
+Route::post('/edit_man_SpecialInitiatives','EmployeePerformanceController@add_manager_SpecialInitiatives')->name('edit_man_SpecialInitiatives');
+Route::post('/edit_man_CommentsRole','EmployeePerformanceController@add_manager_CommentsRole')->name('edit_man_CommentsRole');
+Route::post('/edit_man_AdditionComment','EmployeePerformanceController@add_manager_AdditionCommentRole')->name('edit_man_AdditionComment');
+Route::post('/edit_man_AppraiseeStrength','EmployeePerformanceController@add_manager_AppraiseeStrength')->name('edit_man_AppraiseeStrength');
+Route::post('/edit_man_PersonalGoal','EmployeePerformanceController@add_manager_PersonalGoal')->name('edit_man_PersonalGoal');
+Route::post('/edit_man_ProfessionalGoalsAchieved','EmployeePerformanceController@add_manager_ProfessionalGoalsAchieved')->name('edit_man_ProfessionalGoalsAchieved');
+Route::post('/edit_man_ProfessionalGoalsForthcoming','EmployeePerformanceController@add_manager_ProfessionalGoalsForthcoming')->name('edit_man_ProfessionalGoalsForthcoming');
+Route::post('/edit_man_TrainingRequirements','EmployeePerformanceController@add_manager_TrainingRequirements')->name('edit_man_TrainingRequirements');
+Route::post('/edit_man_OtherGeneralComment','EmployeePerformanceController@add_manager_OtherGeneralComment')->name('edit_man_OtherGeneralComment');
+Route::post('/edit_man_PerfomanceManagerUse','EmployeePerformanceController@add_manager_PerfomanceManagerUse')->name('edit_man_PerfomanceManagerUse');
+Route::post('/edit_manPerformanceIdentity','EmployeePerformanceController@add_manager_PerformanceIdentity')->name('edit_manPerformanceIdentity');
+Route::post('search_employee_perfomance','EmployeePerformanceController@search_employee_Perfomance')->name('search_employee_perfomance');
+
+
+
+
+
+
+
+
+
+
+
 
 });
 Route::namespace('Auth')->group(function(){
