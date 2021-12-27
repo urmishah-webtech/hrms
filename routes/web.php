@@ -551,18 +551,18 @@ Route::post('add_training_requirements','TrainingRequirementsController@store_Tr
 Route::post('add_general_comment','OtherGeneralCommentController@store_OtherGeneralComment')->name('add_general_comment'); 
 Route::post('add_perfomancemanageruse','PerfomanceManagerUseController@store_PerfomanceManagerUse')->name('add_perfomancemanageruse'); 
 Route::post('add_perfomanceIdentitie','PerformanceIdentitiesController@store_PerformanceIdentity')->name('add_perfomanceIdentitie');
-<<<<<<< HEAD
+ 
  
 Route::get('/employees-performance','EmployeePerformanceController@get_employees')->name('employees_perfomance')->middleware('isemployeepermission');
 Route::get('/edit-performance/{id}','EmployeePerformanceController@edit_employees')->name('employees_per')->middleware('isemployeepermission'); 
  
  
  
-=======
+ 
 
 Route::get('/employees-performance','EmployeePerformanceController@get_employees')->name('employees_perfomance');
 Route::get('edit-performance/{id}','EmployeePerformanceController@edit_employees')->name('employees_per'); 
->>>>>>> bd0a784c2864dc02223743f88903100430cecb85
+ 
 Route::post('/edit_man_professionalExcellence','EmployeePerformanceController@add_manager_ProfessionalExcellence')->name('edit_man_professionalExcellence');
 Route::post('/edit_man_PersonalExcellence','EmployeePerformanceController@add_manager_PersonalExcellence')->name('edit_man_PersonalExcellence');
 Route::post('/edit_man_SpecialInitiatives','EmployeePerformanceController@add_manager_SpecialInitiatives')->name('edit_man_SpecialInitiatives');
