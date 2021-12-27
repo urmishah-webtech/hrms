@@ -54,7 +54,7 @@ class EmployeePerformanceController extends Controller
         $add_perfoIdent=PerformanceIdentity::where('emp_id', $id)->get(); 
       
 		 
-		return view('edit-performance',compact('emp_id','professional','emps','personal','specialInitiatives','comments_role','add_comments','add_comments_id','add_appraiseest','add_appraiseest_id','add_personalgoal','add_personalgoal_id','professional_achived','professional_forthcoming','training_requirements','general_comment','perfomancemanageruse','add_perfoIdent'));
+		return view('/edit-performance',compact('emp_id','professional','emps','personal','specialInitiatives','comments_role','add_comments','add_comments_id','add_appraiseest','add_appraiseest_id','add_personalgoal','add_personalgoal_id','professional_achived','professional_forthcoming','training_requirements','general_comment','perfomancemanageruse','add_perfoIdent'));
 	}
     public function add_manager_ProfessionalExcellence(Request $request){
         $userd = Auth::user()->id;  
