@@ -593,7 +593,7 @@ Route::post('search_employee_perfomance','EmployeePerformanceController@search_e
 Route::namespace('Auth')->group(function(){
         
     //Login Routes
-    Route::get('/login','LoginController@showLoginForm')->name('login');
+    Route::get('/login','LoginController@showLoginForm')->name('login');	 
     Route::post('/login','LoginController@login');
     Route::post('/logout','LoginController@logout')->name('logout');
 

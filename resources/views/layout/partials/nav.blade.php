@@ -42,12 +42,16 @@
 							<li>
 								<a class="{{ Request::is('performance-indicator') ? 'active' : '' }}" href="{{ url('performance-indicator') }}"> Performance Indicator  </a>
 							</li>
+							@if (Auth::user()->role_type == "employee")	
 							<li>
 								<a class="{{ Request::is('performance') ? 'active' : '' }}" href="{{ url('performance') }}"> Performance Review  </a>
 							</li>
+							@endif	
+							@if (Auth::user()->role_type == "admin" || Auth::user()->role_type == "manager")
 							<li>
 								<a class="{{ Request::is('employees-performance') ? 'active' : '' }}" href="{{ url('employees-performance') }}"> Employee Performance </a>
-							</li>		
+							</li>	
+							@endif								
 							<li>
 								<a class="{{ Request::is('performance-appraisal') ? 'active' : '' }}" href="{{ url('performance-appraisal') }}"> Performance Appraisal  </a>
 							</li>

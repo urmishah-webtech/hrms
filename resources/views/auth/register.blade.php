@@ -1,3 +1,4 @@
+<?php use App\Role;?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -85,10 +86,13 @@
 								<div class="form-group">
 									<label>Select Role</label>									
 									<select class="form-control" id="role_type" name="role_type" required>
-										<option value>Role</option>
-										<option value="admin">Admin</option>
-										<option value="manager">Manager</option>
-										<option value="employee">Employee</option>
+										<option value="">Select Role</option>
+										@php $role_name = Role::get(); @endphp
+										@isset($role_name)
+                                        @foreach ($role_name as $item)
+										<option value="{{ $item->id }}">{{ $item->name }}</option> 
+										@endforeach
+                                        @endisset
 									</select>
 								</div>
 								<input type="hidden" name="_token" value="{{csrf_token()}}"> 
