@@ -1,53 +1,53 @@
 <!-- jQuery -->
-<script src="/js/jquery-3.5.1.min.js"></script>
+<script src="{{ URL::asset('js/jquery-3.5.1.min.js') }}"></script>
 		
 		<!-- Bootstrap Core JS -->
-        <script src="/js/popper.min.js"></script>
-        <script src="/js/bootstrap.min.js"></script>
+        <script src="{{ URL::asset('js/popper.min.js') }}"></script>
+        <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
 		
 		<!-- Slimscroll JS -->
-		<script src="/js/jquery.slimscroll.min.js"></script>
+		<script src="{{ URL::asset('js/jquery.slimscroll.min.js') }}"></script>
 		@if(Route::is(['jobs-dashboard','user-dashboard']))
 		<!-- Chart JS -->
-		<script src="/js/Chart.min.js"></script>
-		<script src="/js/line-chart.js"></script>
+		<script src="{{ URL::asset('js/Chart.min.js') }}"></script>
+		<script src="{{ URL::asset('js/line-chart.js') }}"></script>
 		@endif
 		<!-- Select2 JS -->
-		<script src="/js/select2.min.js"></script>
+		<script src="{{ URL::asset('js/select2.min.js') }}"></script>
 
-		<script src="/js/jquery-ui.min.js"></script>
-		<script src="/js/jquery.ui.touch-punch.min.js"></script>
+		<script src="{{ URL::asset('js/jquery-ui.min.js') }}"></script>
+		<script src="{{ URL::asset('js/jquery.ui.touch-punch.min.js') }}"></script>
 		
 		<!-- Datetimepicker JS -->
-		<script src="/js/moment.min.js"></script>
-		<script src="/js/bootstrap-datetimepicker.min.js"></script>
+		<script src="{{ URL::asset('js/moment.min.js') }}"></script>
+		<script src="{{ URL::asset('js/bootstrap-datetimepicker.min.js') }}"></script>
 		
 		<!-- Calendar JS -->
-		<script src="/js/jquery-ui.min.js"></script>
-        <script src="/js/fullcalendar.min.js"></script>
-        <script src="/js/jquery.fullcalendar.js"></script>
+		<script src="{{ URL::asset('js/jquery-ui.min.js') }}"></script>
+        <script src="{{ URL::asset('js/fullcalendar.min.js') }}"></script>
+        <script src="{{ URL::asset('js/jquery.fullcalendar.js') }}"></script>
 
 		<!-- Multiselect JS -->
-		<script src="/js/multiselect.min.js"></script>
+		<script src="{{ URL::asset('js/multiselect.min.js') }}"></script>
 
 		<!-- Datatable JS -->
-		<script src="/js/jquery.dataTables.min.js"></script>
-		<script src="/js/dataTables.bootstrap4.min.js"></script>
+		<script src="{{ URL::asset('js/jquery.dataTables.min.js') }}"></script>
+		<script src="{{ URL::asset('js/dataTables.bootstrap4.min.js') }}"></script>
 
 		<!-- Summernote JS -->
-		<script src="/plugins/summernote/dist/summernote-bs4.min.js"></script>
+		<script src="{{ URL::asset('plugins/summernote/dist/summernote-bs4.min.js') }}"></script>
 		
 			
-		<script src="/plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
+		<script src="{{ URL::asset('plugins/sticky-kit-master/dist/sticky-kit.min.js') }}"></script>
 
 		<!-- Task JS -->
-		<script src="/js/task.js"></script>
+		<script src="{{ URL::asset('js/task.js') }}"></script>
 
 		<!-- Dropfiles JS
 		<script src="js/dropfiles.js"></script> -->
 
 		<!-- Custom JS -->
-		<script src="/js/app.js"></script>
+		<script src="{{ URL::asset('js/app.js') }}"></script>
 		<script>
 		 $(document).ready(function(){
 

@@ -10,42 +10,42 @@
         <title>Dashboard - HRMS admin template</title>
 		
 		<!-- Favicon -->
-        <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.png">
+        <link rel="shortcut icon" type="image/x-icon" href="{{ URL::asset('img/favicon.png') }}">
 		
 		<!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="/css/bootstrap.min.css">
+        <link rel="stylesheet" href="{{ URL::asset('css/bootstrap.min.css') }}">
 		
 		<!-- Fontawesome CSS -->
-        <link rel="stylesheet" href="/css/font-awesome.min.css">
+        <link rel="stylesheet" href="{{ URL::asset('css/font-awesome.min.css') }}">
 		
 		<!-- Lineawesome CSS -->
-        <link rel="stylesheet" href="/css/line-awesome.min.css">
-		<link rel="stylesheet" href="/css/select2.min.css">
+        <link rel="stylesheet" href="{{ URL::asset('css/line-awesome.min.css') }}">
+		<link rel="stylesheet" href="{{ URL::asset('css/select2.min.css') }}">
 		
 		<!-- Datetimepicker CSS -->
-		<link rel="stylesheet" href="/css/bootstrap-datetimepicker.min.css">
+		<link rel="stylesheet" href="{{ URL::asset('css/bootstrap-datetimepicker.min.css') }}">
 		
 		<!-- Calendar CSS -->
-		<link rel="stylesheet" href="/css/fullcalendar.min.css">
+		<link rel="stylesheet" href="{{ URL::asset('css/fullcalendar.min.css') }}">
 
         <!-- Tagsinput CSS -->
-		<link rel="stylesheet" href="/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css">
+		<link rel="stylesheet" href="{{ URL::asset('plugins/bootstrap-tagsinput/bootstrap-tagsinput.css') }}">
 
 		<!-- Datatable CSS -->
-		<link rel="stylesheet" href="/css/dataTables.bootstrap4.min.css">
+		<link rel="stylesheet" href="{{ URL::asset('css/dataTables.bootstrap4.min.css') }}">
          
 		<!-- Summernote CSS -->
-		<link rel="stylesheet" href="/plugins/summernote/dist/summernote-bs4.css">
+		<link rel="stylesheet" href="{{ URL::asset('plugins/summernote/dist/summernote-bs4.css') }}">
 		<!-- Chart CSS -->
-		<link rel="stylesheet" href="/plugins/morris/morris.css">
+		<link rel="stylesheet" href="{{ URL::asset('plugins/morris/morris.css') }}">
 		
 		<!-- Main CSS -->
-        <link rel="stylesheet" href="/css/style.css">
+        <link rel="stylesheet" href="{{ URL::asset('css/style.css') }}">
        
     </head>	
 <body>
+@include('layout.partials.footer-scripts') 
  
-@include('layout.partials.footer-scripts')
     <!-- Main Wrapper -->
     <div class="main-wrapper">
     
@@ -55,7 +55,7 @@
             <!-- Logo -->
             <div class="header-left">
                 <a href="index" class="logo">
-                    <img src="/img/logo.png" width="40" height="40" alt="">
+                    <img src="{{ URL::asset('img/logo.png') }}" width="40" height="40" alt="">
                 </a>
             </div>
             <!-- /Logo -->
@@ -96,20 +96,20 @@
                 <!-- Flag -->
                 <li class="nav-item dropdown has-arrow flag-nav">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button">
-                        <img src="/img/flags/us.png" alt="" height="20"> <span>English</span>
+                        <img src="../img/flags/us.png" alt="" height="20"> <span>English</span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
                         <a href="javascript:void(0);" class="dropdown-item">
-                            <img src="/img/flags/us.png" alt="" height="16"> English
+                            <img src="../img/flags/us.png" alt="" height="16"> English
                         </a>
                         <a href="javascript:void(0);" class="dropdown-item">
-                            <img src="/img/flags/fr.png" alt="" height="16"> French
+                            <img src="../img/flags/fr.png" alt="" height="16"> French
                         </a>
                         <a href="javascript:void(0);" class="dropdown-item">
-                            <img src="/img/flags/es.png" alt="" height="16"> Spanish
+                            <img src="../img/flags/es.png" alt="" height="16"> Spanish
                         </a>
                         <a href="javascript:void(0);" class="dropdown-item">
-                            <img src="/img/flags/de.png" alt="" height="16"> German
+                            <img src="../img/flags/de.png" alt="" height="16"> German
                         </a>
                     </div>
                 </li>
@@ -131,7 +131,7 @@
                                     <a href="activities">
                                         <div class="media">
                                             <span class="avatar">
-                                                <img alt="" src="/img/profiles/avatar-02.jpg">
+                                                <img alt="" src="{{ URL::asset('img/profiles/avatar-02.jpg') }}">
                                             </span>
                                             <div class="media-body">
                                                 <p class="noti-details"><span class="noti-title">John Doe</span> added new task <span class="noti-title">Patient appointment booking</span></p>
@@ -144,7 +144,7 @@
                                     <a href="activities">
                                         <div class="media">
                                             <span class="avatar">
-                                                <img alt="" src="/img/profiles/avatar-03.jpg">
+                                                <img alt="" src="{{ URL::asset('img/profiles/avatar-03.jpg') }}">
                                             </span>
                                             <div class="media-body">
                                                 <p class="noti-details"><span class="noti-title">Tarah Shropshire</span> changed the task name <span class="noti-title">Appointment booking with payment gateway</span></p>
@@ -157,7 +157,7 @@
                                     <a href="activities">
                                         <div class="media">
                                             <span class="avatar">
-                                                <img alt="" src="/img/profiles/avatar-06.jpg">
+                                                <img alt="" src="{{ URL::asset('img/profiles/avatar-06.jpg') }}">
                                             </span>
                                             <div class="media-body">
                                                 <p class="noti-details"><span class="noti-title">Misty Tison</span> added <span class="noti-title">Domenic Houston</span> and <span class="noti-title">Claire Mapes</span> to project <span class="noti-title">Doctor available module</span></p>
@@ -170,7 +170,7 @@
                                     <a href="activities">
                                         <div class="media">
                                             <span class="avatar">
-                                                <img alt="" src="/img/profiles/avatar-17.jpg">
+                                                <img alt="" src="{{ URL::asset('img/profiles/avatar-17.jpg') }}">
                                             </span>
                                             <div class="media-body">
                                                 <p class="noti-details"><span class="noti-title">Rolland Webber</span> completed task <span class="noti-title">Patient and Doctor video conferencing</span></p>
@@ -183,7 +183,7 @@
                                     <a href="activities">
                                         <div class="media">
                                             <span class="avatar">
-                                                <img alt="" src="/img/profiles/avatar-13.jpg">
+                                                <img alt="" src="{{ URL::asset('img/profiles/avatar-13.jpg') }}">
                                             </span>
                                             <div class="media-body">
                                                 <p class="noti-details"><span class="noti-title">Bernardo Galaviz</span> added new task <span class="noti-title">Private chat module</span></p>
@@ -218,7 +218,7 @@
                                         <div class="list-item">
                                             <div class="list-left">
                                                 <span class="avatar">
-                                                    <img alt="" src="/img/profiles/avatar-09.jpg">
+                                                    <img alt="" src="{{ URL::asset('img/profiles/avatar-09.jpg') }}">
                                                 </span>
                                             </div>
                                             <div class="list-body">
@@ -235,7 +235,7 @@
                                         <div class="list-item">
                                             <div class="list-left">
                                                 <span class="avatar">
-                                                    <img alt="" src="/img/profiles/avatar-02.jpg">
+                                                    <img alt="" src="{{ URL::asset('img/profiles/avatar-02.jpg') }}">
                                                 </span>
                                             </div>
                                             <div class="list-body">
@@ -252,7 +252,7 @@
                                         <div class="list-item">
                                             <div class="list-left">
                                                 <span class="avatar">
-                                                    <img alt="" src="/img/profiles/avatar-03.jpg">
+                                                    <img alt="" src="{{ URL::asset('img/profiles/avatar-03.jpg') }}">
                                                 </span>
                                             </div>
                                             <div class="list-body">
@@ -269,7 +269,7 @@
                                         <div class="list-item">
                                             <div class="list-left">
                                                 <span class="avatar">
-                                                    <img alt="" src="/img/profiles/avatar-05.jpg">
+                                                    <img alt="" src="{{ URL::asset('img/profiles/avatar-05.jpg') }}">
                                                 </span>
                                             </div>
                                             <div class="list-body">
@@ -286,7 +286,7 @@
                                         <div class="list-item">
                                             <div class="list-left">
                                                 <span class="avatar">
-                                                    <img alt="" src="/img/profiles/avatar-08.jpg">
+                                                    <img alt="" src="{{ URL::asset('img/profiles/avatar-08.jpg') }}">
                                                 </span>
                                             </div>
                                             <div class="list-body">
@@ -309,7 +309,7 @@
 
                 <li class="nav-item dropdown has-arrow main-drop">
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                        <span class="user-img"><img src="/img/profiles/avatar-21.jpg" alt="">
+                        <span class="user-img"><img src="{{ URL::asset('img/profiles/avatar-21.jpg') }}" alt="">
                         <span class="status online"></span></span>
                         <span>{{ Auth::user()->name }}</span>
                     </a>
@@ -1395,7 +1395,24 @@
 		<!-- /Main Wrapper -->
 		
 		<!-- jQuery -->
-         
+         	 
+       
+
+		<!-- Bootstrap Core JS -->
+        <script src="{{ URL::asset('js/popper.min.js') }}"></script>
+        <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
+
+		<!-- Slimscroll JS -->
+		<script src="{{ URL::asset('js/jquery.slimscroll.min.js') }}"></script>
+		
+		<!-- Select2 JS -->
+		<script src="{{ URL::asset('js/select2.min.js') }}"></script>
+
+		<!-- Custom JS -->
+		 
+		
+    </body>
+</html>     
 		 
 		 
 		 

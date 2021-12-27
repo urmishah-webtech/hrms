@@ -553,7 +553,7 @@ Route::post('add_perfomancemanageruse','PerfomanceManagerUseController@store_Per
 Route::post('add_perfomanceIdentitie','PerformanceIdentitiesController@store_PerformanceIdentity')->name('add_perfomanceIdentitie');
 
 Route::get('/employees-performance','EmployeePerformanceController@get_employees')->name('employees_perfomance');
-Route::get('/edit-performance/{id}','EmployeePerformanceController@edit_employees')->name('employees_per'); 
+Route::get('edit-performance/{id}','EmployeePerformanceController@edit_employees')->name('employees_per'); 
 Route::post('/edit_man_professionalExcellence','EmployeePerformanceController@add_manager_ProfessionalExcellence')->name('edit_man_professionalExcellence');
 Route::post('/edit_man_PersonalExcellence','EmployeePerformanceController@add_manager_PersonalExcellence')->name('edit_man_PersonalExcellence');
 Route::post('/edit_man_SpecialInitiatives','EmployeePerformanceController@add_manager_SpecialInitiatives')->name('edit_man_SpecialInitiatives');
