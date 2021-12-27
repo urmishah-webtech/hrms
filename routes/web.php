@@ -533,7 +533,7 @@ Route::get('/performance','PerfomanceController@Perfomance_emp')->name('perfoman
 
 Route::get('/employee-dashboard','HomeController@index')->name('emp.home');
 Route::get('/index', 'HomeController@adminHome')->name('index')->middleware('is_admin');
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@HomepageUrl')->name('home');
 
 Route::get('/performance','ProfessionalExcellenceController@ProfessionalExcellence')->name('professionals');
 Route::post('add_professionalexcel','ProfessionalExcellenceController@add_ProfessionalExcellence')->name('add_professionalexcel');
@@ -551,9 +551,12 @@ Route::post('add_training_requirements','TrainingRequirementsController@store_Tr
 Route::post('add_general_comment','OtherGeneralCommentController@store_OtherGeneralComment')->name('add_general_comment'); 
 Route::post('add_perfomancemanageruse','PerfomanceManagerUseController@store_PerfomanceManagerUse')->name('add_perfomancemanageruse'); 
 Route::post('add_perfomanceIdentitie','PerformanceIdentitiesController@store_PerformanceIdentity')->name('add_perfomanceIdentitie');
-
-Route::get('/employees-performance','EmployeePerformanceController@get_employees')->name('employees_perfomance');
-Route::get('/edit-performance/{id}','EmployeePerformanceController@edit_employees')->name('employees_per'); 
+ 
+Route::get('/employees-performance','EmployeePerformanceController@get_employees')->name('employees_perfomance')->middleware('isemployeepermission');
+Route::get('/edit-performance/{id}','EmployeePerformanceController@edit_employees')->name('employees_per')->middleware('isemployeepermission'); 
+ 
+ 
+ 
 Route::post('/edit_man_professionalExcellence','EmployeePerformanceController@add_manager_ProfessionalExcellence')->name('edit_man_professionalExcellence');
 Route::post('/edit_man_PersonalExcellence','EmployeePerformanceController@add_manager_PersonalExcellence')->name('edit_man_PersonalExcellence');
 Route::post('/edit_man_SpecialInitiatives','EmployeePerformanceController@add_manager_SpecialInitiatives')->name('edit_man_SpecialInitiatives');

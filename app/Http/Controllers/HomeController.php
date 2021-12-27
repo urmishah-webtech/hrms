@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
- 
+use Auth;
 class HomeController extends Controller
 {
     /**
@@ -28,5 +28,16 @@ class HomeController extends Controller
 	public function adminHome()
     {
         return view('index');
+    }
+	public function HomepageUrl()
+    {
+        if (Auth::user()->role_type == "admin" || Auth::user()->role_type == "manager")
+		{	 
+			 return view('index');
+		}
+		else 
+		{	  
+			return view('employee-dashboard');	 				 
+		}		 
     }
 }

@@ -3,12 +3,8 @@
 namespace App\Http\Middleware;
 
 use Closure;
- 
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Http\Response;
-use Illuminate\Http\Request;
-//use Redirect;
-class AuthCheck
+class EditEmployeePermission
 {
     /**
      * Handle an incoming request.
@@ -18,15 +14,15 @@ class AuthCheck
      * @return mixed
      */
     public function handle($request, Closure $next)
-    {   
-		  if(Auth::check()){		   
+    {
+        if(Auth::check()){		   
 			if (Auth::user()->role_type == "admin" || Auth::user()->role_type == "manager")
 			{	 
-				return $next($request);		 
+				return $next($request);	 
 			}
 			else 
 			{	  
-				return $next($request);		 				 
+				return redirect("home");		 				 
 			}
 		}
 		else{

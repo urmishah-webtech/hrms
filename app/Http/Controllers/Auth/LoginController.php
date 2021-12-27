@@ -76,7 +76,7 @@ class LoginController extends Controller
 		
 		if(Auth::attempt($request->only('email','password'),$request->filled('remember'))){
 			//Authentication passed...
-			if (auth()->user()->role_type == "admin") {
+			if (auth()->user()->role_type == "admin" || auth()->user()->role_type == "manager") {
 				//return redirect()->intended(route('admin.home'))->with('status','You are Logged in as Admin!');
 				return redirect()->route('index');
 			}else{
