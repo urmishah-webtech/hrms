@@ -84,7 +84,7 @@
                                     <div class="dropdown profile-action">
                                         <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                         <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item edtEmpBtn" href="#" data-toggle="modal" data-id="{{ @$val->id }}" data-target="#edit_employee"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                            <a class="dropdown-item edtEmpBtn" href="#" data-toggle="modal" data-role_id="{{ @$val->role_id }}" data-id="{{ @$val->id }}" data-target="#edit_employee"><i class="fa fa-pencil m-r-5"></i> Edit</a>
                                             <a class="dropdown-item delEmpBtn" href="#" data-toggle="modal" data-id="{{ @$val->id }}" data-target="#delete_employee"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                                         </div>
                                     </div>
@@ -155,6 +155,19 @@
                                             <input type="hidden" class="form-control" id="employee_id" name="employee_id" required>
                                             <input type="hidden" class="form-control" id="last_emp_id" value="{{ @$last_emp_id->id }}"  name="last_emp_id">
                                             
+                                        </div>
+                                    </div>
+									<div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Role</label>
+                                            <select class="select" name="role_id" required>
+												<option value="">Select Role</option>
+												@isset($roles)
+                                                    @foreach ($roles as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->name }}</option> 
+                                                    @endforeach
+                                                @endisset
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">  
@@ -303,6 +316,19 @@
                                         <div class="form-group">
                                             <label class="col-form-label">Employee ID <span class="text-danger">*</span></label>
                                             <input type="text" value="" disabled class="form-control" name="employee_id" id="emp_employee_id">
+                                        </div>
+                                    </div>
+									<div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Role</label>
+                                            <select class="form-control" name="role_id" id="edit_role_id" required>
+												<option value="">Select Role</option>
+												@isset($roles)
+                                                    @foreach ($roles as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->name }}</option> 
+                                                    @endforeach
+                                                @endisset
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">  

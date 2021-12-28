@@ -201,6 +201,7 @@
 						$("#emp_email").val(data.emp[0].email)
 					
 						$("#emp_employee_id").val(data.emp[0].employee_id)
+						$("#edit_role_id").val(data.emp[0].role_id)
 						$("#emp_phone_no").val(data.emp[0].phone_no)
 						
 

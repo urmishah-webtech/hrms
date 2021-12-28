@@ -579,7 +579,7 @@ Route::post('/edit_man_OtherGeneralComment','EmployeePerformanceController@add_m
 Route::post('/edit_man_PerfomanceManagerUse','EmployeePerformanceController@add_manager_PerfomanceManagerUse')->name('edit_man_PerfomanceManagerUse');
 Route::post('/edit_manPerformanceIdentity','EmployeePerformanceController@add_manager_PerformanceIdentity')->name('edit_manPerformanceIdentity');
 Route::post('search_employee_perfomance','EmployeePerformanceController@search_employee_Perfomance')->name('search_employee_perfomance');
-
+Route::post('add_managerid_Employee','EmployeePerformanceController@add_managerid_EmployeeBasicInfo')->name('add_managerid_Employees');
 
 
 

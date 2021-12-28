@@ -20,6 +20,7 @@ use App\TrainingRequirements;
 use App\OtherGeneralComment;
 use App\PerfomanceManagerUse;
 use App\PerformanceIdentity;
+use App\User;
 use Auth;
 
 class EmployeePerformanceController extends Controller
@@ -28,7 +29,7 @@ class EmployeePerformanceController extends Controller
         $dep=Department::get();
         $des=Designation::get();
         $emps=Employee::get();   
-        $emp_id=Employee::get('id');
+        $emp_id=Employee::get('id');		
         return view('/employees-performance',compact('dep','des','emps','emp_id'));
     }
     public function edit_employees($id)
@@ -52,9 +53,21 @@ class EmployeePerformanceController extends Controller
         $general_comment=OtherGeneralComment::where('emp_id', $id)->get();
         $perfomancemanageruse=PerfomanceManagerUse::where('emp_id', $id)->get();
         $add_perfoIdent=PerformanceIdentity::where('emp_id', $id)->get(); 
-      
+		$manager_nm = User::where('role_type','manager')->get();
+		
 		 
-		return view('/edit-performance',compact('emp_id','professional','emps','personal','specialInitiatives','comments_role','add_comments','add_comments_id','add_appraiseest','add_appraiseest_id','add_personalgoal','add_personalgoal_id','professional_achived','professional_forthcoming','training_requirements','general_comment','perfomancemanageruse','add_perfoIdent'));
+		return view('/edit-performance',compact('emp_id','professional','emps','personal','specialInitiatives','comments_role','add_comments','add_comments_id','add_appraiseest','add_appraiseest_id','add_personalgoal','add_personalgoal_id','professional_achived','professional_forthcoming','training_requirements','general_comment','perfomancemanageruse','add_perfoIdent','manager_nm'));
+	}
+	public function add_managerid_EmployeeBasicInfo(Request $request)
+	{	$id = $request->id;
+		$man_id=Employee::where('id',$id)->first(); 		
+		if($man_id)
+		{
+			$emp_add= Employee::where('id', $id)->first();          
+            $emp_add->manager_id=$request->manager_id;
+            $emp_add->save();
+		}
+		return back();
 	}
     public function add_manager_ProfessionalExcellence(Request $request){
         $userd = Auth::user()->id;  

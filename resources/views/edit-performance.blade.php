@@ -1,3 +1,4 @@
+<?php use App\User;?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -459,42 +460,57 @@
                             <div class="table-responsive">
                                 <table class="table table-bordered table-nowrap review-table mb-0">
                                     <tbody>
-										<form>
+									<form action="{{ route('add_managerid_Employees') }}" method="post">
+										@csrf 
+										<input type="hidden" name="id" value="{{ @$emps->id }}">
                                         <tr>
                                             <td>                                              
 												<div class="form-group">
 													<label for="name">Employee</label>
-													<input type="text" class="form-control" id="name" value="{{ @$emps->first_name }}" @if (Auth::user()->role_type == "employee")readonly @endif>
+													<input type="text" class="form-control" id="name" value="{{ @$emps->first_name }}" readonly>
 												</div>
 												<div class="form-group">
 													<label for="depart3">Department</label>
-													<input type="text" class="form-control" id="depart3" value="{{ @$emps->designation->department->name}}" @if (Auth::user()->role_type == "employee")readonly @endif>
+													<input type="text" class="form-control" id="depart3" value="{{ @$emps->designation->department->name}}" readonly>
 												</div>
 												<div class="form-group">
 													<label for="departa">Designation</label>
-													<input type="text" class="form-control" id="departa" value="{{ @$emps->designation->name }}" @if (Auth::user()->role_type == "employee")readonly @endif>
+													<input type="text" class="form-control" id="departa" value="{{ @$emps->designation->name }}" readonly>
 												</div>
                                             </td>
                                             <td>                                                
 												<div class="form-group">
 													<label for="qualif1">Email</label>
-													<input type="text" class="form-control" id="qualif1" value="{{ @$emps->email }}" @if (Auth::user()->role_type == "employee")readonly @endif>
+													<input type="text" class="form-control" id="qualif1" value="{{ @$emps->email }}" readonly>
 												</div>
 												<div class="form-group">
 													<label for="doj">Emp ID</label>
-													<input type="text" class="form-control" value="{{ @$emps->employee_id }}" @if (Auth::user()->role_type == "employee")readonly @endif>
+													<input type="text" class="form-control" value="{{ @$emps->employee_id }}" readonly>
 												</div>
 												<div class="form-group">
 													<label for="doj">Date of Join</label>
-													<input type="text" class="form-control" id="doj" value="{{ @$emps->joing_date }}" @if (Auth::user()->role_type == "employee")readonly @endif>
+													<input type="text" class="form-control" id="doj" value="{{ @$emps->joing_date }}" readonly>
 												</div>
                                             </td>
                                             <td>                                               
 												<div class="form-group">
 													<label for="name1"> Manager's Name</label>
-													<input type="text" class="form-control" id="name1" @if (Auth::user()->role_type == "employee")readonly @endif value="@if (Auth::user()->role_type == "manager"){{Auth::user()->name}}@endif">
+														@isset($emps)
+														@php $man_name = User::where('id',  @$emps->manager_id )->first(); @endphp
+														<input type="hidden" name="get_manager_id" value="{{ @$man_name->name }}">
+														@endisset
+													<select class="form-control" name="manager_id" id="edit_manager_id" required>
+														<option value="">Select Role</option>
+														@isset($manager_nm)
+															@foreach ($manager_nm as $item)
+															<option @if($item->name == $man_name->name)selected @endif value="{{ $item->id }}">{{ $item->name }}</option> 
+															@endforeach
+														@endisset
+													</select>										 
+												</div> 
+												<div class="review-header text-center" style="border:none;">
+												<button type="submit" name="email_setting_submit" class="btn btn-primary submit-btn">Save &amp; update</button>
 												</div>
-												                                         
                                             </td>
                                         </tr>
 									</form>
