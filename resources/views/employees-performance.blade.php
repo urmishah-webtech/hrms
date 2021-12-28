@@ -16,12 +16,7 @@
                                 <li class="breadcrumb-item active">Employee Performance</li>
                             </ul>
                         </div>
-                        <div class="col-auto float-right ml-auto">                             
-                            <div class="view-icons">
-                                <a href="employees" class="grid-view btn btn-link active"><i class="fa fa-th"></i></a>
-                                <a href="employees-list" class="list-view btn btn-link"><i class="fa fa-bars"></i></a>
-                            </div>
-                        </div>
+                         
                     </div>
                 </div>
                 <!-- /Page Header -->
