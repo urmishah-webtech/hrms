@@ -560,8 +560,8 @@ Route::get('/edit-performance/{id}','EmployeePerformanceController@edit_employee
  
  
 
-Route::get('/employees-performance','EmployeePerformanceController@get_employees')->name('employees_perfomance');
-Route::get('edit-performance/{id}','EmployeePerformanceController@edit_employees')->name('employees_per'); 
+Route::get('/employees-performance','EmployeePerformanceController@get_employees')->name('employees_perfomance')->middleware('isemployeepermission');
+Route::get('edit-performance/{id}','EmployeePerformanceController@edit_employees')->name('employees_per')->middleware('isemployeepermission');
  
 Route::post('/edit_man_professionalExcellence','EmployeePerformanceController@add_manager_ProfessionalExcellence')->name('edit_man_professionalExcellence');
 Route::post('/edit_man_PersonalExcellence','EmployeePerformanceController@add_manager_PersonalExcellence')->name('edit_man_PersonalExcellence');
