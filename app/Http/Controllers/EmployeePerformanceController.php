@@ -28,7 +28,7 @@ class EmployeePerformanceController extends Controller
     public function get_employees(){
         $dep=Department::get();
         $des=Designation::get();
-        $emps=Employee::get();   
+        $emps=Employee::where('role_type','employee')->get();   
         $emp_id=Employee::get('id');		
         return view('/employees-performance',compact('dep','des','emps','emp_id'));
     }

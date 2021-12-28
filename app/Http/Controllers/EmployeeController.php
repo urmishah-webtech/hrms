@@ -15,6 +15,8 @@ use App\EmpPermission;
 use App\Module;
 use App\PermissionModule;
 use App\Role;
+use Illuminate\Support\Str;
+
 class EmployeeController extends Controller
 {
     public function employees(){
@@ -61,7 +63,7 @@ class EmployeeController extends Controller
         $emp->email=$request->email;
         $emp->password=$request->password;
         $emp->employee_id=$request->employee_id;
-		$emp->role_id=$request->role_id;
+		$emp->role_type=Str::lower($request->role_id);
         $emp->joing_date=Carbon::createFromFormat('d/m/Y', $request->joing_date)->format('Y-m-d')
         ;
         $emp->phone_no=$request->phone_no;
@@ -115,7 +117,7 @@ class EmployeeController extends Controller
         $emp->password=$request->password;
         }
         $emp->employee_id=$request->employee_id;
-		$emp->role_id=$request->role_id;
+		$emp->role_type=Str::lower($request->role_id);
         $emp->joing_date=Carbon::createFromFormat('d/m/Y', $request->joing_date)->format('Y-m-d')
         ;
         $emp->phone_no=$request->phone_no;

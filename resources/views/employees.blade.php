@@ -164,7 +164,7 @@
 												<option value="">Select Role</option>
 												@isset($roles)
                                                     @foreach ($roles as $item)
-                                                    <option value="{{ $item->id }}">{{ $item->name }}</option> 
+                                                    <option value="{{ $item->name }}">{{ $item->name }}</option> 
                                                     @endforeach
                                                 @endisset
                                             </select>
