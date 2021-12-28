@@ -20,10 +20,11 @@ class EmployeeController extends Controller
         $dep=Department::get();
         $des=Designation::get();
         $emps=Employee::get();
+        $last_emp_id=DB::table('employees')->latest('id')->first();
         $modules=Module::get();
         $emp_permissions=EmpPermission::get();
         $permission_modules=PermissionModule::get();
-        return view('employees',compact('dep','des','emps','modules','emp_permissions','permission_modules'));
+        return view('employees',compact('dep','des','emps','modules','emp_permissions','permission_modules','last_emp_id'));
     }
     public function getDesignationAjax(Request $request){
         $des=DB::table('designations')->where('department_id',$request->deptId)->get();

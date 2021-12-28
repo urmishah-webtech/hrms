@@ -179,6 +179,14 @@
 					}
 				});
 			});
+			$(document).on("click",".add-btn",function() {
+				var last_emp_id=$("#last_emp_id").val();
+				var emp_id="emp_"+last_emp_id+Math.floor(Math.random() * 10000);
+				$("#disabled_emp_id").val(emp_id)
+				$("#employee_id").val(emp_id)
+				$('#add_employee').modal('toggle');
+
+			});
 			$(document).on("click",".edtEmpBtn",function() {
 				var id= $(this).data('id');
 				$(".permissionCheck").prop('checked',false)

@@ -9,6 +9,7 @@ use Validator;
 use Redirect;
 use App\Module;
 use App\ModuleHasPermission;
+use App\RoleHasModule;
 use App\Permission;
 use DB;
 class RoleController extends Controller
@@ -57,13 +58,37 @@ class RoleController extends Controller
         return \json_encode("1");
     }
     public function changeModuleAccess(Request $request){
-        $modules=Module::where('id',$request->id)->first();
-        $modules->status=$request->status;
-        $modules->save();
+      
+      
+       
+            $module=RoleHasModule::where('role_id',$request->role_id)->where('module_id',$request->id)->first();
+            if($module){
+                $module->module_id=$request->id;
+                $module->role_id=$request->role_id;
+                $module->access_status=$request->status;
+                $module->save();
+            }
+            else{
+                $module = new RoleHasModule();
+                $module->module_id=$request->id;
+                $module->role_id=$request->role_id;
+                $module->access_status=$request->status;
+                $module->save();
+            }
+           
+       
         return json_encode("1");
     }
+    public function GetModuleAccess(Request $request){
+        $module_per=ModuleHasPermission::where('role_id',$request->id)->get()->toArray();
+        return response()->json(['module_per'=>$module_per]);
+    }
+    public function GetRoleModuleAccess(Request $request){
+        $module_access=RoleHasModule::where('role_id',$request->id)->get()->toArray();
+        return response()->json(['module_access'=>$module_access]);
+    }
     public function updateModulePermission(Request $request){
-        $module_has_permissions=DB::table('module_has_permissions')->delete();
+        $module_has_permissions=DB::table('module_has_permissions')->where('role_id',$request->role_id)->delete();
         $expl=array();
         if(isset($request->permission_modules)){
             foreach($request->permission_modules as $val){
@@ -74,6 +99,7 @@ class RoleController extends Controller
                 $ModuleHasPermission= new ModuleHasPermission();
                 $ModuleHasPermission->module_id=$value[0];
                 $ModuleHasPermission->permission_id=$value[1];
+                $ModuleHasPermission->role_id=$request->role_id;
                 $ModuleHasPermission->save();
             }
         }
