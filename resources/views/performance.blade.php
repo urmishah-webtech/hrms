@@ -109,7 +109,7 @@
                                             <td><input type="text" class="form-control" readonly value="30"></td>
                                             <td><input type="text" class="form-control percentage_employee" name="quality_employee" id="quality_id"value="{{ @$professional->quality_employee }}"  ></td>
                                             <td><input type="text" class="form-control" readonly value="0"></td>
-                                            <td><input type="text" class="form-control percentage_manager" name="quality_manager" id="quality_manager" @if (Auth::user()->role_type == "employee")readonly @endif value="{{ @$val->quality_manager }}"></td>
+                                            <td><input type="text" class="form-control percentage_manager" name="quality_manager" id="quality_manager" @if (Auth::user()->role_type == "employee")readonly @endif value="{{ @$professional->quality_manager }}"></td>
                                             <td><input type="text" class="form-control" readonly value="0"></td>
                                         </tr>
                                         <tr>
