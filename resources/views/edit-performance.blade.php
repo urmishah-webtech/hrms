@@ -503,7 +503,7 @@
 														<option value="">Select Role</option>
 														@isset($manager_nm)
 															@foreach ($manager_nm as $item)
-															<option @if($item->name == $man_name->name)selected @endif value="{{ $item->id }}">{{ $item->name }}</option> 
+															<option @if($item->name == @$man_name->name)selected @endif value="{{ $item->id }}">{{ $item->name }}</option> 
 															@endforeach
 														@endisset
 													</select>										 
