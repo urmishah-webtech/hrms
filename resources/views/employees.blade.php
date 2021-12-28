@@ -19,7 +19,7 @@
                         <div class="col-auto float-right ml-auto">
                             <a href="#" class="btn add-btn" data-toggle="modal" data-target="#add_employee"><i class="fa fa-plus"></i> Add Employee</a>
                             <div class="view-icons">
-                                <a href="employees" class="grid-view btn btn-link active"><i class="fa fa-th"></i></a>
+                                {{-- <a href="employees" class="grid-view btn btn-link active"><i class="fa fa-th"></i></a> --}}
                                 {{-- <a href="employees-list" class="list-view btn btn-link"><i class="fa fa-bars"></i></a> --}}
                             </div>
                         </div>
@@ -151,7 +151,10 @@
                                     <div class="col-sm-6">  
                                         <div class="form-group">
                                             <label class="col-form-label">Employee ID <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" name="employee_id" required>
+                                            <input type="text" class="form-control" disabled required id="disabled_emp_id">
+                                            <input type="hidden" class="form-control" id="employee_id" name="employee_id" required>
+                                            <input type="hidden" class="form-control" id="last_emp_id" value="{{ @$last_emp_id->id }}"  name="last_emp_id">
+                                            
                                         </div>
                                     </div>
                                     <div class="col-sm-6">  
@@ -299,7 +302,7 @@
                                     <div class="col-sm-6">  
                                         <div class="form-group">
                                             <label class="col-form-label">Employee ID <span class="text-danger">*</span></label>
-                                            <input type="text" value=""  class="form-control" name="employee_id" id="emp_employee_id">
+                                            <input type="text" value="" disabled class="form-control" name="employee_id" id="emp_employee_id">
                                         </div>
                                     </div>
                                     <div class="col-sm-6">  
