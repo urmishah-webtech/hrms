@@ -65,8 +65,8 @@
                                                     <i class="fa fa-dot-circle-o @if(@$val->status== '1') text-success @else text-danger @endif"></i>  @if(@$val->status== '1') Active @else Inactive @endif
                                                 </a>
                                                 <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-success"></i> <input type="radio" class="list_status10" name="status" id="status1"  data-id="{{ @$val->id }}"> <label for="status1">Active</label></a>
-                                                    <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-danger"></i> <input type="radio" class="list_status10" name="status" id="status0"  data-id="{{ @$val->id }}"><label for="status0">Inactive</label></a>
+                                                    <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-success"></i> <input type="radio" class="list_status5_35 status1" name="status" id="status1{{ @$val->id }}"  data-id="{{ @$val->id }}" value="1"> <label for="status1{{ @$val->id }}">Active</label></a>
+                                                    <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-danger"></i> <input type="radio" class="list_status5_35 status0" name="status" id="status0{{ @$val->id }}"  data-id="{{ @$val->id }}"  value="0"><label for="status0{{ @$val->id }}">Inactive</label></a>
                                                 </div>                                                
                                             </div>
                                         </td>
@@ -695,24 +695,24 @@
         
         </div>
         <!-- /Page Wrapper -->
-
-<style>input.list_status10{display:none;}</style>
+  
+<style>input.list_status5_35{display:none;}</style>
 <script src="js/jquery-3.5.1.min.js"></script>
 <script>
 		$( document ).ready(function() {  	
-			$(document).on("click","*[id^=status]",function() {	
+			$(document).on("click",".list_status5_35",function() {	
                 
 				var id=$(this).data('id');	
-                		
+               	
 				var status;
-				if($("#status1").is(":checked")) 
+				if($(".status1").is(":checked")) 
 				{
 					status=1;
 				}
 				else{
 					status=0;
 				}
-				 
+				 	
 				$.ajax({
 					type:'POST',
 					url:"{{ route('chang_appraisal_status') }}",
@@ -724,4 +724,4 @@
 			});
 		});
 	</script>
-    @endsection
+  @endsection
