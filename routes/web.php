@@ -250,6 +250,8 @@ Route::post('delete_role','RoleController@delete_role')->name('delete_role');
 Route::post('changeModuleAccess','RoleController@changeModuleAccess')->name('changeModuleAccess');
 Route::post('updateModulePermission','RoleController@updateModulePermission')->name('updateModulePermission');
 Route::get('getCheckedValues','RoleController@getCheckedValues')->name('getCheckedValues');
+Route::get('GetModuleAccess','RoleController@GetModuleAccess')->name('GetModuleAccess');
+Route::get('GetRoleModuleAccess','RoleController@GetRoleModuleAccess')->name('GetRoleModuleAccess');
 
 
 
