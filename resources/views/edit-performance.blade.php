@@ -50,14 +50,25 @@ use App\Employee?>
  
     <!-- Main Wrapper -->
     <div class="main-wrapper">
-    
+		<?php
+			$theme_setting=DB::table('theme_settings')->first();
+			$setting=DB::table('settings')->first();
+		?>
         <!-- Header -->
         <div class="header">
         
             <!-- Logo -->
             <div class="header-left">
                 <a href="index" class="logo">
-                    <img src="{{ URL::asset('img/logo.png') }}" width="40" height="40" alt="">
+                    @isset($theme_setting)
+                    @if($theme_setting->light_logo!=null)
+                    <img src="{{ url('/').'/setting_images/'.@$theme_setting->light_logo }}" alt="" width="40" height="40">
+                    @else
+                    <img src="{{ url('/').'/img/logo.png'}}" alt="" width="40" height="40">
+                    @endif
+                    @else
+                    <img src="{{ url('/').'/img/logo.png'}}" alt="" width="40" height="40">
+                    @endif
                 </a>
             </div>
             <!-- /Logo -->
@@ -72,7 +83,16 @@ use App\Employee?>
             
             <!-- Header Title -->
             <div class="page-title-box">
-                <h3>Dreamguy's Technologies</h3>
+                <h3>
+                    @if($setting!=null)
+                    @if($setting->company_name==null)
+                    Dreamguy's Technologie1s
+                    @else
+                        {{ $setting->company_name }}
+                    @endif</h3>
+                    @else
+                        Dreamguy's Technologie1s1
+                    @endif
             </div>
             <!-- /Header Title -->
             
