@@ -7,11 +7,32 @@
 		<meta name="keywords" content="admin, estimates, bootstrap, business, corporate, creative, management, minimal, modern, accounts, invoice, html5, responsive, CRM, Projects">
         <meta name="author" content="Dreamguys - Bootstrap Admin Template">
         <meta name="robots" content="noindex, nofollow">
-        <title>Settings - HRMS admin template</title>
-		
+		<?php
+			$theme_setting=DB::table('theme_settings')->first();
+			$setting=DB::table('settings')->first();
+
+		?>
+		@if($theme_setting)
+		@if($theme_setting->website_name!=null)
+		<title>Settings - {{ @$theme_setting->website_name }}</title>
+		@else
+		<title>Settings - HRMS admin template</title>
+		@endif
+		@else
+		<title>Settings - HRMS admin template</title>
+		@endif
+        
 		<!-- Favicon -->
-        <link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
 		
+		@if($theme_setting)
+			@if($theme_setting->favicon!=null)
+			<link rel="shortcut icon" type="image/x-icon" href="{{ url('/').'/setting_images/'.@$theme_setting->favicon }}">
+			@else
+			<link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
+			@endif
+		@else
+			<link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
+		@endif
 		<!-- Bootstrap CSS -->
         <link rel="stylesheet" href="css/bootstrap.min.css">
 		
@@ -38,7 +59,15 @@
 				<!-- Logo -->
                 <div class="header-left">
                     <a href="index" class="logo">
-						<img src="img/logo.png" width="40" height="40" alt="">
+						@isset($theme_setting)
+						@if($theme_setting->light_logo!=null)
+						<img src="{{ url('/').'/setting_images/'.@$theme_setting->light_logo }}" alt="" width="40" height="40">
+						@else
+						<img src="{{ url('/').'/img/logo.png'}}" alt="" width="40" height="40">
+						@endif
+						@else
+						<img src="{{ url('/').'/img/logo.png'}}" alt="" width="40" height="40">
+						@endif
 					</a>
                 </div>
 				<!-- /Logo -->
@@ -53,7 +82,7 @@
 				
 				<!-- Header Title -->
                 <div class="page-title-box">
-					<h3>{{ @$settings->company_name }}</h3>
+					<h3>{{ @$setting->company_name }}</h3>
                 </div>
 				<!-- /Header Title -->
 				

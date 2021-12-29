@@ -98,7 +98,7 @@ class EmployeeController extends Controller
 			'role_id' => 'required',
             'joing_date' => 'required',
             'phone_no' => 'required',
-            'employee_id'=>'required|unique:employees,employee_id,'.$request->id,
+           // 'employee_id'=>'required|unique:employees,employee_id,'.$request->id,
             'company_id' => 'required',
             'department_id' => 'required',
             'designation_id' => 'required',
@@ -116,6 +116,7 @@ class EmployeeController extends Controller
         if($request->password!=''){
         $emp->password=$request->password;
         }
+       
         $emp->employee_id=$request->employee_id;
 		$emp->role_type=Str::lower($request->role_id);
         $emp->joing_date=Carbon::createFromFormat('d/m/Y', $request->joing_date)->format('Y-m-d')

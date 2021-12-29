@@ -1,10 +1,21 @@
-
+<?php
+    $theme_setting=DB::table('theme_settings')->first();
+    $setting=DB::table('settings')->first();
+?>
 <div class="header">
 			
             <!-- Logo -->
             <div class="header-left">
                 <a href="index" class="logo">
-                    <img src="img/logo.png" width="40" height="40" alt="">
+                    @isset($theme_setting)
+                    @if($theme_setting->light_logo!=null)
+                    <img src="{{ url('/').'/setting_images/'.@$theme_setting->light_logo }}" alt="" width="40" height="40">
+                    @else
+                    <img src="{{ url('/').'/img/logo.png'}}" alt="" width="40" height="40">
+                    @endif
+                    @else
+                    <img src="{{ url('/').'/img/logo.png'}}" alt="" width="40" height="40">
+                    @endif
                 </a>
             </div>
             <!-- /Logo -->
@@ -19,10 +30,6 @@
             
             <!-- Header Title -->
             <div class="page-title-box">
-                <?php
-                    $setting=DB::table('settings')->first();
-                   
-                ?>
                 <h3>
                     @if($setting!=null)
                     @if($setting->company_name==null)
@@ -31,7 +38,7 @@
                         {{ $setting->company_name }}
                     @endif</h3>
                     @else
-                        Dreamguy's Technologie1s
+                        Dreamguy's Technologie1s1
                     @endif
             </div>
             <!-- /Header Title -->

@@ -235,7 +235,16 @@ Route::get('/localization', function () {
     return view('localization');
 });
 Route::get('theme-settings','SettingController@theme_settings')->name('theme-settings');
+Route::get('/performance-setting','SettingController@performance_settings')->name('performance-settings');
 Route::post('theme_setting_update','SettingController@theme_setting_update')->name('theme_setting_update');
+Route::post('save_okr','PerformanceSettingController@save_okr')->name('save_okr');
+Route::post('save_competency','PerformanceSettingController@save_competency')->name('save_competency');
+Route::post('save_smart_config','PerformanceSettingController@save_smart_config')->name('save_smart_config');
+Route::post('save_scale2','PerformanceSettingController@save_scale2')->name('save_scale2');
+Route::post('get_scale2','PerformanceSettingController@get_scale2')->name('get_scale2');
+
+
+
 
 // Route::get('/theme-settings', function () {
 //     return view('theme-settings');
@@ -481,9 +490,7 @@ Route::get('/toxbox-setting', function () {
 Route::get('/cron-setting', function () {
     return view('cron-setting');
 });
-Route::get('/performance-setting', function () {
-    return view('performance-setting');
-});
+
 Route::get('/approval-setting', function () {
     return view('approval-setting');
 });
