@@ -9,7 +9,7 @@
                 <a href="index" class="logo">
                     @isset($theme_setting)
                     @if($theme_setting->light_logo!=null)
-                    <img src="{{ url('/').'/setting_images/'.@$theme_setting->light_logo }}" alt="" width="40" height="40">
+                    <img src="{{ url('/').'/setting_images/'.@$theme_setting->light_logo }}" alt="" width="150px" height="auto">
                     @else
                     <img src="{{ url('/').'/img/logo.png'}}" alt="" width="40" height="40">
                     @endif
