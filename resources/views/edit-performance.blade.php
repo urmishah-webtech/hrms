@@ -545,12 +545,7 @@ use App\Employee?>
 														@isset($manager_user)
 															@foreach ($manager_user as $item)
 															<option @if($item->name == @$man_name->name)selected @endif value="{{ $item->id }}">{{ $item->name }}</option> 
-															@endforeach
-														@endisset
-														@isset($manager_emp)
-															@foreach ($manager_emp as $item)
-															<option  value="{{ $item->id }}">{{ $item->first_name }}</option> 
-															@endforeach
+															@endforeach							
 														@endisset
 													</select>										 
 												</div> 

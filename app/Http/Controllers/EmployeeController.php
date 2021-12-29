@@ -16,7 +16,8 @@ use App\Module;
 use App\PermissionModule;
 use App\Role;
 use Illuminate\Support\Str;
-
+use App\User;
+use Hash;
 class EmployeeController extends Controller
 {
     public function employees(){
@@ -56,6 +57,14 @@ class EmployeeController extends Controller
            
             return Redirect::back()->withErrors($validator);
         }
+		
+		$usert=new User();
+        $usert->name=$request->first_name;
+        $usert->email=$request->email;
+        $usert->password=Hash::make($request->password);
+        $usert->role_type=Str::lower($request->role_id);
+        $usert->save();
+		
         $emp=new Employee();
         $emp->first_name=$request->first_name;
         $emp->last_name=$request->last_name;

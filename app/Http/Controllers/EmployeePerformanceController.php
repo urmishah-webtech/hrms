@@ -54,9 +54,9 @@ class EmployeePerformanceController extends Controller
         $perfomancemanageruse=PerfomanceManagerUse::where('emp_id', $id)->get();
         $add_perfoIdent=PerformanceIdentity::where('emp_id', $id)->get(); 
 		$manager_user = User::where('role_type','manager')->get();
-		$manager_emp = Employee::where('role_type','manager')->get();
+		//$manager_emp = Employee::where('role_type','manager')->get();
 		 
-		return view('/edit-performance',compact('emp_id','professional','emps','personal','specialInitiatives','comments_role','add_comments','add_comments_id','add_appraiseest','add_appraiseest_id','add_personalgoal','add_personalgoal_id','professional_achived','professional_forthcoming','training_requirements','general_comment','perfomancemanageruse','add_perfoIdent','manager_user','manager_emp'));
+		return view('/edit-performance',compact('emp_id','professional','emps','personal','specialInitiatives','comments_role','add_comments','add_comments_id','add_appraiseest','add_appraiseest_id','add_personalgoal','add_personalgoal_id','professional_achived','professional_forthcoming','training_requirements','general_comment','perfomancemanageruse','add_perfoIdent','manager_user'));
 	}
 	public function add_managerid_EmployeeBasicInfo(Request $request)
 	{	$id = $request->id;

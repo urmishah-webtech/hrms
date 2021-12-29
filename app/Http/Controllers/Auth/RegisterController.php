@@ -66,22 +66,24 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {	
-        if($data['role_type'] == "Employee"){
-        $empl =new Employee();
-        $empl->first_name = $data['name'];
-        $empl->user_name = $data['name'];
-        $empl->email = $data['email'];
-        $empl->password = $data['email'];
-        $empl->role_type = Str::lower($data['role_type']);       
-        $empl->save(); 
-        }
-        return User::create([
+        
+        $user= User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
 			'role_type' => Str::lower($data['role_type']),
         ]);
-		
+		//if($data['role_type'] == "Employee"){ 
+        $empl =new Employee();
+		$empl->user_id = $user->id;
+        $empl->first_name = $data['name'];
+        $empl->user_name = $data['name'];
+        $empl->email = $data['email'];
+        $empl->password = $data['email'];
+        $empl->role_type = Str::lower($data['role_type']); 		
+        $empl->save(); 
+       // }
+		return $user;
     }
      
 }

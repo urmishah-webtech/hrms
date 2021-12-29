@@ -162,7 +162,7 @@
 									<div class="col-sm-6">
                                         <div class="form-group">
                                             <label class="col-form-label">Role</label>
-                                            <select class="select" name="role_id" required>
+                                            <select class="form-control" name="role_id" required>
 												<option value="">Select Role</option>
 												@isset($roles)
                                                     @foreach ($roles as $item)
