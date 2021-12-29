@@ -1,4 +1,5 @@
-<?php use App\User;?>
+<?php use App\User;
+use App\Employee?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -496,14 +497,20 @@
 												<div class="form-group">
 													<label for="name1"> Manager's Name</label>
 														@isset($emps)
-														@php $man_name = User::where('id',  @$emps->manager_id )->first(); @endphp
+														@php $man_name = User::where('id',  @$emps->manager_id )->first();
+														@endphp
 														<input type="hidden" name="get_manager_id" value="{{ @$man_name->name }}">
 														@endisset
 													<select class="form-control" name="manager_id" id="edit_manager_id" required>
-														<option value="">Select Role</option>
-														@isset($manager_nm)
-															@foreach ($manager_nm as $item)
+														<option value="">Select Manager</option>
+														@isset($manager_user)
+															@foreach ($manager_user as $item)
 															<option @if($item->name == @$man_name->name)selected @endif value="{{ $item->id }}">{{ $item->name }}</option> 
+															@endforeach
+														@endisset
+														@isset($manager_emp)
+															@foreach ($manager_emp as $item)
+															<option  value="{{ $item->id }}">{{ $item->first_name }}</option> 
 															@endforeach
 														@endisset
 													</select>										 
