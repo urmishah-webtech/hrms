@@ -1,4 +1,5 @@
 <!-- jQuery -->
+
 <script src="{{ URL::asset('js/jquery-3.5.1.min.js') }}"></script>
 		
 		<!-- Bootstrap Core JS -->
@@ -189,6 +190,8 @@
 			});
 			$(document).on("click",".edtEmpBtn",function() {
 				var id= $(this).data('id');
+				var roleid=$(this).data('role_id');
+						
 				$(".permissionCheck").prop('checked',false)
 				$.ajax({
 					type:'POST',
@@ -201,7 +204,8 @@
 						$("#emp_email").val(data.emp[0].email)
 					
 						$("#emp_employee_id").val(data.emp[0].employee_id)
-						$("#edit_role_id").val(data.emp[0].role_id)
+						
+						 
 						$("#emp_phone_no").val(data.emp[0].phone_no)
 						
 
@@ -212,6 +216,7 @@
 						$("#emp_joing_date").val(dd+'/'+mm+'/'+yyyy)
 						$("#emp_id").val(data.emp[0].id)
 						$("#edit_depList option[value='"+data.emp[0].department_id+"']").prop('selected',true);
+						$("#edit_role_id option[value='"+roleid+"']").prop('selected',true);
 						change_designation(data.emp[0].department_id)
 						$("#edit_designationList option[value='"+data.emp[0].designation_id	+"']").prop('selected',true);
 						$.each(data.permission_modules, function(key, val) 

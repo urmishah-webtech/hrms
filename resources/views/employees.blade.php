@@ -1,5 +1,7 @@
 @extends('layout.mainlayout')
 @section('content')
+<?php use Illuminate\Support\Str;
+?>
 <!-- Page Wrapper -->
 <div class="page-wrapper">
 			
@@ -84,7 +86,7 @@
                                     <div class="dropdown profile-action">
                                         <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                         <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item edtEmpBtn" href="#" data-toggle="modal" data-role_id="{{ @$val->role_id }}" data-id="{{ @$val->id }}" data-target="#edit_employee"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                            <a class="dropdown-item edtEmpBtn" href="#" data-toggle="modal" data-role_id="{{Str::ucfirst( @$val->role_type)}}" data-id="{{ @$val->id }}" data-target="#edit_employee"><i class="fa fa-pencil m-r-5"></i> Edit</a>
                                             <a class="dropdown-item delEmpBtn" href="#" data-toggle="modal" data-id="{{ @$val->id }}" data-target="#delete_employee"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                                         </div>
                                     </div>
@@ -325,7 +327,7 @@
 												<option value="">Select Role</option>
 												@isset($roles)
                                                     @foreach ($roles as $item)
-                                                    <option value="{{ $item->id }}">{{ $item->name }}</option> 
+                                                    <option value="{{ $item->name }}">{{ $item->name }}</option> 
                                                     @endforeach
                                                 @endisset
                                             </select>
