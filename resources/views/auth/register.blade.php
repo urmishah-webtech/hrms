@@ -90,7 +90,7 @@
 										@php $role_name = Role::get(); @endphp
 										@isset($role_name)
                                         @foreach ($role_name as $item)
-										<option value="{{ $item->id }}">{{ $item->name }}</option> 
+										<option value="{{ $item->name }}">{{ $item->name }}</option> 
 										@endforeach
                                         @endisset
 									</select>

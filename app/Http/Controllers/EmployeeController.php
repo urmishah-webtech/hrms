@@ -14,6 +14,9 @@ use App\Employee;
 use App\EmpPermission;
 use App\Module;
 use App\PermissionModule;
+use App\Role;
+use Illuminate\Support\Str;
+
 class EmployeeController extends Controller
 {
     public function employees(){
@@ -24,7 +27,8 @@ class EmployeeController extends Controller
         $modules=Module::get();
         $emp_permissions=EmpPermission::get();
         $permission_modules=PermissionModule::get();
-        return view('employees',compact('dep','des','emps','modules','emp_permissions','permission_modules','last_emp_id'));
+		$roles=Role::get();
+        return view('employees',compact('dep','des','emps','modules','emp_permissions','permission_modules','last_emp_id','roles'));
     }
     public function getDesignationAjax(Request $request){
         $des=DB::table('designations')->where('department_id',$request->deptId)->get();
@@ -39,6 +43,7 @@ class EmployeeController extends Controller
             'email' => 'required:unique:employees',
             'password' => 'required',
             'employee_id' => 'required|unique:employees',
+			'role_id' => 'required',
             'joing_date' => 'required',
             'phone_no' => 'required',
             'company_id' => 'required',
@@ -58,6 +63,7 @@ class EmployeeController extends Controller
         $emp->email=$request->email;
         $emp->password=$request->password;
         $emp->employee_id=$request->employee_id;
+		$emp->role_type=Str::lower($request->role_id);
         $emp->joing_date=Carbon::createFromFormat('d/m/Y', $request->joing_date)->format('Y-m-d')
         ;
         $emp->phone_no=$request->phone_no;
@@ -89,6 +95,7 @@ class EmployeeController extends Controller
             'last_name' => 'required',
             'user_name' => 'required|unique:employees,user_name,'.$request->id,
             'email' => 'required|unique:employees,email,'.$request->id,
+			'role_id' => 'required',
             'joing_date' => 'required',
             'phone_no' => 'required',
            // 'employee_id'=>'required|unique:employees,employee_id,'.$request->id,
@@ -111,6 +118,7 @@ class EmployeeController extends Controller
         }
        
         $emp->employee_id=$request->employee_id;
+		$emp->role_type=Str::lower($request->role_id);
         $emp->joing_date=Carbon::createFromFormat('d/m/Y', $request->joing_date)->format('Y-m-d')
         ;
         $emp->phone_no=$request->phone_no;

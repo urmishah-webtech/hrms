@@ -9,7 +9,7 @@ use App\Employee;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Support\Str;
 class RegisterController extends Controller
 {
     /*
@@ -66,20 +66,20 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {	
-        if($data['role_type'] == "employee"){
+        if($data['role_type'] == "Employee"){
         $empl =new Employee();
         $empl->first_name = $data['name'];
         $empl->user_name = $data['name'];
         $empl->email = $data['email'];
         $empl->password = $data['email'];
-        $empl->role_type = $data['role_type'];       
+        $empl->role_type = Str::lower($data['role_type']);       
         $empl->save(); 
         }
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
-			'role_type' => $data['role_type'],
+			'role_type' => Str::lower($data['role_type']),
         ]);
 		
     }

@@ -132,7 +132,7 @@
 			function GetDynamicTextBox(table_id) {
 				$('#comments_remove').remove();
 				var rowsLength = document.getElementById(table_id).getElementsByTagName("tbody")[0].getElementsByTagName("tr").length+1;
-				return '<td>'+rowsLength+'</td>' + '<td><input type="text" name = "DynamicTextBoxemp[]" class="form-control" value = "" ></td>' + '<td><input type="text" name = "DynamicTextBoxman[]" class="form-control" value = "" ></td>' + '<td><button type="button" class="btn btn-danger" id="comments_remove"><i class="fa fa-trash-o"></i></button></td>'
+				return '<td>'+rowsLength+'</td>' + '<td><input type="text" name = "DynamicTextBoxemp[]" class="form-control" value = "" @if (Auth::user()->role_type != "employee")readonly @endif></td>' + '<td><input type="text" name = "DynamicTextBoxman[]" class="form-control" value = "" @if (Auth::user()->role_type == "employee")readonly @endif></td>' + '<td><button type="button" class="btn btn-danger" id="comments_remove"><i class="fa fa-trash-o"></i></button></td>'
 			}
 		});
 		</script>
@@ -210,7 +210,8 @@
 							$("#emp_employee_id").val(emp_id)
 							$("#edit_employee_id").val(emp_id)
 
-						}
+						}	
+						$("#edit_role_id").val(data.emp[0].role_id)
 						$("#emp_phone_no").val(data.emp[0].phone_no)
 
 						var d = new Date(data.emp[0].joing_date);

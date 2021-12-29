@@ -109,7 +109,7 @@
                                             <td><input type="text" class="form-control" readonly value="30"></td>
                                             <td><input type="text" class="form-control percentage_employee" name="quality_employee" id="quality_id"value="{{ @$professional->quality_employee }}"  ></td>
                                             <td><input type="text" class="form-control" readonly value="0"></td>
-                                            <td><input type="text" class="form-control percentage_manager" name="quality_manager" id="quality_manager" @if (Auth::user()->role_type == "employee")readonly @endif value="{{ @$val->quality_manager }}"></td>
+                                            <td><input type="text" class="form-control percentage_manager" name="quality_manager" id="quality_manager" @if (Auth::user()->role_type == "employee")readonly @endif value="{{ @$professional->quality_manager }}"></td>
                                             <td><input type="text" class="form-control" readonly value="0"></td>
                                         </tr>
                                         <tr>
@@ -332,7 +332,7 @@
                                         <tr>
                                             <td>{{$i}}</td>
                                             <td><input type="text" class="form-control" name="DynamicTextBoxemp[]" value="{{ $val->by_employee}}"></td>
-                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="{{ $val->managers_comment}}"></td>
+                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="{{ $val->managers_comment}}"@if (Auth::user()->role_type == "employee")readonly @endif></td>
                                             <td></td>
                                             <input type="hidden" class="form-control" name="getid[]" value="{{ $val->id}}">
                                         </tr>
@@ -342,7 +342,7 @@
                                         <tr>
                                             <td>1</td>
                                             <td><input type="text" class="form-control" name="DynamicTextBoxemp[]" value=""></td>
-                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value=""></td>
+                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="" @if (Auth::user()->role_type == "employee")readonly @endif></td>
                                             <td></td>
                                             
                                         </tr>
@@ -384,7 +384,7 @@
                                         <tr>
                                             <td>{{$i}}</td>
                                             <td><input type="text" class="form-control" name="DynamicTextBoxemp[]" value="{{ $val->by_employee}}"></td>
-                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="{{ $val->managers_comment}}"></td>                                            
+                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="{{ $val->managers_comment}}"@if (Auth::user()->role_type == "employee")readonly @endif></td>                                            
                                             <td></td>
                                             <input type="hidden" class="form-control" name="getid[]" value="{{ $val->id}}">
                                         </tr>
@@ -394,7 +394,7 @@
                                         <tr>
                                             <td>1</td>
                                             <td><input type="text" class="form-control" name="DynamicTextBoxemp[]" value=""></td>
-                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value=""></td>
+                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="" @if (Auth::user()->role_type == "employee")readonly @endif></td>
                                             <td></td>
                                             
                                         </tr>
@@ -412,7 +412,7 @@
                 
                 <section class="review-section">
                     <div class="review-header text-center">
-                        <h3 class="review-title">Admin Comments on the role</h3>
+                        <h3 class="review-title">Comments on the role</h3>
                         <p class="text-muted">alterations if any requirred like addition/deletion of responsibilities</p>
                     </div>
                     <div class="row">
@@ -595,7 +595,7 @@
                                         <tr>
                                             <td>{{$i}}</td>
                                             <td><input type="text" class="form-control" name="DynamicTextBoxemp[]" value="{{ $val->by_employee}}"></td>
-                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="{{ $val->managers_comment}}"></td>
+                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="{{ $val->managers_comment}}" @if (Auth::user()->role_type == "employee")readonly @endif></td>
                                             <td></td>
                                             <input type="hidden" class="form-control" name="getid[]" value="{{ $val->id}}">
                                         </tr>
@@ -605,7 +605,7 @@
                                         <tr>
                                             <td>1</td>
                                             <td><input type="text" class="form-control" name="DynamicTextBoxemp[]" value=""></td>
-                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value=""></td>
+                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="" @if (Auth::user()->role_type == "employee")readonly @endif></td>
                                             <td></td>
                                         </tr>
                                         @endif  
@@ -646,7 +646,7 @@
                                         <tr>
                                             <td>{{$i}}</td>
                                             <td><input type="text" class="form-control" name="DynamicTextBoxemp[]" value="{{ $val->by_employee}}"></td>
-                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="{{ $val->managers_comment}}"></td>
+                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="{{ $val->managers_comment}}" @if (Auth::user()->role_type == "employee")readonly @endif></td>
                                             <td></td>
                                             <input type="hidden" class="form-control" name="getid[]" value="{{ $val->id}}">
                                         </tr>
@@ -656,7 +656,7 @@
                                         <tr>
                                             <td>1</td>
                                             <td><input type="text" class="form-control" name="DynamicTextBoxemp[]" value=""></td>
-                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value=""></td>
+                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="" @if (Auth::user()->role_type == "employee")readonly @endif></td>
                                             <td></td>
                                         </tr>
                                         @endif
@@ -697,7 +697,7 @@
                                         <tr>
                                             <td>{{$i}}</td>
                                             <td><input type="text" class="form-control" name="DynamicTextBoxemp[]" value="{{ $val->by_employee}}"></td>
-                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="{{ $val->managers_comment}}"></td>
+                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="{{ $val->managers_comment}}" @if (Auth::user()->role_type == "employee")readonly @endif></td>
                                             <td></td>
                                             <input type="hidden" class="form-control" name="getid[]" value="{{ $val->id}}">
                                         </tr>
@@ -707,7 +707,7 @@
                                         <tr>
                                             <td>1</td>
                                             <td><input type="text" class="form-control" name="DynamicTextBoxemp[]" value=""></td>
-                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value=""></td>
+                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="" @if (Auth::user()->role_type == "employee")readonly @endif></td>
                                             <td></td>
                                         </tr>
                                         @endif  
@@ -748,7 +748,7 @@
                                         <tr>
                                             <td>{{$i}}</td>
                                             <td><input type="text" class="form-control" name="DynamicTextBoxemp[]" value="{{ $val->employee_comments}}"></td>
-                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="{{ $val->managers_comments}}"></td>
+                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="{{ $val->managers_comments}}" @if (Auth::user()->role_type == "employee")readonly @endif></td>
                                            <td></td>
                                            <input type="hidden" class="form-control" name="getid[]" value="{{ $val->id}}">
                                         </tr>
@@ -758,7 +758,7 @@
                                         <tr>
                                             <td>1</td>
                                             <td><input type="text" class="form-control" name="DynamicTextBoxemp[]" value=""></td>
-                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value=""></td>
+                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="" @if (Auth::user()->role_type == "employee")readonly @endif></td>
                                             <td></td>
                                         </tr>
                                         @endif 
@@ -773,7 +773,7 @@
                     </div>
                 </section>
 
-                <section class="review-section">
+               <!--  <section class="review-section">
                     <div class="review-header text-center">
                         <h3 class="review-title">For Manager's Use Only</h3>
                         <p class="text-muted">Lorem ipsum dollar</p>
@@ -878,7 +878,7 @@
                             </div>
                         </div>
                     </div>
-                </section>
+                </section>-->
                 
                 <div class="row">
                     <div class="col-md-12">
@@ -910,9 +910,9 @@
                                     <tr>
                                         <td>Manager</td>
                                         <input type="hidden" name="user_role[]" value="Manager">
-                                        <td><input type="text" class="form-control" name="name[]" value="@if(isset($add_perfoIdent[1])){{$add_perfoIdent[1]['name']}} @endif"></td>
-                                        <td><input type="text" class="form-control" name="signature[]" value="@if(isset($add_perfoIdent[1])){{$add_perfoIdent[1]['signature']}} @endif"></td>
-                                        <td><div class="cal-icon"><input type="text" class="form-control" name="date[]" value="@if(isset($add_perfoIdent[1])){{$add_perfoIdent[1]['date']}} @endif"></div></td>
+                                        <td><input type="text" class="form-control" name="name[]" value="@if(isset($add_perfoIdent[1])){{$add_perfoIdent[1]['name']}} @endif" @if (Auth::user()->role_type == "employee")readonly @endif></td>
+                                        <td><input type="text" class="form-control" name="signature[]" value="@if(isset($add_perfoIdent[1])){{$add_perfoIdent[1]['signature']}} @endif" @if (Auth::user()->role_type == "employee")readonly @endif></td>
+                                        <td><div class="cal-icon"><input type="text" class="form-control" name="date[]" value="@if(isset($add_perfoIdent[1])){{$add_perfoIdent[1]['date']}} @endif" @if (Auth::user()->role_type == "employee")readonly @endif></div></td>
                                     </tr>
                                      
                                 </tbody>
