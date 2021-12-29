@@ -50,7 +50,7 @@
 					?>
 					<!-- Account Logo -->
 					<div class="account-logo">
-						<a href="index"><img src="img/login_logo.png" alt="Dreamguy's Technologies"></a>
+						<a href="index"><img src="{{ url('/').'/img/login_logo.png'}}" alt="HRMS"></a>
 					</div>
 					<!-- /Account Logo -->
 					
