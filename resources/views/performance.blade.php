@@ -60,12 +60,20 @@
 													<input type="text" class="form-control" id="doj" value="{{ @$emps->joing_date }}" @if (Auth::user()->role_type == "employee")readonly @endif>
 												</div>
                                             </td>
-                                            <td>                                               
+                                            <!--<td>                                               
 												<div class="form-group">
 													<label for="name1"> Manager's Name</label>
+													<select class="form-control" name="manager_id" id="edit_manager_id" required>
+														<option value="">Select Manager</option>
+														@isset($manager_user)
+															@foreach ($manager_user as $item)
+															<option @if($item->name == @$man_name->name)selected @endif value="{{ $item->id }}">{{ $item->name }}</option> 
+															@endforeach							
+														@endisset
+													</select>
 													<input type="text" class="form-control" id="name1" @if (Auth::user()->role_type == "employee")readonly @endif value="@if (Auth::user()->role_type == "manager"){{Auth::user()->name}}@endif">
 												</div>                                      
-                                            </td>
+                                            </td>--->
                                         </tr>
 									</form>
                                     </tbody>
@@ -83,7 +91,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="table-responsive">
-							 <form action="{{ route('add_professionalexcel') }}" method="post">
+							 <form action="{{ route('add_professionalexcel') }}" method="post" id="professionalexcel">
                              @csrf
 								
 								 
