@@ -188,6 +188,8 @@
 
 			});
 			$(document).on("click",".edtEmpBtn",function() {
+				var last_emp_id=$("#last_emp_id").val();
+				var emp_id="emp_"+last_emp_id+Math.floor(Math.random() * 10000);
 				var id= $(this).data('id');
 				$(".permissionCheck").prop('checked',false)
 				$.ajax({
@@ -199,10 +201,17 @@
 						$("#emp_last_name").val(data.emp[0].last_name)
 						$("#emp_user_name").val(data.emp[0].user_name)
 						$("#emp_email").val(data.emp[0].email)
-					
-						$("#emp_employee_id").val(data.emp[0].employee_id)
+						if(data.emp[0].employee_id!=null){
+							$("#emp_employee_id").val(data.emp[0].employee_id)
+							$("#edit_employee_id").val(data.emp[0].employee_id)
+
+						}			
+						else{
+							$("#emp_employee_id").val(emp_id)
+							$("#edit_employee_id").val(emp_id)
+
+						}
 						$("#emp_phone_no").val(data.emp[0].phone_no)
-						
 
 						var d = new Date(data.emp[0].joing_date);
 						var dd = d.getDate(); 

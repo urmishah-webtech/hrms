@@ -7,11 +7,29 @@
 		<meta name="keywords" content="admin, estimates, bootstrap, business, corporate, creative, management, minimal, modern, accounts, invoice, html5, responsive, CRM, Projects">
         <meta name="author" content="Dreamguys - Bootstrap Admin Template">
         <meta name="robots" content="noindex, nofollow">
-        <title>Dashboard - HRMS admin template</title>
+		<?php
+			$theme_setting=DB::table('theme_settings')->first();
+		?>
+       @if($theme_setting)
+	   @if($theme_setting->website_name!=null)
+	   <title>Dashboard - {{ @$theme_setting->website_name }}</title>
+	   @else
+	   <title>Dashboard - HRMS admin template</title>
+	   @endif
+	   @else
+	   <title>Dashboard - HRMS admin template</title>
+	   @endif
 		
 		<!-- Favicon -->
-        <link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
-		
+        @if($theme_setting)
+			@if($theme_setting->favicon!=null)
+			<link rel="shortcut icon" type="image/x-icon" href="{{ url('/').'/setting_images/'.@$theme_setting->favicon }}">
+			@else
+			<link rel="shortcut icon" type="image/x-icon" href="{{ url('/').'img/favicon.png'}}">
+			@endif
+		@else
+			<link rel="shortcut icon" type="image/x-icon" href="{{ url('/').'img/favicon.png'}}">
+		@endif
 		<!-- Bootstrap CSS -->
         <link rel="stylesheet" href="css/bootstrap.min.css">
 		

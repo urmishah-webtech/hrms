@@ -302,7 +302,9 @@
                                     <div class="col-sm-6">  
                                         <div class="form-group">
                                             <label class="col-form-label">Employee ID <span class="text-danger">*</span></label>
-                                            <input type="text" value="" disabled class="form-control" name="employee_id" id="emp_employee_id">
+                                            <input type="text" value="" disabled class="form-control" name="emp_employee_id" id="emp_employee_id">
+                                            <input type="hidden" value=""  class="form-control" name="employee_id" id="edit_employee_id">
+
                                         </div>
                                     </div>
                                     <div class="col-sm-6">  

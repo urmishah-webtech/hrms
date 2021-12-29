@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Setting;
 use App\ThemeSetting;
+use App\PerformanceSetting;
 use Validator;
 use Redirect;
 class SettingController extends Controller
@@ -59,6 +60,10 @@ class SettingController extends Controller
         $settings=ThemeSetting::first();
         return view('theme-settings',compact('settings'));
     }
+    public function performance_settings(){
+        $settings=PerformanceSetting::first();
+        return view('performance-setting',compact('settings'));
+    }
     public function theme_setting_update(Request $request){
         $validator = Validator::make($request->all(), [
             'website_name' => 'required',
@@ -81,7 +86,7 @@ class SettingController extends Controller
             $light_logo->move($destination, $light_logo_filename);
             }
             else{
-                $light_logo_filename=null;
+                $light_logo_filename=$setting->light_logo;
             }
             
             $fevicon = $request->file('favicon');
@@ -92,7 +97,7 @@ class SettingController extends Controller
             $fevicon->move($destination, $fevicon_filename);
             }
             else{
-                $fevicon_filename=null;
+                $fevicon_filename=$setting->favicon;
             }
             $setting->favicon=$fevicon_filename;
             $setting->light_logo=$light_logo_filename;
