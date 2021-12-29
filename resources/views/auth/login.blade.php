@@ -49,13 +49,7 @@
 					?>
 					<!-- Account Logo -->
 					<div class="account-logo">
-						@isset($theme_setting)
-						@if($theme_setting->light_logo!=null)
-						<a href="index"><img src="{{ url('/').'/setting_images/'.@$theme_setting->light_logo }}" alt="Dreamguy's Technologies"></a>
-						@else
-						<a href="index"><img src="img/logo2.png" alt="Dreamguy's Technologies"></a>
-						@endif
-						@endisset
+						<a href="index"><img src="img/login_logo.png" alt="Dreamguy's Technologies"></a>
 					</div>
 					<!-- /Account Logo -->
 					
