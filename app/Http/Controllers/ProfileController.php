@@ -18,9 +18,11 @@ class ProfileController extends Controller
     public function Profile_employees()
 	{
         $userd = Auth::user()->id;
-        $emp_profile=Employee::where('user_id',$userd)->first(); 		 
-		$per_info=ProfilePersonalInformations::where('user_id',$userd)->first();
-		$contact=ProfileEmergencyContact::where('user_id',$userd)->first();		
+        $emp_profile=Employee::where('user_id',$userd)->first(); 
+		$per_info=ProfilePersonalInformations::get();	
+		$contact=ProfileEmergencyContact::get();		
+		//$per_info=ProfilePersonalInformations::where('user_id',$userd)->first();
+		//$contact=ProfileEmergencyContact::where('user_id',$userd)->first();		
         return view('profile',compact('emp_profile','per_info','contact'));
     }
 	 
