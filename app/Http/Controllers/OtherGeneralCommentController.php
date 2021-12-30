@@ -40,6 +40,6 @@ class OtherGeneralCommentController extends Controller
                 }
             }
         }
-        return back();        
+        return redirect("/performance#GeneralComment");     
     } 
 }

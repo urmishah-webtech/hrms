@@ -113,7 +113,7 @@ class EmployeePerformanceController extends Controller
             $professional->total_percentage_manager=$request->total_percentage_manager;         
             $professional->save();       	  
 		}
-        return back();
+        return redirect("/edit-performance/{$id}/#professionalexcel"); 
 	   
     }
     public function add_manager_PersonalExcellence(Request $request)
@@ -169,7 +169,7 @@ class EmployeePerformanceController extends Controller
             $personal->total_percentage_manager=$request->total_percentage_manager;        
             $personal->save();         	  
 		}
-        return back();
+        return redirect("/edit-performance/{$id}/#PersonalExcellence");
 	   
     }
     public function add_manager_SpecialInitiatives(Request $request)
@@ -204,7 +204,7 @@ class EmployeePerformanceController extends Controller
                 }
             }
         }
-        return back();	   
+        return redirect("/edit-performance/{$add_empid}/#specialInitiatives");	   
     }
     public function add_manager_CommentsRole(Request $request)
     {
@@ -238,7 +238,7 @@ class EmployeePerformanceController extends Controller
                 }
             }
         }
-        return back();	   
+        return redirect("/edit-performance/{$add_empid}/#CommentsRole");		   
     }
     public function add_manager_AdditionCommentRole(Request $request)
     {
@@ -272,7 +272,7 @@ class EmployeePerformanceController extends Controller
                 }
             }
         }
-        return back();	   
+        return redirect("/edit-performance/{$add_empid}/#AdditionCommentRole");   
     }
     public function add_manager_AppraiseeStrength(Request $request)
     {
@@ -306,7 +306,7 @@ class EmployeePerformanceController extends Controller
                 }
             }
         }
-        return back();	   
+        return redirect("/edit-performance/{$add_empid}/#AppraiseeStrength");   
     }
     public function add_manager_PersonalGoal(Request $request)
     {
@@ -340,7 +340,7 @@ class EmployeePerformanceController extends Controller
                 }
             }
         }
-        return back();	   
+        return redirect("/edit-performance/{$add_empid}/#PersonalGoal");   
     }
     public function add_manager_ProfessionalGoalsAchieved(Request $request)
     {
@@ -374,7 +374,7 @@ class EmployeePerformanceController extends Controller
                 }
             }
         }
-        return back();	   
+        return redirect("/edit-performance/{$add_empid}/#ProfessionalAchived");   
     }
     public function add_manager_ProfessionalGoalsForthcoming(Request $request)
     {
@@ -408,7 +408,7 @@ class EmployeePerformanceController extends Controller
                 }
             }
         }
-        return back();	   
+        return redirect("/edit-performance/{$add_empid}/#ProfForthcoming");   
     }
     public function add_manager_TrainingRequirements(Request $request)
     {
@@ -442,7 +442,7 @@ class EmployeePerformanceController extends Controller
                 }
             }
         }
-        return back();	   
+        return redirect("/edit-performance/{$add_empid}/#TrainingRequirement");   
     }
     public function add_manager_OtherGeneralComment(Request $request)
     {
@@ -476,7 +476,7 @@ class EmployeePerformanceController extends Controller
                 }
             }
         }
-        return back();	   
+        return redirect("/edit-performance/{$add_empid}/#GeneralComment");   
     }
     public function add_manager_PerfomanceManagerUse(Request $request)
     {
@@ -512,7 +512,7 @@ class EmployeePerformanceController extends Controller
                 }
             }
         }
-        return back();	   
+        return redirect("/edit-performance/{$add_empid}/#PerfomanceManagerUse"); 	   
     }
     public function add_manager_PerformanceIdentity(Request $request)
     {
@@ -551,7 +551,7 @@ class EmployeePerformanceController extends Controller
                 }
             }
         }
-        return back();	   
+        return redirect("/edit-performance/{$add_empid}/#PerfomanceIdentitie");  
     }
     public function search_employee_Perfomance(Request $request){
         $dep=Department::get();

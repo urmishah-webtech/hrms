@@ -31,7 +31,7 @@ class PerformanceIdentitiesController extends Controller
                 $score= PerformanceIdentity::where('id',$id[$key])->first();
                 $score->name = $name[$key] ? $name[$key] : ''; 
                 $score->signature = $signature[$key] ? $signature[$key] : '';
-                $score->date = $date[$key] ? $date[$key] : ''; 
+                $score->date = Carbon::createFromFormat('d/m/Y', $date[$key] ? $date[$key] : '')->format('Y-m-d'); 
                 $score->save();
                 }   
                 else 
@@ -42,11 +42,11 @@ class PerformanceIdentitiesController extends Controller
                 $scores->user_role = $user_role[$key] ? $user_role[$key] : '';  
                 $scores->name = $name[$key] ? $name[$key] : '';
                 $scores->signature = $signature[$key] ? $signature[$key] : '';
-                $scores->date = $date[$key] ? $date[$key] : '';                 
+                $scores->date = Carbon::createFromFormat('d/m/Y', $date[$key] ? $date[$key] : '')->format('Y-m-d');                 
                 $scores->save();
                 }
             }
         }
-        return back();                 
+        return redirect("/performance#PerfomanceIdentitie");                
     } 
 }

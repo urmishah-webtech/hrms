@@ -39,6 +39,6 @@ class AdditionCommentRoleController extends Controller
                 }
             }
         }
-        return back();        
+        return redirect("/performance#AdditionCommentRole");        
     }
 }

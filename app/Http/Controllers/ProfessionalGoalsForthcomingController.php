@@ -34,12 +34,12 @@ class ProfessionalGoalsForthcomingController extends Controller
                 $scores = new ProfessionalGoalsForthcoming();
                 $scores->user_id = Auth::user()->id;
                 $scores->emp_id = $emp_id;
-                $scores->by_employee = $emp_text[$key] ? $emp_text[$key] : ''; //add a default value here
-                $scores->managers_comment = $manager_text[$key] ? $manager_text[$key] : ''; //add a default value here
+                $scores->by_employee = $emp_text[$key] ? $emp_text[$key] : '';  
+                $scores->managers_comment = $manager_text[$key] ? $manager_text[$key] : '';  
                 $scores->save();
                 }
             }
         }
-        return back();        
+        return redirect("/performance#ProfForthcoming");       
     }
 }

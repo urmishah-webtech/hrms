@@ -38,6 +38,6 @@ class PersonalGoalController extends Controller
                 }
             }
         }
-        return back();        
+        return redirect("/performance#PersonalGoal");        
     }
 }

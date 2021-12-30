@@ -94,7 +94,7 @@ class ProfessionalExcellenceController extends Controller
         $professional->total_percentage_manager=$request->total_percentage_manager;         
         $professional->save();       	  
 		}
-        return back();
+        return redirect("/performance#professionalexcel");
 	   
     }
 	 

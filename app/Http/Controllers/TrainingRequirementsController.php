@@ -39,6 +39,6 @@ class TrainingRequirementsController extends Controller
                 }
             }
         }
-        return back();        
+        return redirect("/performance#TrainingRequirement");      
     } 
 }

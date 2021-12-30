@@ -562,7 +562,7 @@ use App\Employee?>
                     </div>
                 </section>	 
                 
-                <section class="review-section professional-excellence">
+                <section class="review-section professional-excellence" id="professionalexcel">
                     <div class="review-header text-center">
                         <h3 class="review-title">Professional Excellence</h3>
                         <p class="text-muted">Lorem ipsum dollar</p>
@@ -674,7 +674,7 @@ use App\Employee?>
                         </div>
                     </div>
                 </section>
-                <section class="review-section personal-excellence">
+                <section class="review-section personal-excellence" id="PersonalExcellence">
                     <div class="review-header text-center">
                         <h3 class="review-title">Personal Excellence</h3>
                         <p class="text-muted">Lorem ipsum dollar</p>
@@ -803,7 +803,7 @@ use App\Employee?>
                     </div>
                 </section>
 
-                <section class="review-section">
+                <section class="review-section" id="specialInitiatives">
                     <div class="review-header text-center">
                         <h3 class="review-title">Special Initiatives, Achievements, contributions if any</h3>
                         <p class="text-muted">Lorem ipsum dollar</p>
@@ -858,7 +858,7 @@ use App\Employee?>
                         </div>
                     </div>
                 </section>
-                <section class="review-section">
+                <section class="review-section" id="CommentsRole">
                     <div class="review-header text-center">
                         <h3 class="review-title">Comments on the role</h3>
                         <p class="text-muted">alterations if any requirred like addition/deletion of responsibilities</p>
@@ -912,7 +912,7 @@ use App\Employee?>
                     </div>
                 </section>
                 
-                <section class="review-section">
+                <section class="review-section" id="AdditionCommentRole">
                     <div class="review-header text-center">
                         <h3 class="review-title">Comments on the role</h3>
                         <p class="text-muted">alterations if any requirred like addition/deletion of responsibilities</p>
@@ -974,7 +974,7 @@ use App\Employee?>
                         </div>
                     </div>
                 </section>
-                <section class="review-section">
+                <section class="review-section" id="AppraiseeStrength">
                     <div class="review-header text-center">
                         <h3 class="review-title">Appraisee's Strengths and Areas for Improvement perceived by the Reporting officer</h3>
                         <p class="text-muted">Lorem ipsum dollar</p>
@@ -1026,7 +1026,7 @@ use App\Employee?>
                     </div>
                 </section>
                 
-                <section class="review-section">
+                <section class="review-section" id="PersonalGoal">
                     <div class="review-header text-center">
                         <h3 class="review-title">Personal Goals</h3>
                         <p class="text-muted">Lorem ipsum dollar</p>
@@ -1078,7 +1078,7 @@ use App\Employee?>
                     </div>
                 </section>
                  
-                <section class="review-section">
+                <section class="review-section" id="ProfessionalAchived">
                     <div class="review-header text-center">
                         <h3 class="review-title">Professional Goals Achieved for last year</h3>
                         <p class="text-muted">Lorem ipsum dollar</p>
@@ -1131,7 +1131,7 @@ use App\Employee?>
                     </div>
                 </section>
                 
-                <section class="review-section">
+                <section class="review-section" id="ProfForthcoming">
                     <div class="review-header text-center">
                         <h3 class="review-title">Professional Goals for the forthcoming year</h3>
                         <p class="text-muted">Lorem ipsum dollar</p>
@@ -1185,7 +1185,7 @@ use App\Employee?>
                     </div>
                 </section>
                 
-                <section class="review-section">
+                <section class="review-section" id="TrainingRequirement">
                     <div class="review-header text-center">
                         <h3 class="review-title">Training Requirements</h3>
                         <p class="text-muted">if any to achieve the Performance Standard Targets completely</p>
@@ -1238,7 +1238,7 @@ use App\Employee?>
                     </div>
                 </section>
 
-                <section class="review-section">
+                <section class="review-section" id="GeneralComment">
                     <div class="review-header text-center">
                         <h3 class="review-title">Any other general comments, observations, suggestions etc.</h3>
                         <p class="text-muted">Lorem ipsum dollar</p>
@@ -1291,7 +1291,7 @@ use App\Employee?>
                     </div>
                 </section>
 
-               <section class="review-section">
+               <section class="review-section" id="PerfomanceManagerUse">
                     <div class="review-header text-center">
                         <h3 class="review-title">For Manager's Use Only</h3>
                         <p class="text-muted">Lorem ipsum dollar</p>
@@ -1400,7 +1400,7 @@ use App\Employee?>
                     </div>
                 </section>
                 
-                <div class="row">
+                <div class="row" id="PerfomanceIdentitie">
                     <div class="col-md-12">
                         <div class="table-responsive">
                         <form action="{{ route('edit_manPerformanceIdentity') }}" method="post">
@@ -1424,14 +1424,14 @@ use App\Employee?>
                                 <tbody>
                                     <tr>
                                         <td>Employee</td>
-                                        <input type="hidden" name="user_role[]" value="Employee">
+                                        <input type="hidden" name="user_role[]" value="employee">
                                         <td><input type="text" class="form-control" name="name[]" value="@if(isset($add_perfoIdent[0])){{$add_perfoIdent[0]['name']}} @endif" readonly></td>
                                         <td><input type="text" class="form-control" name="signature[]" value="@if(isset($add_perfoIdent[0])){{$add_perfoIdent[0]['signature']}} @endif" readonly></td>
                                         <td><div class="cal-icon"><input type="text" class="form-control datetimepicker" name="date[]" value="@if(isset($add_perfoIdent[0])){{$add_perfoIdent[0]['date']}} @endif" readonly></div></td>
                                     </tr>
                                     <tr>
                                         <td>Manager</td>
-                                        <input type="hidden" name="user_role[]" value="Manager">
+                                        <input type="hidden" name="user_role[]" value="manager">
                                         <td><input type="text" class="form-control" name="name[]" value="@if(isset($add_perfoIdent[1])){{$add_perfoIdent[1]['name']}} @endif"></td>
                                         <td><input type="text" class="form-control" name="signature[]" value="@if(isset($add_perfoIdent[1])){{$add_perfoIdent[1]['signature']}} @endif"></td>
                                         <td><div class="cal-icon"><input type="text" class="form-control datetimepicker" name="date[]" value="@if(isset($add_perfoIdent[1])){{$add_perfoIdent[1]['date']}} @endif"></div></td>
