@@ -37,8 +37,8 @@
                                             <div class="col-md-5">
                                                 <div class="profile-info-left">
                                                     <h3 class="user-name m-t-0 mb-0">{{Auth::user()->name}}</h3>
-                                                    <h6 class="text-muted">Department : {{ @$emp_profile->designation->department->name}}</h6>
-                                                    <small class="text-muted">Designation : {{ @$emp_profile->designation->name }}</small>
+                                                    <h6 class="staff-id">Department : {{ @$emp_profile->designation->department->name}}</h6>
+                                                    <small class="staff-id">Designation : {{ @$emp_profile->designation->name }}</small>
                                                     <div class="staff-id">Employee ID : {{ @$emp_profile->employee_id }}</div>
                                                      
                                                     
