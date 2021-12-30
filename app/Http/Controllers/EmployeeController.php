@@ -18,6 +18,7 @@ use App\Role;
 use Illuminate\Support\Str;
 use App\User;
 use Hash;
+use Auth;
 class EmployeeController extends Controller
 {
     public function employees(){
@@ -57,8 +58,8 @@ class EmployeeController extends Controller
            
             return Redirect::back()->withErrors($validator);
         }
-		
-		$usert=new User();
+		 
+		$usert=new User();		
         $usert->name=$request->first_name;
         $usert->email=$request->email;
         $usert->password=Hash::make($request->password);
@@ -66,6 +67,7 @@ class EmployeeController extends Controller
         $usert->save();
 		
         $emp=new Employee();
+		$emp->user_id = $usert->id;
         $emp->first_name=$request->first_name;
         $emp->last_name=$request->last_name;
         $emp->user_name=$request->user_name;

@@ -587,7 +587,7 @@ Route::post('/edit_man_PerfomanceManagerUse','EmployeePerformanceController@add_
 Route::post('/edit_manPerformanceIdentity','EmployeePerformanceController@add_manager_PerformanceIdentity')->name('edit_manPerformanceIdentity');
 Route::post('search_employee_perfomance','EmployeePerformanceController@search_employee_Perfomance')->name('search_employee_perfomance');
 Route::post('add_managerid_Employee','EmployeePerformanceController@add_managerid_EmployeeBasicInfo')->name('add_managerid_Employees');
-
+Route::get('profile','ProfileController@Profile_employees')->name('profile_details');
 
 
 
