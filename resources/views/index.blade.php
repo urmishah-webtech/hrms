@@ -9,7 +9,7 @@
 					<div class="page-header">
 						<div class="row">
 							<div class="col-sm-12">
-								<h3 class="page-title">Welcome Admin!</h3>
+								<h3 class="page-title">Welcome {{Auth::user()->name}}</h3>
 								<ul class="breadcrumb">
 									<li class="breadcrumb-item active">Dashboard</li>
 								</ul>
@@ -57,7 +57,7 @@
 								<div class="card-body">
 									<span class="dash-widget-icon"><i class="fa fa-user"></i></span>
 									<div class="dash-widget-info">
-										<h3>218</h3>
+										<h3>{{@$emp_total}}</h3>
 										<span>Employees</span>
 									</div>
 								</div>
@@ -88,7 +88,7 @@
 						</div>
 					</div>
 					
-					<div class="row">
+					<!--<div class="row">
 						<div class="col-md-12">
 							<div class="card-group m-b-30">
 								<div class="card">
@@ -164,7 +164,7 @@
 								</div>
 							</div>
 						</div>	
-					</div>
+					</div>--->
 					
 					  
 				</div>

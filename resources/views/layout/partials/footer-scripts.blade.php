@@ -487,7 +487,36 @@
 				 var ret = Number($("#quality_id").val()) + Number($("#tat_id").val()) + Number($("#pms_new_ideas").val()) + Number($("#team_productivity").val()) + Number($("#knowledge_sharing").val()) + Number($("#emails_calls").val());
 				$("#total_percentage_employee").val(ret);	
 			});
-
+			$(document).on("click",".edit_personal_info",function() {				 
+				var id=$(this).data('id');							
+				$("#passport_no").val($(this).data('passp'));
+				$("#tel").val($(this).data('tel'));
+				$("#nationality").val($(this).data('nati'));
+				$("#religion").val($(this).data('relg'));				 
+				$("#employment_of_spouse").val($(this).data('empsp'));
+				$("#No_of_children").val($(this).data('child'));				 
+				var marital_status =$(this).data('matst');	
+				$("#marital_status option[value='"+marital_status+"']").prop('selected',true);
+				if($(this).data('expdate')){
+				var d = new Date($(this).data('expdate'));
+						var dd = d.getDate(); 
+						var mm = d.getMonth()+1; 
+						var yyyy = d.getFullYear(); 
+						$("#passport_expiry_date").val(dd+'/'+mm+'/'+yyyy);
+				}				 							 
+			});
+			$(document).on("click",".edit-emergency-contact",function() {				 
+				var id=$(this).data('id');							
+				$("#primary_name").val($(this).data('pnm'));
+				$("#primary_relationship").val($(this).data('prs'));
+				$("#primary_phone1").val($(this).data('phn1'));
+				$("#primary_phone2").val($(this).data('phn2'));				 
+				$("#secondary_name").val($(this).data('snm'));
+				$("#secondary_relationship").val($(this).data('srs'));	
+				$("#secondary_phone1").val($(this).data('sphn1'));
+				$("#secondary_phone2").val($(this).data('sphn2'));			 
+				 				 							 
+			});
 			 
 		});
 	</script>

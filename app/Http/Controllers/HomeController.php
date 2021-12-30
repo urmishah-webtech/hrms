@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Employee;
 use Auth;
 class HomeController extends Controller
 {
@@ -27,17 +28,20 @@ class HomeController extends Controller
     }
 	public function adminHome()
     {
-        return view('index');
+        $emp_total= Employee::where('role_type','employee')->get()->count(); 
+        return view('index',compact('emp_total'));
     }
 	public function HomepageUrl()
     {
         if (Auth::user()->role_type == "admin" || Auth::user()->role_type == "manager")
-		{	 
-			 return view('index');
+		{	
+            $emp_total= Employee::where('role_type','employee')->get()->count();
+			 return view('index',compact('emp_total'));
 		}
 		else 
 		{	  
 			return view('employee-dashboard');	 				 
 		}		 
     }
+	 
 }
