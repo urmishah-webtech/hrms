@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Employee;
-use App\ProfilePersonalInformations;
-use App\Designation;
+use App\ProfilePersonalInformations; 
 use App\ProfileEmergencyContact; 
 use Auth;
 use Illuminate\Support\Carbon;
 use Validator;
 use Redirect;
+use DB;
  
 class ProfileController extends Controller
 {
