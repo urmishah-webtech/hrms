@@ -94,9 +94,9 @@
 								<div class="form-group text-center">
 									<button class="btn btn-primary account-btn" name="button" type="submit">Login</button>
 								</div>
-								<div class="account-footer">
+								<!--<div class="account-footer">
 									<p>Don't have an account yet? <a href="register">Register</a></p>
-								</div>
+								</div>-->
 							</form>
 							<!-- /Account Form -->
 							
