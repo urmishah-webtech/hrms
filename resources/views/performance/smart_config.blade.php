@@ -9,8 +9,12 @@
     <div class="form-group">
         <input type="submit" value="save" class="btn btn-primary" id="saveSmartBtn">
     </div>
-    <div class="submit-section my-3">			
-        <button class="m-0 btn btn-sm btn-primary submit-btn performance_status " data-status="competency" title="" style="margin: 23px 0px;">Activate Competency-based</button>
+    <div class="submit-section my-3">
+        @if(@$settings->smart_goals_active==0)			
+        <a  href="{{ url('changeStatus/3') }}"  class="m-0 btn btn-sm btn-primary submit-btn performance_status " data-status="competency" title="" style="margin: 23px 0px;">Activate SMART GOALS</a>
+        @else
+        <a  href=""  class="m-0 btn btn-sm btn-primary submit-btn performance_status " data-status="competency" title="" style="margin: 23px 0px;">SMART GOALS Activated </a>
+        @endif
     </div>
     </form>
 </div>

@@ -242,9 +242,14 @@ Route::post('save_competency','PerformanceSettingController@save_competency')->n
 Route::post('save_smart_config','PerformanceSettingController@save_smart_config')->name('save_smart_config');
 Route::post('save_scale2','PerformanceSettingController@save_scale2')->name('save_scale2');
 Route::post('get_scale2','PerformanceSettingController@get_scale2')->name('get_scale2');
-
-
-
+Route::post('get_c_scale2','PerformanceSettingController@get_c_scale2')->name('get_c_scale2');
+Route::post('save_c_scale2','PerformanceSettingController@save_c_scale2')->name('save_c_scale2');
+Route::post('get_s_scale2','PerformanceSettingController@get_s_scale2')->name('get_s_scale2');
+Route::post('save_s_scale2','PerformanceSettingController@save_s_scale2')->name('save_s_scale2');
+Route::post('save_compentency_info','PerformanceSettingController@save_compentency_info')->name('save_compentency_info');
+Route::post('delete_compentency_info','PerformanceSettingController@delete_compentency_info')->name('save_compentency_info');
+Route::post('edit_compentency_info','PerformanceSettingController@edit_compentency_info')->name('edit_compentency_info');
+Route::get('changeStatus/{id}','PerformanceSettingController@changeStatus')->name('changeStatus');
 
 // Route::get('/theme-settings', function () {
 //     return view('theme-settings');

@@ -43,6 +43,11 @@
         $('#5ratings_cont_okr').show();
         $('#01ratings_cont_okr').hide();
         $('#10ratings_cont_okr').hide();
+
+        $('#scale1_bar').hide();
+        $('#scale2_bar').show();
+        $('#scale3_bar').hide();
+
         $.ajax({
           url: "{{ url('get_scale2') }}",
           type:"POST",
