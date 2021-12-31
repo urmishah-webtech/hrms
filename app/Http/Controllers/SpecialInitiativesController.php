@@ -40,6 +40,6 @@ class SpecialInitiativesController extends Controller
                 }
             }
         }
-        return back();        
+        return redirect("/performance#specialInitiatives");       
     }   
 }

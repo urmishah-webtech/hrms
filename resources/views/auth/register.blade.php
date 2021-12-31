@@ -9,9 +9,19 @@
         <meta name="author" content="Dreamguys - Bootstrap Admin Template">
         <meta name="robots" content="noindex, nofollow">
         <title>Register - HRMS admin template</title>
-		
+		<?php
+			$theme_setting=DB::table('theme_settings')->first();
+		?>
 		<!-- Favicon -->
-        <link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
+        @if($theme_setting)
+			@if($theme_setting->favicon!=null)
+			<link rel="shortcut icon" type="image/x-icon" href="{{ url('/').'/setting_images/'.@$theme_setting->favicon }}">
+			@else
+			<link rel="shortcut icon" type="image/x-icon" href="{{ url('/').'img/favicon.png'}}">
+			@endif
+		@else
+			<link rel="shortcut icon" type="image/x-icon" href="{{ url('/').'img/favicon.png'}}">
+		@endif
 		
 		<!-- Bootstrap CSS -->
         <link rel="stylesheet" href="css/bootstrap.min.css">
@@ -34,10 +44,13 @@
 			<div class="account-content">
 				 
 				<div class="container">
-				
+					<?php
+						$theme_setting=DB::table('theme_settings')->first();
+						$setting=DB::table('settings')->first();
+					?>
 					<!-- Account Logo -->
 					<div class="account-logo">
-						<a href="index"><img src="img/logo2.png" alt="Dreamguy's Technologies"></a>
+						<a href="index"><img src="{{ url('/').'/img/login_logo.png'}}" alt="HRMS"></a>
 					</div>
 					<!-- /Account Logo -->
 					

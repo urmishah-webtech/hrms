@@ -1,10 +1,21 @@
-
+<?php
+    $theme_setting=DB::table('theme_settings')->first();
+    $setting=DB::table('settings')->first();
+?>
 <div class="header">
 			
             <!-- Logo -->
             <div class="header-left">
                 <a href="index" class="logo">
-                    <img src="img/logo.png" width="40" height="40" alt="">
+                    <?php if(isset($theme_setting)): ?>
+                    <?php if($theme_setting->light_logo!=null): ?>
+                    <img src="<?php echo e(url('/').'/setting_images/'.@$theme_setting->light_logo); ?>" alt="" width="150px" height="auto">
+                    <?php else: ?>
+                    <img src="<?php echo e(url('/').'/img/logo.png'); ?>" alt="" width="40" height="40">
+                    <?php endif; ?>
+                    <?php else: ?>
+                    <img src="<?php echo e(url('/').'/img/logo.png'); ?>" alt="" width="40" height="40">
+                    <?php endif; ?>
                 </a>
             </div>
             <!-- /Logo -->
@@ -19,7 +30,17 @@
             
             <!-- Header Title -->
             <div class="page-title-box">
-                <h3>Dreamguy's Technologies</h3>
+                <h3>
+                    <?php if($setting!=null): ?>
+                    <?php if($setting->company_name==null): ?>
+                    Dreamguy's Technologie1s
+                    <?php else: ?>
+                        <?php echo e($setting->company_name); ?>
+
+                    <?php endif; ?></h3>
+                    <?php else: ?>
+                        Dreamguy's Technologie1s1
+                    <?php endif; ?>
             </div>
             <!-- /Header Title -->
             
@@ -281,7 +302,7 @@
                 <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" href="profile">My Profile</a>
                     <a class="dropdown-item" href="settings">Settings</a>
-                    <a class="dropdown-item" href="<?php echo e(url('/logout')); ?>">Logout</a>
+                    <a class="dropdown-item" href="<?php echo e(route('logout')); ?>">Logout</a>
                 </div>
             </div>
             <!-- /Mobile Menu -->

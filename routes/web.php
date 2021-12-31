@@ -19,20 +19,12 @@ use App\Http\Middleware\AuthCheck;
 | contains the "web" middleware group. Now create something great!
 |
 */
-//Route::middleware(['checkRole'])->group(function () {
-//Route::middleware([AuthCheck::class])->group(function () {
-
 
 Route::get('/', function () {
-        //return view('index');
-        return view('auth/login');
+         return redirect('index');
+        //return view('auth/login');
     });
-    
-    /* Route::get('/home', function () {
-        //return view('index');
-        return view('login');
-    }); */
-
+     
 Route::middleware([AuthCheck::class])->group(function () {
 
 Route::get('/index', function () {
@@ -592,10 +584,11 @@ Route::post('/edit_man_PerfomanceManagerUse','EmployeePerformanceController@add_
 Route::post('/edit_manPerformanceIdentity','EmployeePerformanceController@add_manager_PerformanceIdentity')->name('edit_manPerformanceIdentity');
 Route::post('search_employee_perfomance','EmployeePerformanceController@search_employee_Perfomance')->name('search_employee_perfomance');
 Route::post('add_managerid_Employee','EmployeePerformanceController@add_managerid_EmployeeBasicInfo')->name('add_managerid_Employees');
-
-
-
-
+Route::get('profile','ProfileController@Profile_employees')->name('profile_details');
+ 
+Route::post('add_personal_info','ProfileController@add_profile_personal_informations')->name('add_personal_info');
+Route::post('add_emergency_contact','ProfileController@add_profile_emergency_contact')->name('add_emergency_contact'); 
+Route::post('add_Perfomance_status','EmployeePerformanceController@add_Perfomance_status_user')->name('add_Perfomance_status'); 
 
 
 

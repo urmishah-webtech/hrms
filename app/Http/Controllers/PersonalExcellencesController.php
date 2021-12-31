@@ -64,7 +64,7 @@ class PersonalExcellencesController extends Controller
         $personal->total_percentage_manager=$request->total_percentage_manager;         
         $personal->save();       	  
 		}
-        return back();
+        return redirect("/performance#PersonalExcellence");
 	   
     }
 }

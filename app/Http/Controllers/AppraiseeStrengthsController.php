@@ -39,6 +39,6 @@ class AppraiseeStrengthsController extends Controller
                 }
             }
         }
-        return back();        
+        return redirect("/performance#AppraiseeStrength");        
     }
 }

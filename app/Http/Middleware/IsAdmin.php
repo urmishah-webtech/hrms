@@ -18,6 +18,6 @@ class IsAdmin
         if(auth()->user()->role_type == "admin" || auth()->user()->role_type == "manager"){
             return $next($request);
         }
-		 return redirect('employees-dashboard')->with('error',"You don't have admin access.");
+		 return redirect('employee-dashboard')->with('error',"You don't have admin access.");
     }
 }

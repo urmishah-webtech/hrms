@@ -65,8 +65,8 @@
                                                     <i class="fa fa-dot-circle-o <?php if(@$val->status== '1'): ?> text-success <?php else: ?> text-danger <?php endif; ?>"></i>  <?php if(@$val->status== '1'): ?> Active <?php else: ?> Inactive <?php endif; ?>
                                                 </a>
                                                 <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-success"></i> <input type="radio" class="list_status10" name="status" id="status1"  data-id="<?php echo e(@$val->id); ?>"> <label for="status1">Active</label></a>
-                                                    <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-danger"></i> <input type="radio" class="list_status10" name="status" id="status0"  data-id="<?php echo e(@$val->id); ?>"><label for="status0">Inactive</label></a>
+                                                    <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-success"></i> <input type="radio" class="list_status5_35 status1" name="status" id="status1<?php echo e(@$val->id); ?>"  data-id="<?php echo e(@$val->id); ?>" value="1"> <label for="status1<?php echo e(@$val->id); ?>">Active</label></a>
+                                                    <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-danger"></i> <input type="radio" class="list_status5_35 status0" name="status" id="status0<?php echo e(@$val->id); ?>"  data-id="<?php echo e(@$val->id); ?>"  value="0"><label for="status0<?php echo e(@$val->id); ?>">Inactive</label></a>
                                                 </div>                                                
                                             </div>
                                         </td>
@@ -695,24 +695,24 @@
         
         </div>
         <!-- /Page Wrapper -->
-<?php $__env->stopSection(); ?>
-<style>input.list_status10{display:none;}</style>
+  
+<style>input.list_status5_35{display:none;}</style>
 <script src="js/jquery-3.5.1.min.js"></script>
 <script>
 		$( document ).ready(function() {  	
-			$(document).on("click","*[id^=status]",function() {	
+			$(document).on("click",".list_status5_35",function() {	
                 
 				var id=$(this).data('id');	
-                		
+               	
 				var status;
-				if($("#status1").is(":checked")) 
+				if($(".status1").is(":checked")) 
 				{
 					status=1;
 				}
 				else{
 					status=0;
 				}
-				 
+				 	
 				$.ajax({
 					type:'POST',
 					url:"<?php echo e(route('chang_appraisal_status')); ?>",
@@ -724,4 +724,5 @@
 			});
 		});
 	</script>
+  <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layout.mainlayout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\hrms\resources\views/performance-appraisal.blade.php ENDPATH**/ ?>

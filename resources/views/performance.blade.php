@@ -60,12 +60,20 @@
 													<input type="text" class="form-control" id="doj" value="{{ @$emps->joing_date }}" @if (Auth::user()->role_type == "employee")readonly @endif>
 												</div>
                                             </td>
-                                            <td>                                               
+                                            <!--<td>                                               
 												<div class="form-group">
 													<label for="name1"> Manager's Name</label>
+													<select class="form-control" name="manager_id" id="edit_manager_id" required>
+														<option value="">Select Manager</option>
+														@isset($manager_user)
+															@foreach ($manager_user as $item)
+															<option @if($item->name == @$man_name->name)selected @endif value="{{ $item->id }}">{{ $item->name }}</option> 
+															@endforeach							
+														@endisset
+													</select>
 													<input type="text" class="form-control" id="name1" @if (Auth::user()->role_type == "employee")readonly @endif value="@if (Auth::user()->role_type == "manager"){{Auth::user()->name}}@endif">
 												</div>                                      
-                                            </td>
+                                            </td>--->
                                         </tr>
 									</form>
                                     </tbody>
@@ -75,7 +83,7 @@
                     </div>
                 </section>	 
                 
-                <section class="review-section professional-excellence">
+                <section class="review-section professional-excellence" id="professionalexcel">
                     <div class="review-header text-center">
                         <h3 class="review-title">Professional Excellence</h3>
                         <p class="text-muted">Lorem ipsum dollar</p>
@@ -83,7 +91,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="table-responsive">
-							 <form action="{{ route('add_professionalexcel') }}" method="post">
+							 <form action="{{ route('add_professionalexcel') }}" method="post" >
                              @csrf
 								
 								 
@@ -179,7 +187,7 @@
                         </div>
                     </div>
                 </section>
-                <section class="review-section personal-excellence">
+                <section class="review-section personal-excellence" id="PersonalExcellence">
                     <div class="review-header text-center">
                         <h3 class="review-title">Personal Excellence</h3>
                         <p class="text-muted">Lorem ipsum dollar</p>
@@ -306,7 +314,7 @@
                     </div>
                 </section>
 
-                <section class="review-section">
+                <section class="review-section" id="specialInitiatives">
                     <div class="review-header text-center">
                         <h3 class="review-title">Special Initiatives, Achievements, contributions if any</h3>
                         <p class="text-muted">Lorem ipsum dollar</p>
@@ -357,7 +365,7 @@
                         </div>
                     </div>
                 </section>
-                <section class="review-section">
+                <section class="review-section" id="CommentsRole">
                     <div class="review-header text-center">
                         <h3 class="review-title">Comments on the role</h3>
                         <p class="text-muted">alterations if any requirred like addition/deletion of responsibilities</p>
@@ -410,7 +418,7 @@
                     </div>
                 </section>
                 
-                <section class="review-section">
+                <section class="review-section" id="AdditionCommentRole">
                     <div class="review-header text-center">
                         <h3 class="review-title">Comments on the role</h3>
                         <p class="text-muted">alterations if any requirred like addition/deletion of responsibilities</p>
@@ -469,7 +477,7 @@
                         </div>
                     </div>
                 </section>
-                <section class="review-section">
+                <section class="review-section" id="AppraiseeStrength">
                     <div class="review-header text-center">
                         <h3 class="review-title">Appraisee's Strengths and Areas for Improvement perceived by the Reporting officer</h3>
                         <p class="text-muted">Lorem ipsum dollar</p>
@@ -519,7 +527,7 @@
                     </div>
                 </section>
                 
-                <section class="review-section">
+                <section class="review-section" id="PersonalGoal">
                     <div class="review-header text-center">
                         <h3 class="review-title">Personal Goals</h3>
                         <p class="text-muted">Lorem ipsum dollar</p>
@@ -569,7 +577,7 @@
                     </div>
                 </section>
                  
-                <section class="review-section">
+                <section class="review-section" id="ProfessionalAchived">
                     <div class="review-header text-center">
                         <h3 class="review-title">Professional Goals Achieved for last year</h3>
                         <p class="text-muted">Lorem ipsum dollar</p>
@@ -620,7 +628,7 @@
                     </div>
                 </section>
                 
-                <section class="review-section">
+                <section class="review-section" id="ProfForthcoming">
                     <div class="review-header text-center">
                         <h3 class="review-title">Professional Goals for the forthcoming year</h3>
                         <p class="text-muted">Lorem ipsum dollar</p>
@@ -671,7 +679,7 @@
                     </div>
                 </section>
                 
-                <section class="review-section">
+                <section class="review-section" id="TrainingRequirement">
                     <div class="review-header text-center">
                         <h3 class="review-title">Training Requirements</h3>
                         <p class="text-muted">if any to achieve the Performance Standard Targets completely</p>
@@ -722,7 +730,7 @@
                     </div>
                 </section>
 
-                <section class="review-section">
+                <section class="review-section" id="GeneralComment">
                     <div class="review-header text-center">
                         <h3 class="review-title">Any other general comments, observations, suggestions etc.</h3>
                         <p class="text-muted">Lorem ipsum dollar</p>
@@ -880,7 +888,7 @@
                     </div>
                 </section>-->
                 
-                <div class="row">
+                <div class="row" id="PerfomanceIdentitie">
                     <div class="col-md-12">
                         <div class="table-responsive">
                         <form action="{{ route('add_perfomanceIdentitie') }}" method="post">
@@ -902,17 +910,17 @@
                                 <tbody>
                                     <tr>
                                         <td>Employee</td>
-                                        <input type="hidden" name="user_role[]" value="Employee">
+                                        <input type="hidden" name="user_role[]" value="employee">
                                         <td><input type="text" class="form-control" name="name[]" value="@if(isset($add_perfoIdent[0])){{$add_perfoIdent[0]['name']}} @endif"></td>
                                         <td><input type="text" class="form-control" name="signature[]" value="@if(isset($add_perfoIdent[0])){{$add_perfoIdent[0]['signature']}} @endif"></td>
-                                        <td><div class="cal-icon"><input type="text" class="form-control " name="date[]" value="@if(isset($add_perfoIdent[0])){{$add_perfoIdent[0]['date']}} @endif"></div></td>
+                                        <td><div class="cal-icon"><input type="text" class="form-control datetimepicker" name="date[]" value="@if(isset($add_perfoIdent[0])){{$add_perfoIdent[0]['date']}} @endif"></div></td>
                                     </tr>
                                     <tr>
                                         <td>Manager</td>
-                                        <input type="hidden" name="user_role[]" value="Manager">
+                                        <input type="hidden" name="user_role[]" value="manager">
                                         <td><input type="text" class="form-control" name="name[]" value="@if(isset($add_perfoIdent[1])){{$add_perfoIdent[1]['name']}} @endif" @if (Auth::user()->role_type == "employee")readonly @endif></td>
                                         <td><input type="text" class="form-control" name="signature[]" value="@if(isset($add_perfoIdent[1])){{$add_perfoIdent[1]['signature']}} @endif" @if (Auth::user()->role_type == "employee")readonly @endif></td>
-                                        <td><div class="cal-icon"><input type="text" class="form-control" name="date[]" value="@if(isset($add_perfoIdent[1])){{$add_perfoIdent[1]['date']}} @endif" @if (Auth::user()->role_type == "employee")readonly @endif></div></td>
+                                        <td><div class="cal-icon"><input type="text" class="form-control datetimepicker" name="date[]" value="@if(isset($add_perfoIdent[1])){{$add_perfoIdent[1]['date']}} @endif" @if (Auth::user()->role_type == "employee")readonly @endif></div></td>
                                     </tr>
                                      
                                 </tbody>

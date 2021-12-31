@@ -53,10 +53,11 @@ class EmployeePerformanceController extends Controller
         $general_comment=OtherGeneralComment::where('emp_id', $id)->get();
         $perfomancemanageruse=PerfomanceManagerUse::where('emp_id', $id)->get();
         $add_perfoIdent=PerformanceIdentity::where('emp_id', $id)->get(); 
-		$manager_nm = User::where('role_type','manager')->get();
-		
+		$manager_user = User::where('role_type','manager')->get();
+         
 		 
-		return view('/edit-performance',compact('emp_id','professional','emps','personal','specialInitiatives','comments_role','add_comments','add_comments_id','add_appraiseest','add_appraiseest_id','add_personalgoal','add_personalgoal_id','professional_achived','professional_forthcoming','training_requirements','general_comment','perfomancemanageruse','add_perfoIdent','manager_nm'));
+		 
+		return view('/edit-performance',compact('emp_id','professional','emps','personal','specialInitiatives','comments_role','add_comments','add_comments_id','add_appraiseest','add_appraiseest_id','add_personalgoal','add_personalgoal_id','professional_achived','professional_forthcoming','training_requirements','general_comment','perfomancemanageruse','add_perfoIdent','manager_user'));
 	}
 	public function add_managerid_EmployeeBasicInfo(Request $request)
 	{	$id = $request->id;
@@ -113,7 +114,7 @@ class EmployeePerformanceController extends Controller
             $professional->total_percentage_manager=$request->total_percentage_manager;         
             $professional->save();       	  
 		}
-        return back();
+        return redirect("/edit-performance/{$id}/#professionalexcel"); 
 	   
     }
     public function add_manager_PersonalExcellence(Request $request)
@@ -169,7 +170,7 @@ class EmployeePerformanceController extends Controller
             $personal->total_percentage_manager=$request->total_percentage_manager;        
             $personal->save();         	  
 		}
-        return back();
+        return redirect("/edit-performance/{$id}/#PersonalExcellence");
 	   
     }
     public function add_manager_SpecialInitiatives(Request $request)
@@ -204,7 +205,7 @@ class EmployeePerformanceController extends Controller
                 }
             }
         }
-        return back();	   
+        return redirect("/edit-performance/{$add_empid}/#specialInitiatives");	   
     }
     public function add_manager_CommentsRole(Request $request)
     {
@@ -238,7 +239,7 @@ class EmployeePerformanceController extends Controller
                 }
             }
         }
-        return back();	   
+        return redirect("/edit-performance/{$add_empid}/#CommentsRole");		   
     }
     public function add_manager_AdditionCommentRole(Request $request)
     {
@@ -272,7 +273,7 @@ class EmployeePerformanceController extends Controller
                 }
             }
         }
-        return back();	   
+        return redirect("/edit-performance/{$add_empid}/#AdditionCommentRole");   
     }
     public function add_manager_AppraiseeStrength(Request $request)
     {
@@ -306,7 +307,7 @@ class EmployeePerformanceController extends Controller
                 }
             }
         }
-        return back();	   
+        return redirect("/edit-performance/{$add_empid}/#AppraiseeStrength");   
     }
     public function add_manager_PersonalGoal(Request $request)
     {
@@ -340,7 +341,7 @@ class EmployeePerformanceController extends Controller
                 }
             }
         }
-        return back();	   
+        return redirect("/edit-performance/{$add_empid}/#PersonalGoal");   
     }
     public function add_manager_ProfessionalGoalsAchieved(Request $request)
     {
@@ -374,7 +375,7 @@ class EmployeePerformanceController extends Controller
                 }
             }
         }
-        return back();	   
+        return redirect("/edit-performance/{$add_empid}/#ProfessionalAchived");   
     }
     public function add_manager_ProfessionalGoalsForthcoming(Request $request)
     {
@@ -408,7 +409,7 @@ class EmployeePerformanceController extends Controller
                 }
             }
         }
-        return back();	   
+        return redirect("/edit-performance/{$add_empid}/#ProfForthcoming");   
     }
     public function add_manager_TrainingRequirements(Request $request)
     {
@@ -442,7 +443,7 @@ class EmployeePerformanceController extends Controller
                 }
             }
         }
-        return back();	   
+        return redirect("/edit-performance/{$add_empid}/#TrainingRequirement");   
     }
     public function add_manager_OtherGeneralComment(Request $request)
     {
@@ -476,7 +477,7 @@ class EmployeePerformanceController extends Controller
                 }
             }
         }
-        return back();	   
+        return redirect("/edit-performance/{$add_empid}/#GeneralComment");   
     }
     public function add_manager_PerfomanceManagerUse(Request $request)
     {
@@ -512,7 +513,7 @@ class EmployeePerformanceController extends Controller
                 }
             }
         }
-        return back();	   
+        return redirect("/edit-performance/{$add_empid}/#PerfomanceManagerUse"); 	   
     }
     public function add_manager_PerformanceIdentity(Request $request)
     {
@@ -551,7 +552,7 @@ class EmployeePerformanceController extends Controller
                 }
             }
         }
-        return back();	   
+        return redirect("/edit-performance/{$add_empid}/#PerfomanceIdentitie");  
     }
     public function search_employee_Perfomance(Request $request){
         $dep=Department::get();
@@ -573,5 +574,13 @@ class EmployeePerformanceController extends Controller
          
         return view('employees-performance',compact('dep','des','emps',
         'search_employee_id','search_name','search_designation'));
+    }
+    public function add_Perfomance_status_user(Request $request)
+    {   
+        $userd = Auth::user()->id;       
+        $status=Employee::where('id',$request->empid)->first();             
+        $status->perfomance_status=$request->perfomance_status;
+        $status->save();
+        return back();
     }
 }

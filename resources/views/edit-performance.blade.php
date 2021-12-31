@@ -1,4 +1,5 @@
-<?php use App\User;?>
+<?php use App\User;
+use App\Employee?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -8,10 +9,29 @@
 		<meta name="keywords" content="admin, estimates, bootstrap, business, corporate, creative, management, minimal, modern, accounts, invoice, html5, responsive, CRM, Projects">
         <meta name="author" content="Dreamguys - Bootstrap Admin Template">
         <meta name="robots" content="noindex, nofollow">
-        <title>Dashboard - HRMS admin template</title>
+        <?php
+			$theme_setting=DB::table('theme_settings')->first();
+		?>
+       @if($theme_setting)
+	   @if($theme_setting->website_name!=null)
+	   <title>Dashboard - {{ @$theme_setting->website_name }}</title>
+	   @else
+	   <title>Dashboard - HRMS admin template</title>
+	   @endif
+	   @else
+	   <title>Dashboard - HRMS admin template</title>
+	   @endif
 		
 		<!-- Favicon -->
-        <link rel="shortcut icon" type="image/x-icon" href="{{ URL::asset('img/favicon.png') }}">
+        @if($theme_setting)
+			@if($theme_setting->favicon!=null)
+			<link rel="shortcut icon" type="image/x-icon" href="{{ url('/').'/setting_images/'.@$theme_setting->favicon }}">
+			@else
+			<link rel="shortcut icon" type="image/x-icon" href="{{ url('/').'img/favicon.png'}}">
+			@endif
+		@else
+			<link rel="shortcut icon" type="image/x-icon" href="{{ url('/').'img/favicon.png'}}">
+		@endif
 		
 		<!-- Bootstrap CSS -->
         <link rel="stylesheet" href="{{ URL::asset('css/bootstrap.min.css') }}">
@@ -49,14 +69,25 @@
  
     <!-- Main Wrapper -->
     <div class="main-wrapper">
-    
+		<?php
+			$theme_setting=DB::table('theme_settings')->first();
+			$setting=DB::table('settings')->first();
+		?>
         <!-- Header -->
         <div class="header">
         
             <!-- Logo -->
             <div class="header-left">
                 <a href="index" class="logo">
-                    <img src="{{ URL::asset('img/logo.png') }}" width="40" height="40" alt="">
+                    @isset($theme_setting)
+                    @if($theme_setting->light_logo!=null)
+                    <img src="{{ url('/').'/setting_images/'.@$theme_setting->light_logo }}" alt="" width="150px" height="auto">
+                    @else
+                    <img src="{{ url('/').'/img/logo.png'}}" alt="" width="40" height="40">
+                    @endif
+                    @else
+                    <img src="{{ url('/').'/img/logo.png'}}" alt="" width="40" height="40">
+                    @endif
                 </a>
             </div>
             <!-- /Logo -->
@@ -71,7 +102,16 @@
             
             <!-- Header Title -->
             <div class="page-title-box">
-                <h3>Dreamguy's Technologies</h3>
+                <h3>
+                    @if($setting!=null)
+                    @if($setting->company_name==null)
+                    Dreamguy's Technologie1s
+                    @else
+                        {{ $setting->company_name }}
+                    @endif</h3>
+                    @else
+                        Dreamguy's Technologie1s1
+                    @endif
             </div>
             <!-- /Header Title -->
             
@@ -496,15 +536,16 @@
 												<div class="form-group">
 													<label for="name1"> Manager's Name</label>
 														@isset($emps)
-														@php $man_name = User::where('id',  @$emps->manager_id )->first(); @endphp
+														@php $man_name = User::where('id',  @$emps->manager_id )->first();
+														@endphp
 														<input type="hidden" name="get_manager_id" value="{{ @$man_name->name }}">
 														@endisset
 													<select class="form-control" name="manager_id" id="edit_manager_id" required>
-														<option value="">Select Role</option>
-														@isset($manager_nm)
-															@foreach ($manager_nm as $item)
+														<option value="">Select Manager</option>
+														@isset($manager_user)
+															@foreach ($manager_user as $item)
 															<option @if($item->name == @$man_name->name)selected @endif value="{{ $item->id }}">{{ $item->name }}</option> 
-															@endforeach
+															@endforeach							
 														@endisset
 													</select>										 
 												</div> 
@@ -521,7 +562,7 @@
                     </div>
                 </section>	 
                 
-                <section class="review-section professional-excellence">
+                <section class="review-section professional-excellence" id="professionalexcel">
                     <div class="review-header text-center">
                         <h3 class="review-title">Professional Excellence</h3>
                         <p class="text-muted">Lorem ipsum dollar</p>
@@ -633,7 +674,7 @@
                         </div>
                     </div>
                 </section>
-                <section class="review-section personal-excellence">
+                <section class="review-section personal-excellence" id="PersonalExcellence">
                     <div class="review-header text-center">
                         <h3 class="review-title">Personal Excellence</h3>
                         <p class="text-muted">Lorem ipsum dollar</p>
@@ -762,7 +803,7 @@
                     </div>
                 </section>
 
-                <section class="review-section">
+                <section class="review-section" id="specialInitiatives">
                     <div class="review-header text-center">
                         <h3 class="review-title">Special Initiatives, Achievements, contributions if any</h3>
                         <p class="text-muted">Lorem ipsum dollar</p>
@@ -817,7 +858,7 @@
                         </div>
                     </div>
                 </section>
-                <section class="review-section">
+                <section class="review-section" id="CommentsRole">
                     <div class="review-header text-center">
                         <h3 class="review-title">Comments on the role</h3>
                         <p class="text-muted">alterations if any requirred like addition/deletion of responsibilities</p>
@@ -871,7 +912,7 @@
                     </div>
                 </section>
                 
-                <section class="review-section">
+                <section class="review-section" id="AdditionCommentRole">
                     <div class="review-header text-center">
                         <h3 class="review-title">Comments on the role</h3>
                         <p class="text-muted">alterations if any requirred like addition/deletion of responsibilities</p>
@@ -933,7 +974,7 @@
                         </div>
                     </div>
                 </section>
-                <section class="review-section">
+                <section class="review-section" id="AppraiseeStrength">
                     <div class="review-header text-center">
                         <h3 class="review-title">Appraisee's Strengths and Areas for Improvement perceived by the Reporting officer</h3>
                         <p class="text-muted">Lorem ipsum dollar</p>
@@ -985,7 +1026,7 @@
                     </div>
                 </section>
                 
-                <section class="review-section">
+                <section class="review-section" id="PersonalGoal">
                     <div class="review-header text-center">
                         <h3 class="review-title">Personal Goals</h3>
                         <p class="text-muted">Lorem ipsum dollar</p>
@@ -1037,7 +1078,7 @@
                     </div>
                 </section>
                  
-                <section class="review-section">
+                <section class="review-section" id="ProfessionalAchived">
                     <div class="review-header text-center">
                         <h3 class="review-title">Professional Goals Achieved for last year</h3>
                         <p class="text-muted">Lorem ipsum dollar</p>
@@ -1090,7 +1131,7 @@
                     </div>
                 </section>
                 
-                <section class="review-section">
+                <section class="review-section" id="ProfForthcoming">
                     <div class="review-header text-center">
                         <h3 class="review-title">Professional Goals for the forthcoming year</h3>
                         <p class="text-muted">Lorem ipsum dollar</p>
@@ -1144,7 +1185,7 @@
                     </div>
                 </section>
                 
-                <section class="review-section">
+                <section class="review-section" id="TrainingRequirement">
                     <div class="review-header text-center">
                         <h3 class="review-title">Training Requirements</h3>
                         <p class="text-muted">if any to achieve the Performance Standard Targets completely</p>
@@ -1197,7 +1238,7 @@
                     </div>
                 </section>
 
-                <section class="review-section">
+                <section class="review-section" id="GeneralComment">
                     <div class="review-header text-center">
                         <h3 class="review-title">Any other general comments, observations, suggestions etc.</h3>
                         <p class="text-muted">Lorem ipsum dollar</p>
@@ -1250,7 +1291,7 @@
                     </div>
                 </section>
 
-               <section class="review-section">
+               <section class="review-section" id="PerfomanceManagerUse">
                     <div class="review-header text-center">
                         <h3 class="review-title">For Manager's Use Only</h3>
                         <p class="text-muted">Lorem ipsum dollar</p>
@@ -1357,9 +1398,8 @@
                             </div>
                         </div>
                     </div>
-                </section>
-                
-                <div class="row">
+                </section>                
+                <section class="review-section row" id="PerfomanceIdentitie">
                     <div class="col-md-12">
                         <div class="table-responsive">
                         <form action="{{ route('edit_manPerformanceIdentity') }}" method="post">
@@ -1383,14 +1423,14 @@
                                 <tbody>
                                     <tr>
                                         <td>Employee</td>
-                                        <input type="hidden" name="user_role[]" value="Employee">
+                                        <input type="hidden" name="user_role[]" value="employee">
                                         <td><input type="text" class="form-control" name="name[]" value="@if(isset($add_perfoIdent[0])){{$add_perfoIdent[0]['name']}} @endif" readonly></td>
                                         <td><input type="text" class="form-control" name="signature[]" value="@if(isset($add_perfoIdent[0])){{$add_perfoIdent[0]['signature']}} @endif" readonly></td>
                                         <td><div class="cal-icon"><input type="text" class="form-control datetimepicker" name="date[]" value="@if(isset($add_perfoIdent[0])){{$add_perfoIdent[0]['date']}} @endif" readonly></div></td>
                                     </tr>
                                     <tr>
                                         <td>Manager</td>
-                                        <input type="hidden" name="user_role[]" value="Manager">
+                                        <input type="hidden" name="user_role[]" value="manager">
                                         <td><input type="text" class="form-control" name="name[]" value="@if(isset($add_perfoIdent[1])){{$add_perfoIdent[1]['name']}} @endif"></td>
                                         <td><input type="text" class="form-control" name="signature[]" value="@if(isset($add_perfoIdent[1])){{$add_perfoIdent[1]['signature']}} @endif"></td>
                                         <td><div class="cal-icon"><input type="text" class="form-control datetimepicker" name="date[]" value="@if(isset($add_perfoIdent[1])){{$add_perfoIdent[1]['date']}} @endif"></div></td>
@@ -1404,8 +1444,21 @@
                             </form>
                         </div>
                     </div>
+                </section>
+                <div class="row" >
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                        <form action="{{ route('add_Perfomance_status') }}" method="post">
+                            @csrf
+                            <input type="hidden" name="empid" value="@if(isset($emp_id)){{ $emp_id->id}}@endif">
+                            <input type="hidden" name="user_id" value="{{Auth::user()->id}}">                                 
+                                <div class="review-header text-center">
+                                <button type="submit" class="btn btn-primary submit-btn"><input type="hidden" name="perfomance_status" value="1" id="perfomance_status">Complete Status</button>
+								</div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-
             </div>
             <!-- /Page Content -->
             
@@ -1416,8 +1469,8 @@
 		
 		<!-- jQuery -->
          	 
+        
        
-
 		<!-- Bootstrap Core JS -->
         <script src="{{ URL::asset('js/popper.min.js') }}"></script>
         <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
