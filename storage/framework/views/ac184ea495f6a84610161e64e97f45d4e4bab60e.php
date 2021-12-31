@@ -1,6 +1,5 @@
-
-<?php $__env->startSection('content'); ?>
-  
+<?php echo $__env->make('layout.setting_module_header', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+ 
 <!-- Page Wrapper -->
 <div class="page-wrapper">
 	<!-- Page Content -->
@@ -93,5 +92,25 @@
 	<!-- /Page Content -->
 	
 </div>
-<?php $__env->stopSection(); ?>
-<?php echo $__env->make('layout.mainlayout', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\xampp\htdocs\hrms\resources\views/email-settings.blade.php ENDPATH**/ ?>
+ <!-- /Page Wrapper -->
+ </div>
+		<!-- /Main Wrapper -->
+
+		<!-- jQuery -->
+        <script src="js/jquery-3.5.1.min.js"></script>
+
+		<!-- Bootstrap Core JS -->
+        <script src="js/popper.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+
+		<!-- Slimscroll JS -->
+		<script src="js/jquery.slimscroll.min.js"></script>
+		
+		<!-- Select2 JS -->
+		<script src="js/select2.min.js"></script>
+
+		<!-- Custom JS -->
+		<script src="js/app.js"></script>
+		
+    </body>
+</html><?php /**PATH C:\xampp\htdocs\hrms\resources\views/email-settings.blade.php ENDPATH**/ ?>
