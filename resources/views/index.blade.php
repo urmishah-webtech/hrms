@@ -24,8 +24,8 @@
 								<div class="card-body">
 									<span class="dash-widget-icon"><i class="fa fa-cubes"></i></span>
 									<div class="dash-widget-info">
-										<h3>112</h3>
-										<span>Projects</span>
+										<h3>{{@$per_status_complete}}</h3>
+										<span>Performance Complete</span>
 									</div>
 								</div>
 							</div>
@@ -35,8 +35,8 @@
 								<div class="card-body">
 									<span class="dash-widget-icon"><i class="fa fa-usd"></i></span>
 									<div class="dash-widget-info">
-										<h3>44</h3>
-										<span>Clients</span>
+										<h3>{{@$per_status_incomp}}</h3>
+										<span>Performance Incomplete</span>
 									</div>
 								</div>
 							</div>
@@ -64,30 +64,7 @@
 							</div>
 						</div>
 					</div>
-					
-					<div class="row">
-						<div class="col-md-12">
-							<div class="row">
-								<div class="col-md-6 text-center">
-									<div class="card">
-										<div class="card-body">
-											<h3 class="card-title">Total Revenue</h3>
-											<div id="bar-charts"></div>
-										</div>
-									</div>
-								</div>
-								<div class="col-md-6 text-center">
-									<div class="card">
-										<div class="card-body">
-											<h3 class="card-title">Sales Overview</h3>
-											<div id="line-charts"></div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					
+					 
 					<!--<div class="row">
 						<div class="col-md-12">
 							<div class="card-group m-b-30">

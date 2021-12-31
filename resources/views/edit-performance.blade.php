@@ -1398,9 +1398,8 @@ use App\Employee?>
                             </div>
                         </div>
                     </div>
-                </section>
-                
-                <div class="row" id="PerfomanceIdentitie">
+                </section>                
+                <section class="review-section row" id="PerfomanceIdentitie">
                     <div class="col-md-12">
                         <div class="table-responsive">
                         <form action="{{ route('edit_manPerformanceIdentity') }}" method="post">
@@ -1445,8 +1444,21 @@ use App\Employee?>
                             </form>
                         </div>
                     </div>
+                </section>
+                <div class="row" >
+                    <div class="col-md-12">
+                        <div class="table-responsive">
+                        <form action="{{ route('add_Perfomance_status') }}" method="post">
+                            @csrf
+                            <input type="hidden" name="empid" value="@if(isset($emp_id)){{ $emp_id->id}}@endif">
+                            <input type="hidden" name="user_id" value="{{Auth::user()->id}}">                                 
+                                <div class="review-header text-center">
+                                <button type="submit" class="btn btn-primary submit-btn"><input type="hidden" name="perfomance_status" value="1" id="perfomance_status">Complete Status</button>
+								</div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
-
             </div>
             <!-- /Page Content -->
             
@@ -1457,8 +1469,8 @@ use App\Employee?>
 		
 		<!-- jQuery -->
          	 
+        
        
-
 		<!-- Bootstrap Core JS -->
         <script src="{{ URL::asset('js/popper.min.js') }}"></script>
         <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>

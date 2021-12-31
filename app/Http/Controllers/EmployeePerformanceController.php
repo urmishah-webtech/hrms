@@ -54,7 +54,8 @@ class EmployeePerformanceController extends Controller
         $perfomancemanageruse=PerfomanceManagerUse::where('emp_id', $id)->get();
         $add_perfoIdent=PerformanceIdentity::where('emp_id', $id)->get(); 
 		$manager_user = User::where('role_type','manager')->get();
-		//$manager_emp = Employee::where('role_type','manager')->get();
+         
+		 
 		 
 		return view('/edit-performance',compact('emp_id','professional','emps','personal','specialInitiatives','comments_role','add_comments','add_comments_id','add_appraiseest','add_appraiseest_id','add_personalgoal','add_personalgoal_id','professional_achived','professional_forthcoming','training_requirements','general_comment','perfomancemanageruse','add_perfoIdent','manager_user'));
 	}
@@ -573,5 +574,13 @@ class EmployeePerformanceController extends Controller
          
         return view('employees-performance',compact('dep','des','emps',
         'search_employee_id','search_name','search_designation'));
+    }
+    public function add_Perfomance_status_user(Request $request)
+    {   
+        $userd = Auth::user()->id;       
+        $status=Employee::where('id',$request->empid)->first();             
+        $status->perfomance_status=$request->perfomance_status;
+        $status->save();
+        return back();
     }
 }
