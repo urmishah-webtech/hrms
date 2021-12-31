@@ -33,6 +33,9 @@
 							</li>		
 						</ul>
 					</li>
+					<li>
+        				<a class="{{ Request::is('holidays') ? 'active' : '' }}" href="{{ url('holidays') }}">Holidays</a>
+        			</li>	
 					<li class="menu-title"> 
 						<span>Performance</span>
 					</li>
