@@ -29,3 +29,6 @@ index.html
 composer.json
 composer.lock
 bootstrap
+/storage/framework
+/bootstrap/cache/
+/public/setting_images/
