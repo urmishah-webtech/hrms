@@ -583,7 +583,7 @@ Route::get('profile','ProfileController@Profile_employees')->name('profile_detai
  
 Route::post('add_personal_info','ProfileController@add_profile_personal_informations')->name('add_personal_info');
 Route::post('add_emergency_contact','ProfileController@add_profile_emergency_contact')->name('add_emergency_contact'); 
-
+Route::post('add_Perfomance_status','EmployeePerformanceController@add_Perfomance_status_user')->name('add_Perfomance_status'); 
 
 
 
