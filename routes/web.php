@@ -191,9 +191,12 @@ Route::get('/trainers', function () {
 Route::get('/training-type', function () {
     return view('training-type');
 });
-Route::get('/promotion', function () {
-    return view('promotion');
-});
+// Route::get('/promotion', function () {
+//     return view('promotion');
+// });
+Route::get('/promotion','PromotionController@index')->name('promotions');
+Route::post('/add-promotion','PromotionController@addPromotion')->name('add-promotion');
+Route::get('/getdesignation','PromotionController@getDesignation')->name('getdesignation');
 Route::get('/resignation', function () {
     return view('resignation');
 });
