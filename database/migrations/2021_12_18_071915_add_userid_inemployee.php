@@ -16,8 +16,8 @@ class AddUseridInemployee extends Migration
         Schema::table('employees', function (Blueprint $table) {
             $table->bigInteger('user_id')->nullable()->unsigned();
 			$table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');			
-        });
-    }
+        }); 
+    } 
 
     /**
      * Reverse the migrations.

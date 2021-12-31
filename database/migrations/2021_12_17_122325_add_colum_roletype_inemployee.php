@@ -14,7 +14,7 @@ class AddColumRoletypeInemployee extends Migration
     public function up()
     {
         Schema::table('employees', function (Blueprint $table) {
-           $table->string('role_type')->nullable();
+           $table->string('role_type')->nullable();  
         });
     }
 

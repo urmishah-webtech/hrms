@@ -1,53 +1,54 @@
 <!-- jQuery -->
-<script src="js/jquery-3.5.1.min.js"></script>
+
+<script src="<?php echo e(URL::asset('js/jquery-3.5.1.min.js')); ?>"></script>
 		
 		<!-- Bootstrap Core JS -->
-        <script src="js/popper.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
+        <script src="<?php echo e(URL::asset('js/popper.min.js')); ?>"></script>
+        <script src="<?php echo e(URL::asset('js/bootstrap.min.js')); ?>"></script>
 		
 		<!-- Slimscroll JS -->
-		<script src="js/jquery.slimscroll.min.js"></script>
+		<script src="<?php echo e(URL::asset('js/jquery.slimscroll.min.js')); ?>"></script>
 		<?php if(Route::is(['jobs-dashboard','user-dashboard'])): ?>
 		<!-- Chart JS -->
-		<script src="js/Chart.min.js"></script>
-		<script src="js/line-chart.js"></script>
+		<script src="<?php echo e(URL::asset('js/Chart.min.js')); ?>"></script>
+		<script src="<?php echo e(URL::asset('js/line-chart.js')); ?>"></script>
 		<?php endif; ?>
 		<!-- Select2 JS -->
-		<script src="js/select2.min.js"></script>
+		<script src="<?php echo e(URL::asset('js/select2.min.js')); ?>"></script>
 
-		<script src="js/jquery-ui.min.js"></script>
-		<script src="js/jquery.ui.touch-punch.min.js"></script>
+		<script src="<?php echo e(URL::asset('js/jquery-ui.min.js')); ?>"></script>
+		<script src="<?php echo e(URL::asset('js/jquery.ui.touch-punch.min.js')); ?>"></script>
 		
 		<!-- Datetimepicker JS -->
-		<script src="js/moment.min.js"></script>
-		<script src="js/bootstrap-datetimepicker.min.js"></script>
+		<script src="<?php echo e(URL::asset('js/moment.min.js')); ?>"></script>
+		<script src="<?php echo e(URL::asset('js/bootstrap-datetimepicker.min.js')); ?>"></script>
 		
 		<!-- Calendar JS -->
-		<script src="js/jquery-ui.min.js"></script>
-        <script src="js/fullcalendar.min.js"></script>
-        <script src="js/jquery.fullcalendar.js"></script>
+		<script src="<?php echo e(URL::asset('js/jquery-ui.min.js')); ?>"></script>
+        <script src="<?php echo e(URL::asset('js/fullcalendar.min.js')); ?>"></script>
+        <script src="<?php echo e(URL::asset('js/jquery.fullcalendar.js')); ?>"></script>
 
 		<!-- Multiselect JS -->
-		<script src="js/multiselect.min.js"></script>
+		<script src="<?php echo e(URL::asset('js/multiselect.min.js')); ?>"></script>
 
 		<!-- Datatable JS -->
-		<script src="js/jquery.dataTables.min.js"></script>
-		<script src="js/dataTables.bootstrap4.min.js"></script>
+		<script src="<?php echo e(URL::asset('js/jquery.dataTables.min.js')); ?>"></script>
+		<script src="<?php echo e(URL::asset('js/dataTables.bootstrap4.min.js')); ?>"></script>
 
 		<!-- Summernote JS -->
-		<script src="plugins/summernote/dist/summernote-bs4.min.js"></script>
+		<script src="<?php echo e(URL::asset('plugins/summernote/dist/summernote-bs4.min.js')); ?>"></script>
 		
 			
-		<script src="plugins/sticky-kit-master/dist/sticky-kit.min.js"></script>
+		<script src="<?php echo e(URL::asset('plugins/sticky-kit-master/dist/sticky-kit.min.js')); ?>"></script>
 
 		<!-- Task JS -->
-		<script src="js/task.js"></script>
+		<script src="<?php echo e(URL::asset('js/task.js')); ?>"></script>
 
 		<!-- Dropfiles JS
 		<script src="js/dropfiles.js"></script> -->
 
 		<!-- Custom JS -->
-		<script src="js/app.js"></script>
+		<script src="<?php echo e(URL::asset('js/app.js')); ?>"></script>
 		<script>
 		 $(document).ready(function(){
 
@@ -132,7 +133,7 @@
 			function GetDynamicTextBox(table_id) {
 				$('#comments_remove').remove();
 				var rowsLength = document.getElementById(table_id).getElementsByTagName("tbody")[0].getElementsByTagName("tr").length+1;
-				return '<td>'+rowsLength+'</td>' + '<td><input type="text" name = "DynamicTextBox" class="form-control" value = "" ></td>' + '<td><input type="text" name = "DynamicTextBox" class="form-control" value = "" ></td>' + '<td><input type="text" name = "DynamicTextBox" class="form-control" value = "" ></td>' + '<td><button type="button" class="btn btn-danger" id="comments_remove"><i class="fa fa-trash-o"></i></button></td>'
+				return '<td>'+rowsLength+'</td>' + '<td><input type="text" name = "DynamicTextBoxemp[]" class="form-control" value = "" <?php if(Auth::user()->role_type != "employee"): ?>readonly <?php endif; ?>></td>' + '<td><input type="text" name = "DynamicTextBoxman[]" class="form-control" value = "" <?php if(Auth::user()->role_type == "employee"): ?>readonly <?php endif; ?>></td>' + '<td><button type="button" class="btn btn-danger" id="comments_remove"><i class="fa fa-trash-o"></i></button></td>'
 			}
 		});
 		</script>
@@ -146,6 +147,10 @@
 		$(document).ready(function(){
 			$(".departmentError").hide();
 			var deptname=''
+			$(document).on("click",".delDepBtn",function() {
+				
+				$(".deleteDepCont").attr('data-id', $(this).data('id'));
+			});
 		  $(document).on("click",".editBtn",function() {
 			  
 				deptname = $(this).closest('.trTag').find('.tdTag').html();
@@ -175,8 +180,20 @@
 					}
 				});
 			});
+			$(document).on("click",".add-btn",function() {
+				var last_emp_id=$("#last_emp_id").val();
+				var emp_id="emp_"+last_emp_id+Math.floor(Math.random() * 10000);
+				$("#disabled_emp_id").val(emp_id)
+				$("#employee_id").val(emp_id)
+				$('#add_employee').modal('toggle');
+
+			});
 			$(document).on("click",".edtEmpBtn",function() {
+				var last_emp_id=$("#last_emp_id").val();
+				var emp_id="emp_"+last_emp_id+Math.floor(Math.random() * 10000);
 				var id= $(this).data('id');
+				var roleid=$(this).data('role_id');
+						
 				$(".permissionCheck").prop('checked',false)
 				$.ajax({
 					type:'POST',
@@ -187,10 +204,25 @@
 						$("#emp_last_name").val(data.emp[0].last_name)
 						$("#emp_user_name").val(data.emp[0].user_name)
 						$("#emp_email").val(data.emp[0].email)
+ 
 					
 						$("#emp_employee_id").val(data.emp[0].employee_id)
-						$("#emp_phone_no").val(data.emp[0].phone_no)
 						
+						 
+ 
+						if(data.emp[0].employee_id!=null){
+							$("#emp_employee_id").val(data.emp[0].employee_id)
+							$("#edit_employee_id").val(data.emp[0].employee_id)
+
+						}			
+						else{
+							$("#emp_employee_id").val(emp_id)
+							$("#edit_employee_id").val(emp_id)
+
+						}	
+						$("#edit_role_id").val(data.emp[0].role_id)
+ 
+						$("#emp_phone_no").val(data.emp[0].phone_no)
 
 						var d = new Date(data.emp[0].joing_date);
 						var dd = d.getDate(); 
@@ -199,6 +231,7 @@
 						$("#emp_joing_date").val(dd+'/'+mm+'/'+yyyy)
 						$("#emp_id").val(data.emp[0].id)
 						$("#edit_depList option[value='"+data.emp[0].department_id+"']").prop('selected',true);
+						$("#edit_role_id option[value='"+roleid+"']").prop('selected',true);
 						change_designation(data.emp[0].department_id)
 						$("#edit_designationList option[value='"+data.emp[0].designation_id	+"']").prop('selected',true);
 						$.each(data.permission_modules, function(key, val) 
@@ -428,5 +461,62 @@
 					}
 				});
 			}); 
+			$('.percentage_employee').on('change', function() {            	 
+				 var ret = Number($("#quality_id").val()) + Number($("#tat_id").val()) + Number($("#pms_new_ideas").val()) + Number($("#team_productivity").val()) + Number($("#knowledge_sharing").val()) + Number($("#emails_calls").val());
+				$("#total_percentage_employee").val(ret);	
+			});
+			$('.percentage_manager').on('change', function() {            	 
+				 var ret = Number($("#quality_manager").val()) + Number($("#tat_manager").val()) + Number($("#pms_new_ideas_manager").val()) + Number($("#team_productivity_manager").val()) + Number($("#knowledge_sharing_manager").val()) + Number($("#emails_calls_manager").val());
+				$("#total_percentage_manager").val(ret);	
+			});
+			$('.personal_employee').on('change', function() {            	 
+				 var ret = Number($("#plan_leave_employee").val()) + Number($("#time_cons_employee").val()) + Number($("#team_collaboration_employee").val()) + Number($("#professionalism_employee").val()) + Number($("#policy_employee").val()) + Number($("#initiatives_employee").val()) + Number($("#improvement_employee").val());
+				$("#total_score_employee").val(ret);
+				var percent = Math.round((ret/ 15)*100);
+				$("#total_percentage_empl").val(percent);
+			});
+			$('.personal_manager').on('change', function() {            	 
+				 var ret = Number($("#plan_leave_manager").val()) + Number($("#time_cons_manager").val()) + Number($("#team_collaboration_manager").val()) + Number($("#professionalism_manager").val()) + Number($("#policy_manager").val()) + Number($("#initiatives_manager").val()) + Number($("#improvement_manager").val());
+				$("#total_score_manager").val(ret);	
+				var percent_man = Math.round((ret/ 15)*100);
+				$("#total_percentage_man").val(percent_man);
+			});
+
+			$('.percentage_employee_man').on('change', function() {
+				           	 
+				 var ret = Number($("#quality_id").val()) + Number($("#tat_id").val()) + Number($("#pms_new_ideas").val()) + Number($("#team_productivity").val()) + Number($("#knowledge_sharing").val()) + Number($("#emails_calls").val());
+				$("#total_percentage_employee").val(ret);	
+			});
+			$(document).on("click",".edit_personal_info",function() {				 
+				var id=$(this).data('id');							
+				$("#passport_no").val($(this).data('passp'));
+				$("#tel").val($(this).data('tel'));
+				$("#nationality").val($(this).data('nati'));
+				$("#religion").val($(this).data('relg'));				 
+				$("#employment_of_spouse").val($(this).data('empsp'));
+				$("#No_of_children").val($(this).data('child'));				 
+				var marital_status =$(this).data('matst');	
+				$("#marital_status option[value='"+marital_status+"']").prop('selected',true);
+				if($(this).data('expdate')){
+				var d = new Date($(this).data('expdate'));
+						var dd = d.getDate(); 
+						var mm = d.getMonth()+1; 
+						var yyyy = d.getFullYear(); 
+						$("#passport_expiry_date").val(dd+'/'+mm+'/'+yyyy);
+				}				 							 
+			});
+			$(document).on("click",".edit-emergency-contact",function() {				 
+				var id=$(this).data('id');							
+				$("#primary_name").val($(this).data('pnm'));
+				$("#primary_relationship").val($(this).data('prs'));
+				$("#primary_phone1").val($(this).data('phn1'));
+				$("#primary_phone2").val($(this).data('phn2'));				 
+				$("#secondary_name").val($(this).data('snm'));
+				$("#secondary_relationship").val($(this).data('srs'));	
+				$("#secondary_phone1").val($(this).data('sphn1'));
+				$("#secondary_phone2").val($(this).data('sphn2'));			 
+				 				 							 
+			});
+			 
 		});
 	</script><?php /**PATH C:\xampp\htdocs\hrms\resources\views/layout/partials/footer-scripts.blade.php ENDPATH**/ ?>
