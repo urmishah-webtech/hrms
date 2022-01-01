@@ -17,6 +17,7 @@ use App\TrainingRequirements;
 use App\OtherGeneralComment;
 use App\PerfomanceManagerUse;
 use App\PerformanceIdentity;
+use App\KeyprofessionalExcellences;
 use Auth;
 use Validator;
 use DB;
@@ -42,9 +43,15 @@ class ProfessionalExcellenceController extends Controller
         $add_manager_id=PerfomanceManagerUse::where('user_id', $userd)->get();
         $add_perfoIdent=PerformanceIdentity::where('user_id', $userd)->get(); 
         $add_perfoIdent_id=PerformanceIdentity::where('user_id', $userd)->get();
-		$emps=Employee::where('user_id', $userd)->first();
-        
-        return view('performance',compact('professional','emps','personal','specialInitiatives','comments_role','add_comments','add_comments_id','add_appraiseest','add_appraiseest_id','add_personalgoal','add_personalgoal_id','professional_achived','professional_forthcoming','training_requirements','general_comment','perfomancemanageruse','add_manager_id','add_perfoIdent','add_perfoIdent_id'));
+		$emps=Employee::where('user_id', $userd)->first();       
+        $prof_excel=KeyprofessionalExcellences::where('user_id', $userd)->first();
+        $prof_data = json_decode($prof_excel->percentage_achieved_employee, true); 
+        $scoredemp = json_decode($prof_excel->points_scored_employee, true);
+        $achi_man = json_decode($prof_excel->percentage_achieved_manager, true);
+        $score_man = json_decode($prof_excel->points_scored_manager, true);
+     //dd($scoredemp);
+		//dd($prof_data[2.1]['percentage_achieved_employee']); 
+        return view('performance',compact('professional','emps','personal','specialInitiatives','comments_role','add_comments','add_comments_id','add_appraiseest','add_appraiseest_id','add_personalgoal','add_personalgoal_id','professional_achived','professional_forthcoming','training_requirements','general_comment','perfomancemanageruse','add_manager_id','add_perfoIdent','add_perfoIdent_id','prof_excel','prof_data','scoredemp','achi_man','score_man'));
 		
     }
 	
@@ -94,8 +101,61 @@ class ProfessionalExcellenceController extends Controller
         $professional->total_percentage_manager=$request->total_percentage_manager;         
         $professional->save();       	  
 		}
-        return redirect("/performance#professionalexcel");
-	   
+        return redirect("/performance#professionalexcel");	   
     }
+
+    public function store_KeyprofessionalExcellences(Request $request)
+    {  
+        $eid = $request->empid;
+        //$settings=KeyprofessionalExcellences::first();  
+        $settings=KeyprofessionalExcellences::where('emp_id',$eid)->first();  
+        $rate_arr=array();
+        $final_achieved=array();
+        $final_scored=array();
+        $final_achieved_man=array();
+        $final_scored_man=array();
+        array_push($rate_arr,$request->key_no);
+        $rate_count=count($rate_arr);
+        if(!empty($rate_arr)){
+            $i=0;
+            foreach($request->key_no as $key => $val){
+            $final_achieved[$val]['percentage_achieved_employee']=$request->percentage_achieved_employee[$i];
+            $final_scored[$val]['points_scored_employee']=$request->points_scored_employee[$i]; 
+            $final_achieved_man[$val]['percentage_achieved_manager']=$request->percentage_achieved_manager[$i];
+            $final_scored_man[$val]['points_scored_manager']=$request->points_scored_manager[$i];          
+            $i++;
+           }
+        }
+        if($settings){
+             
+                $settings->percentage_achieved_employee=json_encode($final_achieved);
+                $settings->points_scored_employee=json_encode($final_scored);
+                $settings->percentage_achieved_manager=json_encode($final_achieved_man);
+                $settings->points_scored_manager=json_encode($final_scored_man);
+                $settings->total_achieved_employee=$request->total_achieved_employee;
+                $settings->total_scored_employee=$request->total_scored_employee;
+                $settings->total_achieved_manager=$request->total_achieved_manager;
+                $settings->total_scored_manager=$request->total_scored_manager;
+                $settings->save();
+             
+        }
+        else{
+                $settings = new KeyprofessionalExcellences();
+                $settings->user_id = Auth::user()->id;
+                $settings->emp_id = $eid;
+                $settings->percentage_achieved_employee=json_encode($final_achieved);
+                $settings->points_scored_employee=json_encode($final_scored);
+                $settings->percentage_achieved_manager=json_encode($final_achieved_man);
+                $settings->points_scored_manager=json_encode($final_scored_man);
+                $settings->total_achieved_employee=$request->total_achieved_employee;
+                $settings->total_scored_employee=$request->total_scored_employee;
+                $settings->total_achieved_manager=$request->total_achieved_manager;
+                $settings->total_scored_manager=$request->total_scored_manager;
+                $settings->save();
+             
+        }
+
+        return back();                 
+    } 
 	 
 }

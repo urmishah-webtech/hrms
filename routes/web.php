@@ -7,6 +7,7 @@ use App\Http\Controllers\AppraisalController;
 use App\Http\Controllers\UserRegister_Controller;
 use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfessionalExcellenceController;
 use App\Http\Middleware\AuthCheck;
 
 /*
@@ -584,10 +585,9 @@ Route::get('profile','ProfileController@Profile_employees')->name('profile_detai
 Route::post('add_personal_info','ProfileController@add_profile_personal_informations')->name('add_personal_info');
 Route::post('add_emergency_contact','ProfileController@add_profile_emergency_contact')->name('add_emergency_contact'); 
 Route::post('add_Perfomance_status','EmployeePerformanceController@add_Perfomance_status_user')->name('add_Perfomance_status'); 
-
-
-
-
+ 
+ 
+Route::post('add_KeyprofessionalExcellences',[ProfessionalExcellenceController::class,'store_KeyprofessionalExcellences'])->name('add_KeyprofessionalExcellences');
 
 
 
