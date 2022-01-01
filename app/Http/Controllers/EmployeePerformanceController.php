@@ -55,7 +55,7 @@ class EmployeePerformanceController extends Controller
         $perfomancemanageruse=PerfomanceManagerUse::where('emp_id', $id)->get();
         $add_perfoIdent=PerformanceIdentity::where('emp_id', $id)->get(); 
 		$manager_user = User::where('role_type','manager')->get();
-        $prof_excel=KeyprofessionalExcellences::where('user_id', $userd)->first();
+        $prof_excel=KeyprofessionalExcellences::where('emp_id', $id)->first();
 		 
 		 
 		return view('/edit-performance',compact('emp_id','professional','emps','personal','specialInitiatives','comments_role','add_comments','add_comments_id','add_appraiseest','add_appraiseest_id','add_personalgoal','add_personalgoal_id','professional_achived','professional_forthcoming','training_requirements','general_comment','perfomancemanageruse','add_perfoIdent','manager_user','prof_excel'));
@@ -93,7 +93,7 @@ class EmployeePerformanceController extends Controller
            }
         }
         if($settings){
-             
+                $settings= KeyprofessionalExcellences::where('emp_id', $eid)->first();
                 $settings->percentage_achieved_employee=json_encode($final_achieved);
                 $settings->points_scored_employee=json_encode($final_scored);
                 $settings->percentage_achieved_manager=json_encode($final_achieved_man);
