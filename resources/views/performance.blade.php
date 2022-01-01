@@ -94,10 +94,8 @@
 							 <form action="{{ route('add_KeyprofessionalExcellences') }}" method="post" >
                              @csrf
 
-                              <input type="hidden" name="empid" value="@if(isset($emps)){{ $emps->id}}@endif">
-                               
-                               
-								 
+                              <input type="hidden" name="empid" value="@if(isset($emps)){{ $emps->id}}@endif">                       
+                               								 
                                 <table class="table table-bordered review-table mb-0">
                                     <thead>
                                         <tr>

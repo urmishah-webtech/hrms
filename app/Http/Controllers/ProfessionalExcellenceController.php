@@ -101,8 +101,7 @@ class ProfessionalExcellenceController extends Controller
 
     public function store_KeyprofessionalExcellences(Request $request)
     {  
-        $eid = $request->empid;
-        //$settings=KeyprofessionalExcellences::first();  
+        $eid = $request->empid;         
         $settings=KeyprofessionalExcellences::where('emp_id',$eid)->first();  
         $rate_arr=array();
         $final_achieved=array();
