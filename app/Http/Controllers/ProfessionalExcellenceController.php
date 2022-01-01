@@ -48,7 +48,7 @@ class ProfessionalExcellenceController extends Controller
         
         return view('performance',compact('professional','emps','personal','specialInitiatives','comments_role','add_comments','add_comments_id','add_appraiseest','add_appraiseest_id','add_personalgoal','add_personalgoal_id','professional_achived','professional_forthcoming','training_requirements','general_comment','perfomancemanageruse','add_manager_id','add_perfoIdent','add_perfoIdent_id','prof_excel'));
          
-    }
+    } 
 	
 	public function add_ProfessionalExcellence(Request $request){
         $userd = Auth::user()->id;          
