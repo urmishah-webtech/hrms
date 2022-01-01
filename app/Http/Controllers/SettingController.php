@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\CompentencyInfo;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Setting;
@@ -62,7 +63,8 @@ class SettingController extends Controller
     }
     public function performance_settings(){
         $settings=PerformanceSetting::first();
-        return view('performance-setting',compact('settings'));
+        $compInfo=CompentencyInfo::get();
+        return view('performance-setting',compact('settings','compInfo'));
     }
     public function theme_setting_update(Request $request){
         $validator = Validator::make($request->all(), [

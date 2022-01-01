@@ -41,28 +41,32 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>
-                                            <h2 class="table-avatar blue-link">
-                                                <a href="profile" class="avatar"><img alt="" src="img/profiles/avatar-02.jpg"></a>
-                                                <a href="profile">John Doe</a>
-                                            </h2>
-                                        </td>
-                                        <td>Web Development</td>
-                                        <td>Web Developer</td>
-                                        <td>Sr Web Developer</td>
-                                        <td>28 Feb 2019</td>
-                                        <td class="text-right">
-                                            <div class="dropdown dropdown-action">
-                                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#edit_promotion"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_promotion"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                                    @if (!empty($data))
+                                        @foreach ($data as $key => $item)
+                                        <tr>
+                                            <td>{{$key+1}}</td>
+                                            <td>
+                                                <h2 class="table-avatar blue-link">
+                                                    {{-- <a href="profile" class="avatar"><img alt="" src="img/profiles/avatar-02.jpg"></a> --}}
+                                                    <a href="profile">{{optional($item->employee)->first_name}} {{optional($item->employee)->last_name}}</a>
+                                                </h2>
+                                            </td>
+                                            <td>{{optional($item->getdepartment)->name}}</td>
+                                            <td>{{optional($item->desfrom)->name}}</td>
+                                            <td>{{optional($item->desto)->name}}</td>
+                                            <td>{{date('F j, Y', strtotime($item->date))}}</td>
+                                            <td class="text-right">
+                                                <div class="dropdown dropdown-action">
+                                                    <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
+                                                    <div class="dropdown-menu dropdown-menu-right">
+                                                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#edit_promotion"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_promotion"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    @endif
                                 </tbody>
                             </table>
                             <!-- /Promotion Table -->
@@ -84,27 +88,35 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form>
+                            <form method="POST" action="{{route('add-promotion')}}">
+                                @csrf
                                 <div class="form-group">
                                     <label>Promotion For <span class="text-danger">*</span></label>
-                                    <input class="form-control" type="text">
+                                    <select name="employeeid" id="promotionemployeeid" class="select">
+                                        <option value="">--Select--</option>
+                                        @if (!empty($employees))
+                                            @foreach ($employees as $emp)
+                                                <option value="{{$emp->id}}">{{$emp->first_name}} {{$emp->last_name}}</option>
+                                            @endforeach
+                                        @endif
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Promotion From <span class="text-danger">*</span></label>
-                                    <input class="form-control" type="text" value="Web Developer" readonly>
+                                    <input class="form-control" type="text" id="promotionfrom" readonly>
+                                    <input type="hidden" id="promotionfromid" name="promotionform">
+                                    <input type="hidden" id="promotiondepartment" name="department">
                                 </div>
                                 <div class="form-group">
                                     <label>Promotion To <span class="text-danger">*</span></label>
-                                    <select class="select">
-                                        <option>Web Developer</option>
-                                        <option>Web Designer</option>
-                                        <option>SEO Analyst</option>
+                                    <select class="select" id="promotionto" name="promotionto">
+                                       
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Promotion Date <span class="text-danger">*</span></label>
                                     <div class="cal-icon">
-                                        <input type="text" class="form-control datetimepicker">
+                                        <input type="text" class="form-control datetimepicker" name="date">
                                     </div>
                                 </div>
                                 <div class="submit-section">

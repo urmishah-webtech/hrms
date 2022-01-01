@@ -526,6 +526,31 @@
 				$("#secondary_phone2").val($(this).data('sphn2'));			 
 				 				 							 
 			});
+
+			// promotion scripts
+			$('#promotionemployeeid').change(function(){
+				var empid = $(this).val();
+				$.ajax({
+					url:"{{route('getdesignation')}}",
+					type:'GET',
+					data:{'empid':empid},
+					success:function(result){
+						console.log(result);
+						if (result.status == 1) {
+							var curr = result.currentdesignation;
+							var designation = result.designationforpromotion;
+							$('#promotionfrom').val(curr.name);
+							$('#promotionfromid').val(curr.id);
+							$('#promotiondepartment').val(curr.department_id);
+							$('#promotionto').html('');
+							$('#promotionto').append('<option value="">--Select--</option>');
+							designation.forEach(element => {
+								$('#promotionto').append('<option value="'+element.id+'">'+element.name+'</option>');
+							});
+						}
+					}
+				})
+			})
 			 
 		});
 	</script>

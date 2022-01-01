@@ -11,6 +11,16 @@
     </div>
     </form>
 </div>
+<div class="col-md-12 col-lg-12">
+    <div class="submit-section my-3">
+        @if(@$settings->okr_active==0)
+        <a href="{{ url('changeStatus/1') }}" class="btn btn-primary submit-btn performance_status red_circle" data-status="okr" title="Admin can’t activate it again">Activate OKR</a>
+        @else
+        <a href="" class="btn btn-primary submit-btn performance_status red_circle" data-status="okr" title="Admin can’t activate it again">OKR Activated </a>
+
+        @endif
+    </div>
+</div>
 <script src="{{ URL::asset('js/jquery-3.5.1.min.js') }}"></script>
 <script type="text/javascript">
     $('#okrForm').on('submit',function(e){
