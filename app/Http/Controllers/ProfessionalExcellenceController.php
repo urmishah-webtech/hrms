@@ -45,14 +45,9 @@ class ProfessionalExcellenceController extends Controller
         $add_perfoIdent_id=PerformanceIdentity::where('user_id', $userd)->get();
 		$emps=Employee::where('user_id', $userd)->first();       
         $prof_excel=KeyprofessionalExcellences::where('user_id', $userd)->first();
-        $prof_data = json_decode($prof_excel->percentage_achieved_employee, true); 
-        $scoredemp = json_decode($prof_excel->points_scored_employee, true);
-        $achi_man = json_decode($prof_excel->percentage_achieved_manager, true);
-        $score_man = json_decode($prof_excel->points_scored_manager, true);
-     //dd($scoredemp);
-		//dd($prof_data[2.1]['percentage_achieved_employee']); 
-        return view('performance',compact('professional','emps','personal','specialInitiatives','comments_role','add_comments','add_comments_id','add_appraiseest','add_appraiseest_id','add_personalgoal','add_personalgoal_id','professional_achived','professional_forthcoming','training_requirements','general_comment','perfomancemanageruse','add_manager_id','add_perfoIdent','add_perfoIdent_id','prof_excel','prof_data','scoredemp','achi_man','score_man'));
-		
+        
+        return view('performance',compact('professional','emps','personal','specialInitiatives','comments_role','add_comments','add_comments_id','add_appraiseest','add_appraiseest_id','add_personalgoal','add_personalgoal_id','professional_achived','professional_forthcoming','training_requirements','general_comment','perfomancemanageruse','add_manager_id','add_perfoIdent','add_perfoIdent_id','prof_excel'));
+         
     }
 	
 	public function add_ProfessionalExcellence(Request $request){
