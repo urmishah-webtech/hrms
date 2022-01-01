@@ -53,7 +53,9 @@
 							@if (Auth::user()->role_type == "admin" || Auth::user()->role_type == "manager")
 							<li>
 								<a class="{{ Request::is('employees-performance') ? 'active' : '' }}" href="{{ url('employees-performance') }}"> Employee Performance </a>
-							</li>	
+							</li>
+							<li class="{{ Request::is('promotion') ? 'active' : '' }}">
+								<a  href="{{ url('promotion') }}"><i class="la la-bullhorn"></i> <span>Promotion</span>  </a></li>	
 							@endif								
 							<li>
 								<a class="{{ Request::is('performance-appraisal') ? 'active' : '' }}" href="{{ url('performance-appraisal') }}"> Performance Appraisal  </a>
