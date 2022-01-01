@@ -73,9 +73,11 @@ Route::post('delete_employee','EmployeeController@delete_employee')->name('delet
 Route::post('edit_employee','EmployeeController@edit_employee')->name('edit_employee');
 Route::post('update_employee','EmployeeController@update_employee')->name('update_employee');
 Route::post('search_employee','EmployeeController@search_employee')->name('search_employee');
-Route::get('/holidays', function () {
-    return view('holidays');
-});
+Route::get('/holidays', 'HolidayController@list')->name('holidays');
+Route::post('save-holiday','HolidayController@save')->name('holiday.save');
+Route::get('/edit-holiday/{id?}', 'HolidayController@edit')->name('holiday.edit');
+Route::get('/update-holiday/{id?}', 'HolidayController@update')->name('holiday.update');
+
 Route::get('/leaves', function () {
     return view('leaves');
 });
