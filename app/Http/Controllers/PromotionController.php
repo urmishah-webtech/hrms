@@ -39,4 +39,27 @@ class PromotionController extends Controller
         Promotion::create(['employeeid' => $request->employeeid, 'promotionform' => $request->promotionform, 'promotionto' => $request->promotionto, 'department' => $request->department, 'date' => $date]);
         return redirect()->back()->with('msg', 'Created Successfully');
     }
+
+    public function editPromotion(){
+        $id = $_GET['proid'];
+        $data = Promotion::find($id);
+        $employee = ($data->employee)->first_name.' '.($data->employee)->last_name;
+        $currentdesignation = Designation::find($data->promotionform);
+        $designationforpromotion = Designation::where('department_id', $data->department)->get()->except($data->promotionform);
+        return response(['status' => 1, 'currentdesignation' => $currentdesignation, 'designationforpromotion' => $designationforpromotion, 'employee' => $employee, 'data' => $data]);
+    }
+
+    public function updatePromotion(Request $request){
+        $date = Carbon::createFromFormat('d/m/Y', $request->date)->format('Y-m-d');
+        Promotion::where('id', $request->id)->update(['employeeid' => $request->employeeid, 'promotionform' => $request->promotionform, 'promotionto' => $request->promotionto, 'date' => $date]);
+        return redirect()->back()->with('msg', 'Updated Successfully');
+    }
+
+    public function deletePromotion(Request $request){
+        $data = Promotion::find($request->id);
+        if (!empty($data)) {
+            $data->delete();
+        }
+        return redirect()->back()->with('msg', 'Deleted Successfully');
+    }
 }

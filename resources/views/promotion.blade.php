@@ -28,7 +28,7 @@
                         <div class="table-responsive">
                         
                             <!-- Promotion Table -->
-                            <table class="table table-striped custom-table mb-0 datatable">
+                            <table class="table table-striped custom-table mb-0 datatable" id="promotion-table">
                                 <thead>
                                     <tr>
                                         <th>#</th>
@@ -59,8 +59,8 @@
                                                 <div class="dropdown dropdown-action">
                                                     <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                                     <div class="dropdown-menu dropdown-menu-right">
-                                                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#edit_promotion"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                                        <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_promotion"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                                                        <a class="dropdown-item editpromotionlink" href="#" data-toggle="modal" data-target="#edit_promotion" data-id="{{$item->id}}"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                                        <a class="dropdown-item deletepromotionlink" href="#" data-toggle="modal" data-target="#delete_promotion" data-id="{{$item->id}}"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                                                     </div>
                                                 </div>
                                             </td>
@@ -140,27 +140,29 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form>
+                            <form method="POST" action="{{route('update-promotion')}}">
+                                @csrf
+                                <input type="hidden" id="proidforemp" name="id">
                                 <div class="form-group">
                                     <label>Promotion For <span class="text-danger">*</span></label>
-                                    <input class="form-control" type="text" value="John Doe">
+                                    <input class="form-control" type="text" id="proempname" readonly>
+                                    <input class="form-control" type="hidden" id="proempid" name="employeeid">
                                 </div>
                                 <div class="form-group">
                                     <label>Promotion From <span class="text-danger">*</span></label>
-                                    <input class="form-control" type="text" value="Web Developer" readonly>
+                                    <input class="form-control" type="text" readonly id="proempfrom">
+                                    <input type="hidden" id="proempfromid" name="promotionform">
                                 </div>
                                 <div class="form-group">
                                     <label>Promotion To <span class="text-danger">*</span></label>
-                                    <select class="select">
-                                        <option>Web Developer</option>
-                                        <option>Web Designer</option>
-                                        <option>SEO Analyst</option>
+                                    <select class="select" id="proempto" name="promotionto">
+                                        
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Promotion Date <span class="text-danger">*</span></label>
                                     <div class="cal-icon">
-                                        <input type="text" class="form-control datetimepicker">
+                                        <input type="text" class="form-control datetimepicker" name="date" id="proempdate">
                                     </div>
                                 </div>
                                 <div class="submit-section">
@@ -183,14 +185,19 @@
                                 <p>Are you sure want to delete?</p>
                             </div>
                             <div class="modal-btn delete-action">
+                                <form action="{{route('delete-promotion')}}" method="POST">
+                                    @csrf
                                 <div class="row">
+                                        <input type="hidden" id="deleteproid" name="id">
+                                    
                                     <div class="col-6">
-                                        <a href="javascript:void(0);" class="btn btn-primary continue-btn">Delete</a>
+                                        <button type="submit" class="btn btn-primary continue-btn">Delete</button>
                                     </div>
                                     <div class="col-6">
                                         <a href="javascript:void(0);" data-dismiss="modal" class="btn btn-primary cancel-btn">Cancel</a>
                                     </div>
                                 </div>
+                            </form>
                             </div>
                         </div>
                     </div>

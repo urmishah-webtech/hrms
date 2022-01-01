@@ -197,6 +197,9 @@ Route::get('/training-type', function () {
 Route::get('/promotion','PromotionController@index')->name('promotions');
 Route::post('/add-promotion','PromotionController@addPromotion')->name('add-promotion');
 Route::get('/getdesignation','PromotionController@getDesignation')->name('getdesignation');
+Route::get('/edit-promotion','PromotionController@editPromotion')->name('edit-promotion');
+Route::post('/update-promotion','PromotionController@updatePromotion')->name('update-promotion');
+Route::post('/delete-promotion','PromotionController@deletePromotion')->name('delete-promotion');
 Route::get('/resignation', function () {
     return view('resignation');
 });

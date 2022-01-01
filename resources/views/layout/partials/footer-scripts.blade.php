@@ -526,7 +526,7 @@
 					type:'GET',
 					data:{'empid':empid},
 					success:function(result){
-						console.log(result);
+						// console.log(result);
 						if (result.status == 1) {
 							var curr = result.currentdesignation;
 							var designation = result.designationforpromotion;
@@ -540,6 +540,57 @@
 							});
 						}
 					}
+				})
+			})
+
+			$('#promotion-table tbody tr').each(function(){
+				$(this).find('.editpromotionlink').click(function(){
+					var proid = $(this).attr('data-id');
+					$.ajax({
+						url:"{{route('edit-promotion')}}",
+						type:'GET',
+						data:{'proid':proid},
+						success:function(result){
+							console.log(result);
+							if (result.status == 1) {
+							var curr = result.currentdesignation;
+							var designation = result.designationforpromotion;
+							var editdata = result.data;
+							$('#proempname').val(result.employee);
+							$('#proidforemp').val(editdata.id);
+							$('#proempid').val(editdata.employeeid);
+							$('#proempfromid').val(curr.id);
+							$('#proempfrom').val(curr.name);
+							var d = new Date(editdata.date);
+							var day = d.getDate();
+							var month = d.getMonth() + 1;
+							var year = d.getFullYear();
+							if (day < 10) {
+								day = "0" + day;
+							}
+							if (month < 10) {
+								month = "0" + month;
+							}
+							var formatteddate = day + "/" + month + "/" + year;
+							$('#proempdate').val(formatteddate);
+							$('#proempto').html('');
+							$('#proempto').append('<option value="">--Select--</option>');
+							designation.forEach(element => {
+								if (element.id == editdata.promotionto) {
+									var selectattr = 'selected';
+								} else {
+									var selectattr = '';
+								}
+								$('#proempto').append('<option value="'+element.id+'" '+selectattr+'>'+element.name+'</option>');
+							});
+						}
+						}
+					})
+				})
+
+				$(this).find('.deletepromotionlink').click(function(){
+					var proid = $(this).attr('data-id');
+					$('#deleteproid').val(proid);
 				})
 			})
 			 
