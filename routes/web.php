@@ -84,6 +84,7 @@ Route::get('/holidays', 'HolidayController@list')->name('holidays');
 Route::post('save-holiday','HolidayController@save')->name('holiday.save');
 Route::get('/delete-holiday/{id?}', 'HolidayController@delete')->name('holiday.delete');
 Route::post('/update-holiday', 'HolidayController@update')->name('holiday.update');
+Route::get('/get-holidays','HolidayController@getHolidays');
 
 Route::get('/leaves', function () {
     return view('leaves');
