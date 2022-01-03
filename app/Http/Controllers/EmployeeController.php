@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Redirect;
 use App\Department;
-use App\Designation;
+use App\Designation; 
 use DB;
 use Validator;
 use Illuminate\Support\Carbon;
@@ -64,6 +64,7 @@ class EmployeeController extends Controller
         $usert->email=$request->email;
         $usert->password=Hash::make($request->password);
         $usert->role_type=Str::lower($request->role_id);
+		$usert->gender=$request->gender;
         $usert->save();
 		
         $emp=new Employee();

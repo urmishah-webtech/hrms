@@ -8,7 +8,7 @@ use App\User;
 use App\Employee;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Validator; 
 use Illuminate\Support\Str;
 class RegisterController extends Controller
 {
@@ -67,22 +67,33 @@ class RegisterController extends Controller
     protected function create(array $data)
     {	
         
+
         // $user= User::create([
         //     'name' => $data['name'],
         //     'email' => $data['email'],
         //     'password' => Hash::make($data['password']),
 		// 	'role_type' => Str::lower($data['role_type']),
         // ]);
-		//if($data['role_type'] == "Employee"){ 
+        // $user= User::create([
+        //     'name' => $data['name'],
+        //     'email' => $data['email'],
+        //     'password' => Hash::make($data['password']),
+		// 	'role_type' => Str::lower($data['role_type']),
+		// 	'gender' => $data['gender'],
+        // ]);
+
         $empl =new Employee();
 	//	$empl->user_id = $user->id;
         $empl->first_name = $data['name'];
         $empl->user_name = $data['name'];
         $empl->email = $data['email'];
+
         $empl->password = Hash::make($data['password']);
         $empl->role_type = Str::lower($data['role_type']); 		
+        $empl->role_type = Str::lower($data['role_type']); 	
+		$empl->gender = $data['gender'];
         $empl->save(); 
-       // }
+       
 		return $empl;
     }
      
