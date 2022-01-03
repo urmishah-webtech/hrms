@@ -61,8 +61,8 @@
                                                             <div class="dropdown dropdown-action">
                                                                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                                    <a id="editForm" class="dropdown-item" href="#" data-toggle="modal" data-target="#edit_holiday" data-name="{{$day['name']}}" data-date="{{ date('d M Y', strtotime($day['date'])) }}"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_holiday"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                                                                    <a id="editForm" class="dropdown-item" href="#" data-toggle="modal" data-target="#edit_holiday" data-id="{{$day['id']}}" data-name="{{$day['name']}}" data-date="{{$day['date']}}"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                                                    <a id="deleteForm" class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_holiday" data-id="{{$day['id']}}"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                                                                 </div>
                                                             </div>
                                                             @endif
@@ -79,6 +79,8 @@
                         </div>
                     </div>
                     @endforeach
+                    @else
+                    No Holidays yet!!
                     @endif
                     
                 </div>
@@ -131,13 +133,14 @@
                         <div class="modal-body">
                             <form method="POST" action="{{route('holiday.update')}}">
                                 @csrf
+                                <input type="hidden" name="id" id="id" />
                                 <div class="form-group">
                                     <label>Holiday Name <span class="text-danger">*</span></label>
-                                    <input class="form-control" type="text" id="name">
+                                    <input class="form-control" type="text" name="name" id="name">
                                 </div>
                                 <div class="form-group">
                                     <label>Holiday Date <span class="text-danger">*</span></label>
-                                    <div class="cal-icon"><input class="form-control datetimepicker" type="text" id="date"></div>
+                                    <div class="cal-icon"><input class="form-control datetimepicker" type="text" name="date" id="date"></div>
                                 </div>
                                 <div class="submit-section">
                                     <button class="btn btn-primary submit-btn">Save</button>
@@ -161,7 +164,7 @@
                             <div class="modal-btn delete-action">
                                 <div class="row">
                                     <div class="col-6">
-                                        <a href="javascript:void(0);" class="btn btn-primary continue-btn">Delete</a>
+                                        <a id="delete_url" href="javascript:void(0);" class="btn btn-primary continue-btn">Delete</a>
                                     </div>
                                     <div class="col-6">
                                         <a href="javascript:void(0);" data-dismiss="modal" class="btn btn-primary cancel-btn">Cancel</a>
@@ -185,15 +188,25 @@
                 format: 'YYYY-MM-DD',
                 locale: 'en'
             });
-        });
-       
-        $('#editForm').on('click', function(e) {
-            var name = $(this).data("name"),
-                date    = $(this).data("date");
+        
 
-                console.log(name,date);
+        $('body').on('click', '#editForm', function (event) {
 
-            $('#edit_holiday').find("#name").val(name);
-            $('#edit_holiday').find("#date").val(date);
+            event.preventDefault();
+            var name = $(this).data('name'), date = $(this).data('date'), id = $(this).data('id');
+            $('#id').val(id);
+            $('#name').val(name);
+            $('#date').val(date);
+           
         });
+
+        $('body').on('click', '#deleteForm', function (event) {
+
+            event.preventDefault();
+            var id = $(this).data('id');
+            $('#delete_url').attr("href", '/delete-holiday/'+id); 
+           
+        });
+});
+
 </script>
