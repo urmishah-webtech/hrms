@@ -2,7 +2,6 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
@@ -15,7 +14,7 @@ class Employee extends Authenticatable
         'name', 'email', 'password', 'role_type',
     ];
     protected $hidden = [
-        'password'
+        'password', 'remember_token',
     ];
 
     public function designation()
