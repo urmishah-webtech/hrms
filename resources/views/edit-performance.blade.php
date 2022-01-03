@@ -543,7 +543,7 @@
 														<option value="">Select Manager</option>
 														@isset($manager_user)
 															@foreach ($manager_user as $item)
-															<option @if($item->name == @$man_name->name)selected @endif value="{{ $item->id }}">{{ $item->name }}</option> 
+															<option @if($item->name == @$man_name->name)selected @endif value="{{ $item->id }}">{{ $item->first_name }}</option> 
 															@endforeach							
 														@endisset
 													</select>										 
