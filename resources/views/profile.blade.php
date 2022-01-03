@@ -46,20 +46,19 @@
                                             </div>
                                             <div class="col-md-7">
                                                 <ul class="personal-info">
-													<li>
+													<li class="profl_firstedit">
                                                         <div class="title">User Role:</div>
                                                         <div class="text">{{Str::ucfirst (@$emp_profile->role_type)}}</div>
                                                     </li>
-                                                    <li>
+                                                    <li class="profl_firstedit">
                                                         <div class="title">Phone:</div>
                                                         <div class="text"><a href="tel:{{ @$emp_profile->phone_no }}">{{ @$emp_profile->phone_no }}</a></div>
                                                     </li>
-                                                    <li>
+                                                    <li class="profl_firstedit">
                                                         <div class="title">Email:</div>
                                                         <div class="text"><a href="">{{ @$emp_profile->email }}</a></div>
-                                                    </li>
-                                                    
-                                                    <li>
+                                                    </li>                                                    
+                                                    <li class="profl_firstedit">
                                                         <div class="title">Date of Join:</div>
                                                         <div class="text">{{ @$emp_profile->joing_date }}</div>
                                                     </li> 
@@ -141,6 +140,7 @@
                                             <li>
                                                 <div class="title">Phone </div>
                                                 <div class="text">{{@$contact->primary_phone1}}, {{@$contact->primary_phone2}}</div>
+                                                
                                             </li>
                                         </ul>
                                         <hr>

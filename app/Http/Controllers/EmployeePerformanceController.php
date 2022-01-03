@@ -20,6 +20,7 @@ use App\TrainingRequirements;
 use App\OtherGeneralComment;
 use App\PerfomanceManagerUse;
 use App\PerformanceIdentity;
+use App\KeyprofessionalExcellences;
 use App\User;
 use Auth;
 
@@ -54,10 +55,10 @@ class EmployeePerformanceController extends Controller
         $perfomancemanageruse=PerfomanceManagerUse::where('emp_id', $id)->get();
         $add_perfoIdent=PerformanceIdentity::where('emp_id', $id)->get(); 
 		$manager_user = User::where('role_type','manager')->get();
-         
+        $prof_excel=KeyprofessionalExcellences::where('emp_id', $id)->first();
 		 
 		 
-		return view('/edit-performance',compact('emp_id','professional','emps','personal','specialInitiatives','comments_role','add_comments','add_comments_id','add_appraiseest','add_appraiseest_id','add_personalgoal','add_personalgoal_id','professional_achived','professional_forthcoming','training_requirements','general_comment','perfomancemanageruse','add_perfoIdent','manager_user'));
+		return view('/edit-performance',compact('emp_id','professional','emps','personal','specialInitiatives','comments_role','add_comments','add_comments_id','add_appraiseest','add_appraiseest_id','add_personalgoal','add_personalgoal_id','professional_achived','professional_forthcoming','training_requirements','general_comment','perfomancemanageruse','add_perfoIdent','manager_user','prof_excel'));
 	}
 	public function add_managerid_EmployeeBasicInfo(Request $request)
 	{	$id = $request->id;
@@ -70,51 +71,57 @@ class EmployeePerformanceController extends Controller
 		}
 		return back();
 	}
-    public function add_manager_ProfessionalExcellence(Request $request){
-        $userd = Auth::user()->id;  
-        $id = $request->getid;
-        $add_empid = $request->empid;
-       
-		if(!empty($id)){   
-            $professional= ProfessionalExcellence::where('emp_id', $id)->first();          
-            $professional->quality_employee=$request->quality_employee;
-            $professional->tat_employee=$request->tat_employee;
-            $professional->pms_new_ideas_employee=$request->pms_new_ideas_employee;
-            $professional->team_productivity_employee=$request->team_productivity_employee;
-            $professional->knowledge_sharing_employee=$request->knowledge_sharing_employee;
-            $professional->emails_calls_employee=$request->emails_calls_employee;
-            $professional->quality_manager=$request->quality_manager;
-            $professional->tat_manager=$request->tat_manager;
-            $professional->pms_new_ideas_manager=$request->pms_new_ideas_manager;
-            $professional->team_productivity_manager=$request->team_productivity_manager;
-            $professional->knowledge_sharing_manager=$request->knowledge_sharing_manager;
-            $professional->emails_calls_manager=$request->emails_calls_manager;
-            $professional->total_percentage_employee=$request->total_percentage_employee;
-            $professional->total_percentage_manager=$request->total_percentage_manager; 
-            $professional->save();
-        }		
-		else 
-		{ 
-            $professional =new ProfessionalExcellence();            
-            $professional->user_id = $userd;
-            $professional->emp_id = $add_empid;
-            $professional->quality_employee=$request->quality_employee;
-            $professional->tat_employee=$request->tat_employee;
-            $professional->pms_new_ideas_employee=$request->pms_new_ideas_employee;
-            $professional->team_productivity_employee=$request->team_productivity_employee;
-            $professional->knowledge_sharing_employee=$request->knowledge_sharing_employee;
-            $professional->emails_calls_employee=$request->emails_calls_employee;
-            $professional->quality_manager=$request->quality_manager;
-            $professional->tat_manager=$request->tat_manager;
-            $professional->pms_new_ideas_manager=$request->pms_new_ideas_manager;
-            $professional->team_productivity_manager=$request->team_productivity_manager;
-            $professional->knowledge_sharing_manager=$request->knowledge_sharing_manager;
-            $professional->emails_calls_manager=$request->emails_calls_manager;
-            $professional->total_percentage_employee=$request->total_percentage_employee;
-            $professional->total_percentage_manager=$request->total_percentage_manager;         
-            $professional->save();       	  
-		}
-        return redirect("/edit-performance/{$id}/#professionalexcel"); 
+    public function add_manager_ProfessionalExcellence(Request $request)
+    {        
+        $eid = $request->empid;         
+        $settings=KeyprofessionalExcellences::where('emp_id',$eid)->first();  
+        $rate_arr=array();
+        $final_achieved=array();
+        $final_scored=array();
+        $final_achieved_man=array();
+        $final_scored_man=array();
+        array_push($rate_arr,$request->key_no);
+        $rate_count=count($rate_arr);
+        if(!empty($rate_arr)){
+            $i=0;
+            foreach($request->key_no as $key => $val){
+            $final_achieved[$val]['percentage_achieved_employee']=$request->percentage_achieved_employee[$i];
+            $final_scored[$val]['points_scored_employee']=$request->points_scored_employee[$i]; 
+            $final_achieved_man[$val]['percentage_achieved_manager']=$request->percentage_achieved_manager[$i];
+            $final_scored_man[$val]['points_scored_manager']=$request->points_scored_manager[$i];          
+            $i++;
+           }
+        }
+        if($settings){
+                $settings= KeyprofessionalExcellences::where('emp_id', $eid)->first();
+                $settings->percentage_achieved_employee=json_encode($final_achieved);
+                $settings->points_scored_employee=json_encode($final_scored);
+                $settings->percentage_achieved_manager=json_encode($final_achieved_man);
+                $settings->points_scored_manager=json_encode($final_scored_man);
+                $settings->total_achieved_employee=$request->total_achieved_employee;
+                $settings->total_scored_employee=$request->total_scored_employee;
+                $settings->total_achieved_manager=$request->total_achieved_manager;
+                $settings->total_scored_manager=$request->total_scored_manager;
+                $settings->save();
+             
+        }
+        else{
+                $settings = new KeyprofessionalExcellences();
+                $settings->user_id = Auth::user()->id;
+                $settings->emp_id = $eid;
+                $settings->percentage_achieved_employee=json_encode($final_achieved);
+                $settings->points_scored_employee=json_encode($final_scored);
+                $settings->percentage_achieved_manager=json_encode($final_achieved_man);
+                $settings->points_scored_manager=json_encode($final_scored_man);
+                $settings->total_achieved_employee=$request->total_achieved_employee;
+                $settings->total_scored_employee=$request->total_scored_employee;
+                $settings->total_achieved_manager=$request->total_achieved_manager;
+                $settings->total_scored_manager=$request->total_scored_manager;
+                $settings->save();
+             
+        }                 
+    
+        return redirect("/edit-performance/{$eid}/#professionalexcel"); 
 	   
     }
     public function add_manager_PersonalExcellence(Request $request)

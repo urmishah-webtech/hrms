@@ -462,14 +462,23 @@
 					}
 				});
 			}); 
-			$('.percentage_employee').on('change', function() {            	 
-				 var ret = Number($("#quality_id").val()) + Number($("#tat_id").val()) + Number($("#pms_new_ideas").val()) + Number($("#team_productivity").val()) + Number($("#knowledge_sharing").val()) + Number($("#emails_calls").val());
-				$("#total_percentage_employee").val(ret);	
+			$('.achieved_employee').on('change', function() {            	 
+				var ret = Number($("#achieved_employee1").val()) + Number($("#achieved_employee12").val()) + Number($("#achieved_employee21").val()) + Number($("#achieved_employee22").val()) + Number($("#achieved_employee31").val()) + Number($("#achieved_employee32").val()) + Number($("#achieved_employee41").val()) + Number($("#achieved_employee42").val()) + Number($("#achieved_employee43").val());
+				$("#total_achieved_employee").val(ret);	
 			});
-			$('.percentage_manager').on('change', function() {            	 
-				 var ret = Number($("#quality_manager").val()) + Number($("#tat_manager").val()) + Number($("#pms_new_ideas_manager").val()) + Number($("#team_productivity_manager").val()) + Number($("#knowledge_sharing_manager").val()) + Number($("#emails_calls_manager").val());
-				$("#total_percentage_manager").val(ret);	
+			$('.scored_employee').on('change', function() {            	 
+				var ret = Number($("#scored_employee1").val()) + Number($("#scored_employee12").val()) + Number($("#scored_employee21").val()) + Number($("#scored_employee22").val()) + Number($("#scored_employee31").val()) + Number($("#scored_employee32").val()) + Number($("#scored_employee41").val()) + Number($("#scored_employee42").val()) + Number($("#scored_employee43").val());
+				$("#total_scored_employee").val(ret);	
 			});
+			$('.achieved_manager').on('change', function() {            	 
+				var ret = Number($("#achieved_manager1").val()) + Number($("#achieved_manager12").val()) + Number($("#achieved_manager21").val()) + Number($("#achieved_manager22").val()) + Number($("#achieved_manager31").val()) + Number($("#achieved_manager32").val()) + Number($("#achieved_manager41").val()) + Number($("#achieved_manager42").val()) + Number($("#achieved_manager43").val());
+				$("#total_achieved_manager").val(ret);	
+			});
+			$('.scored_manager').on('change', function() {            	 
+				var ret = Number($("#scored_manager1").val()) + Number($("#scored_manager12").val()) + Number($("#scored_manager21").val()) + Number($("#scored_manager22").val()) + Number($("#scored_manager31").val()) + Number($("#scored_manager32").val()) + Number($("#scored_manager41").val()) + Number($("#scored_manager42").val()) + Number($("#scored_manager43").val());
+				$("#total_scored_manager").val(ret);	
+			});
+
 			$('.personal_employee').on('change', function() {            	 
 				 var ret = Number($("#plan_leave_employee").val()) + Number($("#time_cons_employee").val()) + Number($("#team_collaboration_employee").val()) + Number($("#professionalism_employee").val()) + Number($("#policy_employee").val()) + Number($("#initiatives_employee").val()) + Number($("#improvement_employee").val());
 				$("#total_score_employee").val(ret);
@@ -527,7 +536,7 @@
 					type:'GET',
 					data:{'empid':empid},
 					success:function(result){
-						console.log(result);
+						// console.log(result);
 						if (result.status == 1) {
 							var curr = result.currentdesignation;
 							var designation = result.designationforpromotion;
@@ -541,6 +550,57 @@
 							});
 						}
 					}
+				})
+			})
+
+			$('#promotion-table tbody tr').each(function(){
+				$(this).find('.editpromotionlink').click(function(){
+					var proid = $(this).attr('data-id');
+					$.ajax({
+						url:"{{route('edit-promotion')}}",
+						type:'GET',
+						data:{'proid':proid},
+						success:function(result){
+							console.log(result);
+							if (result.status == 1) {
+							var curr = result.currentdesignation;
+							var designation = result.designationforpromotion;
+							var editdata = result.data;
+							$('#proempname').val(result.employee);
+							$('#proidforemp').val(editdata.id);
+							$('#proempid').val(editdata.employeeid);
+							$('#proempfromid').val(curr.id);
+							$('#proempfrom').val(curr.name);
+							var d = new Date(editdata.date);
+							var day = d.getDate();
+							var month = d.getMonth() + 1;
+							var year = d.getFullYear();
+							if (day < 10) {
+								day = "0" + day;
+							}
+							if (month < 10) {
+								month = "0" + month;
+							}
+							var formatteddate = day + "/" + month + "/" + year;
+							$('#proempdate').val(formatteddate);
+							$('#proempto').html('');
+							$('#proempto').append('<option value="">--Select--</option>');
+							designation.forEach(element => {
+								if (element.id == editdata.promotionto) {
+									var selectattr = 'selected';
+								} else {
+									var selectattr = '';
+								}
+								$('#proempto').append('<option value="'+element.id+'" '+selectattr+'>'+element.name+'</option>');
+							});
+						}
+						}
+					})
+				})
+
+				$(this).find('.deletepromotionlink').click(function(){
+					var proid = $(this).attr('data-id');
+					$('#deleteproid').val(proid);
 				})
 			})
 			 

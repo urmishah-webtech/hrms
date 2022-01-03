@@ -7,6 +7,7 @@ use App\Http\Controllers\AppraisalController;
 use App\Http\Controllers\UserRegister_Controller;
 use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ProfessionalExcellenceController;
 use App\Http\Middleware\AuthCheck;
 
 /*
@@ -202,6 +203,9 @@ Route::get('/training-type', function () {
 Route::get('/promotion','PromotionController@index')->name('promotions');
 Route::post('/add-promotion','PromotionController@addPromotion')->name('add-promotion');
 Route::get('/getdesignation','PromotionController@getDesignation')->name('getdesignation');
+Route::get('/edit-promotion','PromotionController@editPromotion')->name('edit-promotion');
+Route::post('/update-promotion','PromotionController@updatePromotion')->name('update-promotion');
+Route::post('/delete-promotion','PromotionController@deletePromotion')->name('delete-promotion');
 Route::get('/resignation', function () {
     return view('resignation');
 });
@@ -597,10 +601,9 @@ Route::get('profile','ProfileController@Profile_employees')->name('profile_detai
 Route::post('add_personal_info','ProfileController@add_profile_personal_informations')->name('add_personal_info');
 Route::post('add_emergency_contact','ProfileController@add_profile_emergency_contact')->name('add_emergency_contact'); 
 Route::post('add_Perfomance_status','EmployeePerformanceController@add_Perfomance_status_user')->name('add_Perfomance_status'); 
-
-
-
-
+ 
+ 
+Route::post('add_KeyprofessionalExcellences',[ProfessionalExcellenceController::class,'store_KeyprofessionalExcellences'])->name('add_KeyprofessionalExcellences');
 
 
 

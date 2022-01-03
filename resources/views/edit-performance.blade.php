@@ -571,8 +571,9 @@ use App\Employee?>
                         <div class="col-md-12">
                             <div class="table-responsive">
 							 <form action="{{ route('edit_man_professionalExcellence') }}" method="post">
-                             @csrf  
-								 
+                             @csrf 
+
+                             <input type="hidden" name="empid" value="@if(isset($emps)){{ $emps->id}}@endif">  
 								 
                                 <table class="table table-bordered review-table mb-0">
                                     <thead>
@@ -587,83 +588,116 @@ use App\Employee?>
                                             <th>Points Scored <br>( Manager )</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                       
+                                    <tbody>   
+                                        <?php if($prof_excel){
+                                        $prof_data = json_decode($prof_excel->percentage_achieved_employee, true);
+                                        $scoredemp = json_decode($prof_excel->points_scored_employee, true);
+                                        $achi_man = json_decode($prof_excel->percentage_achieved_manager, true);
+                                        $score_man = json_decode($prof_excel->points_scored_manager, true);
+                                        } ?>                       
                                         <tr>
                                             <td rowspan="2">1</td>
-                                            <td rowspan="2">Production</td>
-                                            <td>Quality</td>
-                                            <td><input type="text" class="form-control" readonly value="30"></td>
-                                            <td><input type="text" class="form-control percentage_employee" name="quality_employee" id="quality_id"value="{{ @$professional->quality_employee }}" readonly ></td>
-                                            <td><input type="text" class="form-control" readonly value="0"></td>
-                                            <td><input type="text" class="form-control percentage_manager" name="quality_manager" id="quality_manager"  value="{{ @$professional->quality_manager }}"></td>
-                                            <td><input type="text" class="form-control" readonly value="0"></td>
-                                            <input type="hidden" name="getid" value="@if(isset($professional)){{ $professional->emp_id}}@endif">
-                                            <input type="hidden" name="empid" value="@if(isset($emp_id)){{ $emp_id->id}}@endif">
+                                            <td rowspan="2">Leadership</td>
+                                            <input type="hidden" name="key_no[]" class="form-control" value="1">                                             
+                                            <td>Staff Retention</td>                                            
+                                            <td rowspan="2"><input type="text" class="form-control" readonly value="25%"></td>
+                                            <td><input type="text" class="form-control achieved_employee" name="percentage_achieved_employee[]" id="achieved_employee1" value="@isset($prof_data){{$prof_data[1]['percentage_achieved_employee']}}@endisset" @if (Auth::user()->role_type != "employee")readonly @endif></td>
+                                            <td><input type="text" class="form-control scored_employee" name="points_scored_employee[]" id="scored_employee1" value="@isset($prof_data){{$scoredemp[1]['points_scored_employee']}}@endisset" @if (Auth::user()->role_type != "employee")readonly @endif></td>
+                                            <td><input type="text" class="form-control achieved_manager" name="percentage_achieved_manager[]" id="achieved_manager1" value="@isset($prof_data){{$achi_man[1]['percentage_achieved_manager']}}@endisset"></td>
+                                            <td><input type="text" name="points_scored_manager[]" class="form-control scored_manager" id="scored_manager1" value="@isset($prof_data){{$score_man[1]['points_scored_manager']}}@endisset"></td>
+                                            <input type="hidden" class="form-control" name="getid[]" value="">
                                         </tr>
                                         <tr>
-                                            <td>TAT (turn around time)</td>
-                                            <td><input type="text" class="form-control" readonly value="30"></td>
-                                            <td><input type="text" class="form-control percentage_employee" name="tat_employee" id="tat_id" value="{{ @$professional->tat_employee }}" readonly  ></td>
-                                            <td><input type="text" class="form-control" readonly value="0"></td>
-                                            <td><input type="text" class="form-control percentage_manager" name="tat_manager" id="tat_manager" value="{{ @$professional->tat_manager }}"></td>
-                                            <td><input type="text" class="form-control" readonly value="0"></td>
-                                             
+                                            <input type="hidden" name="key_no[]" class="form-control" value="1.2">
+                                            <td>Positive 360 degrees feedback from colleagues</td>                                            
+                                            <td><input type="text" class="form-control achieved_employee" name="percentage_achieved_employee[]" id="achieved_employee12" value="@isset($prof_data){{$prof_data['1.2']['percentage_achieved_employee']}}@endisset"  @if (Auth::user()->role_type != "employee")readonly @endif></td>
+                                            <td><input type="text" name="points_scored_employee[]" class="form-control scored_employee" id="scored_employee12" value="@isset($prof_data){{$scoredemp['1.2']['points_scored_employee']}}@endisset"  @if (Auth::user()->role_type != "employee")readonly @endif></td>
+                                            <td><input type="text" class="form-control achieved_manager" name="percentage_achieved_manager[]" id="achieved_manager12" value="@isset($prof_data){{$achi_man['1.2']['percentage_achieved_manager']}}@endisset"></td>
+                                            <td><input type="text" class="form-control scored_manager" name="points_scored_manager[]" id="scored_manager12" value="@isset($prof_data){{$score_man['1.2']['points_scored_manager']}}@endisset"></td>
+                                            <input type="hidden" class="form-control" name="getid[]" value="">
                                         </tr>
                                         <tr>
-                                            <td>2</td>
-                                            <td>Process Improvement</td>
-                                            <td>PMS,New Ideas</td>
-                                            <td><input type="text" class="form-control" readonly value="10"></td>
-                                            <td><input type="text" class="form-control percentage_employee" name="pms_new_ideas_employee" id="pms_new_ideas" value="{{ @$professional->pms_new_ideas_employee }}" readonly></td>
-                                            <td><input type="text" class="form-control" readonly value="0"></td>
-                                            <td><input type="text" class="form-control percentage_manager" name="pms_new_ideas_manager" id="pms_new_ideas_manager"  value="{{ @$professional->pms_new_ideas_manager }}"></td>
-                                            <td><input type="text" class="form-control" readonly value="0"></td>
-                                            
+                                            <td rowspan="2">2</td>
+                                            <input type="hidden" name="key_no[]" class="form-control" value="2.1">
+                                            <td rowspan="2">Customer Satisfaction</td>                                             
+                                            <td >Customer feedback from mystery shopping</td>
+                                            <td rowspan="2"><input type="text" class="form-control" readonly value="25%"></td>
+                                            <td><input type="text" class="form-control achieved_employee" name="percentage_achieved_employee[]" id="achieved_employee21" value="@isset($prof_data){{$prof_data['2.1']['percentage_achieved_employee']}}@endisset"  @if (Auth::user()->role_type != "employee")readonly @endif></td>
+                                            <td><input type="text" name="points_scored_employee[]" class="form-control scored_employee" id="scored_employee21" value="@isset($prof_data){{$scoredemp['2.1']['points_scored_employee']}}@endisset"  @if (Auth::user()->role_type != "employee")readonly @endif></td>
+                                            <td><input type="text" class="form-control achieved_manager" name="percentage_achieved_manager[]" id="achieved_manager21" value="@isset($prof_data){{$achi_man['2.1']['percentage_achieved_manager']}}@endisset"></td>
+                                            <td><input type="text" name="points_scored_manager[]" class="form-control scored_manager" id="scored_manager21" value="@isset($prof_data){{$score_man['2.1']['points_scored_manager']}}@endisset"></td>
+                                            <input type="hidden" class="form-control" name="getid[]" value="">
                                         </tr>
                                         <tr>
-                                            <td>3</td>
-                                            <td>Team Management</td>
-                                            <td>Team Productivity,dynaics,attendance,attrition</td>
-                                            <td><input type="text" class="form-control" readonly value="5"></td>
-                                            <td><input type="text" class="form-control percentage_employee" name="team_productivity_employee" id="team_productivity" value="{{ @$professional->team_productivity_employee }}" readonly  ></td>
-                                            <td><input type="text" class="form-control" readonly value="0"></td>
-                                            <td><input type="text" class="form-control percentage_manager" name="team_productivity_manager" id="team_productivity_manager"  value="{{ @$professional->team_productivity_manager }}"></td>
-                                            <td><input type="text" class="form-control" readonly value="0"></td>
-                                             
+                                            <input type="hidden" name="key_no[]" class="form-control" value="2.2">
+                                            <td>Zero complains</td>
+                                            <td><input type="text" class="form-control achieved_employee" name="percentage_achieved_employee[]" id="achieved_employee22" value="@isset($prof_data){{$prof_data['2.2']['percentage_achieved_employee']}}@endisset"  @if (Auth::user()->role_type != "employee")readonly @endif></td>
+                                            <td><input type="text" class="form-control scored_employee"  name="points_scored_employee[]" id="scored_employee22" value="@isset($prof_data){{$scoredemp['2.2']['points_scored_employee']}}@endisset"  @if (Auth::user()->role_type != "employee")readonly @endif></td>
+                                            <td><input type="text" class="form-control achieved_manager" name="percentage_achieved_manager[]" id="achieved_manager22" value="@isset($prof_data){{$achi_man['2.2']['percentage_achieved_manager']}}@endisset"></td>
+                                            <td><input type="text" class="form-control scored_manager" name="points_scored_manager[]" id="scored_manager22" value="@isset($prof_data){{$score_man['2.2']['points_scored_manager']}}@endisset"></td>
+                                            <input type="hidden" class="form-control" name="getid[]" value="">
                                         </tr>
                                         <tr>
-                                            <td>4</td>
-                                            <td>Knowledge Sharing</td>
-                                            <td>Sharing the knowledge for team productivity </td>
-                                            <td><input type="text" class="form-control" readonly value="5"></td>
-                                            <td><input type="text" class="form-control percentage_employee" name="knowledge_sharing_employee" id="knowledge_sharing" value="{{ @$professional->knowledge_sharing_employee }}" readonly  ></td>
-                                            <td><input type="text" class="form-control" readonly value="0"></td>
-                                            <td><input type="text" class="form-control percentage_manager" name="knowledge_sharing_manager" id="knowledge_sharing_manager" value="{{ @$professional->knowledge_sharing_manager }}"></td>
-                                            <td><input type="text" class="form-control" readonly value="0"></td>
-                                            
+                                            <td rowspan="2">3</td>
+                                            <input type="hidden" name="key_no[]" class="form-control" value="3.1">
+                                            <td rowspan="2">Sales Goals / Increase / Operational Excellence</td>
+                                            <td>Company financials</td>
+                                           <td rowspan="2"><input type="text" class="form-control" readonly value="25%"></td>
+                                            <td><input type="text" class="form-control achieved_employee" name="percentage_achieved_employee[]" id="achieved_employee31" value="@isset($prof_data){{$prof_data['3.1']['percentage_achieved_employee']}}@endisset"  @if (Auth::user()->role_type != "employee")readonly @endif></td>
+                                            <td><input type="text" class="form-control scored_employee" name="points_scored_employee[]" id="scored_employee31" value="@isset($prof_data){{$scoredemp['3.1']['points_scored_employee']}}@endisset"  @if (Auth::user()->role_type != "employee")readonly @endif></td>
+                                            <td><input type="text" class="form-control achieved_manager" name="percentage_achieved_manager[]" id="achieved_manager31"  value="@isset($prof_data){{$achi_man['3.1']['percentage_achieved_manager']}}@endisset"></td>
+                                            <td><input type="text" name="points_scored_manager[]" class="form-control scored_manager" id="scored_manager31" value="@isset($prof_data){{$score_man['3.1']['points_scored_manager']}}@endisset"></td>
+                                            <input type="hidden" class="form-control" name="getid[]" value="">
                                         </tr>
                                         <tr>
-                                            <td>5</td>
-                                            <td>Reporting and Communication</td>
-                                            <td>Emails/Calls/Reports and Other Communication</td>
-                                            <td><input type="text" class="form-control" readonly value="5"></td>
-                                            <td><input type="text" class="form-control percentage_employee" name="emails_calls_employee" id="emails_calls" value="{{ @$professional->emails_calls_employee }}" readonly ></td>
-                                            <td><input type="text" class="form-control" readonly value="0"></td>
-                                            <td><input type="text" class="form-control percentage_manager" name="emails_calls_manager" id="emails_calls_manager"  value="{{ @$professional->emails_calls_manager }}"></td>
-                                            <td><input type="text" class="form-control" readonly value="0"></td>
-                                             
+                                            <input type="hidden" name="key_no[]" class="form-control" value="3.2">
+                                            <td>Retail Standard Audit / Regulatory Audit</td>
+                                           <td><input type="text" class="form-control achieved_employee" name="percentage_achieved_employee[]" id="achieved_employee32" value="@isset($prof_data){{$prof_data['3.2']['percentage_achieved_employee']}}@endisset"  @if (Auth::user()->role_type != "employee")readonly @endif></td>
+                                            <td><input type="text" class="form-control scored_employee" name="points_scored_employee[]" id="scored_employee32" value="@isset($prof_data){{$scoredemp['3.2']['points_scored_employee']}}@endisset"  @if (Auth::user()->role_type != "employee")readonly @endif></td>
+                                            <td><input type="text" class="form-control achieved_manager" name="percentage_achieved_manager[]" id="achieved_manager32"  value="@isset($prof_data){{$achi_man['3.2']['percentage_achieved_manager']}}@endisset"></td>
+                                            <td><input type="text" class="form-control scored_manager" name="points_scored_manager[]" id="scored_manager32" value="@isset($prof_data){{$score_man['3.2']['points_scored_manager']}}@endisset"></td>
+                                            <input type="hidden" class="form-control" name="getid[]" value="">
                                         </tr>
+                                        <tr>
+                                            <td rowspan="3">4</td>
+                                            <input type="hidden" name="key_no[]" class="form-control" value="4.1">
+                                            <td rowspan="3">Professional Development </td>
+                                            <td>Completion of learning journey </td>
+                                            <td rowspan="3"><input type="text" class="form-control" readonly value="25%"></td>
+                                            <td><input type="text" class="form-control achieved_employee" name="percentage_achieved_employee[]" id="achieved_employee41" value="@isset($prof_data){{$prof_data['4.1']['percentage_achieved_employee']}}@endisset"  @if (Auth::user()->role_type != "employee")readonly @endif></td>
+                                            <td><input type="text" class="form-control scored_employee" name="points_scored_employee[]" id="scored_employee41" value="@isset($prof_data){{$scoredemp['4.1']['points_scored_employee']}}@endisset"  @if (Auth::user()->role_type != "employee")readonly @endif></td>
+                                            <td><input type="text" class="form-control achieved_manager" name="percentage_achieved_manager[]" id="achieved_manager41"  value="@isset($prof_data){{$achi_man['4.1']['percentage_achieved_manager']}}@endisset"></td>
+                                            <td><input type="text" class="form-control scored_manager" name="points_scored_manager[]" id="scored_manager41" value="@isset($prof_data){{$score_man['4.1']['points_scored_manager']}}@endisset"></td>
+                                            <input type="hidden" class="form-control" name="getid[]" value=" ">
+                                        </tr>
+                                        <tr>
+                                            <input type="hidden" name="key_no[]" class="form-control" value="4.2">
+                                            <td>Well trained team</td>    
+                                            <td><input type="text" class="form-control achieved_employee" name="percentage_achieved_employee[]" id="achieved_employee42" value="@isset($prof_data){{$prof_data['4.2']['percentage_achieved_employee']}}@endisset"  @if (Auth::user()->role_type != "employee")readonly @endif></td>
+                                            <td><input type="text" class="form-control scored_employee" name="points_scored_employee[]" id="scored_employee42" value="@isset($prof_data){{$scoredemp['4.2']['points_scored_employee']}}@endisset"  @if (Auth::user()->role_type != "employee")readonly @endif></td>
+                                            <td><input type="text" class="form-control achieved_manager" name="percentage_achieved_manager[]" id="achieved_manager42"  value="@isset($prof_data){{$achi_man['4.2']['percentage_achieved_manager']}}@endisset"></td>
+                                            <td><input type="text" class="form-control scored_manager" name="points_scored_manager[]" id="scored_manager42" value="@isset($prof_data){{$score_man['4.2']['points_scored_manager']}}@endisset"></td>
+                                            <input type="hidden" class="form-control" name="getid[]" value=" ">
+                                        </tr>
+                                        <tr>
+                                            <input type="hidden" name="key_no[]" class="form-control" value="4.3">
+                                            <td>Team performance</td>
+                                            <td><input type="text" class="form-control achieved_employee" name="percentage_achieved_employee[]" id="achieved_employee43" value="@isset($prof_data){{$prof_data['4.3']['percentage_achieved_employee']}}@endisset"  @if (Auth::user()->role_type != "employee")readonly @endif></td>
+                                            <td><input type="text" class="form-control scored_employee" name="points_scored_employee[]" id="scored_employee43" value="@isset($prof_data){{$scoredemp['4.3']['points_scored_employee']}}@endisset"  @if (Auth::user()->role_type != "employee")readonly @endif></td>
+                                            <td><input type="text" class="form-control achieved_manager" name="percentage_achieved_manager[]" id="achieved_manager43" value="@isset($prof_data){{$achi_man['4.3']['percentage_achieved_manager']}}@endisset"></td>
+                                            <td><input type="text" class="form-control scored_manager" name="points_scored_manager[]" id="scored_manager43" value="@isset($prof_data){{$score_man['4.3']['points_scored_manager']}}@endisset"></td>
+                                            <input type="hidden" class="form-control" name="getid[]" value=" ">
+                                        </tr>                                         
                                         <tr>
                                             <td colspan="3" class="text-center">Total </td>
-                                            <td><input type="text" class="form-control" readonly value="85"></td>
-                                            <td><input type="text" class="form-control" readonly name="total_percentage_employee" id="total_percentage_employee" value="{{ @$professional->total_percentage_employee }}"></td>
-                                            <td><input type="text" class="form-control" readonly value="0"></td>
-                                            <td><input type="text" class="form-control" readonly name="total_percentage_manager" id="total_percentage_manager" value="{{ @$professional->total_percentage_manager }}"></td>
-                                            <td><input type="text" class="form-control" readonly value="0"></td>
-                                            
-                                        </tr>
-                                        							
+                                            <td><input type="text" class="form-control" readonly value="100%"></td>
+                                            <td> 
+                                            <input type="text" class="form-control" readonly name="total_achieved_employee" id="total_achieved_employee" value="{{@$prof_excel->total_achieved_employee}}"></td>
+                                            <td> 
+                                            <input type="text" class="form-control" name="total_scored_employee" id="total_scored_employee" readonly value="{{@$prof_excel->total_scored_employee}}"></td>
+                                            <td><input type="text" class="form-control" readonly name="total_achieved_manager" id="total_achieved_manager" value="{{@$prof_excel->total_achieved_manager}}"></td>
+                                            <td><input type="text" class="form-control" name="total_scored_manager" id="total_scored_manager" readonly value="{{@$prof_excel->total_scored_manager}}"></td>
+                                        </tr>                                       
                                     </tbody>
                                 </table>	
 								<div class="review-header text-center">
