@@ -21,7 +21,7 @@ class AuthCheck
     {   
 	
 		  if(Auth::check()){		   
-			if (auth()->user()->role_type == "admin" || auth()->user()->role_type == "manager")
+			if (auth()->user()->role_id == 1 || auth()->user()->role_id == 2)
 			{	 
 				return $next($request);		 
 			}
