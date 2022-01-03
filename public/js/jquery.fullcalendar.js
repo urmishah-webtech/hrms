@@ -124,7 +124,7 @@
         });
     }
     /* Initializing */
-    CalendarApp.prototype.init = function() {
+    CalendarApp.prototype.init = function(defaultEvents) {
         this.enableDrag();
         /*  Initialize the calendar  */
         var date = new Date();
@@ -133,28 +133,8 @@
         var y = date.getFullYear();
         var form = '';
         var today = new Date($.now());
+       
 
-        var defaultEvents =  [{
-                title: 'Event Name 4',
-                start: new Date($.now() + 148000000),
-                className: 'bg-purple'
-            },
-            {
-                title: 'Test Event 1',
-                start: today,
-                end: today,
-                className: 'bg-success'
-            },
-            {
-                title: 'Test Event 2',
-                start: new Date($.now() + 168000000),
-                className: 'bg-info'
-            },
-            {
-                title: 'Test Event 3',
-                start: new Date($.now() + 338000000),
-                className: 'bg-primary'
-            }];
 
         var $this = this;
         $this.$calendarObj = $this.$calendar.fullCalendar({
@@ -200,5 +180,32 @@
 //initializing CalendarApp
 function($) {
     "use strict";
-    $.CalendarApp.init()
+     var defaultEvents =  [];
+
+       $.ajax({
+            method: 'GET',
+            url: 'get-holidays',
+            success: function (data) {
+                var holidays = data.holidays;
+                console.log(new Date(holidays[0].date));
+
+                for (var i in holidays) {
+                  console.log(holidays[i]);
+                  var event = {
+                    title: holidays[i].name,
+                    start: new Date(holidays[i].date),
+                    className: 'bg-info'
+                  };
+                  defaultEvents.push(event);
+                }
+                 $.CalendarApp.init(defaultEvents)
+
+
+                console.log(defaultEvents);
+                    },
+                    error: function (error) {
+                       console.log(error);
+                    }
+                });
+   
 }(window.jQuery);
