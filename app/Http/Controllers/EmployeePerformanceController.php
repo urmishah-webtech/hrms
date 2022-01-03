@@ -54,7 +54,7 @@ class EmployeePerformanceController extends Controller
         $general_comment=OtherGeneralComment::where('emp_id', $id)->get();
         $perfomancemanageruse=PerfomanceManagerUse::where('emp_id', $id)->get();
         $add_perfoIdent=PerformanceIdentity::where('emp_id', $id)->get(); 
-		$manager_user = User::where('role_id',2)->get();
+		$manager_user = Employee::where('role_id',2)->get();
         $prof_excel=KeyprofessionalExcellences::where('emp_id', $id)->first();
 		 
 		 
