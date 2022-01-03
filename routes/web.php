@@ -78,16 +78,16 @@ Route::post('search_employee','EmployeeController@search_employee')->name('searc
 //leave routes start --BY URMI SHAH 
 Route::get('/leave-settings','LeaveTypeController@index')->name('leave-settings');
 Route::post('/save_leave_settings','LeaveTypeController@save_leave_settings')->name('save_leave_settings');
-
+Route::get('/leaves-employee','EmployeeLeaveController@index')->name('leaves-employee');
+    
 //leave routes end
+
+
 Route::get('/holidays', function () {
     return view('holidays');
 });
 Route::get('/leaves', function () {
     return view('leaves');
-});
-Route::get('/leaves-employee', function () {
-    return view('leaves-employee');
 });
 
 Route::get('/attendance', function () {

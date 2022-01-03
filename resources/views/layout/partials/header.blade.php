@@ -280,7 +280,7 @@
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                         <span class="user-img"><img src="img/profiles/avatar-21.jpg" alt="">
                         <span class="status online"></span></span>
-                        <span>{{ Auth::user()->name }}</span>
+                        <span>{{ Auth::user()->first_name }}</span>
                     </a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="profile">My Profile</a>

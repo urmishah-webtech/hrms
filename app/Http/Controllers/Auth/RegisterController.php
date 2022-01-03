@@ -52,7 +52,7 @@ class RegisterController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:employees'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
 			'role_type' => ['required', 'string', 'max:255'],
         ]);
@@ -67,23 +67,23 @@ class RegisterController extends Controller
     protected function create(array $data)
     {	
         
-        $user= User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-			'role_type' => Str::lower($data['role_type']),
-        ]);
+        // $user= User::create([
+        //     'name' => $data['name'],
+        //     'email' => $data['email'],
+        //     'password' => Hash::make($data['password']),
+		// 	'role_type' => Str::lower($data['role_type']),
+        // ]);
 		//if($data['role_type'] == "Employee"){ 
         $empl =new Employee();
-		$empl->user_id = $user->id;
+	//	$empl->user_id = $user->id;
         $empl->first_name = $data['name'];
         $empl->user_name = $data['name'];
         $empl->email = $data['email'];
-        $empl->password = $data['email'];
+        $empl->password = Hash::make($data['password']);
         $empl->role_type = Str::lower($data['role_type']); 		
         $empl->save(); 
        // }
-		return $user;
+		return $empl;
     }
      
 }
