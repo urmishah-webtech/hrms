@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Redirect;
 use App\Department;
-use App\Designation;
+use App\Designation; 
 use DB;
 use Validator;
 use Illuminate\Support\Carbon;

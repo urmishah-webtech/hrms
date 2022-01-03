@@ -12,7 +12,7 @@
 		<?php
 			$theme_setting=DB::table('theme_settings')->first();
 		?>
-		<!-- Favicon -->
+		<!-- Favicon --> 
         @if($theme_setting)
 			@if($theme_setting->favicon!=null)
 			<link rel="shortcut icon" type="image/x-icon" href="{{ url('/').'/setting_images/'.@$theme_setting->favicon }}">
