@@ -1,5 +1,4 @@
-<?php use App\User;
-use App\Employee?>
+<?php use App\Employee?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -536,7 +535,7 @@ use App\Employee?>
 												<div class="form-group">
 													<label for="name1"> Manager's Name</label>
 														@isset($emps)
-														@php $man_name = User::where('id',  @$emps->manager_id )->first();
+														@php $man_name = Employee::where('id',  @$emps->manager_id )->first();
 														@endphp
 														<input type="hidden" name="get_manager_id" value="{{ @$man_name->name }}">
 														@endisset
