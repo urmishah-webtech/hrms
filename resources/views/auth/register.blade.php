@@ -98,7 +98,7 @@
 								</div>
 								<div class="form-group">
 									<label>Select Role</label>									
-									<select class="form-control" id="role_type" name="role_id" required>
+									<select class="form-control" id="role_id" name="role_id" required>
 										<option value="">Select Role</option>
 										@php $role_name = Role::get(); @endphp
 										@isset($role_name)

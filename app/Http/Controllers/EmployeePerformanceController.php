@@ -29,7 +29,7 @@ class EmployeePerformanceController extends Controller
     public function get_employees(){
         $dep=Department::get();
         $des=Designation::get();
-        $emps=Employee::where('role_type','employee')->get();   
+        $emps=Employee::where('role_id', 3)->get();   
         $emp_id=Employee::get('id');		
         return view('/employees-performance',compact('dep','des','emps','emp_id'));
     }
@@ -54,7 +54,7 @@ class EmployeePerformanceController extends Controller
         $general_comment=OtherGeneralComment::where('emp_id', $id)->get();
         $perfomancemanageruse=PerfomanceManagerUse::where('emp_id', $id)->get();
         $add_perfoIdent=PerformanceIdentity::where('emp_id', $id)->get(); 
-		$manager_user = User::where('role_type','manager')->get();
+		$manager_user = User::where('role_id',2)->get();
         $prof_excel=KeyprofessionalExcellences::where('emp_id', $id)->first();
 		 
 		 

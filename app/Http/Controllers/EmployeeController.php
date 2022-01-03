@@ -63,7 +63,7 @@ class EmployeeController extends Controller
         $usert->name=$request->first_name;
         $usert->email=$request->email;
         $usert->password=Hash::make($request->password);
-        $usert->role_type=Str::lower($request->role_id);
+        $usert->role_id=Str::lower($request->role_id);
 		$usert->gender=$request->gender;
         $usert->save();*/
 		
