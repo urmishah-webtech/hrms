@@ -68,7 +68,7 @@ class EmployeeController extends Controller
         $usert->save();*/
 		
         $emp=new Employee();
-		$emp->user_id = $usert->id;
+		//$emp->user_id = $usert->id;
         $emp->first_name=$request->first_name;
         $emp->last_name=$request->last_name;
         $emp->user_name=$request->user_name;
