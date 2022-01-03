@@ -54,7 +54,7 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:employees'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-			'role_type' => ['required', 'string', 'max:255'],
+			'role_id' => ['required', 'string', 'max:255'],
         ]);
     }
 
@@ -88,8 +88,8 @@ class RegisterController extends Controller
         $empl->user_name = $data['name'];
         $empl->email = $data['email'];
 
-        $empl->password =  bcrypt($data['password']);
-        $empl->role_id = Str::lower($data['role_id']); 	       
+        $empl->password = Hash::make($data['password']);
+        $empl->role_id = $data['role_id']; 	       
 		$empl->gender = $data['gender'];
         $empl->save(); 
        

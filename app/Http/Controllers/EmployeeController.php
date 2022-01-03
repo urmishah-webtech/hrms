@@ -53,7 +53,7 @@ class EmployeeController extends Controller
             'designation_id' => 'required',
             'confirm_password'=>'required_with:password|same:password'
 
-        ]);
+        ]); 
         if($validator->fails()){
            
             return Redirect::back()->withErrors($validator);
