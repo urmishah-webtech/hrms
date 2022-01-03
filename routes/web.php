@@ -72,6 +72,13 @@ Route::post('delete_employee','EmployeeController@delete_employee')->name('delet
 Route::post('edit_employee','EmployeeController@edit_employee')->name('edit_employee');
 Route::post('update_employee','EmployeeController@update_employee')->name('update_employee');
 Route::post('search_employee','EmployeeController@search_employee')->name('search_employee');
+
+
+//leave routes start --BY URMI SHAH 
+Route::get('/leave-settings','LeaveTypeController@index')->name('leave-settings');
+Route::post('/save_leave_settings','LeaveTypeController@save_leave_settings')->name('save_leave_settings');
+
+//leave routes end
 Route::get('/holidays', function () {
     return view('holidays');
 });
@@ -81,9 +88,7 @@ Route::get('/leaves', function () {
 Route::get('/leaves-employee', function () {
     return view('leaves-employee');
 });
-Route::get('/leave-settings', function () {
-    return view('leave-settings');
-});
+
 Route::get('/attendance', function () {
     return view('attendance');
 });

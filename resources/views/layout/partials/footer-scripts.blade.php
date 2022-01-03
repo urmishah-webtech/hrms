@@ -231,6 +231,7 @@
 						$("#emp_joing_date").val(dd+'/'+mm+'/'+yyyy)
 						$("#emp_id").val(data.emp[0].id)
 						$("#edit_depList option[value='"+data.emp[0].department_id+"']").prop('selected',true);
+						$("#gender option[value='"+data.emp[0].gender+"']").prop('selected',true);
 						$("#edit_role_id option[value='"+roleid+"']").prop('selected',true);
 						change_designation(data.emp[0].department_id)
 						$("#edit_designationList option[value='"+data.emp[0].designation_id	+"']").prop('selected',true);

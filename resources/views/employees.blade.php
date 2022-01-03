@@ -172,6 +172,17 @@
                                             </select>
                                         </div>
                                     </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Gender</label>
+                                            <select class="form-control" name="gender" required>
+												<option value="">Select Gender</option>
+												<option value="0">Male</option> 
+												<option value="1">Female</option> 
+												<option value="2">Others</option> 
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="col-sm-6">  
                                         <div class="form-group">
                                             <label class="col-form-label">Joining Date <span class="text-danger">*</span></label>
@@ -335,6 +346,17 @@
                                             </select>
                                         </div>
                                     </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Gender</label>
+                                            <select class="form-control" name="gender" required id="gender">
+												<option value="">Select Gender</option>
+												<option value="0">Male</option> 
+												<option value="1">Female</option> 
+												<option value="2">Others</option> 
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="col-sm-6">  
                                         <div class="form-group">
                                             <label class="col-form-label">Joining Date <span class="text-danger">*</span></label>
@@ -374,7 +396,6 @@
                                             <label>Designation <span class="text-danger">*</span></label>
                                             <select class="select" name="designation_id" id="edit_designationList">
                                                 <option value="">Select Designation</option>
-                      
                                             </select>
                                         </div>
                                     </div>
@@ -402,8 +423,7 @@
                                                             <input class="permissionCheck" name="permission_modules[]" value="{{ $val->id }}_{{ $ep->id }}" type="checkbox">
                                                         </td>
                                                     @endforeach
-                                                    @endisset
-                                                   
+                                                    @endisset            
                                                 </tr>
                                             @endforeach
                                             @endisset 
