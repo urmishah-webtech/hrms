@@ -71,6 +71,7 @@ class LeaveTypeController extends Controller
                 $lt->hospitalisation_active_status=0;
             }
 
+            
 
             $lt->save();
         }
