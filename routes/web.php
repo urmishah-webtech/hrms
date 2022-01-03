@@ -74,15 +74,17 @@ Route::post('edit_employee','EmployeeController@edit_employee')->name('edit_empl
 Route::post('update_employee','EmployeeController@update_employee')->name('update_employee');
 Route::post('search_employee','EmployeeController@search_employee')->name('search_employee');
 
-
 //leave routes start --BY URMI SHAH 
 Route::get('/leave-settings','LeaveTypeController@index')->name('leave-settings');
 Route::post('/save_leave_settings','LeaveTypeController@save_leave_settings')->name('save_leave_settings');
 
 //leave routes end
-Route::get('/holidays', function () {
-    return view('holidays');
-});
+
+Route::get('/holidays', 'HolidayController@list')->name('holidays');
+Route::post('save-holiday','HolidayController@save')->name('holiday.save');
+Route::get('/delete-holiday/{id?}', 'HolidayController@delete')->name('holiday.delete');
+Route::post('/update-holiday', 'HolidayController@update')->name('holiday.update');
+
 Route::get('/leaves', function () {
     return view('leaves');
 });
