@@ -107,7 +107,16 @@
 										@endforeach
                                         @endisset
 									</select>
-								</div>
+								</div>								 
+								<div class="form-group">
+									<label class="col-form-label">Gender</label>
+									<select class="form-control" name="gender" required>
+										<option value="">Select Gender</option>
+										<option value="0">Male</option> 
+										<option value="1">Female</option> 
+										<option value="2">Others</option> 
+									</select>
+								</div>                                    
 								<input type="hidden" name="_token" value="{{csrf_token()}}"> 
 								<div class="form-group text-center">
 									<button name="button" class="btn btn-primary account-btn" type="submit">Register</button>

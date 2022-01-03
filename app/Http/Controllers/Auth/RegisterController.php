@@ -72,6 +72,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
 			'role_type' => Str::lower($data['role_type']),
+			'gender' => $data['gender'],
         ]);
 		//if($data['role_type'] == "Employee"){ 
         $empl =new Employee();
@@ -80,7 +81,8 @@ class RegisterController extends Controller
         $empl->user_name = $data['name'];
         $empl->email = $data['email'];
         $empl->password = $data['email'];
-        $empl->role_type = Str::lower($data['role_type']); 		
+        $empl->role_type = Str::lower($data['role_type']); 	
+		$empl->gender = $data['gender'];
         $empl->save(); 
        // }
 		return $user;
