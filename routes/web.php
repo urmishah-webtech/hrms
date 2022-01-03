@@ -20,17 +20,20 @@ use App\Http\Middleware\AuthCheck;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/index_2', 'HomeController@test')->name('index_2');
+Route::get('/home', 'HomeController@HomepageUrl')->name('home');
 
-Route::get('/', function () {
-         return redirect('index');
-        //return view('auth/login');
-    });
+Route::get('/index', 'HomeController@adminHome')->name('index');
+// Route::get('/', function () {
+//          return redirect('index');
+//         //return view('auth/login');
+//     });
      
 Route::middleware([AuthCheck::class])->group(function () {
 
-Route::get('/index', function () {
-    return view('index');
-})->name('page');
+// Route::get('/index', function () {
+//     return view('index');
+// })->name('page');
 
 Route::get('/employee-dashboard', function () {
     return view('employee-dashboard');
@@ -551,8 +554,7 @@ Route::post('changeNotificationAccess','NotificationsettController@changeNotific
 Route::get('/performance','PerfomanceController@Perfomance_emp')->name('perfomanceemp');
 
 Route::get('/employee-dashboard','HomeController@index')->name('emp.home');
-Route::get('/index', 'HomeController@adminHome')->name('index')->middleware('is_admin');
-Route::get('/home', 'HomeController@HomepageUrl')->name('home');
+
 
 Route::get('/performance','ProfessionalExcellenceController@ProfessionalExcellence')->name('professionals');
 Route::post('add_professionalexcel','ProfessionalExcellenceController@add_ProfessionalExcellence')->name('add_professionalexcel');
@@ -626,7 +628,7 @@ Route::namespace('Auth')->group(function(){
 
 });
 
-Auth::routes();
+ Auth::routes();
 // Route::get('/register', function () {
 //     return view('authregister');
 // });

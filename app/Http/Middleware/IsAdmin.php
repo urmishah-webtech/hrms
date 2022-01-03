@@ -15,6 +15,7 @@ class IsAdmin
      */
     public function handle($request, Closure $next)
     {
+        
         if(auth()->user()->role_type == "admin" || auth()->user()->role_type == "manager"){
             return $next($request);
         }

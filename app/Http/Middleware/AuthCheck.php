@@ -19,8 +19,9 @@ class AuthCheck
      */
     public function handle($request, Closure $next)
     {   
+	
 		  if(Auth::check()){		   
-			if (Auth::user()->role_type == "admin" || Auth::user()->role_type == "manager")
+			if (auth()->user()->role_type == "admin" || auth()->user()->role_type == "manager")
 			{	 
 				return $next($request);		 
 			}

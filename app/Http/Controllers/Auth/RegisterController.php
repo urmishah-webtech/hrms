@@ -88,7 +88,7 @@ class RegisterController extends Controller
         $empl->user_name = $data['name'];
         $empl->email = $data['email'];
 
-        $empl->password = Hash::make($data['password']);
+        $empl->password =  bcrypt($data['password']);
         $empl->role_type = Str::lower($data['role_type']); 		
         $empl->role_type = Str::lower($data['role_type']); 	
 		$empl->gender = $data['gender'];
