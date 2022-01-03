@@ -73,7 +73,7 @@ class EmployeeController extends Controller
         $emp->last_name=$request->last_name;
         $emp->user_name=$request->user_name;
         $emp->email=$request->email;
-        $emp->password=$request->password;
+        $emp->password=bcrypt($request->password);
         $emp->employee_id=$request->employee_id;
         $emp->gender=$request->gender;
 		$emp->role_type=Str::lower($request->role_id);

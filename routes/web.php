@@ -20,17 +20,20 @@ use App\Http\Middleware\AuthCheck;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/index_2', 'HomeController@test')->name('index_2');
+Route::get('/home', 'HomeController@HomepageUrl')->name('home');
 
-Route::get('/', function () {
-         return redirect('index');
-        //return view('auth/login');
-    });
+Route::get('/index', 'HomeController@adminHome')->name('index');
+// Route::get('/', function () {
+//          return redirect('index');
+//         //return view('auth/login');
+//     });
      
 Route::middleware([AuthCheck::class])->group(function () {
 
-Route::get('/index', function () {
-    return view('index');
-})->name('page');
+// Route::get('/index', function () {
+//     return view('index');
+// })->name('page');
 
 Route::get('/employee-dashboard', function () {
     return view('employee-dashboard');
@@ -77,8 +80,10 @@ Route::post('search_employee','EmployeeController@search_employee')->name('searc
 //leave routes start --BY URMI SHAH 
 Route::get('/leave-settings','LeaveTypeController@index')->name('leave-settings');
 Route::post('/save_leave_settings','LeaveTypeController@save_leave_settings')->name('save_leave_settings');
-
+Route::get('/leaves-employee','EmployeeLeaveController@index')->name('leaves-employee');
+    
 //leave routes end
+
 
 Route::get('/holidays', 'HolidayController@list')->name('holidays');
 Route::post('save-holiday','HolidayController@save')->name('holiday.save');
@@ -88,9 +93,6 @@ Route::get('/get-holidays','HolidayController@getHolidays');
 
 Route::get('/leaves', function () {
     return view('leaves');
-});
-Route::get('/leaves-employee', function () {
-    return view('leaves-employee');
 });
 
 Route::get('/attendance', function () {
@@ -553,8 +555,7 @@ Route::post('changeNotificationAccess','NotificationsettController@changeNotific
 Route::get('/performance','PerfomanceController@Perfomance_emp')->name('perfomanceemp');
 
 Route::get('/employee-dashboard','HomeController@index')->name('emp.home');
-Route::get('/index', 'HomeController@adminHome')->name('index')->middleware('is_admin');
-Route::get('/home', 'HomeController@HomepageUrl')->name('home');
+
 
 Route::get('/performance','ProfessionalExcellenceController@ProfessionalExcellence')->name('professionals');
 Route::post('add_professionalexcel','ProfessionalExcellenceController@add_ProfessionalExcellence')->name('add_professionalexcel');
@@ -628,7 +629,7 @@ Route::namespace('Auth')->group(function(){
 
 });
 
-Auth::routes();
+ Auth::routes();
 // Route::get('/register', function () {
 //     return view('authregister');
 // });

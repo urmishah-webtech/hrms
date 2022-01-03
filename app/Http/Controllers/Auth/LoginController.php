@@ -28,7 +28,7 @@ class LoginController extends Controller
      * @var string
      */
 	 
-    protected $redirectTo = RouteServiceProvider::HOME;
+  //  protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
      * Create a new controller instance.
@@ -51,7 +51,7 @@ class LoginController extends Controller
 	{
 		//validation rules.
 		$rules = [
-			'email'    => 'required|email|exists:users|min:5|max:191',
+			'email'    => 'required|email|exists:employees|min:5|max:191',
 			'password' => 'required|string|min:4|max:255',
 		];
 
@@ -72,18 +72,20 @@ class LoginController extends Controller
 	}
 	public function login(Request $request)
 	{
+		
 		$this->validator($request);
 		
-		if(Auth::attempt($request->only('email','password'),$request->filled('remember'))){
+		if(auth()->attempt($request->only('email','password'),$request->filled('remember'))){
 			//Authentication passed...
 			if (auth()->user()->role_type == "admin" || auth()->user()->role_type == "manager") {
 				//return redirect()->intended(route('admin.home'))->with('status','You are Logged in as Admin!');
-				return redirect()->route('index');
+		 		return redirect()->route('index');
 			}else{
-                return redirect('/employee-dashboard');
+                return redirect('/employee-dashboard'); 
             }
 		}
-
+		
+		
 		//Authentication failed...
 		return $this->loginFailed();
 	}
