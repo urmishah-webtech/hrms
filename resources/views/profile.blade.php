@@ -82,9 +82,8 @@
                                 <div class="card profile-box flex-fill">
                                     <div class="card-body">
                                         <h3 class="card-title">Personal Informations 
-                                        @isset($per_info)     
                                             <a href="#" class="edit-icon edit_personal_info" data-toggle="modal" data-target="#personal_info_modal" data-id="{{@$per_info->id}}" data-passp="{{@$per_info->passport_no}}" data-expdate="{{@$per_info->passport_expiry_date}}" data-tel="{{@$per_info->tel}}" data-nati="{{@$per_info->nationality}}" data-relg="{{@$per_info->religion}}" data-matst="{{@$per_info->marital_status}}" data-empsp="{{@$per_info->employment_of_spouse}}" data-child="{{@$per_info->No_of_children}}"><i class="fa fa-pencil"></i></a>
-                                        @endisset
+                                        
                                         </h3>
                                         <ul class="personal-info">
                                             <li>
