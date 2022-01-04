@@ -622,6 +622,93 @@
 					$('#deleteproid').val(proid);
 				})
 			})
+
+			$('#resignation-table tbody tr').each(function(){
+				$(this).find('.editresignationlink').click(function(){
+					var resid = $(this).attr('data-id');
+					$.ajax({
+						url:"{{route('edit-resignation')}}",
+						type:'GET',
+						data:{'resid':resid},
+						success:function(result){
+							var editdata = result.data;
+							$('#resid').val(editdata.id);
+							$('#resemployee').val(result.employee);
+							$('#resemployeeid').val(editdata.employeeid);
+							$('#resdecisionby').val(result.loggedinuser);
+							var d = new Date(editdata.noticedate);
+							var day = d.getDate();
+							var month = d.getMonth() + 1;
+							var year = d.getFullYear();
+							if (day < 10) {
+								day = "0" + day;
+							}
+							if (month < 10) {
+								month = "0" + month;
+							}
+							var formatteddate = day + "/" + month + "/" + year;
+							$('#resnoticedate').val(formatteddate);
+							var d2 = new Date(editdata.resignationdate);
+							var day2 = d2.getDate();
+							var month2 = d2.getMonth() + 1;
+							var year2 = d2.getFullYear();
+							if (day2 < 10) {
+								day2 = "0" + day2;
+							}
+							if (month2 < 10) {
+								month2 = "0" + month2;
+							}
+							var formatteddate2 = day2 + "/" + month2 + "/" + year2;
+							$('#resresignationdate').val(formatteddate2);
+							$('#resreason').val(editdata.reason);
+							$("#resstatus").html('');
+							var resultstatus = editdata.status;
+							if (resultstatus === 'Approved') {
+								var approvestatusattr = 'selected';
+							}else{
+								var approvestatusattr = '';
+							}
+							if (resultstatus === 'Disapproved') {
+								var disapprovestatusattr = 'selected';
+							}else{
+								var disapprovestatusattr = '';
+							}
+							$('#resstatus').append('<option value="">--Select--</option><option '+approvestatusattr+' value="Approved">Approve</option><option '+disapprovestatusattr+' value="Disapproved">Disapprove</option>');
+							$('#res2weeknotice').html('');
+							var resultnotice = editdata.twoweeknotice;
+							if (resultnotice === 'Yes') {
+								var approvenoticeattr = 'selected';
+							}else{
+								var approvenoticeattr = '';
+							}
+							if (resultnotice === 'No') {
+								var disapprovenoticeattr = 'selected';
+							}else{
+								var disapprovenoticeattr = '';
+							}
+							$('#res2weeknotice').append('<option value="">--Select--</option><option '+approvenoticeattr+' value="Yes">Yes</option><option '+disapprovenoticeattr+' value="No">No</option>');
+							$('#resrehireable').html('');
+							var resulthire = editdata.rehireable;
+							if (resulthire === 'Yes') {
+								var approvehireattr = 'selected';
+							}else{
+								var approvehireattr = '';
+							}
+							if (resulthire === 'No') {
+								var disapprovehireattr = 'selected';
+							}else{
+								var disapprovehireattr = '';
+							}
+							$('#resrehireable').append(' <option value="">--Select--</option><option '+approvehireattr+' value="Yes">Yes</option><option '+disapprovehireattr+' value="No">No</option>');
+						}
+					})
+				})
+
+				$(this).find('.deleteresignationlink').click(function(){
+					var resid = $(this).attr('data-id');
+					$('#deleteresignationid').val(resid);
+				})
+			})
 			 
 		});
 	</script>

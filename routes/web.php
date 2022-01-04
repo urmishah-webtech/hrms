@@ -211,9 +211,9 @@ Route::get('/getdesignation','PromotionController@getDesignation')->name('getdes
 Route::get('/edit-promotion','PromotionController@editPromotion')->name('edit-promotion');
 Route::post('/update-promotion','PromotionController@updatePromotion')->name('update-promotion');
 Route::post('/delete-promotion','PromotionController@deletePromotion')->name('delete-promotion');
-Route::get('/resignation', function () {
-    return view('resignation');
-});
+// Route::get('/resignation', function () {
+//     return view('resignation');
+// });
 
 Route::get('/termination', 'TerminationController@list')->name('termination');
 Route::post('/create-termination', 'TerminationController@save')->name('termination.save');
@@ -222,6 +222,17 @@ Route::get('/delete-termination/{id?}', 'TerminationController@delete')->name('t
 
 
 
+// Route::get('/resignation', function () {
+//     return view('resignation');
+// });
+Route::get('/resignation', 'ResignationController@index')->name('resignations');
+Route::post('/add-resignation', 'ResignationController@addResignation')->name('add-resignation');
+Route::get('/edit-resignation', 'ResignationController@editResignation')->name('edit-resignation');
+Route::post('/update-resignation', 'ResignationController@updateResignation')->name('update-resignation');
+Route::post('/delete-resignation', 'ResignationController@deleteResignation')->name('delete-resignation');
+Route::get('/termination', function () {
+    return view('termination');
+});
 Route::get('/assets', function () {
     return view('assets');
 });
