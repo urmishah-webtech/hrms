@@ -12,8 +12,6 @@ class ProfessionalGoalsAchievedController extends Controller
     {    
         $data = $request->all();  
         $userd = Auth::user()->id;
-        $string_id = Employee::where('user_id', $userd)->pluck('id')->all();
-        $emp_id=implode("id",$string_id);      
         $emp_text = $request->DynamicTextBoxemp;
         $manager_text = $request->DynamicTextBoxman;
         $id = $request->getid;
@@ -22,7 +20,7 @@ class ProfessionalGoalsAchievedController extends Controller
         {
             if($emp_text[$key] || $manager_text[$key])
             {    
-                if(isset($id[$key]))
+                if(isset($id[$key])) 
                 { 
                 $score= ProfessionalGoalsAchieved::where('id',$id[$key])->first();  
                 $score->by_employee = $emp_text[$key] ? $emp_text[$key] : ''; 
@@ -32,8 +30,7 @@ class ProfessionalGoalsAchievedController extends Controller
                 else 
 		        {   
                 $scores = new ProfessionalGoalsAchieved();
-                $scores->user_id = Auth::user()->id;
-                $scores->emp_id = $emp_id;
+                $scores->emp_id = $userd;
                 $scores->by_employee = $emp_text[$key] ? $emp_text[$key] : '';  
                 $scores->managers_comment = $manager_text[$key] ? $manager_text[$key] : '';  
                 $scores->save();

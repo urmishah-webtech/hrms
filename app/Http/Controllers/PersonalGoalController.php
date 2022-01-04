@@ -11,8 +11,6 @@ class PersonalGoalController extends Controller
     {    
         $data = $request->all();
         $userd = Auth::user()->id;
-        $string_id = Employee::where('user_id', $userd)->pluck('id')->all();
-        $emp_id=implode("id",$string_id);
         $last_year = $request->goal_last_year;
         $current_year = $request->goal_current_year;
         $id = $request->getid;     
@@ -30,8 +28,7 @@ class PersonalGoalController extends Controller
                 else 
                 {                  
                     $scores = new PersonalGoal();
-                    $scores->user_id = Auth::user()->id;
-                    $scores->emp_id = $emp_id;
+                    $scores->emp_id = $userd;
                     $scores->goal_last_year = $last_year[$key] ? $last_year[$key] : ''; 
                     $scores->goal_current_year = $current_year[$key] ? $current_year[$key] : ''; 
                     $scores->save();                 

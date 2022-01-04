@@ -24,10 +24,10 @@ Route::get('/index_2', 'HomeController@test')->name('index_2');
 Route::get('/home', 'HomeController@HomepageUrl')->name('home');
 
 Route::get('/index', 'HomeController@adminHome')->name('index');
-// Route::get('/', function () {
-//          return redirect('index');
-//         //return view('auth/login');
-//     });
+Route::get('/', function () {
+         return redirect('index');
+        //return view('auth/login');
+    });
      
 Route::middleware([AuthCheck::class])->group(function () {
 

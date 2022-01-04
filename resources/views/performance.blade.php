@@ -35,29 +35,29 @@
                                             <td>                                              
 												<div class="form-group">
 													<label for="name">Employee</label>
-													<input type="text" class="form-control" id="name" value="{{ @$emps->first_name }}" @if (Auth::user()->role_type == "employee")readonly @endif>
+													<input type="text" class="form-control" id="name" value="{{ @$emps->first_name }}" @if (Auth::user()->role_id == 3)readonly @endif>
 												</div>
 												<div class="form-group">
 													<label for="depart3">Department</label>
-													<input type="text" class="form-control" id="depart3" value="{{ @$emps->designation->department->name}}" @if (Auth::user()->role_type == "employee")readonly @endif>
+													<input type="text" class="form-control" id="depart3" value="{{ @$emps->designation->department->name}}" @if (Auth::user()->role_id == 3)readonly @endif>
 												</div>
 												<div class="form-group">
 													<label for="departa">Designation</label>
-													<input type="text" class="form-control" id="departa" value="{{ @$emps->designation->name }}" @if (Auth::user()->role_type == "employee")readonly @endif>
+													<input type="text" class="form-control" id="departa" value="{{ @$emps->designation->name }}" @if (Auth::user()->role_id == 3)readonly @endif>
 												</div>
                                             </td>
                                             <td>                                                
 												<div class="form-group">
 													<label for="qualif1">Email</label>
-													<input type="text" class="form-control" id="qualif1" value="{{ @$emps->email }}" @if (Auth::user()->role_type == "employee")readonly @endif>
+													<input type="text" class="form-control" id="qualif1" value="{{ @$emps->email }}" @if (Auth::user()->role_id == 3)readonly @endif>
 												</div>
 												<div class="form-group">
 													<label for="doj">Emp ID</label>
-													<input type="text" class="form-control" value="{{ @$emps->employee_id }}" @if (Auth::user()->role_type == "employee")readonly @endif>
+													<input type="text" class="form-control" value="{{ @$emps->employee_id }}" @if (Auth::user()->role_id == 3)readonly @endif>
 												</div>
 												<div class="form-group">
 													<label for="doj">Date of Join</label>
-													<input type="text" class="form-control" id="doj" value="{{ @$emps->joing_date }}" @if (Auth::user()->role_type == "employee")readonly @endif>
+													<input type="text" class="form-control" id="doj" value="{{ @$emps->joing_date }}" @if (Auth::user()->role_id == 3)readonly @endif>
 												</div>
                                             </td>
                                             <!--<td>                                               
@@ -71,7 +71,7 @@
 															@endforeach							
 														@endisset
 													</select>
-													<input type="text" class="form-control" id="name1" @if (Auth::user()->role_type == "employee")readonly @endif value="@if (Auth::user()->role_type == "manager"){{Auth::user()->name}}@endif">
+													<input type="text" class="form-control" id="name1" @if (Auth::user()->role_id == 3)readonly @endif value="@if (Auth::user()->role_id == 2){{Auth::user()->name}}@endif">
 												</div>                                      
                                             </td>--->
                                         </tr>
@@ -239,6 +239,7 @@
                             <div class="table-responsive">
                             <form action="{{ route('add_personalexcel') }}" method="post">
                              @csrf
+                             
                                 <table class="table table-bordered review-table mb-0">
                                     <thead>
                                         <tr>
@@ -260,7 +261,7 @@
                                             <td><input type="text" class="form-control" readonly value="2"></td>
                                             <td><input type="text" class="form-control personal_employee" name="plan_leave_employee" id="plan_leave_employee" value="{{ @$personal->plan_leave_employee }}"></td>
                                             <td><input type="text" class="form-control" readonly value="0"></td>
-                                            <td><input type="text" class="form-control" name="plan_leave_manager" id="plan_leave_manager" @if (Auth::user()->role_type == "employee")readonly @endif value="{{ @$personal->plan_leave_manager }}"></td>
+                                            <td><input type="text" class="form-control" name="plan_leave_manager" id="plan_leave_manager" @if (Auth::user()->role_id == 3)readonly @endif value="{{ @$personal->plan_leave_manager }}"></td>
                                             <td><input type="text" class="form-control" readonly value="0"></td>
                                         </tr>
                                         <tr>
@@ -268,7 +269,7 @@
                                             <td><input type="text" class="form-control" readonly value="2"></td>
                                             <td><input type="text" class="form-control personal_employee" name="time_cons_employee" id="time_cons_employee" value="{{ @$personal->time_cons_employee }}"></td>
                                             <td><input type="text" class="form-control" readonly value="0"></td>
-                                            <td><input type="text" class="form-control personal_manager" name="time_cons_manager" id="time_cons_manager" value="{{ @$personal->time_cons_manager }}" @if (Auth::user()->role_type == "employee")readonly @endif></td>
+                                            <td><input type="text" class="form-control personal_manager" name="time_cons_manager" id="time_cons_manager" value="{{ @$personal->time_cons_manager }}" @if (Auth::user()->role_id == 3)readonly @endif></td>
                                             <td><input type="text" class="form-control" readonly value="0"></td>
                                         </tr>
                                         <tr>
@@ -278,7 +279,7 @@
                                             <td><input type="text" class="form-control" readonly value="2"></td>
                                             <td><input type="text" class="form-control personal_employee" name="team_collaboration_employee" id="team_collaboration_employee" value="{{ @$personal->team_collaboration_employee }}"></td>
                                             <td><input type="text" class="form-control" readonly value="0"></td>
-                                            <td><input type="text" class="form-control personal_manager" name="team_collaboration_manager" id="team_collaboration_manager" value="{{ @$personal->team_collaboration_manager }}" @if (Auth::user()->role_type == "employee")readonly @endif></td>
+                                            <td><input type="text" class="form-control personal_manager" name="team_collaboration_manager" id="team_collaboration_manager" value="{{ @$personal->team_collaboration_manager }}" @if (Auth::user()->role_id == 3)readonly @endif></td>
                                             <td><input type="text" class="form-control" readonly value="0"></td>
                                         </tr>
                                         <tr>
@@ -286,7 +287,7 @@
                                             <td><input type="text" class="form-control" readonly value="2"></td>
                                             <td><input type="text" class="form-control personal_employee" name="professionalism_employee" id="professionalism_employee" value="{{ @$personal->professionalism_employee }}"></td>
                                             <td><input type="text" class="form-control" readonly value="0"></td>
-                                            <td><input type="text" class="form-control personal_manager" name="professionalism_manager" id="professionalism_manager" value="{{ @$personal->professionalism_manager }}" @if (Auth::user()->role_type == "employee")readonly @endif></td>
+                                            <td><input type="text" class="form-control personal_manager" name="professionalism_manager" id="professionalism_manager" value="{{ @$personal->professionalism_manager }}" @if (Auth::user()->role_id == 3)readonly @endif></td>
                                             <td><input type="text" class="form-control" readonly value="0"></td>
                                         </tr>
                                         <tr>
@@ -296,7 +297,7 @@
                                             <td><input type="text" class="form-control" readonly value="2"></td>
                                             <td><input type="text" class="form-control personal_employee" name="policy_employee" id="policy_employee" value="{{ @$personal->policy_employee }}"></td>
                                             <td><input type="text" class="form-control" readonly value="0"></td>
-                                            <td><input type="text" class="form-control personal_manager" name="policy_manager" id="policy_manager" value="{{ @$personal->policy_manager }}" @if (Auth::user()->role_type == "employee")readonly @endif></td>
+                                            <td><input type="text" class="form-control personal_manager" name="policy_manager" id="policy_manager" value="{{ @$personal->policy_manager }}" @if (Auth::user()->role_id == 3)readonly @endif></td>
                                             <td><input type="text" class="form-control" readonly value="0"></td>
                                         </tr>
                                         <tr>
@@ -306,7 +307,7 @@
                                             <td><input type="text" class="form-control" readonly value="2"></td>
                                             <td><input type="text" class="form-control personal_employee" name="initiatives_employee" id="initiatives_employee" value="{{ @$personal->initiatives_employee }}"></td>
                                             <td><input type="text" class="form-control" readonly value="0"></td>
-                                            <td><input type="text" class="form-control personal_manager" name="initiatives_manager" id="initiatives_manager" value="{{ @$personal->initiatives_manager }}" @if (Auth::user()->role_type == "employee")readonly @endif></td>
+                                            <td><input type="text" class="form-control personal_manager" name="initiatives_manager" id="initiatives_manager" value="{{ @$personal->initiatives_manager }}" @if (Auth::user()->role_id == 3)readonly @endif></td>
                                             <td><input type="text" class="form-control" readonly value="0"></td>
                                         </tr>
                                         <tr>
@@ -316,7 +317,7 @@
                                             <td><input type="text" class="form-control" readonly value="3"></td>
                                             <td><input type="text" class="form-control personal_employee" name="improvement_employee" id="improvement_employee" value="{{ @$personal->improvement_employee }}"></td>
                                             <td><input type="text" class="form-control" readonly value="0"></td>
-                                            <td><input type="text" class="form-control personal_manager" name="improvement_manager" id="improvement_manager" value="{{ @$personal->improvement_manager }}" @if (Auth::user()->role_type == "employee")readonly @endif></td>
+                                            <td><input type="text" class="form-control personal_manager" name="improvement_manager" id="improvement_manager" value="{{ @$personal->improvement_manager }}" @if (Auth::user()->role_id == 3)readonly @endif></td>
                                             <td><input type="text" class="form-control" readonly value="0"></td>
                                         </tr>
                                         <tr>
@@ -324,7 +325,7 @@
                                             <td><input type="text" class="form-control" readonly value="15"></td>
                                             <td><input type="text" class="form-control" readonly  name="total_score_employee" id="total_score_employee" value="{{ @$personal->total_score_employee }}"></td>
                                             <td><input type="text" class="form-control" readonly value="0" ></td>
-                                            <td><input type="text" class="form-control" readonly name="total_score_manager" id="total_score_manager" value="{{ @$personal->total_score_manager }}" @if (Auth::user()->role_type == "employee")readonly @endif></td>
+                                            <td><input type="text" class="form-control" readonly name="total_score_manager" id="total_score_manager" value="{{ @$personal->total_score_manager }}" @if (Auth::user()->role_id == 3)readonly @endif></td>
                                             <td><input type="text" class="form-control" readonly value="0"></td>
                                         </tr>
                                         <tr>
@@ -382,7 +383,7 @@
                                         <tr>
                                             <td>{{$i}}</td>
                                             <td><input type="text" class="form-control" name="DynamicTextBoxemp[]" value="{{ $val->by_employee}}"></td>
-                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="{{ $val->managers_comment}}"@if (Auth::user()->role_type == "employee")readonly @endif></td>
+                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="{{ $val->managers_comment}}"@if (Auth::user()->role_id == 3)readonly @endif></td>
                                             <td></td>
                                             <input type="hidden" class="form-control" name="getid[]" value="{{ $val->id}}">
                                         </tr>
@@ -392,7 +393,7 @@
                                         <tr>
                                             <td>1</td>
                                             <td><input type="text" class="form-control" name="DynamicTextBoxemp[]" value=""></td>
-                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="" @if (Auth::user()->role_type == "employee")readonly @endif></td>
+                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="" @if (Auth::user()->role_id == 3)readonly @endif></td>
                                             <td></td>
                                             
                                         </tr>
@@ -434,7 +435,7 @@
                                         <tr>
                                             <td>{{$i}}</td>
                                             <td><input type="text" class="form-control" name="DynamicTextBoxemp[]" value="{{ $val->by_employee}}"></td>
-                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="{{ $val->managers_comment}}"@if (Auth::user()->role_type == "employee")readonly @endif></td>                                            
+                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="{{ $val->managers_comment}}"@if (Auth::user()->role_id == 3)readonly @endif></td>                                            
                                             <td></td>
                                             <input type="hidden" class="form-control" name="getid[]" value="{{ $val->id}}">
                                         </tr>
@@ -444,7 +445,7 @@
                                         <tr>
                                             <td>1</td>
                                             <td><input type="text" class="form-control" name="DynamicTextBoxemp[]" value=""></td>
-                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="" @if (Auth::user()->role_type == "employee")readonly @endif></td>
+                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="" @if (Auth::user()->role_id == 3)readonly @endif></td>
                                             <td></td>
                                             
                                         </tr>
@@ -645,7 +646,7 @@
                                         <tr>
                                             <td>{{$i}}</td>
                                             <td><input type="text" class="form-control" name="DynamicTextBoxemp[]" value="{{ $val->by_employee}}"></td>
-                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="{{ $val->managers_comment}}" @if (Auth::user()->role_type == "employee")readonly @endif></td>
+                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="{{ $val->managers_comment}}" @if (Auth::user()->role_id == 3)readonly @endif></td>
                                             <td></td>
                                             <input type="hidden" class="form-control" name="getid[]" value="{{ $val->id}}">
                                         </tr>
@@ -655,7 +656,7 @@
                                         <tr>
                                             <td>1</td>
                                             <td><input type="text" class="form-control" name="DynamicTextBoxemp[]" value=""></td>
-                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="" @if (Auth::user()->role_type == "employee")readonly @endif></td>
+                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="" @if (Auth::user()->role_id == 3)readonly @endif></td>
                                             <td></td>
                                         </tr>
                                         @endif  
@@ -696,7 +697,7 @@
                                         <tr>
                                             <td>{{$i}}</td>
                                             <td><input type="text" class="form-control" name="DynamicTextBoxemp[]" value="{{ $val->by_employee}}"></td>
-                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="{{ $val->managers_comment}}" @if (Auth::user()->role_type == "employee")readonly @endif></td>
+                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="{{ $val->managers_comment}}" @if (Auth::user()->role_id == 3)readonly @endif></td>
                                             <td></td>
                                             <input type="hidden" class="form-control" name="getid[]" value="{{ $val->id}}">
                                         </tr>
@@ -706,7 +707,7 @@
                                         <tr>
                                             <td>1</td>
                                             <td><input type="text" class="form-control" name="DynamicTextBoxemp[]" value=""></td>
-                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="" @if (Auth::user()->role_type == "employee")readonly @endif></td>
+                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="" @if (Auth::user()->role_id == 3)readonly @endif></td>
                                             <td></td>
                                         </tr>
                                         @endif
@@ -747,7 +748,7 @@
                                         <tr>
                                             <td>{{$i}}</td>
                                             <td><input type="text" class="form-control" name="DynamicTextBoxemp[]" value="{{ $val->by_employee}}"></td>
-                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="{{ $val->managers_comment}}" @if (Auth::user()->role_type == "employee")readonly @endif></td>
+                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="{{ $val->managers_comment}}" @if (Auth::user()->role_id == 3)readonly @endif></td>
                                             <td></td>
                                             <input type="hidden" class="form-control" name="getid[]" value="{{ $val->id}}">
                                         </tr>
@@ -757,7 +758,7 @@
                                         <tr>
                                             <td>1</td>
                                             <td><input type="text" class="form-control" name="DynamicTextBoxemp[]" value=""></td>
-                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="" @if (Auth::user()->role_type == "employee")readonly @endif></td>
+                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="" @if (Auth::user()->role_id == 3)readonly @endif></td>
                                             <td></td>
                                         </tr>
                                         @endif  
@@ -798,7 +799,7 @@
                                         <tr>
                                             <td>{{$i}}</td>
                                             <td><input type="text" class="form-control" name="DynamicTextBoxemp[]" value="{{ $val->employee_comments}}"></td>
-                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="{{ $val->managers_comments}}" @if (Auth::user()->role_type == "employee")readonly @endif></td>
+                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="{{ $val->managers_comments}}" @if (Auth::user()->role_id == 3)readonly @endif></td>
                                            <td></td>
                                            <input type="hidden" class="form-control" name="getid[]" value="{{ $val->id}}">
                                         </tr>
@@ -808,7 +809,7 @@
                                         <tr>
                                             <td>1</td>
                                             <td><input type="text" class="form-control" name="DynamicTextBoxemp[]" value=""></td>
-                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="" @if (Auth::user()->role_type == "employee")readonly @endif></td>
+                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="" @if (Auth::user()->role_id == 3)readonly @endif></td>
                                             <td></td>
                                         </tr>
                                         @endif 
@@ -952,17 +953,17 @@
                                 <tbody>
                                     <tr>
                                         <td>Employee</td>
-                                        <input type="hidden" name="user_role[]" value="employee">
+                                        <input type="hidden" name="user_role[]" value="3">
                                         <td><input type="text" class="form-control" name="name[]" value="@if(isset($add_perfoIdent[0])){{$add_perfoIdent[0]['name']}} @endif"></td>
                                         <td><input type="text" class="form-control" name="signature[]" value="@if(isset($add_perfoIdent[0])){{$add_perfoIdent[0]['signature']}} @endif"></td>
                                         <td><div class="cal-icon"><input type="text" class="form-control datetimepicker" name="date[]" value="@if(isset($add_perfoIdent[0])){{$add_perfoIdent[0]['date']}} @endif"></div></td>
                                     </tr>
                                     <tr>
                                         <td>Manager</td>
-                                        <input type="hidden" name="user_role[]" value="manager">
-                                        <td><input type="text" class="form-control" name="name[]" value="@if(isset($add_perfoIdent[1])){{$add_perfoIdent[1]['name']}} @endif" @if (Auth::user()->role_type == "employee")readonly @endif></td>
-                                        <td><input type="text" class="form-control" name="signature[]" value="@if(isset($add_perfoIdent[1])){{$add_perfoIdent[1]['signature']}} @endif" @if (Auth::user()->role_type == "employee")readonly @endif></td>
-                                        <td><div class="cal-icon"><input type="text" class="form-control datetimepicker" name="date[]" value="@if(isset($add_perfoIdent[1])){{$add_perfoIdent[1]['date']}} @endif" @if (Auth::user()->role_type == "employee")readonly @endif></div></td>
+                                        <input type="hidden" name="user_role[]" value="2">
+                                        <td><input type="text" class="form-control" name="name[]" value="@if(isset($add_perfoIdent[1])){{$add_perfoIdent[1]['name']}} @endif" @if (Auth::user()->role_id == 3)readonly @endif></td>
+                                        <td><input type="text" class="form-control" name="signature[]" value="@if(isset($add_perfoIdent[1])){{$add_perfoIdent[1]['signature']}} @endif" @if (Auth::user()->role_id == 3)readonly @endif></td>
+                                        <td><div class="cal-icon"><input type="text" class="form-control datetimepicker" name="date[]" value="@if(isset($add_perfoIdent[1])){{$add_perfoIdent[1]['date']}} @endif" @if (Auth::user()->role_id == 3)readonly @endif></div></td>
                                     </tr>
                                      
                                 </tbody>

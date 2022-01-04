@@ -14,8 +14,6 @@ class PerformanceIdentitiesController extends Controller
     {  
         $data = $request->all();
         $userd = Auth::user()->id;
-        $string_id = Employee::where('user_id', $userd)->pluck('id')->all();
-        $emp_id=implode("id",$string_id);     
         $user_role = $request->user_role;     
         $name = $request->name;
         $signature = $request->signature;
@@ -37,8 +35,7 @@ class PerformanceIdentitiesController extends Controller
                 else 
 		        {   
                 $scores = new PerformanceIdentity();
-                $scores->user_id = Auth::user()->id;
-                $scores->emp_id = $emp_id;
+                $scores->emp_id = $userd;
                 $scores->user_role = $user_role[$key] ? $user_role[$key] : '';  
                 $scores->name = $name[$key] ? $name[$key] : '';
                 $scores->signature = $signature[$key] ? $signature[$key] : '';

@@ -18,9 +18,9 @@ class ProfileController extends Controller
     public function Profile_employees()
 	{
         $userd = Auth::user()->id;
-        $emp_profile=Employee::where('user_id',$userd)->first();
-		$per_info=ProfilePersonalInformations::where('user_id',$userd)->first();
-		$contact=ProfileEmergencyContact::where('user_id',$userd)->first();		
+        $emp_profile=Employee::where('id',$userd)->first();
+		$per_info=ProfilePersonalInformations::where('emp_id',$userd)->first();
+		$contact=ProfileEmergencyContact::where('emp_id',$userd)->first();		
         return view('profile',compact('emp_profile','per_info','contact'));
     }
 	 
@@ -34,7 +34,7 @@ class ProfileController extends Controller
            
             return Redirect::back()->withErrors($validator);
         }
-		$per_info=ProfilePersonalInformations::where('user_id',$userd)->first();		
+		$per_info=ProfilePersonalInformations::where('emp_id',$userd)->first();		
 		if(!empty($per_info))
 		{			
 			$personal=ProfilePersonalInformations::where('id',$request->id)->first();
@@ -51,7 +51,7 @@ class ProfileController extends Controller
 		else 
 		{		
 			$personal=new ProfilePersonalInformations();
-			$personal->user_id = Auth::user()->id;
+			$personal->emp_id = Auth::user()->id;
 			$personal->passport_no=$request->passport_no;
 			$personal->passport_expiry_date=Carbon::createFromFormat('d/m/Y', $request->passport_expiry_date)->format('Y-m-d');
 			$personal->tel=$request->tel;
@@ -74,7 +74,7 @@ class ProfileController extends Controller
         if($validator->fails()){           
             return Redirect::back()->withErrors($validator);
         }
-		$per_info=ProfileEmergencyContact::where('user_id',$userd)->first();		
+		$per_info=ProfileEmergencyContact::where('emp_id',$userd)->first();		
 		if(!empty($per_info))
 		{			
 			$personal=ProfileEmergencyContact::where('id',$request->id)->first();
@@ -91,7 +91,7 @@ class ProfileController extends Controller
 		else 
 		{		
 			$personal=new ProfileEmergencyContact();
-			$personal->user_id = Auth::user()->id;
+			$personal->emp_id = Auth::user()->id;
 			$personal->primary_name=$request->primary_name;
 			$personal->primary_relationship=$request->primary_relationship; 
 			$personal->primary_phone1=$request->primary_phone1;

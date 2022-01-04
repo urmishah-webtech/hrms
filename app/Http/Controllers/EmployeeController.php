@@ -53,22 +53,22 @@ class EmployeeController extends Controller
             'designation_id' => 'required',
             'confirm_password'=>'required_with:password|same:password'
 
-        ]);
+        ]); 
         if($validator->fails()){
            
             return Redirect::back()->withErrors($validator);
         }
 		 
-		$usert=new User();		
+		/*$usert=new User();		
         $usert->name=$request->first_name;
         $usert->email=$request->email;
         $usert->password=Hash::make($request->password);
-        $usert->role_type=Str::lower($request->role_id);
+        $usert->role_id=Str::lower($request->role_id);
 		$usert->gender=$request->gender;
-        $usert->save();
+        $usert->save();*/
 		
         $emp=new Employee();
-		$emp->user_id = $usert->id;
+		//$emp->user_id = $usert->id;
         $emp->first_name=$request->first_name;
         $emp->last_name=$request->last_name;
         $emp->user_name=$request->user_name;
@@ -76,7 +76,7 @@ class EmployeeController extends Controller
         $emp->password=bcrypt($request->password);
         $emp->employee_id=$request->employee_id;
         $emp->gender=$request->gender;
-		$emp->role_type=Str::lower($request->role_id);
+		$emp->role_id=$request->role_id;
         $emp->joing_date=Carbon::createFromFormat('d/m/Y', $request->joing_date)->format('Y-m-d')
         ;
         $emp->phone_no=$request->phone_no;
@@ -131,7 +131,7 @@ class EmployeeController extends Controller
         }
        
         $emp->employee_id=$request->employee_id;
-		$emp->role_type=Str::lower($request->role_id);
+		$emp->role_id=$request->role_id;
         $emp->joing_date=Carbon::createFromFormat('d/m/Y', $request->joing_date)->format('Y-m-d')
         ;
         $emp->phone_no=$request->phone_no;
