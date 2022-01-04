@@ -60,4 +60,12 @@ class ResignationController extends Controller
         Resignation::where('id', $request->id)->update(['decisionby' => $request->decisionby, 'status' => $request->status, 'twoweeknotice' => $request->twoweeknotice, 'rehireable' => $request->rehireable]);
         return redirect()->back()->with('msg', 'Updated successfully');
     }
+
+    public function deleteResignation(Request $request){
+        $data = Resignation::find($request->id);
+        if (!empty($data)) {
+            $data->delete();
+        }
+        return redirect()->back()->with('msg', 'Deleted Successfully');
+    }
 }

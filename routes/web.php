@@ -218,6 +218,7 @@ Route::get('/resignation', 'ResignationController@index')->name('resignations');
 Route::post('/add-resignation', 'ResignationController@addResignation')->name('add-resignation');
 Route::get('/edit-resignation', 'ResignationController@editResignation')->name('edit-resignation');
 Route::post('/update-resignation', 'ResignationController@updateResignation')->name('update-resignation');
+Route::post('/delete-resignation', 'ResignationController@deleteResignation')->name('delete-resignation');
 Route::get('/termination', function () {
     return view('termination');
 });
