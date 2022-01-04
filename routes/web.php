@@ -206,9 +206,11 @@ Route::get('/getdesignation','PromotionController@getDesignation')->name('getdes
 Route::get('/edit-promotion','PromotionController@editPromotion')->name('edit-promotion');
 Route::post('/update-promotion','PromotionController@updatePromotion')->name('update-promotion');
 Route::post('/delete-promotion','PromotionController@deletePromotion')->name('delete-promotion');
-Route::get('/resignation', function () {
-    return view('resignation');
-});
+// Route::get('/resignation', function () {
+//     return view('resignation');
+// });
+Route::get('/resignation', 'ResignationController@index')->name('resignations');
+Route::post('/add-resignation', 'ResignationController@addResignation')->name('add-resignation');
 Route::get('/termination', function () {
     return view('termination');
 });

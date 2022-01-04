@@ -80,26 +80,28 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form>
+                            <form method="POST" action="{{route('add-resignation')}}">
+                                @csrf
                                 <div class="form-group">
                                     <label>Resigning Employee <span class="text-danger">*</span></label>
-                                    <input class="form-control" type="text">
+                                    <input type="text" class="form-control" value="{{auth()->user()->first_name}} {{auth()->user()->last_name}}" readonly>
+                                    <input type="hidden" name="employeeid" class="form-control" value="{{auth()->user()->id}}">
                                 </div>
                                 <div class="form-group">
                                     <label>Notice Date <span class="text-danger">*</span></label>
                                     <div class="cal-icon">
-                                        <input type="text" class="form-control datetimepicker">
+                                        <input type="text" class="form-control datetimepicker" name="noticedate">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label>Resignation Date <span class="text-danger">*</span></label>
                                     <div class="cal-icon">
-                                        <input type="text" class="form-control datetimepicker">
+                                        <input type="text" class="form-control datetimepicker" name="resignationdate">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label>Reason <span class="text-danger">*</span></label>
-                                    <textarea class="form-control" rows="4"></textarea>
+                                    <textarea class="form-control" rows="4" name="reason"></textarea>
                                 </div>
                                 <div class="submit-section">
                                     <button class="btn btn-primary submit-btn">Submit</button>
