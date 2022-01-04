@@ -58,14 +58,22 @@
 							<li>
 								<a class="{{ Request::is('employees-performance') ? 'active' : '' }}" href="{{ url('employees-performance') }}"> Employee Performance </a>
 							</li>
-							<li class="{{ Request::is('promotion') ? 'active' : '' }}">
-								<a  href="{{ url('promotion') }}"><i class="la la-bullhorn"></i> <span>Promotion</span>  </a></li>	
 							@endif								
 							<li>
 								<a class="{{ Request::is('performance-appraisal') ? 'active' : '' }}" href="{{ url('performance-appraisal') }}"> Performance Appraisal  </a>
 							</li>
 						</ul>	
-					</li>	
+					</li>
+					<li class="{{ Request::is('termination') ? 'active' : '' }}">
+        				<a  href="{{ url('termination') }}"><i class="la la-external-link-square"></i> <span>Termination</span> </a>
+        			</li>
+	
+					<li class="{{ Request::is('promotion') ? 'active' : '' }}">
+						<a  href="{{ url('promotion') }}"><i class="la la-bullhorn"></i> <span>Promotion</span>  </a>
+					</li>
+					<li class="{{ Request::is('resignation') ? 'active' : '' }}">
+						<a  href="{{ url('resignation') }}"><i class="la la-external-link-square"></i> <span>Resignation</span>  </a>
+					</li>
 					<li class="menu-title"> 
 						<span>Administration</span>
 					</li> 

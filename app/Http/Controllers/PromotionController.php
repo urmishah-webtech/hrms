@@ -13,7 +13,7 @@ class PromotionController extends Controller
 {
     public function index(){
         $employees = Employee::all();
-        $data = Promotion::all();
+        $data = Promotion::orderBy('id', 'DESC')->get();
         return view('promotion', compact('employees', 'data'));
     }
 
