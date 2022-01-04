@@ -11,9 +11,7 @@ class AdditionCommentRoleController extends Controller
     public function store_AdditionCommentRole(Request $request)
     {    
         $data = $request->all();
-        $userd = Auth::user()->id;
-        $string_id = Employee::where('user_id', $userd)->pluck('id')->all();
-        $emp_id=implode("id",$string_id);
+        $userd = Auth::user()->id;        
         $leads = $request->strengths;
         $subject_ids = $request->areas_improvement;
         $id = $request->getid;      
@@ -31,8 +29,7 @@ class AdditionCommentRoleController extends Controller
                 else 
                 {                  
                     $scores = new AdditionCommentRole();
-                    $scores->user_id = Auth::user()->id;
-                    $scores->emp_id = $emp_id;
+                    $scores->emp_id = $userd;
                     $scores->strengths = $leads[$key] ? $leads[$key] : ''; 
                     $scores->areas_improvement = $subject_ids[$key] ? $subject_ids[$key] : ''; 
                     $scores->save();                 
