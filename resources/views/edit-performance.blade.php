@@ -537,13 +537,13 @@
 														@isset($emps)
 														@php $man_name = Employee::where('id',  @$emps->manager_id )->first();
 														@endphp
-														<input type="hidden" name="get_manager_id" value="{{ @$man_name->name }}">
+														<input type="hidden" name="get_manager_id" value="{{ @$man_name->first_name }}">
 														@endisset 
 													<select class="form-control" name="manager_id" id="edit_manager_id" required>
 														<option value="">Select Manager</option>
 														@isset($manager_user)
 															@foreach ($manager_user as $item)
-															<option @if($item->name == @$man_name->name)selected @endif value="{{ $item->id }}">{{ $item->first_name }}</option> 
+															<option @if($item->first_name == @$man_name->first_name)selected @endif value="{{ $item->id }}">{{ $item->first_name }}</option> 
 															@endforeach							
 														@endisset
 													</select>										 
