@@ -1,4 +1,4 @@
-<?php use App\Employee?>
+<?php use App\Employee ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>

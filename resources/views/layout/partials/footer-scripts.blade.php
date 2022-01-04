@@ -623,7 +623,7 @@
 				})
 			})
  
-			$(document).on("click",".editwarningbtn",function() {				 
+			$(document).on("click",".editwarningbtn",function() {
 				var id=$(this).data('id');
 				$("#indexid").text(id);				 
 				$("input[id=getidjq]").val($(this).data('id')); 
@@ -632,7 +632,7 @@
 				$("#managers_comments").val($(this).data('managers_comments')); 
 				$("#admin_comments").val($(this).data('admin_comments')); 
 				$("#areas_for_improvement").val($(this).data('areas_for_improvement')); 									 
-			});
+			})
 			$(document).on("click",".deleteWarningbtn",function() {
 				var id= $(this).data('id');
 				$.ajax({
@@ -647,8 +647,8 @@
 						location.reload();
 						}
 					}
-				});
-			});
+				})
+			})
 
 
 			$('#resignation-table tbody tr').each(function(){
@@ -736,7 +736,7 @@
 					var resid = $(this).attr('data-id');
 					$('#deleteresignationid').val(resid);
 				})
-			})
-			 
+			});
+		});
  
 	</script>

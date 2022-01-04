@@ -13,10 +13,11 @@ class EmployeeVerbalWarningController extends Controller
         $userd = Auth::user()->id;
         $emp_role = Employee::where('role_id', 3)->get('id');
          
+        $first_getw = EmployeeFirstVerbalWarning::where('emp_id',$userd)->get();
         $first_warning_dt = EmployeeFirstVerbalWarning::all();
-        $first_war_edit = EmployeeFirstVerbalWarning::get('id',);
-        
-        return view('employee-warning',compact('emp_role','first_warning_dt'));
+        $first_war_edit = EmployeeFirstVerbalWarning::get('id');
+        //dd($first_warning_dt);
+        return view('employee-warning',compact('emp_role','first_warning_dt','first_getw'));
          
     }
     public function edit_VerbalWarning_list(Request $request){ 

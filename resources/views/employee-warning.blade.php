@@ -1,5 +1,6 @@
 @extends('layout.mainlayout')
 @section('content')
+ 
 <!-- Page Wrapper -->
 <div class="page-wrapper">
 			
@@ -43,7 +44,30 @@
                                         <th class="text-right">Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody>                                
+                                    @if(Auth::user()->role_id == 3)
+                                    @isset($first_getw)
+                                    @foreach($first_getw as $val)
+                                    <tr class="trindicator">
+                                        <input type="hidden" name="editid" value="{{ @$val->id }}">
+                                        <td>{{ @$val->id }}</td>
+                                        <td class="tdindicator">{{ @$val->employee_comments }}</td>                                        
+                                        <td>{{ @$val->managers_comments}}</td>                                        
+                                        <td>{{ @$val->admin_comments}}</td>
+                                        <td>{{ @$val->areas_for_improvement }}</td>
+                                        <td class="text-right">
+                                            <div class="dropdown dropdown-action">
+                                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a class="dropdown-item editwarningbtn" href="#" data-id="{{ @$val->id }}"  data-employee_comments="{{ @$val->employee_comments }}" data-managers_comments="{{ @$val->managers_comments }}" data-admin_comments="{{ @$val->admin_comments }}" data-areas_for_improvement="{{ @$val->areas_for_improvement }}" data-toggle="modal" data-target="#edit_indicator"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                                    <a class="dropdown-item deleteWarningbtn" href="#" data-id="{{ @$val->id }}" data-toggle="modal" data-target="#delete_EmpVerbalWarning"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                     @endforeach
+                                    @endisset 
+                                    @else 
                                     @isset($first_warning_dt)
                                     @foreach($first_warning_dt as $val)
                                     <tr class="trindicator">
@@ -63,8 +87,9 @@
                                             </div>
                                         </td>
                                     </tr>
-                                     @endforeach
-                                    @endisset                          
+                                    @endforeach
+                                    @endisset
+                                    @endif                      
                                 </tbody>
                             </table>
                         </div>
@@ -110,10 +135,10 @@
 													 											 
 													 <tr>
 														<td>1</td>
-														<td><input type="text" class="form-control" name="employee_comments[]" value=""></td>
-														<td><input type="text" class="form-control" name="managers_comments[]" value=""  ></td>
-														<td><input type="text" class="form-control" name="admin_comments[]" value=""></td>
-														<td><input type="text" class="form-control" name="areas_for_improvement[]" value=""></td>
+														<td><input type="text" class="form-control" name="employee_comments[]"  @if(Auth::user()->role_id != 3) readonly @endif ></td>
+														<td><input type="text" class="form-control" name="managers_comments[]" @if(Auth::user()->role_id != 2)readonly @endif></td>
+														<td><input type="text" class="form-control" name="admin_comments[]" @if(Auth::user()->role_id != 1)readonly @endif></td>
+														<td><input type="text" class="form-control" name="areas_for_improvement[]" @if(Auth::user()->role_id == 3)readonly @endif></td>
 														<td></td>
 													</tr>
 													  
@@ -167,10 +192,10 @@
 												<tbody id="table_goals_tbody">       
 													<tr>  
 														<td id="indexid"></td>
-														<td><input type="text" class="form-control" name="employee_comments" id="employee_comments" value=""></td>
-														<td><input type="text" class="form-control" name="managers_comments" id="managers_comments" value="" ></td>
-														<td><input type="text" class="form-control" name="admin_comments" id="admin_comments" value=""></td>
-														<td><input type="text" class="form-control" name="areas_for_improvement" id="areas_for_improvement" value=""></td>										 
+														<td><input type="text" class="form-control" name="employee_comments" id="employee_comments" @if(Auth::user()->role_id != 3) readonly @endif></td>
+														<td><input type="text" class="form-control" name="managers_comments" id="managers_comments" @if(Auth::user()->role_id != 2)readonly @endif ></td>
+														<td><input type="text" class="form-control" name="admin_comments" id="admin_comments" @if(Auth::user()->role_id != 1)readonly @endif></td>
+														<td><input type="text" class="form-control" name="areas_for_improvement" id="areas_for_improvement" @if(Auth::user()->role_id == 3)readonly @endif></td>
                                                         <input type="hidden" class="form-control" name="getid" value="" id="getidjq">
 													</tr>
 												</tbody>
@@ -217,29 +242,5 @@
         </div>
         <!-- /Page Wrapper -->
 
-<style>input.list_status5_35{display:none;}</style>
-<script src="js/jquery-3.5.1.min.js"></script>
-<script>
-		$( document ).ready(function() {  	
-			$(document).on("click",".list_status5_35",function() {	                
-				var id=$(this).data('id');	                		
-				var status;
-				if($(".status1").is(":checked")) 
-				{
-					status=1;
-				}
-				else{
-					status=0;
-				}				 
-				$.ajax({
-					type:'POST',
-					url:"{{ route('chang_status') }}",
-					data:{"id":id,"status":status,"_token": "{{ csrf_token() }}"},
-					success:function(data){	
-						location.reload();
-					}
-				});
-			});
-		});
-	</script>
+ 
 @endsection
