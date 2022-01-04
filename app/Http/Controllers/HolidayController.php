@@ -24,6 +24,12 @@ class HolidayController extends Controller
     	$holidays = Holiday::orderBy('date', 'DESC')->get()->groupBy('year')->toArray();
     	return view('holidays')->with(['holidays'=>$holidays]);
     }
+    public function getHolidays()
+    {
+    	
+    	$holidays = Holiday::orderBy('date', 'DESC')->get();
+    	return response()->json(['holidays' => $holidays], 200);
+    }
     public function update(Request $request)
     {
 

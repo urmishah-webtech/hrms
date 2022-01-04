@@ -98,12 +98,12 @@
 								</div>
 								<div class="form-group">
 									<label>Select Role</label>									
-									<select class="form-control" id="role_type" name="role_type" required>
+									<select class="form-control" id="role_id" name="role_id" required>
 										<option value="">Select Role</option>
 										@php $role_name = Role::get(); @endphp
 										@isset($role_name)
                                         @foreach ($role_name as $item)
-										<option value="{{ $item->name }}">{{ $item->name }}</option> 
+										<option value="{{ $item->id }}">{{ $item->name }}</option> 
 										@endforeach
                                         @endisset
 									</select>

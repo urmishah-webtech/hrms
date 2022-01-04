@@ -16,10 +16,15 @@
                                 <li class="breadcrumb-item active">Holidays</li>
                             </ul>
                         </div>
+                        <div class="col cal-icon calendar-view"></div>
+                        
                         <div class="col-auto float-right ml-auto">
                             <a href="#" class="btn add-btn" data-toggle="modal" data-target="#add_holiday"><i class="fa fa-plus"></i> Add Holiday</a>
                         </div>
                     </div>
+                    <div class="row">
+                     <div id="calendar" style="display: none;"></div>
+                 </div>
                 </div>
                 <!-- /Page Header -->
                 
@@ -207,6 +212,14 @@
             $('#delete_url').attr("href", '/delete-holiday/'+id); 
            
         });
+        $('body').on('click', '.calendar-view', function (event) {
+
+            event.preventDefault();
+            $('#calendar').toggle(); 
+           
+        });
 });
+
+
 
 </script>

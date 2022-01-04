@@ -54,7 +54,7 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:employees'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-			'role_type' => ['required', 'string', 'max:255'],
+			'role_id' => ['required', 'string', 'max:255'],
         ]);
     }
 
@@ -72,13 +72,13 @@ class RegisterController extends Controller
         //     'name' => $data['name'],
         //     'email' => $data['email'],
         //     'password' => Hash::make($data['password']),
-		// 	'role_type' => Str::lower($data['role_type']),
+		// 	'role_id' => Str::lower($data['role_id']),
         // ]);
         // $user= User::create([
         //     'name' => $data['name'],
         //     'email' => $data['email'],
         //     'password' => Hash::make($data['password']),
-		// 	'role_type' => Str::lower($data['role_type']),
+		// 	'role_id' => Str::lower($data['role_id']),
 		// 	'gender' => $data['gender'],
         // ]);
 
@@ -88,9 +88,8 @@ class RegisterController extends Controller
         $empl->user_name = $data['name'];
         $empl->email = $data['email'];
 
-        $empl->password =  bcrypt($data['password']);
-        $empl->role_type = Str::lower($data['role_type']); 		
-        $empl->role_type = Str::lower($data['role_type']); 	
+        $empl->password = Hash::make($data['password']);
+        $empl->role_id = $data['role_id']; 	       
 		$empl->gender = $data['gender'];
         $empl->save(); 
        

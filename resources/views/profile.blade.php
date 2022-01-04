@@ -48,7 +48,7 @@
                                                 <ul class="personal-info">
 													<li class="profl_firstedit">
                                                         <div class="title">User Role:</div>
-                                                        <div class="text">{{Str::ucfirst (@$emp_profile->role_type)}}</div>
+                                                        <div class="text">{{@$emp_profile->role_id}}</div>
                                                     </li>
                                                     <li class="profl_firstedit">
                                                         <div class="title">Phone:</div>
