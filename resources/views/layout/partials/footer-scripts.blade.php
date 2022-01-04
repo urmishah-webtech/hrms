@@ -528,10 +528,10 @@
 				$("#marital_status option[value='"+marital_status+"']").prop('selected',true);
 				if($(this).data('expdate')){
 				var d = new Date($(this).data('expdate'));
-						var dd = d.getDate(); 
-						var mm = d.getMonth()+1; 
-						var yyyy = d.getFullYear(); 
-						$("#passport_expiry_date").val(dd+'/'+mm+'/'+yyyy);
+				var dd = d.getDate(); 
+				var mm = d.getMonth()+1; 
+				var yyyy = d.getFullYear(); 
+				$("#passport_expiry_date").val(dd+'/'+mm+'/'+yyyy);
 				}				 							 
 			});
 			$(document).on("click",".edit-emergency-contact",function() {				 
@@ -622,6 +622,31 @@
 					$('#deleteproid').val(proid);
 				})
 			})
-			 
+			$(document).on("click",".editwarningbtn",function() {				 
+				var id=$(this).data('id');
+				$("#indexid").text(id);				 
+				$("input[id=getidjq]").val($(this).data('id')); 
+				var employee_comments = $(this).data('employee_comments');							
+				$("#employee_comments").val(employee_comments); 
+				$("#managers_comments").val($(this).data('managers_comments')); 
+				$("#admin_comments").val($(this).data('admin_comments')); 
+				$("#areas_for_improvement").val($(this).data('areas_for_improvement')); 									 
+			});
+			$(document).on("click",".deleteWarningbtn",function() {
+				var id= $(this).data('id');
+				$.ajax({
+					type:'POST',
+					url:"{{ route('delete_EmpVerbalWarning') }}",
+					data:{"id":id,"_token": "{{ csrf_token() }}"},
+					success:function(data){
+						if(data.error=='2'){
+							$('#delete_EmpVerbalWarning').modal('toggle');
+							$(".employeeError").show();
+						}else{
+						location.reload();
+						}
+					}
+				});
+			});
 		});
 	</script>

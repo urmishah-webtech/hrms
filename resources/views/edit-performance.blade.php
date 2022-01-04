@@ -351,7 +351,7 @@
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                         <span class="user-img"><img src="{{ URL::asset('img/profiles/avatar-21.jpg') }}" alt="">
                         <span class="status online"></span></span>
-                        <span>{{ Auth::user()->name }}</span>
+                        <span>{{ Auth::user()->first_name }}</span>
                     </a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="profile">My Profile</a>
@@ -411,7 +411,13 @@
 							</li>	
 							<li>
 								<a class="{{ Request::is('designations') ? 'active' : '' }}" href="{{ url('designations') }}">Designations</a>
-							</li>		
+							</li>	
+                            <li>
+								<a class="{{ Request::is('employee-warning') ? 'active' : '' }}" href="{{ url('employee-warning') }}">Warning</a>
+							</li>	
+							<li>
+        						<a class="{{ Request::is('holidays') ? 'active' : '' }}" href="{{ url('holidays') }}">Holidays</a>
+        					</li>	
 						</ul>
 					</li>
 					<li class="menu-title"> 
