@@ -12,6 +12,10 @@ class Resignation extends Model
     {
         return $this->belongsTo('App\Employee', 'employeeid', 'id');
     }
+    public function decisionmaker()
+    {
+        return $this->belongsTo('App\Employee', 'decisionby', 'id');
+    }
     public function getdepartment()
     {
         return $this->belongsTo('App\Department', 'department', 'id');

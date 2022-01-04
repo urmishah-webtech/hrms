@@ -22,7 +22,7 @@ class CreateResignationsTable extends Migration
             $table->date('resignationdate')->nullable();
             $table->string('status')->nullable();
             $table->bigInteger('decisionby')->nullable();
-            $table->string('2weeknotice')->nullable();
+            $table->string('twoweeknotice')->nullable();
             $table->string('rehireable')->nullable();
             $table->timestamps();
         });
