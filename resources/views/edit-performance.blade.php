@@ -1456,14 +1456,14 @@
                                 <tbody>
                                     <tr>
                                         <td>Employee</td>
-                                        <input type="hidden" name="user_role[]" value="employee">
+                                        <input type="hidden" name="user_role[]" value="3">
                                         <td><input type="text" class="form-control" name="name[]" value="@if(isset($add_perfoIdent[0])){{$add_perfoIdent[0]['name']}} @endif" readonly></td>
                                         <td><input type="text" class="form-control" name="signature[]" value="@if(isset($add_perfoIdent[0])){{$add_perfoIdent[0]['signature']}} @endif" readonly></td>
                                         <td><div class="cal-icon"><input type="text" class="form-control datetimepicker" name="date[]" value="@if(isset($add_perfoIdent[0])){{$add_perfoIdent[0]['date']}} @endif" readonly></div></td>
                                     </tr>
                                     <tr>
                                         <td>Manager</td>
-                                        <input type="hidden" name="user_role[]" value="manager">
+                                        <input type="hidden" name="user_role[]" value="2">
                                         <td><input type="text" class="form-control" name="name[]" value="@if(isset($add_perfoIdent[1])){{$add_perfoIdent[1]['name']}} @endif"></td>
                                         <td><input type="text" class="form-control" name="signature[]" value="@if(isset($add_perfoIdent[1])){{$add_perfoIdent[1]['signature']}} @endif"></td>
                                         <td><div class="cal-icon"><input type="text" class="form-control datetimepicker" name="date[]" value="@if(isset($add_perfoIdent[1])){{$add_perfoIdent[1]['date']}} @endif"></div></td>
