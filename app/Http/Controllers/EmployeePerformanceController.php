@@ -176,7 +176,7 @@ class EmployeePerformanceController extends Controller
             $personal->total_percentage_manager=$request->total_percentage_manager;        
             $personal->save();         	  
 		}
-        return redirect("/edit-performance/{$id}/#PersonalExcellence");
+        return redirect("/edit-performance/{$add_empid}/#PersonalExcellence");
 	   
     }
     public function add_manager_SpecialInitiatives(Request $request)
