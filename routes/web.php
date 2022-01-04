@@ -214,9 +214,14 @@ Route::post('/delete-promotion','PromotionController@deletePromotion')->name('de
 Route::get('/resignation', function () {
     return view('resignation');
 });
-Route::get('/termination', function () {
-    return view('termination');
-});
+
+Route::get('/termination', 'TerminationController@list')->name('termination');
+Route::post('/create-termination', 'TerminationController@save')->name('termination.save');
+Route::post('/update-termination', 'TerminationController@update')->name('termination.update');
+Route::get('/delete-termination/{id?}', 'TerminationController@delete')->name('termination.delete');
+
+
+
 Route::get('/assets', function () {
     return view('assets');
 });
@@ -293,6 +298,13 @@ Route::get('/notifications-settings', function () {
 Route::get('/change-password', function () {
     return view('change-password');
 });
+Route::get('/termination-type', 'TerminationController@listTypes')->name('termination-type');
+Route::post('/create-termination-type', 'TerminationController@saveType')->name('termination-type.save');
+Route::post('/update-termination-type', 'TerminationController@updateType')->name('termination-type.update');
+Route::get('/termination-type/{id?}/status/{status?}', 'TerminationController@changeTypeStatus')->name('termination-type.changestatus');
+Route::get('/delete-termination-type/{id?}', 'TerminationController@deleteType')->name('termination-type.delete');
+
+
 Route::get('/leave-type', function () {
     return view('leave-type');
 });

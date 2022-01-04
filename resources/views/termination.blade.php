@@ -40,29 +40,35 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @if($terminations)
+                                    @foreach($terminations as $termination)
                                     <tr>
-                                        <td>1</td>
+                                        <td>{{$termination->id}}</td>
                                         <td>
                                             <h2 class="table-avatar blue-link">
                                                 <a href="profile" class="avatar"><img alt="" src="img/profiles/avatar-02.jpg"></a>
-                                                <a href="profile">John Doe</a>
+                                                <a href="profile">{{$termination->employee->first_name}} {{$termination->employee->last_name}}</a>
                                             </h2>
                                         </td>
-                                        <td>Web Development</td>
-                                        <td>Misconduct</td>
-                                        <td>28 Feb 2019</td>
-                                        <td>Lorem Ipsum Dollar</td>
-                                        <td>28 Feb 2019</td>
+                                        <td>{{$termination->employee->department->name}}</td>
+                                        <td>{{$termination->type}}</td>
+                                        <td>{{date('d M Y', strtotime($termination->termination_date))}}</td>
+                                        <td>{{$termination->reason}}</td>
+                                        <td>{{date('d M Y', strtotime($termination->notice_date))}}</td>
                                         <td class="text-right">
                                             <div class="dropdown dropdown-action">
                                                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#edit_termination"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_termination"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                                                    <a id="editForm" class="dropdown-item" href="#" data-toggle="modal" data-target="#edit_termination" data-id="{{$termination->id}}" data-employee_id="{{$termination->employee_id}}" data-type="{{$termination->type}}" data-termination_date="{{$termination->termination_date}}" data-reason="{{$termination->reason}}" data-notice_date="{{$termination->notice_date}}" >
+                                                        <i class="fa fa-pencil m-r-5"></i> Edit
+                                                    </a>
+                                                    <a id="deleteForm" class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_termination" data-id="{{$termination->id}}"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                                                 </div>
                                             </div>
                                         </td>
                                     </tr>
+                                    @endforeach
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
@@ -82,35 +88,47 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form>
+                            <form action="{{route('termination.save')}}" method="POST">
+                                @csrf
                                 <div class="form-group">
                                     <label>Terminated Employee <span class="text-danger">*</span></label>
-                                    <input class="form-control" type="text">
+                                    
+                                    <select class="select" name="employee_id">
+                                        @if($employees)
+                                        @foreach($employees as $employee)
+                                            <option value="{{$employee->id}}">{{$employee->first_name}} {{$employee->last_name}}</option>
+                                        @endforeach
+                                        @endif
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Termination Type <span class="text-danger">*</span></label>
                                     <div class="add-group-btn">
-                                        <select class="select">
-                                            <option>Misconduct</option>
-                                            <option>Others</option>
+                                        <select class="select" name="type">
+                                            @if($types)
+                                            @foreach($types as $type)
+                                            <option value="{{$type}}">{{$type}}</option>
+                                            @endforeach
+                                            @endif
+                                            
                                         </select>
-                                        <a class="btn btn-primary" href="javascript:void(0);"><i class="fa fa-plus"></i> Add</a>
+                                        <a class="btn btn-primary" href="{{route('termination-type')}}"><i class="fa fa-plus"></i> Add</a>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label>Termination Date <span class="text-danger">*</span></label>
                                     <div class="cal-icon">
-                                        <input type="text" class="form-control datetimepicker">
+                                        <input type="text" class="form-control datetimepicker" name="termination_date">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label>Reason <span class="text-danger">*</span></label>
-                                    <textarea class="form-control" rows="4"></textarea>
+                                    <textarea class="form-control" rows="4" name="reason"></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label>Notice Date <span class="text-danger">*</span></label>
                                     <div class="cal-icon">
-                                        <input type="text" class="form-control datetimepicker">
+                                        <input type="text" class="form-control datetimepicker" name="notice_date">
                                     </div>
                                 </div>
                                 <div class="submit-section">
@@ -134,17 +152,29 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form>
+                            <form method="POST" action="{{route('termination.update')}}">
+                                @csrf
+                                <input type="hidden" name="id" id="id">
                                 <div class="form-group">
                                     <label>Terminated Employee <span class="text-danger">*</span></label>
-                                    <input class="form-control" type="text" value="John Doe">
+                                    <select class="select" name="employee_id" id="employee_id">
+                                        @if($employees)
+                                        @foreach($employees as $employee)
+                                            <option value="{{$employee->id}}">{{$employee->first_name}} {{$employee->last_name}}</option>
+                                        @endforeach
+                                        @endif
+                                    </select>
                                 </div>
                                 <div class="form-group">
                                     <label>Termination Type <span class="text-danger">*</span></label>
                                     <div class="add-group-btn">
-                                        <select class="select">
-                                            <option>Misconduct</option>
-                                            <option>Others</option>
+                                        <select class="select" name="type">
+                                            @if($types)
+                                            @foreach($types as $type)
+                                            <option value="{{$type}}">{{$type}}</option>
+                                            @endforeach
+                                            @endif
+                                            
                                         </select>
                                         <a class="btn btn-primary" href="javascript:void(0);"><i class="fa fa-plus"></i> Add</a>
                                     </div>
@@ -152,21 +182,21 @@
                                 <div class="form-group">
                                     <label>Termination Date <span class="text-danger">*</span></label>
                                     <div class="cal-icon">
-                                        <input type="text" class="form-control datetimepicker" value="28/02/2019">
+                                        <input type="text" class="form-control datetimepicker" value="28/02/2019" name="termination_date" id="termination_date">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label>Reason <span class="text-danger">*</span></label>
-                                    <textarea class="form-control" rows="4"></textarea>
+                                    <textarea class="form-control" rows="4" name="reason" id="reason"></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label>Notice Date <span class="text-danger">*</span></label>
                                     <div class="cal-icon">
-                                        <input type="text" class="form-control datetimepicker" value="28/02/2019">
+                                        <input type="text" class="form-control datetimepicker" name="notice_date" id="notice_date">
                                     </div>
                                 </div>
                                 <div class="submit-section">
-                                    <button class="btn btn-primary submit-btn">Submit</button>
+                                    <button class="btn btn-primary submit-btn">Update</button>
                                 </div>
                             </form>
                         </div>
@@ -187,7 +217,7 @@
                             <div class="modal-btn delete-action">
                                 <div class="row">
                                     <div class="col-6">
-                                        <a href="javascript:void(0);" class="btn btn-primary continue-btn">Delete</a>
+                                        <a id="delete_url" href="javascript:void(0);" class="btn btn-primary continue-btn">Delete</a>
                                     </div>
                                     <div class="col-6">
                                         <a href="javascript:void(0);" data-dismiss="modal" class="btn btn-primary cancel-btn">Cancel</a>
@@ -203,3 +233,36 @@
         </div>
         <!-- /Page Wrapper -->
 @endsection
+<script src="{{ URL::asset('js/jquery-3.5.1.min.js') }}"></script>
+
+<script type="text/javascript">
+        $(document).ready(function () {
+
+            $('.datetimepicker').datetimepicker({
+                format: 'YYYY-MM-DD',
+                locale: 'en'
+            });
+        
+            
+            $('body').on('click', '#editForm', function (event) {
+
+                event.preventDefault();
+                $('#id').val($(this).data('id'));
+                $('#termination_date').val($(this).data('termination_date'));
+                $('#reason').val($(this).data('reason'));
+                $('#notice_date').val($(this).data('notice_date'));
+                $('#employee_id').val($(this).data('employee_id')).change();
+                $('#type').val($(this).data('type')).change();
+               
+            });
+
+            $('body').on('click', '#deleteForm', function (event) {
+
+                event.preventDefault();
+                var id = $(this).data('id');
+                $('#delete_url').attr("href", '/delete-termination/'+id); 
+               
+            });
+        });
+
+    </script>

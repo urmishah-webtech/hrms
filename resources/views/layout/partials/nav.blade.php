@@ -62,7 +62,11 @@
 								<a class="{{ Request::is('performance-appraisal') ? 'active' : '' }}" href="{{ url('performance-appraisal') }}"> Performance Appraisal  </a>
 							</li>
 						</ul>	
-					</li>	
+					</li>
+					<li class="{{ Request::is('termination') ? 'active' : '' }}">
+        				<a  href="{{ url('termination') }}"><i class="la la-external-link-square"></i> <span>Termination</span> </a>
+        			</li>
+
 					<li class="menu-title"> 
 						<span>Administration</span>
 					</li> 
