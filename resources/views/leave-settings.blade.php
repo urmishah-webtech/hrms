@@ -53,7 +53,7 @@
                         @include('leave.lop_leave')
                         <!-- /Custom Create Leave -->
                         
-                        @include('leave.number_of_leave')
+                        {{-- @include('leave.number_of_leave') --}}
 
                     </div>
                 </div>

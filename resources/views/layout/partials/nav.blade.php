@@ -7,9 +7,9 @@
 						<span>Main</span>
 					</li>
 					<li class="">						
-						@if (Auth::user()->role_type == "admin")
+						@if (Auth::user()->role_id == 1)
 						<a  href="{{ url('index') }}"><i class="la la-dashboard"></i><span>Admin Dashboard</span></a>
-						@elseif (Auth::user()->role_type == "manager")
+						@elseif (Auth::user()->role_id == 2)
 						<a href="{{ url('index') }}"><i class="la la-dashboard"></i><span>Manager Dashboard</span></a>
 						@else
 						<a href="{{ url('employee-dashboard') }}"><i class="la la-dashboard"></i><span>Employee Dashboard</span></a>
@@ -30,12 +30,13 @@
 							</li>	
 							<li>
 								<a class="{{ Request::is('designations') ? 'active' : '' }}" href="{{ url('designations') }}">Designations</a>
-							</li>		
+							</li>	
+							<li>
+        						<a class="{{ Request::is('holidays') ? 'active' : '' }}" href="{{ url('holidays') }}">Holidays</a>
+        					</li>	
 						</ul>
 					</li>
-					<li>
-        				<a class="{{ Request::is('holidays') ? 'active' : '' }}" href="{{ url('holidays') }}">Holidays</a>
-        			</li>	
+						
 					<li class="menu-title"> 
 						<span>Performance</span>
 					</li>
@@ -45,12 +46,12 @@
 							<li>
 								<a class="{{ Request::is('performance-indicator') ? 'active' : '' }}" href="{{ url('performance-indicator') }}"> Performance Indicator  </a>
 							</li>
-							@if (Auth::user()->role_type == "employee")	
+							@if (Auth::user()->role_id == 3)	
 							<li>
 								<a class="{{ Request::is('performance') ? 'active' : '' }}" href="{{ url('performance') }}"> Performance Review  </a>
 							</li>
 							@endif	
-							@if (Auth::user()->role_type == "admin" || Auth::user()->role_type == "manager")
+							@if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
 							<li>
 								<a class="{{ Request::is('employees-performance') ? 'active' : '' }}" href="{{ url('employees-performance') }}"> Employee Performance </a>
 							</li>

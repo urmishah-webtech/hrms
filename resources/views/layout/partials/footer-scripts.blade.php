@@ -133,7 +133,26 @@
 			function GetDynamicTextBox(table_id) {
 				$('#comments_remove').remove();
 				var rowsLength = document.getElementById(table_id).getElementsByTagName("tbody")[0].getElementsByTagName("tr").length+1;
-				return '<td>'+rowsLength+'</td>' + '<td><input type="text" name = "DynamicTextBoxemp[]" class="form-control" value = "" @if (Auth::user()->role_type != "employee")readonly @endif></td>' + '<td><input type="text" name = "DynamicTextBoxman[]" class="form-control" value = "" @if (Auth::user()->role_type == "employee")readonly @endif></td>' + '<td><button type="button" class="btn btn-danger" id="comments_remove"><i class="fa fa-trash-o"></i></button></td>'
+				return '<td>'+rowsLength+'</td>' + '<td><input type="text" name = "DynamicTextBoxemp[]" class="form-control" value = "" @if (Auth::user()->role_id != 3)readonly @endif></td>' + '<td><input type="text" name = "DynamicTextBoxman[]" class="form-control" value = "" @if (Auth::user()->role_id == 3)readonly @endif></td>' + '<td><button type="button" class="btn btn-danger" id="comments_remove"><i class="fa fa-trash-o"></i></button></td>'
+			}
+		});
+		/// Employee Warning
+		$(function () {
+			$(document).on("click", '.btn-add-row-warning', function () {
+				var id = $(this).closest("table.table-review").attr('id');  // Id of particular table
+				console.log(id);
+				var div = $("<tr />");
+				div.html(GetDynamicTextBox(id));
+				$("#"+id+"_tbody").append(div);
+			});
+			$(document).on("click", "#comments_remove", function () {
+				$(this).closest("tr").prev().find('td:last-child').html('<button type="button" class="btn btn-danger" id="comments_remove"><i class="fa fa-trash-o"></i></button>');
+				$(this).closest("tr").remove();
+			});
+			function GetDynamicTextBox(table_id) {
+				$('#comments_remove').remove();
+				var rowsLength = document.getElementById(table_id).getElementsByTagName("tbody")[0].getElementsByTagName("tr").length+1;
+				return '<td>'+rowsLength+'</td>' + '<td><input type="text" name = "employee_comments[]" class="form-control" value = "" ></td>'+ '<td><input type="text" name = "managers_comments[]" class="form-control" value = "" ></td>' + '<td><input type="text" name = "admin_comments[]" class="form-control" value = "" ></td>' + '<td><input type="text" name = "areas_for_improvement[]" class="form-control" value = ""></td>' + '<td><button type="button" class="btn btn-danger" id="comments_remove"><i class="fa fa-trash-o"></i></button></td>'
 			}
 		});
 		</script>

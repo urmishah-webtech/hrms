@@ -12,7 +12,7 @@
                                 <img alt="" src="img/profiles/avatar-02.jpg">
                             </div>
                             <div class="welcome-det">
-                                <h3>Welcome {{Auth::user()->name}}</h3>
+                                <h3>Welcome {{Auth::user()->first_name}}</h3>
                                 <p>Monday, 20 May 2019</p>
                             </div>
                         </div>

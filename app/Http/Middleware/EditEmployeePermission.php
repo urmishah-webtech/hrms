@@ -16,7 +16,7 @@ class EditEmployeePermission
     public function handle($request, Closure $next)
     {
         if(Auth::check()){		   
-			if (Auth::user()->role_type == "admin" || Auth::user()->role_type == "manager")
+			if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
 			{	 
 				return $next($request);	 
 			}
