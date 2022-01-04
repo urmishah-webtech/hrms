@@ -152,7 +152,7 @@
 			function GetDynamicTextBox(table_id) {
 				$('#comments_remove').remove();
 				var rowsLength = document.getElementById(table_id).getElementsByTagName("tbody")[0].getElementsByTagName("tr").length+1;
-				return '<td>'+rowsLength+'</td>' + '<td><input type="text" name = "employee_comments[]" class="form-control" value = "" ></td>'+ '<td><input type="text" name = "managers_comments[]" class="form-control" value = "" ></td>' + '<td><input type="text" name = "admin_comments[]" class="form-control" value = "" ></td>' + '<td><input type="text" name = "areas_for_improvement[]" class="form-control" value = ""></td>' + '<td><button type="button" class="btn btn-danger" id="comments_remove"><i class="fa fa-trash-o"></i></button></td>'
+				return '<td>'+rowsLength+'</td>' + '<td><input type="text" name = "employee_comments[]" class="form-control" @if(Auth::user()->role_id != 3) readonly @endif></td>'+ '<td><input type="text" name = "managers_comments[]" class="form-control" @if(Auth::user()->role_id != 2)readonly @endif></td>' + '<td><input type="text" name = "admin_comments[]" class="form-control" @if(Auth::user()->role_id != 1)readonly @endif></td>' + '<td><input type="text" name = "areas_for_improvement[]" class="form-control" @if(Auth::user()->role_id == 3)readonly @endif></td>' + '<td><button type="button" class="btn btn-danger" id="comments_remove"><i class="fa fa-trash-o"></i></button></td>'
 			}
 		});
 		</script>
