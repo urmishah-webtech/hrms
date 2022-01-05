@@ -541,11 +541,11 @@
 												<div class="form-group">
 													<label for="name1"> Manager's Name</label>
 														@isset($emps)
-														@php $man_name = Employee::where('id',  @$emps->manager_id )->first();
+														@php $man_name = Employee::where('id',  @$emps->man_id )->first();
 														@endphp
 														<input type="hidden" name="get_manager_id" value="{{ @$man_name->first_name }}">
 														@endisset 
-													<select class="form-control" name="manager_id" id="edit_manager_id" required>
+													<select class="form-control" name="man_id" id="edit_manager_id" required>
 														<option value="">Select Manager</option>
 														@isset($manager_user)
 															@foreach ($manager_user as $item)

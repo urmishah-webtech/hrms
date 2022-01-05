@@ -718,7 +718,7 @@
 						location.reload();
 						}
 					}
-				})
+				}) 
 			})
 			$(document).on("click",".thirddeleteWarningbtn",function() {
 				var id= $(this).data('id');
