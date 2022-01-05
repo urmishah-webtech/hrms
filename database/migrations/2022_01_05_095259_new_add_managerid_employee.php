@@ -14,7 +14,7 @@ class NewAddManageridEmployee extends Migration
     public function up()
     {
         Schema::table('employees', function (Blueprint $table) {            
-			$table->bigInteger('manager_id')->nullable()->unsigned();
+			$table->bigInteger('man_id')->nullable()->unsigned();
         });
     }
 
