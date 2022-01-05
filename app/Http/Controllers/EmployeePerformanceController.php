@@ -66,7 +66,7 @@ class EmployeePerformanceController extends Controller
 		if($man_id)
 		{
 			$emp_add= Employee::where('id', $id)->first();          
-            $emp_add->manager_id=$request->manager_id;
+            $emp_add->man_id=$request->man_id;
             $emp_add->save();
 		}
 		return back();
