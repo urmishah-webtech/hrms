@@ -12,13 +12,11 @@ class PersonalExcellencesController extends Controller
 {   
     public function add_PersonalExcellence(Request $request){   
                   
-        $userd = Auth::user()->id;
-        $string_id = Employee::where('user_id', $userd)->pluck('id')->all();
-        $emp_id=implode("id",$string_id);          
-        $test_usee= PersonalExcellence::where('user_id', $userd)->first();
+        $userd = Auth::user()->id;                 
+        $test_usee= PersonalExcellence::where('emp_id', $userd)->first();
        
 		if(!empty($test_usee)){   
-        $personal= PersonalExcellence::where('user_id', $userd)->first();          
+        $personal= PersonalExcellence::where('emp_id', $userd)->first();          
         $personal->plan_leave_employee=$request->plan_leave_employee;
         $personal->time_cons_employee=$request->time_cons_employee;
         $personal->team_collaboration_employee=$request->team_collaboration_employee;
@@ -41,9 +39,8 @@ class PersonalExcellencesController extends Controller
         }		
 		else 
 		{ 
-        $personal =new PersonalExcellence();            
-        $personal->user_id = $userd;
-        $personal->emp_id = $emp_id;
+        $personal =new PersonalExcellence();        
+        $personal->emp_id = $userd;
         $personal->plan_leave_employee=$request->plan_leave_employee;
         $personal->time_cons_employee=$request->time_cons_employee;
         $personal->team_collaboration_employee=$request->team_collaboration_employee;

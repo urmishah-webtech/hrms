@@ -390,6 +390,9 @@
 				<li class="{{ Request::is('change-password') ? 'active' : '' }}">
 					<a  href="{{ url('change-password') }}"><i class="la la-lock"></i><span>Change Password</span>  </a>
 				</li>
+				<li class="{{ Request::is('termination-type') ? 'active' : '' }}">
+					<a  href="{{ url('termination-type') }}"><i class="la la-cogs"></i><span>Termination Type</span>  </a>
+				</li>
 			</ul>
 		</div>
 	</div>

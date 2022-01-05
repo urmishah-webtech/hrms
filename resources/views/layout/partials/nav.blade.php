@@ -30,6 +30,9 @@
 							</li>	
 							<li>
 								<a class="{{ Request::is('designations') ? 'active' : '' }}" href="{{ url('designations') }}">Designations</a>
+							</li>
+							<li>
+								<a class="{{ Request::is('employee-warning') ? 'active' : '' }}" href="{{ url('employee-warning') }}">Warning</a>
 							</li>	
 							<li>
         						<a class="{{ Request::is('holidays') ? 'active' : '' }}" href="{{ url('holidays') }}">Holidays</a>
@@ -60,7 +63,11 @@
 								<a class="{{ Request::is('performance-appraisal') ? 'active' : '' }}" href="{{ url('performance-appraisal') }}"> Performance Appraisal  </a>
 							</li>
 						</ul>	
-					</li>	
+					</li>
+					<li class="{{ Request::is('termination') ? 'active' : '' }}">
+        				<a  href="{{ url('termination') }}"><i class="la la-external-link-square"></i> <span>Termination</span> </a>
+        			</li>
+	
 					<li class="{{ Request::is('promotion') ? 'active' : '' }}">
 						<a  href="{{ url('promotion') }}"><i class="la la-bullhorn"></i> <span>Promotion</span>  </a>
 					</li>

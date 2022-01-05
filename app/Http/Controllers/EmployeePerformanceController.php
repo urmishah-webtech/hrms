@@ -154,8 +154,7 @@ class EmployeePerformanceController extends Controller
         }		
 		else 
 		{ 
-            $personal =new PersonalExcellence();            
-            $personal->user_id = $userd;
+            $personal =new PersonalExcellence(); 
             $personal->emp_id = $add_empid;
             $personal->plan_leave_employee=$request->plan_leave_employee;
             $personal->time_cons_employee=$request->time_cons_employee;
@@ -177,7 +176,7 @@ class EmployeePerformanceController extends Controller
             $personal->total_percentage_manager=$request->total_percentage_manager;        
             $personal->save();         	  
 		}
-        return redirect("/edit-performance/{$id}/#PersonalExcellence");
+        return redirect("/edit-performance/{$add_empid}/#PersonalExcellence");
 	   
     }
     public function add_manager_SpecialInitiatives(Request $request)
@@ -204,7 +203,6 @@ class EmployeePerformanceController extends Controller
                 else 
                 { 
                     $scores = new SpecialInitiatives();
-                    $scores->user_id = Auth::user()->id;
                     $scores->emp_id = $add_empid;
                     $scores->by_employee = $emp_text[$key] ? $emp_text[$key] : '';  
                     $scores->managers_comment = $manager_text[$key] ? $manager_text[$key] : '';  
@@ -238,7 +236,6 @@ class EmployeePerformanceController extends Controller
                 else 
                 { 
                     $scores = new CommentsRole();
-                    $scores->user_id = Auth::user()->id;
                     $scores->emp_id = $add_empid;
                     $scores->by_employee = $emp_text[$key] ? $emp_text[$key] : '';  
                     $scores->managers_comment = $manager_text[$key] ? $manager_text[$key] : '';  
@@ -272,7 +269,6 @@ class EmployeePerformanceController extends Controller
                 else 
                 { 
                     $scores = new AdditionCommentRole();
-                    $scores->user_id = Auth::user()->id;
                     $scores->emp_id = $add_empid;
                     $scores->strengths = $strengths[$key] ? $strengths[$key] : '';  
                     $scores->areas_improvement = $areas_imp[$key] ? $areas_imp[$key] : '';  
@@ -306,7 +302,6 @@ class EmployeePerformanceController extends Controller
                 else 
                 { 
                     $scores = new AppraiseeStrength();
-                    $scores->user_id = Auth::user()->id;
                     $scores->emp_id = $add_empid;
                     $scores->strengths = $strengths[$key] ? $strengths[$key] : '';  
                     $scores->areas_improvement = $areas_imp[$key] ? $areas_imp[$key] : '';  
@@ -340,7 +335,6 @@ class EmployeePerformanceController extends Controller
                 else 
                 { 
                     $scores = new PersonalGoal();
-                    $scores->user_id = Auth::user()->id;
                     $scores->emp_id = $add_empid;
                     $scores->goal_last_year = $last_year[$key] ? $last_year[$key] : ''; 
                     $scores->goal_current_year = $current_year[$key] ? $current_year[$key] : '';  
@@ -374,7 +368,6 @@ class EmployeePerformanceController extends Controller
                 else 
                 { 
                     $scores = new ProfessionalGoalsAchieved();
-                    $scores->user_id = Auth::user()->id;
                     $scores->emp_id = $add_empid;
                     $scores->by_employee = $emp_text[$key] ? $emp_text[$key] : '';  
                     $scores->managers_comment = $manager_text[$key] ? $manager_text[$key] : '';  
@@ -408,7 +401,6 @@ class EmployeePerformanceController extends Controller
                 else 
                 { 
                     $scores = new ProfessionalGoalsForthcoming();
-                    $scores->user_id = Auth::user()->id;
                     $scores->emp_id = $add_empid;
                     $scores->by_employee = $emp_text[$key] ? $emp_text[$key] : '';  
                     $scores->managers_comment = $manager_text[$key] ? $manager_text[$key] : '';  
@@ -442,7 +434,6 @@ class EmployeePerformanceController extends Controller
                 else 
                 { 
                     $scores = new TrainingRequirements();
-                    $scores->user_id = Auth::user()->id;
                     $scores->emp_id = $add_empid;
                     $scores->by_employee = $emp_text[$key] ? $emp_text[$key] : '';  
                     $scores->managers_comment = $manager_text[$key] ? $manager_text[$key] : '';  
@@ -476,7 +467,6 @@ class EmployeePerformanceController extends Controller
                 else 
                 { 
                     $scores = new OtherGeneralComment();
-                    $scores->user_id = Auth::user()->id;
                     $scores->emp_id = $add_empid;
                     $scores->employee_comments = $emp_text[$key] ? $emp_text[$key] : '';  
                     $scores->managers_comments = $manager_text[$key] ? $manager_text[$key] : '';  
@@ -511,7 +501,6 @@ class EmployeePerformanceController extends Controller
                 else 
                 { 
                     $scores = new PerfomanceManagerUse();
-                    $scores->user_id = Auth::user()->id;
                     $scores->emp_id = $add_empid;
                     $scores->issues = $issues[$key] ? $issues[$key] : '';
                     $scores->select_option = $select_val[$key] ? $select_val[$key] : ''; 
@@ -549,7 +538,6 @@ class EmployeePerformanceController extends Controller
                 else 
                 { 
                     $scores = new PerformanceIdentity();
-                    $scores->user_id = Auth::user()->id;
                     $scores->emp_id = $add_empid;
                     $scores->user_role = $user_role[$key] ? $user_role[$key] : '';  
                     $scores->name = $name[$key] ? $name[$key] : '';
