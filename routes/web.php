@@ -230,9 +230,7 @@ Route::post('/add-resignation', 'ResignationController@addResignation')->name('a
 Route::get('/edit-resignation', 'ResignationController@editResignation')->name('edit-resignation');
 Route::post('/update-resignation', 'ResignationController@updateResignation')->name('update-resignation');
 Route::post('/delete-resignation', 'ResignationController@deleteResignation')->name('delete-resignation');
-Route::get('/termination', function () {
-    return view('termination');
-});
+
 Route::get('/assets', function () {
     return view('assets');
 });
