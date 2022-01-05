@@ -17,7 +17,7 @@
                             </ul>
                         </div>
                         <div class="col-auto float-right ml-auto">
-                            @if (!empty($role) && $role !=3 && empty($data))
+                            @if (!empty($role) && $role !=3 && !count($data))
                             <a href="#" class="btn add-btn" data-toggle="modal" data-target="#add_resignation"><i class="fa fa-plus"></i> Add Resignation</a>
                             @endif
                         </div>

@@ -230,9 +230,7 @@ Route::post('/add-resignation', 'ResignationController@addResignation')->name('a
 Route::get('/edit-resignation', 'ResignationController@editResignation')->name('edit-resignation');
 Route::post('/update-resignation', 'ResignationController@updateResignation')->name('update-resignation');
 Route::post('/delete-resignation', 'ResignationController@deleteResignation')->name('delete-resignation');
-Route::get('/termination', function () {
-    return view('termination');
-});
+
 Route::get('/assets', function () {
     return view('assets');
 });
@@ -623,14 +621,23 @@ Route::post('/edit_man_PerfomanceManagerUse','EmployeePerformanceController@add_
 Route::post('/edit_manPerformanceIdentity','EmployeePerformanceController@add_manager_PerformanceIdentity')->name('edit_manPerformanceIdentity');
 Route::post('search_employee_perfomance','EmployeePerformanceController@search_employee_Perfomance')->name('search_employee_perfomance');
 Route::post('add_managerid_Employee','EmployeePerformanceController@add_managerid_EmployeeBasicInfo')->name('add_managerid_Employees');
-Route::get('profile','ProfileController@Profile_employees')->name('profile_details');
- 
+Route::get('profile','ProfileController@Profile_employees')->name('profile_details'); 
 Route::post('add_personal_info','ProfileController@add_profile_personal_informations')->name('add_personal_info');
 Route::post('add_emergency_contact','ProfileController@add_profile_emergency_contact')->name('add_emergency_contact'); 
 Route::post('add_Perfomance_status','EmployeePerformanceController@add_Perfomance_status_user')->name('add_Perfomance_status'); 
- 
- 
 Route::post('add_KeyprofessionalExcellences',[ProfessionalExcellenceController::class,'store_KeyprofessionalExcellences'])->name('add_KeyprofessionalExcellences');
+
+Route::get('employee-warning','EmployeeVerbalWarningController@EmployeeFirstVerbalWarning_list')->name('employee-warning');
+Route::post('add_EmployeeFirstVerbalWarning','EmployeeVerbalWarningController@store_EmployeeFirstVerbalWarning')->name('add_EmployeeFirstVerbalWarning');
+Route::post('update_EmployeeFirstVerbal','EmployeeVerbalWarningController@update_EmployeeFirstVerbalWarning')->name('update_EmployeeFirstVerbalWarning');
+Route::post('delete_EmpVerbalWarning','EmployeeVerbalWarningController@delete_EmployeeVerbalWarning')->name('delete_EmpVerbalWarning');
+Route::post('add_EmployeeSecondVerbalWarning','EmployeeVerbalWarningController@store_EmployeeSecondVerbalWarning')->name('add_EmployeeSecondVerbalWarning');
+Route::post('update_EmpSecondVerbalWarning','EmployeeVerbalWarningController@update_EmployeeSecondVerbalWarning')->name('update_EmployeeSecondVerbalWarning');
+Route::post('delete_secondEmpVerbalWarning','EmployeeVerbalWarningController@delete_EmployeeSecondVerbalWarning')->name('delete_secondEmpVerbalWarning');
+Route::post('add_EmployeeThirdVerbalWarning','EmployeeVerbalWarningController@store_EmployeeThirdVerbalWarning')->name('add_EmployeeThirdVerbalWarning');
+Route::post('update_EmpThirdVerbalWarning','EmployeeVerbalWarningController@update_EmployeeThirdVerbalWarning')->name('update_EmployeeThirdVerbalWarning');
+Route::post('delete_EmpThirdVerbalWarning','EmployeeVerbalWarningController@delete_EmployeeThirdVerbalWarning')->name('delete_EmployeeThirdVerbalWarning');
+ 
 
 
 
