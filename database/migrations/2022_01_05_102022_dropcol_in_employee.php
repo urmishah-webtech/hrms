@@ -16,7 +16,7 @@ class DropcolInEmployee extends Migration
          Schema::table('employees', function (Blueprint $table) {
             $table->dropForeign(['manager_id']);
 			$table->dropColumn('manager_id');
-			$table->dropColumn('role_type');	 		
+			 	 		
         });
     }
 
