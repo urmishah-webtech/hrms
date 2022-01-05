@@ -1,4 +1,4 @@
-<?php use App\Employee?>
+<?php use App\Employee ?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -351,7 +351,7 @@
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                         <span class="user-img"><img src="{{ URL::asset('img/profiles/avatar-21.jpg') }}" alt="">
                         <span class="status online"></span></span>
-                        <span>{{ Auth::user()->name }}</span>
+                        <span>{{ Auth::user()->first_name }}</span>
                     </a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="profile">My Profile</a>
@@ -411,7 +411,13 @@
 							</li>	
 							<li>
 								<a class="{{ Request::is('designations') ? 'active' : '' }}" href="{{ url('designations') }}">Designations</a>
-							</li>		
+							</li>	
+                            <li>
+								<a class="{{ Request::is('employee-warning') ? 'active' : '' }}" href="{{ url('employee-warning') }}">Warning</a>
+							</li>	
+							<li>
+        						<a class="{{ Request::is('holidays') ? 'active' : '' }}" href="{{ url('holidays') }}">Holidays</a>
+        					</li>	
 						</ul>
 					</li>
 					<li class="menu-title"> 
@@ -535,15 +541,15 @@
 												<div class="form-group">
 													<label for="name1"> Manager's Name</label>
 														@isset($emps)
-														@php $man_name = Employee::where('id',  @$emps->manager_id )->first();
+														@php $man_name = Employee::where('id',  @$emps->man_id )->first();
 														@endphp
-														<input type="hidden" name="get_manager_id" value="{{ @$man_name->name }}">
-														@endisset
-													<select class="form-control" name="manager_id" id="edit_manager_id" required>
+														<input type="hidden" name="get_manager_id" value="{{ @$man_name->first_name }}">
+														@endisset 
+													<select class="form-control" name="man_id" id="edit_manager_id" required>
 														<option value="">Select Manager</option>
 														@isset($manager_user)
 															@foreach ($manager_user as $item)
-															<option @if($item->name == @$man_name->name)selected @endif value="{{ $item->id }}">{{ $item->first_name }}</option> 
+															<option @if($item->first_name == @$man_name->first_name)selected @endif value="{{ $item->id }}">{{ $item->first_name }}</option> 
 															@endforeach							
 														@endisset
 													</select>										 
@@ -1456,14 +1462,14 @@
                                 <tbody>
                                     <tr>
                                         <td>Employee</td>
-                                        <input type="hidden" name="user_role[]" value="employee">
+                                        <input type="hidden" name="user_role[]" value="3">
                                         <td><input type="text" class="form-control" name="name[]" value="@if(isset($add_perfoIdent[0])){{$add_perfoIdent[0]['name']}} @endif" readonly></td>
                                         <td><input type="text" class="form-control" name="signature[]" value="@if(isset($add_perfoIdent[0])){{$add_perfoIdent[0]['signature']}} @endif" readonly></td>
                                         <td><div class="cal-icon"><input type="text" class="form-control datetimepicker" name="date[]" value="@if(isset($add_perfoIdent[0])){{$add_perfoIdent[0]['date']}} @endif" readonly></div></td>
                                     </tr>
                                     <tr>
                                         <td>Manager</td>
-                                        <input type="hidden" name="user_role[]" value="manager">
+                                        <input type="hidden" name="user_role[]" value="2">
                                         <td><input type="text" class="form-control" name="name[]" value="@if(isset($add_perfoIdent[1])){{$add_perfoIdent[1]['name']}} @endif"></td>
                                         <td><input type="text" class="form-control" name="signature[]" value="@if(isset($add_perfoIdent[1])){{$add_perfoIdent[1]['signature']}} @endif"></td>
                                         <td><div class="cal-icon"><input type="text" class="form-control datetimepicker" name="date[]" value="@if(isset($add_perfoIdent[1])){{$add_perfoIdent[1]['date']}} @endif"></div></td>

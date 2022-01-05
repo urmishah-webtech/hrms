@@ -136,7 +136,7 @@
 				return '<td>'+rowsLength+'</td>' + '<td><input type="text" name = "DynamicTextBoxemp[]" class="form-control" value = "" @if (Auth::user()->role_id != 3)readonly @endif></td>' + '<td><input type="text" name = "DynamicTextBoxman[]" class="form-control" value = "" @if (Auth::user()->role_id == 3)readonly @endif></td>' + '<td><button type="button" class="btn btn-danger" id="comments_remove"><i class="fa fa-trash-o"></i></button></td>'
 			}
 		});
-		/// Employee Warning
+		/// Employee First Warning
 		$(function () {
 			$(document).on("click", '.btn-add-row-warning', function () {
 				var id = $(this).closest("table.table-review").attr('id');  // Id of particular table
@@ -152,7 +152,45 @@
 			function GetDynamicTextBox(table_id) {
 				$('#comments_remove').remove();
 				var rowsLength = document.getElementById(table_id).getElementsByTagName("tbody")[0].getElementsByTagName("tr").length+1;
-				return '<td>'+rowsLength+'</td>' + '<td><input type="text" name = "employee_comments[]" class="form-control" value = "" ></td>'+ '<td><input type="text" name = "managers_comments[]" class="form-control" value = "" ></td>' + '<td><input type="text" name = "admin_comments[]" class="form-control" value = "" ></td>' + '<td><input type="text" name = "areas_for_improvement[]" class="form-control" value = ""></td>' + '<td><button type="button" class="btn btn-danger" id="comments_remove"><i class="fa fa-trash-o"></i></button></td>'
+				return '<td>'+rowsLength+'</td>' + '<td><input type="text" name = "employee_comments[]" class="form-control" @if(Auth::user()->role_id != 3) readonly @endif></td>'+ '<td><input type="text" name = "managers_comments[]" class="form-control" @if(Auth::user()->role_id != 2)readonly @endif></td>' + '<td><input type="text" name = "admin_comments[]" class="form-control" @if(Auth::user()->role_id != 1)readonly @endif></td>' + '<td><input type="text" name = "areas_for_improvement[]" class="form-control" @if(Auth::user()->role_id == 3)readonly @endif></td>' + '<td><button type="button" class="btn btn-danger" id="comments_remove"><i class="fa fa-trash-o"></i></button></td>'
+			}
+		});
+		/// Second Warning
+		$(function () {
+			$(document).on("click", '.btn-second-warning2', function () {  
+				var id = $(this).closest("table.table-review2").attr('id');   
+				console.log(id);
+				var div = $("<tr />");
+				div.html(GetDynamicTextBox(id));
+				$("#"+id+"_tbody").append(div);
+			});
+			$(document).on("click", "#comments_remove", function () {
+				$(this).closest("tr").prev().find('td:last-child').html('<button type="button" class="btn btn-danger" id="comments_remove"><i class="fa fa-trash-o"></i></button>');
+				$(this).closest("tr").remove();
+			});
+			function GetDynamicTextBox(table_id) {
+				$('#comments_remove').remove();
+				var rowsLength = document.getElementById(table_id).getElementsByTagName("tbody")[0].getElementsByTagName("tr").length+1;
+				return '<td>'+rowsLength+'</td>' + '<td><input type="text" name = "employee_comments[]" class="form-control" @if(Auth::user()->role_id != 3) readonly @endif></td>'+ '<td><input type="text" name = "managers_comments[]" class="form-control" @if(Auth::user()->role_id != 2)readonly @endif></td>' + '<td><input type="text" name = "admin_comments[]" class="form-control" @if(Auth::user()->role_id != 1)readonly @endif></td>' + '<td><input type="text" name = "areas_for_improvement[]" class="form-control" @if(Auth::user()->role_id == 3)readonly @endif></td>' + '<td><button type="button" class="btn btn-danger" id="comments_remove"><i class="fa fa-trash-o"></i></button></td>'
+			}
+		});
+		/// Third Warning
+		$(function () {
+			$(document).on("click", '.btn-third-warning3', function () {  
+				var id = $(this).closest("table.table-review3").attr('id');   
+				console.log(id);
+				var div = $("<tr />");
+				div.html(GetDynamicTextBox(id));
+				$("#"+id+"_tbody").append(div);
+			});
+			$(document).on("click", "#comments_remove", function () {
+				$(this).closest("tr").prev().find('td:last-child').html('<button type="button" class="btn btn-danger" id="comments_remove"><i class="fa fa-trash-o"></i></button>');
+				$(this).closest("tr").remove();
+			});
+			function GetDynamicTextBox(table_id) {
+				$('#comments_remove').remove();
+				var rowsLength = document.getElementById(table_id).getElementsByTagName("tbody")[0].getElementsByTagName("tr").length+1;
+				return '<td>'+rowsLength+'</td>' + '<td><input type="text" name = "employee_comments[]" class="form-control" @if(Auth::user()->role_id != 3) readonly @endif></td>'+ '<td><input type="text" name = "managers_comments[]" class="form-control" @if(Auth::user()->role_id != 2)readonly @endif></td>' + '<td><input type="text" name = "admin_comments[]" class="form-control" @if(Auth::user()->role_id != 1)readonly @endif></td>' + '<td><button type="button" class="btn btn-danger" id="comments_remove"><i class="fa fa-trash-o"></i></button></td>'
 			}
 		});
 		</script>
@@ -528,10 +566,10 @@
 				$("#marital_status option[value='"+marital_status+"']").prop('selected',true);
 				if($(this).data('expdate')){
 				var d = new Date($(this).data('expdate'));
-						var dd = d.getDate(); 
-						var mm = d.getMonth()+1; 
-						var yyyy = d.getFullYear(); 
-						$("#passport_expiry_date").val(dd+'/'+mm+'/'+yyyy);
+				var dd = d.getDate(); 
+				var mm = d.getMonth()+1; 
+				var yyyy = d.getFullYear(); 
+				$("#passport_expiry_date").val(dd+'/'+mm+'/'+yyyy);
 				}				 							 
 			});
 			$(document).on("click",".edit-emergency-contact",function() {				 
@@ -622,6 +660,185 @@
 					$('#deleteproid').val(proid);
 				})
 			})
-			 
+ 
+			$(document).on("click",".editwarningbtn",function() {
+				var id=$(this).data('id');
+				$("#indexid").text(id);				 
+				$("input[id=getidjq]").val($(this).data('id')); 
+				var employee_comments = $(this).data('employee_comments');							
+				$("#employee_comments").val(employee_comments); 
+				$("#managers_comments").val($(this).data('managers_comments')); 
+				$("#admin_comments").val($(this).data('admin_comments')); 
+				$("#areas_for_improvement").val($(this).data('areas_for_improvement')); 									 
+			})
+			$(document).on("click",".secondeditwarningbtn",function() {
+				var id=$(this).data('id');
+				$("#indexid2").text(id);				 
+				$("input[id=getidjq2]").val($(this).data('id')); 
+				$("#employee_comments2").val($(this).data('employee_comments')); 
+				$("#managers_comments2").val($(this).data('managers_comments')); 
+				$("#admin_comments2").val($(this).data('admin_comments')); 
+				$("#areas_for_improvement2").val($(this).data('areas_for_improvement')); 	
+			})
+			$(document).on("click",".thirdeditwarningbtn",function() {
+				var id=$(this).data('id');
+				$("#indexid3").text(id);				 
+				$("input[id=getidjq3]").val($(this).data('id')); 
+				$("#employee_comments3").val($(this).data('employee_comments')); 
+				$("#managers_comments3").val($(this).data('managers_comments')); 
+				$("#admin_comments3").val($(this).data('admin_comments')); 
+			})
+			$(document).on("click",".deleteWarningbtn",function() {
+				var id= $(this).data('id');
+				$.ajax({
+					type:'POST',
+					url:"{{ route('delete_EmpVerbalWarning') }}",
+					data:{"id":id,"_token": "{{ csrf_token() }}"},
+					success:function(data){
+						if(data.error=='2'){
+							$('#delete_EmpVerbalWarning').modal('toggle');
+							$(".employeeError").show();
+						}else{
+						location.reload();
+						}
+					}
+				})
+			})
+			$(document).on("click",".seconddeleteWarningbtn",function() {
+				var id= $(this).data('id');
+				$.ajax({
+					type:'POST',
+					url:"{{ route('delete_secondEmpVerbalWarning') }}",
+					data:{"id":id,"_token": "{{ csrf_token() }}"},
+					success:function(data){
+						if(data.error=='2'){
+							$('#delete_EmpVerbalWarning').modal('toggle');
+							$(".employeeError").show();
+						}else{
+						location.reload();
+						}
+					}
+				}) 
+			})
+			$(document).on("click",".thirddeleteWarningbtn",function() {
+				var id= $(this).data('id');
+				$.ajax({
+					type:'POST',
+					url:"{{ route('delete_EmployeeThirdVerbalWarning') }}",
+					data:{"id":id,"_token": "{{ csrf_token() }}"},
+					success:function(data){
+						if(data.error=='2'){
+							$('#delete_EmpVerbalWarning').modal('toggle');
+							$(".employeeError").show();
+						}else{
+						location.reload();
+						}
+					}
+				})
+			})
+			$(document).on("click",".thirddeleteWarningbtn",function() {
+				var id= $(this).data('id');
+				$.ajax({
+					type:'POST',
+					url:"{{ route('delete_EmployeeThirdVerbalWarning') }}",
+					data:{"id":id,"_token": "{{ csrf_token() }}"},
+					success:function(data){
+						if(data.error=='2'){
+							$('#delete_EmpVerbalWarning').modal('toggle');
+							$(".employeeError").show();
+						}else{
+						location.reload();
+						}
+					}
+				})
+			})
+
+			$('#resignation-table tbody tr').each(function(){
+				$(this).find('.editresignationlink').click(function(){
+					var resid = $(this).attr('data-id');
+					$.ajax({
+						url:"{{route('edit-resignation')}}",
+						type:'GET',
+						data:{'resid':resid},
+						success:function(result){
+							var editdata = result.data;
+							$('#resid').val(editdata.id);
+							$('#resemployee').val(result.employee);
+							$('#resemployeeid').val(editdata.employeeid);
+							$('#resdecisionby').val(result.loggedinuser);
+							var d = new Date(editdata.noticedate);
+							var day = d.getDate();
+							var month = d.getMonth() + 1;
+							var year = d.getFullYear();
+							if (day < 10) {
+								day = "0" + day;
+							}
+							if (month < 10) {
+								month = "0" + month;
+							}
+							var formatteddate = day + "/" + month + "/" + year;
+							$('#resnoticedate').val(formatteddate);
+							var d2 = new Date(editdata.resignationdate);
+							var day2 = d2.getDate();
+							var month2 = d2.getMonth() + 1;
+							var year2 = d2.getFullYear();
+							if (day2 < 10) {
+								day2 = "0" + day2;
+							}
+							if (month2 < 10) {
+								month2 = "0" + month2;
+							}
+							var formatteddate2 = day2 + "/" + month2 + "/" + year2;
+							$('#resresignationdate').val(formatteddate2);
+							$('#resreason').val(editdata.reason);
+							$("#resstatus").html('');
+							var resultstatus = editdata.status;
+							if (resultstatus === 'Approved') {
+								var approvestatusattr = 'selected';
+							}else{
+								var approvestatusattr = '';
+							}
+							if (resultstatus === 'Disapproved') {
+								var disapprovestatusattr = 'selected';
+							}else{
+								var disapprovestatusattr = '';
+							}
+							$('#resstatus').append('<option value="">--Select--</option><option '+approvestatusattr+' value="Approved">Approve</option><option '+disapprovestatusattr+' value="Disapproved">Disapprove</option>');
+							$('#res2weeknotice').html('');
+							var resultnotice = editdata.twoweeknotice;
+							if (resultnotice === 'Yes') {
+								var approvenoticeattr = 'selected';
+							}else{
+								var approvenoticeattr = '';
+							}
+							if (resultnotice === 'No') {
+								var disapprovenoticeattr = 'selected';
+							}else{
+								var disapprovenoticeattr = '';
+							}
+							$('#res2weeknotice').append('<option value="">--Select--</option><option '+approvenoticeattr+' value="Yes">Yes</option><option '+disapprovenoticeattr+' value="No">No</option>');
+							$('#resrehireable').html('');
+							var resulthire = editdata.rehireable;
+							if (resulthire === 'Yes') {
+								var approvehireattr = 'selected';
+							}else{
+								var approvehireattr = '';
+							}
+							if (resulthire === 'No') {
+								var disapprovehireattr = 'selected';
+							}else{
+								var disapprovehireattr = '';
+							}
+							$('#resrehireable').append(' <option value="">--Select--</option><option '+approvehireattr+' value="Yes">Yes</option><option '+disapprovehireattr+' value="No">No</option>');
+						}
+					})
+				})
+
+				$(this).find('.deleteresignationlink').click(function(){
+					var resid = $(this).attr('data-id');
+					$('#deleteresignationid').val(resid);
+				})
+			});
 		});
+ 
 	</script>

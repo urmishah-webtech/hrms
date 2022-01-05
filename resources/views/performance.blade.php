@@ -239,6 +239,7 @@
                             <div class="table-responsive">
                             <form action="{{ route('add_personalexcel') }}" method="post">
                              @csrf
+                             
                                 <table class="table table-bordered review-table mb-0">
                                     <thead>
                                         <tr>
