@@ -105,7 +105,7 @@ class EmployeeVerbalWarningController extends Controller
         $score->admin_comments = $request->admin_comments;
         $score->areas_for_improvement = $request->areas_for_improvement; 
         $score->save();
-        return back();       
+        return back();        
     }
     public function delete_EmployeeSecondVerbalWarning(Request $request){        
         $warning= EmployeeSecondVerbalWarning::where('id',$request->id)->delete();

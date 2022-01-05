@@ -220,7 +220,7 @@
                                          <input type="hidden" class="form-control" name="getid[]" value="" id="getidjq">
 											<table class="table table-bordered table-review review-table mb-0" id="table_goals">
 												<thead>
-													<tr>
+													<tr> 
 														<th style="width:40px;">#</th>
 														<th>Employee Comment</th>
 														<th>Manager's Comment</th>
