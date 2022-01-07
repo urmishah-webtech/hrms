@@ -33,56 +33,68 @@
                     <div class="col-md-3">
                         <div class="stats-info">
                             <h6>Today Presents</h6>
-                            <h4>12 / 60</h4>
+                            <h4>{{@$present_emp}} / {{@$total_emp}}</h4>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="stats-info">
                             <h6>Planned Leaves</h6>
-                            <h4>8 <span>Today</span></h4>
+                            <h4>{{@$planed_leave}} <span>Today</span></h4>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="stats-info">
                             <h6>Unplanned Leaves</h6>
-                            <h4>0 <span>Today</span></h4>
+                            <h4>{{@$un_planed_leave}} <span>Today</span></h4>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="stats-info">
                             <h6>Pending Requests</h6>
-                            <h4>12</h4>
+                            <h4>{{@$pending_req}}</h4>
                         </div>
                     </div>
                 </div>
                 <!-- /Leave Statistics -->
                 
                 <!-- Search Filter -->
+                <form action="{{ route('search_leave_employees') }}" method="post">
+                @csrf
                 <div class="row filter-row">
                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">  
-                        <div class="form-group form-focus">
-                            <input type="text" class="form-control floating">
+                        <div class="form-group form-focus select-focus">
+                        <select class="form-control" name="search_employee_name"> 
+                            <option value="">-- Select --</option>
+                            @isset($employee_tb)
+                                @foreach ($employee_tb as $item)
+                                    <option value="{{ $item->employee_id }}" @if(@$search_employee_name==$item->employee_id ) selected @endif>{{ $item->employee->first_name }}</option>
+                                @endforeach
+                            @endisset
+                        </select>
                             <label class="focus-label">Employee Name</label>
                         </div>
                    </div>
                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">  
                         <div class="form-group form-focus select-focus">
-                            <select class="select floating"> 
-                                <option> -- Select -- </option>
-                                <option>Casual Leave</option>
-                                <option>Medical Leave</option>
-                                <option>Loss of Pay</option>
+                            <select class="select floating" name="search_leave_type">
+                                <option value="">-- Select --</option>
+                                <option value="0"  >Casual Leave</option>
+                                <option value="1" @if(@$search_leave_type==1) selected @endif>Sick Leave</option>
+                                <option value="2" @if(@$search_leave_type==2) selected @endif>Hospitalisation</option>
+                                <option value="3" @if(@$search_leave_type==3) selected @endif>Maternity</option>
+                                <option value="4" @if(@$search_leave_type==4) selected @endif>Paternity</option>
+                                <option value="5" @if(@$search_leave_type==5) selected @endif>Lop</option>
                             </select>
                             <label class="focus-label">Leave Type</label>
                         </div>
                    </div>
                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12"> 
                         <div class="form-group form-focus select-focus">
-                            <select class="select floating"> 
-                                <option> -- Select -- </option>
-                                <option> Pending </option>
-                                <option> Approved </option>
-                                <option> Rejected </option>
+                            <select class="select floating" name="search_leave_status"> 
+                                <option value=""> -- Select -- </option>
+                                <option value="1" @if(@$search_leave_status==1) selected @endif>Pending</option>
+                                <option value="2" @if(@$search_leave_status==2) selected @endif>Approved </option>
+                                <option value="3" @if(@$search_leave_status==3) selected @endif>Rejected </option>
                             </select>
                             <label class="focus-label">Leave Status</label>
                         </div>
@@ -90,7 +102,7 @@
                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">  
                         <div class="form-group form-focus">
                             <div class="cal-icon">
-                                <input class="form-control floating datetimepicker" type="text">
+                            <input class="form-control floating datetimepicker"  type="text" name="search_from_date"  value="{{@$search_from_date}}" id="fromt_date">
                             </div>
                             <label class="focus-label">From</label>
                         </div>
@@ -98,15 +110,16 @@
                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">  
                         <div class="form-group form-focus">
                             <div class="cal-icon">
-                                <input class="form-control floating datetimepicker" type="text">
+                                <input class="form-control floating datetimepicker" type="text" name="search_to_date" value="{{@$search_to_date}}">
                             </div>
                             <label class="focus-label">To</label>
                         </div>
                     </div>
                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">  
-                        <a href="#" class="btn btn-success btn-block"> Search </a>  
+                   <input type="submit" class="btn btn-success btn-block" value="search">  
                    </div>     
                 </div>
+                </form>
                 <!-- /Search Filter -->
                 
                 <div class="row">
@@ -366,4 +379,15 @@
             
         </div>
         <!-- /Page Wrapper -->
-@endsection
+      
+ 
+<script src="{{ URL::asset('js/jquery-3.5.1.min.js') }}"></script> 
+<script type="text/javascript">
+        $(document).ready(function () {
+            $('.datetimepicker').datetimepicker({
+                format: 'YYYY-MM-DD',
+                locale: 'en'
+            });
+        });
+</script>
+@endsection    

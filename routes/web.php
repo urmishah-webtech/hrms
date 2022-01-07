@@ -87,6 +87,7 @@ Route::get('/delete_emp_leave/{id}','EmployeeLeaveController@delete_leave')->nam
 Route::get('/edit_emp_leave/{id}','EmployeeLeaveController@edit_leave')->name('edit_leave');
 Route::get('/leaves','AdminLeaveController@index')->name('leaves');
 Route::get('/change_leave_status/{type}/{id}','AdminLeaveController@change_leave_status')->name('change_leave_status');
+Route::post('search_leave_employees','AdminLeaveController@search_leave_employee')->name('search_leave_employees');
 //leave routes end
 
 
