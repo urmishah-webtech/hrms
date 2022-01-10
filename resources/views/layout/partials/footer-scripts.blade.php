@@ -838,6 +838,8 @@
 					var resid = $(this).attr('data-id');
 					$('#deleteresignationid').val(resid);
 				})
+				 
+				 
 			});
 		});
  

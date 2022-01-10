@@ -354,8 +354,8 @@
                         <span>{{ Auth::user()->first_name }}</span>
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="profile">My Profile</a>
-                        <a class="dropdown-item" href="settings">Settings</a>
+                        <a class="dropdown-item" href="/profile">My Profile</a>
+                        <a class="dropdown-item" href="/settings">Settings</a>
                         <a class="dropdown-item" href="{{ route('logout') }}"
                     onclick="event.preventDefault();                                document.getElementById('logout-form').submit();">Logout</a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -370,9 +370,9 @@
             <div class="dropdown mobile-user-menu">
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
                 <div class="dropdown-menu dropdown-menu-right">
-                    <a class="dropdown-item" href="profile">My Profile</a>
-                    <a class="dropdown-item" href="settings">Settings</a>
-                    <a class="dropdown-item" href="login">Logout</a>
+                    <a class="dropdown-item" href="/profile">My Profile</a>
+                    <a class="dropdown-item" href="/settings">Settings</a>
+                    <a class="dropdown-item" href="{{ route('logout') }}">Logout</a>
                 </div>
             </div>
             <!-- /Mobile Menu -->

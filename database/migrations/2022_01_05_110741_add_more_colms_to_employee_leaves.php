@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class DropUseridInEmployee extends Migration
+class AddMoreColmsToEmployeeLeaves extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,9 @@ class DropUseridInEmployee extends Migration
      */
     public function up()
     {
-		Schema::table('employees', function (Blueprint $table) {
-			$table->dropForeign(['user_id']);
-			$table->dropColumn('user_id'); 
-			$table->dropColumn('role_type'); 
-		});         
+        Schema::table('employee_leaves', function (Blueprint $table) {
+            $table->integer('approved_by')->nullable();
+        });
     }
 
     /**
@@ -25,10 +23,10 @@ class DropUseridInEmployee extends Migration
      *
      * @return void
      */
-    public function down() 
+    public function down()
     {
-        Schema::table('employee', function (Blueprint $table) {
-             
+        Schema::table('employee_leaves', function (Blueprint $table) {
+            //
         });
     }
 }

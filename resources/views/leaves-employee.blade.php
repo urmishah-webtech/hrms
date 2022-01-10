@@ -5,7 +5,16 @@
 			
             <!-- Page Content -->
             <div class="content container-fluid">
-            
+                @if ($message = Session::get('error'))
+                <div class="alert alert-danger alert-block">
+                    <button type="button" class="close" data-dismiss="alert">×</button>    
+                    <strong>{{ $message }}</strong>
+                </div>
+                @endif
+                <div class="alert alert-danger alert-block overlap_error" style="display: none">
+                    <button type="button" class="close" data-dismiss="alert">×</button>      
+                   <div>Please make proper date selection , you have already applied on the same date</div>
+                </div>
                 <!-- Page Header -->
                 <div class="page-header">
                     <div class="row align-items-center">
@@ -44,238 +53,75 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>Casual Leave</td>
-                                        <td>8 Mar 2019</td>
-                                        <td>9 Mar 2019</td>
-                                        <td>2 days</td>
-                                        <td>Going to Hospital</td>
-                                        <td class="text-center">
-                                            <div class="action-label">
-                                                <a class="btn btn-white btn-sm btn-rounded" href="javascript:void(0);">
-                                                    <i class="fa fa-dot-circle-o text-purple"></i> New
-                                                </a>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <h2 class="table-avatar">
-                                                <a href="profile" class="avatar avatar-xs"><img src="img/profiles/avatar-09.jpg" alt=""></a>
-                                                <a href="#">Richard Miles</a>
-                                            </h2>
-                                        </td>
-                                        <td class="text-right">
-                                            <div class="dropdown dropdown-action">
-                                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#edit_leave"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_approve"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                                    @if(!empty($data))
+                                    @foreach ($data as $val)
+                                        <tr>
+                                            <td>
+                                                @if(@$val->leave_type_id==0)
+                                                Casual Leave
+                                                @elseif(@$val->leave_type_id==1)
+                                                Sick Leave
+                                                @elseif(@$val->leave_type_id==2)
+                                                Hospitalisation
+                                                @elseif(@$val->leave_type_id==3)
+                                                maternity leave
+                                                @elseif(@$val->leave_type_id==4)
+                                                paternity leave
+                                                @else
+                                                Loss Of pay
+                                                @endif
+                                            </td>
+                                            <td>
+                                                {{ @$val->from_date }}
+                                            </td>
+                                            <td>
+                                                {{ @$val->to_date }}
+                                            </td>
+                                            <td>
+                                                {{ @$val->number_of_days }} 
+                                            </td>
+                                            <td>
+                                                {{ @$val->leave_reason }}
+                                            </td>
+                                            <td class="text-center">
+                                                <div class="action-label">
+                                                    @if($val->status==1)
+                                                    <a class="btn btn-white btn-sm btn-rounded" href="javascript:void(0);">
+                                                        <i class="fa fa-dot-circle-o text-purple"></i> pending
+                                                    </a>
+                                                    @elseif($val->status==2)
+                                                    <a class="btn btn-white btn-sm btn-rounded" href="javascript:void(0);">
+                                                        <i class="fa fa-dot-circle-o text-success"></i> Apprroved
+                                                    </a>
+                                                    @else
+                                                    <a class="btn btn-white btn-sm btn-rounded" href="javascript:void(0);">
+                                                        <i class="fa fa-dot-circle-o text-danger"></i> disapproved
+                                                    </a>
+                                                    @endif
                                                 </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Medical Leave</td>
-                                        <td>27 Feb 2019</td>
-                                        <td>27 Feb 2019</td>
-                                        <td>1 day</td>
-                                        <td>Going to Hospital</td>
-                                        <td class="text-center">
-                                            <div class="action-label">
-                                                <a class="btn btn-white btn-sm btn-rounded" href="javascript:void(0);">
-                                                    <i class="fa fa-dot-circle-o text-success"></i> Approved
-                                                </a>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <h2 class="table-avatar">
-                                                <a href="profile" class="avatar avatar-xs"><img src="img/profiles/avatar-09.jpg" alt=""></a>
-                                                <a href="#">Richard Miles</a>
-                                            </h2>
-                                        </td>
-                                        <td class="text-right">
-                                            <div class="dropdown dropdown-action">
-                                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#edit_leave"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_approve"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                                            </td>
+                                            <td>
+                                                <h2 class="table-avatar">
+                                                    <a href="profile" class="avatar avatar-xs"><img src="img/profiles/avatar-09.jpg" alt=""></a>
+                                                    <a href="#">{{ @$my_manager_name->first_name }}</a>
+                                                </h2>
+                                            </td>
+                                            <td class="text-right">
+                                                <div class="dropdown dropdown-action">
+                                                    <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
+                                                    <div class="dropdown-menu dropdown-menu-right">
+                                                        <a class="dropdown-item edtBtn" href="{{ url('edit_emp_leave').'/'.$val->id }}"   data-id="{{ @$val->id }}" ><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                                        <a class="dropdown-item delBtn" data-id="{{ @$val->id }}" href="#" data-toggle="modal" data-target="#delete_approve"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                    @else
                                     <tr>
-                                        <td>LOP</td>
-                                        <td>24 Feb 2019</td>
-                                        <td>25 Feb 2019</td>
-                                        <td>2 days</td>
-                                        <td>Personnal</td>
-                                        <td class="text-center">
-                                            <div class="action-label">
-                                                <a class="btn btn-white btn-sm btn-rounded" href="javascript:void(0);">
-                                                    <i class="fa fa-dot-circle-o text-success"></i> Approved
-                                                </a>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <h2 class="table-avatar">
-                                                <a href="profile" class="avatar avatar-xs"><img src="img/profiles/avatar-09.jpg" alt=""></a>
-                                                <a href="#">Richard Miles</a>
-                                            </h2>
-                                        </td>
-                                        <td class="text-right">
-                                            <div class="dropdown dropdown-action">
-                                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#edit_leave"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_approve"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                        <td>No Data</td>
                                     <tr>
-                                        <td>Paternity Leave</td>
-                                        <td>13 Feb 2019</td>
-                                        <td>17 Feb 2019</td>
-                                        <td>5 days</td>
-                                        <td>Going to Hospital</td>
-                                        <td class="text-center">
-                                            <div class="action-label">
-                                                <a class="btn btn-white btn-sm btn-rounded" href="javascript:void(0);">
-                                                    <i class="fa fa-dot-circle-o text-danger"></i> Declined
-                                                </a>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <h2 class="table-avatar">
-                                                <a href="profile" class="avatar avatar-xs"><img src="img/profiles/avatar-09.jpg" alt=""></a>
-                                                <a href="#">Richard Miles</a>
-                                            </h2>
-                                        </td>
-                                        <td class="text-right">
-                                            <div class="dropdown dropdown-action">
-                                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#edit_leave"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_approve"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Casual Leave</td>
-                                        <td>30 Jan 2019</td>
-                                        <td>30 Jan 2019</td>
-                                        <td>Second Half</td>
-                                        <td>Going to Hospital</td>
-                                        <td class="text-center">
-                                            <div class="action-label">
-                                                <a class="btn btn-white btn-sm btn-rounded" href="javascript:void(0);">
-                                                    <i class="fa fa-dot-circle-o text-purple"></i> New
-                                                </a>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <h2 class="table-avatar">
-                                                <a href="profile" class="avatar avatar-xs"><img src="img/profiles/avatar-09.jpg" alt=""></a>
-                                                <a href="#">Richard Miles</a>
-                                            </h2>
-                                        </td>
-                                        <td class="text-right">
-                                            <div class="dropdown dropdown-action">
-                                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#edit_leave"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_approve"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Hospitalisation</td>
-                                        <td>15 Jan 2019</td>
-                                        <td>25 Jan 2019</td>
-                                        <td>10 days</td>
-                                        <td>Going to Hospital</td>
-                                        <td class="text-center">
-                                            <div class="action-label">
-                                                <a class="btn btn-white btn-sm btn-rounded" href="javascript:void(0);">
-                                                    <i class="fa fa-dot-circle-o text-success"></i> Approved
-                                                </a>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <h2 class="table-avatar">
-                                                <a href="profile" class="avatar avatar-xs"><img src="img/profiles/avatar-09.jpg" alt=""></a>
-                                                <a href="#">Richard Miles</a>
-                                            </h2>
-                                        </td>
-                                        <td class="text-right">
-                                            <div class="dropdown dropdown-action">
-                                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#edit_leave"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_approve"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Casual Leave</td>
-                                        <td>13 Jan 2019</td>
-                                        <td>14 Jan 2019</td>
-                                        <td>2 days</td>
-                                        <td>Going to Hospital</td>
-                                        <td class="text-center">
-                                            <div class="action-label">
-                                                <a class="btn btn-white btn-sm btn-rounded" href="javascript:void(0);">
-                                                    <i class="fa fa-dot-circle-o text-success"></i> Approved
-                                                </a>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <h2 class="table-avatar">
-                                                <a href="profile" class="avatar avatar-xs"><img src="img/profiles/avatar-09.jpg" alt=""></a>
-                                                <a href="#">Richard Miles</a>
-                                            </h2>
-                                        </td>
-                                        <td class="text-right">
-                                            <div class="dropdown dropdown-action">
-                                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#edit_leave"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_approve"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Casual Leave</td>
-                                        <td>10 Jan 2019</td>
-                                        <td>10 Jan 2019</td>
-                                        <td>First Half</td>
-                                        <td>Going to Hospital</td>
-                                        <td class="text-center">
-                                            <div class="action-label">
-                                                <a class="btn btn-white btn-sm btn-rounded" href="javascript:void(0);">
-                                                    <i class="fa fa-dot-circle-o text-danger"></i> Declined
-                                                </a>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <h2 class="table-avatar">
-                                                <a href="profile" class="avatar avatar-xs"><img src="img/profiles/avatar-09.jpg" alt=""></a>
-                                                <a href="#">Richard Miles</a>
-                                            </h2>
-                                        </td>
-                                        <td class="text-right">
-                                            <div class="dropdown dropdown-action">
-                                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#edit_leave"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                                    <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_approve"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    @endif     
                                 </tbody>
                             </table>
                         </div>
@@ -289,56 +135,7 @@
             <!-- /Add Leave Modal -->
             
             <!-- Edit Leave Modal -->
-            <div id="edit_leave" class="modal custom-modal fade" role="dialog">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Edit Leave</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form>
-                                <div class="form-group">
-                                    <label>Leave Type <span class="text-danger">*</span></label>
-                                    <select class="select">
-                                        <option>Select Leave Type</option>
-                                        <option>Casual Leave 12 Days</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label>From <span class="text-danger">*</span></label>
-                                    <div class="cal-icon">
-                                        <input class="form-control datetimepicker" value="01-01-2019" type="text">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>To <span class="text-danger">*</span></label>
-                                    <div class="cal-icon">
-                                        <input class="form-control datetimepicker" value="01-01-2019" type="text">
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Number of days <span class="text-danger">*</span></label>
-                                    <input class="form-control" readonly type="text" value="2">
-                                </div>
-                                <div class="form-group">
-                                    <label>Remaining Leaves <span class="text-danger">*</span></label>
-                                    <input class="form-control" readonly value="12" type="text">
-                                </div>
-                                <div class="form-group">
-                                    <label>Leave Reason <span class="text-danger">*</span></label>
-                                    <textarea rows="4" class="form-control">Going to hospital</textarea>
-                                </div>
-                                <div class="submit-section">
-                                    <button class="btn btn-primary submit-btn">Save</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {{-- @include('leave.employee.edit_leave') --}}
             <!-- /Edit Leave Modal -->
             
             <!-- Delete Leave Modal -->
@@ -353,7 +150,7 @@
                             <div class="modal-btn delete-action">
                                 <div class="row">
                                     <div class="col-6">
-                                        <a href="javascript:void(0);" class="btn btn-primary continue-btn">Delete</a>
+                                        <a href="" class="btn btn-primary continue-btn">Delete</a>
                                     </div>
                                     <div class="col-6">
                                         <a href="javascript:void(0);" data-dismiss="modal" class="btn btn-primary cancel-btn">Cancel</a>
@@ -370,3 +167,9 @@
         <!-- /Page Wrapper -->
 
 @endsection
+<script src="{{ URL::asset('js/jquery-3.5.1.min.js') }}"></script>
+<script>
+    $(document).on("click",".delBtn",function() {
+        $(".continue-btn").attr('href', '{{ url("delete_emp_leave") }}'+'/'+$(this).data('id'));
+    });
+</script>
