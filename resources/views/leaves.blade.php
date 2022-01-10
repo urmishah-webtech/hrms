@@ -39,13 +39,13 @@
                     <div class="col-md-3">
                         <div class="stats-info">
                             <h6>Planned Leaves</h6>
-                            <h4>{{@$planed_leave}} <span>Today</span></h4>
+                            <h4>{{@$plan_count}} <span>Today</span></h4>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="stats-info">
                             <h6>Unplanned Leaves</h6>
-                            <h4>{{@$un_planed_leave}} <span>Today</span></h4>
+                            <h4>{{@$unplan_count}} <span>Today</span></h4>
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -67,7 +67,8 @@
                             <option value="">-- Select --</option>
                             @isset($employee_tb)
                                 @foreach ($employee_tb as $item)
-                                    <option value="{{ $item->employee_id }}" @if(@$search_employee_name==$item->employee_id ) selected @endif>{{ $item->employee->first_name }}</option>
+                                <option value="{{ $item->id }}" @if(@$search_employee_name==$item->id ) selected @endif>{{ $item->first_name }}</option>
+                                   <!-- <option value="{{ $item->employee_id }}" @if(@$search_employee_name==$item->employee_id ) selected @endif>{{ $item->employee->first_name }}</option>-->
                                 @endforeach
                             @endisset
                         </select>
@@ -78,7 +79,7 @@
                         <div class="form-group form-focus select-focus">
                             <select class="select floating" name="search_leave_type">
                                 <option value="">-- Select --</option>
-                                <option value="0"  >Casual Leave</option>
+                                <option value="0"  @if(@$search_leave_type=='0') selected @endif>Casual Leave</option>
                                 <option value="1" @if(@$search_leave_type==1) selected @endif>Sick Leave</option>
                                 <option value="2" @if(@$search_leave_type==2) selected @endif>Hospitalisation</option>
                                 <option value="3" @if(@$search_leave_type==3) selected @endif>Maternity</option>
@@ -94,7 +95,7 @@
                                 <option value=""> -- Select -- </option>
                                 <option value="1" @if(@$search_leave_status==1) selected @endif>Pending</option>
                                 <option value="2" @if(@$search_leave_status==2) selected @endif>Approved </option>
-                                <option value="3" @if(@$search_leave_status==3) selected @endif>Rejected </option>
+                                <option value="3" @if(@$search_leave_status==3) selected @endif>Disapproved </option>
                             </select>
                             <label class="focus-label">Leave Status</label>
                         </div>
