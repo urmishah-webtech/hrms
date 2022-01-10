@@ -190,7 +190,7 @@
                 $(".error").show();
                 $("#errorMessage").html(response.message)
             }else{
-             location.reload();
+                location.reload();
             }
           }
         })

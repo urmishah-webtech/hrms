@@ -11,6 +11,10 @@
                     <strong>{{ $message }}</strong>
                 </div>
                 @endif
+                <div class="alert alert-danger alert-block overlap_error" style="display: none">
+                    <button type="button" class="close" data-dismiss="alert">×</button>      
+                   <div>Please make proper date selection , you have already applied on the same date</div>
+                </div>
                 <!-- Page Header -->
                 <div class="page-header">
                     <div class="row align-items-center">
@@ -87,11 +91,11 @@
                                                     </a>
                                                     @elseif($val->status==2)
                                                     <a class="btn btn-white btn-sm btn-rounded" href="javascript:void(0);">
-                                                        <i class="fa fa-dot-circle-o text-purple"></i> disapprroved
+                                                        <i class="fa fa-dot-circle-o text-success"></i> Apprroved
                                                     </a>
                                                     @else
                                                     <a class="btn btn-white btn-sm btn-rounded" href="javascript:void(0);">
-                                                        <i class="fa fa-dot-circle-o text-purple"></i> approved
+                                                        <i class="fa fa-dot-circle-o text-danger"></i> disapproved
                                                     </a>
                                                     @endif
                                                 </div>

@@ -111,6 +111,7 @@
     });
     $('#add_leave_form').on('submit', function(e) {
         e.preventDefault();
+        $('.overlap_error').hide()      
         var rl=$('#remaining_leaves').val()
         var nd=$("#number_of_days").val();
         if(rl<0){
@@ -124,9 +125,16 @@
           type:"POST",
           data:$(this).serialize(),
           success:function(response){
+              if(response==0){
+                $("#add_leave_form")[0].reset();
+                $("#add_leave").modal('hide');
+                $('.overlap_error').show()      
+              }
+              else{
               $("#add_leave_form")[0].reset();
               $("#add_leave").modal('hide');
               location.reload();
+              }
           }
         })
     });

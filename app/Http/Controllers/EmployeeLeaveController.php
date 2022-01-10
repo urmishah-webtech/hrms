@@ -33,6 +33,26 @@ class EmployeeLeaveController extends Controller
         return view('leaves-employee',compact('lt','data','total_leaves','taken_leaves','remaining_leaves','my_manager_name'));
     } 
     public function save_leave(Request $request){
+
+        $on_leave_already=EmployeeLeave::where([
+            ['from_date', '>=', date('Y-m-d',strtotime($request->start_date))],
+            ['to_date', '<=', date('Y-m-d',strtotime($request->end_date))],
+            ['employee_id',Auth::id()],
+        ])
+        ->orWhere([
+            ['from_date', '>=', date('Y-m-d',strtotime($request->start_date))],
+            ['to_date', '<=', date('Y-m-d',strtotime($request->end_date))],
+        ])
+        ->orWhere([
+            ['from_date', '<=', date('Y-m-d',strtotime($request->start_date))],
+            ['to_date', '>=', date('Y-m-d',strtotime($request->end_date))],
+        ])->first();
+
+        if($on_leave_already)
+        {
+            return json_encode(0);
+        }
+
         $el=new EmployeeLeave();
         $el->remaining_leave=$request->remaining_leaves;
         $fdate = strtotime($request->start_date);
@@ -90,6 +110,7 @@ class EmployeeLeaveController extends Controller
     public function update_leave(Request $request){
         $data=EmployeeLeave::where('id',$request->id)->first();   
         if($data){
+
             $leave_date=Carbon::createFromFormat('Y-m-d',$data->from_date);
             $today_date=Carbon::today()->format('Y-m-d');
             $result = $leave_date->lt($today_date);
