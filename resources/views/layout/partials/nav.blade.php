@@ -22,15 +22,21 @@
 					<li class="submenu">
 						<a href="#" class="noti-dot"><i class="la la-user"></i> <span> Employees</span> <span class="menu-arrow"></span></a>
 						<ul style="display: none;">
+							@if (Auth::user()->role_id == 1 || Auth::user()->role_id==2)
 							<li>
 								<a class="{{ Request::is('employees') ? 'active' : '' }}" href="{{ url('employees') }}">All Employees</a>
-							</li>			
+							</li>		
+							@endif	
+							@if (Auth::user()->role_id == 1 )
 							<li>
 								<a class="{{ Request::is('departments') ? 'active' : '' }}" href="{{ url('departments') }}">Departments</a>
 							</li>	
+							@endif
+							@if (Auth::user()->role_id == 1 )
 							<li>
 								<a class="{{ Request::is('designations') ? 'active' : '' }}" href="{{ url('designations') }}">Designations</a>
 							</li>
+							@endif
 							<li>
 								<a class="{{ Request::is('employee-warning') ? 'active' : '' }}" href="{{ url('employee-warning') }}">Warning</a>
 							</li>	

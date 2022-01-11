@@ -24,7 +24,12 @@ class EmployeeController extends Controller
     public function employees(){
         $dep=Department::get();
         $des=Designation::get();
+        if(Auth::user()->role_id==2){
+            $emps=Employee::where('man_id',Auth::id())->get();
+        }
+        else{
         $emps=Employee::get();
+        }
         $last_emp_id=DB::table('employees')->latest('id')->first();
         $modules=Module::get();
         $emp_permissions=EmpPermission::get();
@@ -38,6 +43,8 @@ class EmployeeController extends Controller
     }
     public function add_employee(Request $request){
     
+       
+     
         $validator = Validator::make($request->all(), [
             'first_name' => 'required',
             'last_name' => 'required',
@@ -54,6 +61,7 @@ class EmployeeController extends Controller
             'confirm_password'=>'required_with:password|same:password'
 
         ]); 
+        
         if($validator->fails()){
            
             return Redirect::back()->withErrors($validator);
@@ -103,41 +111,51 @@ class EmployeeController extends Controller
     }
     public function update_employee(Request $request){
     
-        $validator = Validator::make($request->all(), [
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'user_name' => 'required|unique:employees,user_name,'.$request->id,
-            'email' => 'required|unique:employees,email,'.$request->id,
-			'role_id' => 'required',
-            'joing_date' => 'required',
-            'phone_no' => 'required',
-           // 'employee_id'=>'required|unique:employees,employee_id,'.$request->id,
-            'company_id' => 'required',
-            'department_id' => 'required',
-            'designation_id' => 'required',
-            'confirm_password'=>'required_with:password|same:password'
-        ]);
+        if(Auth::user()->role_id==2)
+        {
+            $validator = Validator::make($request->all(), [
+                'first_name' => 'required',
+                'last_name' => 'required', 
+                'phone_no' => 'required',
+            ]); 
+        }
+        else{
+            $validator = Validator::make($request->all(), [
+                'first_name' => 'required',
+                'last_name' => 'required',
+                'user_name' => 'required|unique:employees,user_name,'.$request->id,
+                'email' => 'required|unique:employees,email,'.$request->id,
+                'role_id' => 'required',
+                'joing_date' => 'required',
+                'phone_no' => 'required',
+            // 'employee_id'=>'required|unique:employees,employee_id,'.$request->id,
+                'company_id' => 'required',
+                'department_id' => 'required',
+                'designation_id' => 'required',
+                'confirm_password'=>'required_with:password|same:password'
+            ]);
+        }
         if($validator->fails()){
            
             return Redirect::back()->withErrors($validator);
         }
         $emp=Employee::where('id',$request->id)->first();
-        $emp->first_name=$request->first_name;
-        $emp->last_name=$request->last_name;
-        $emp->user_name=$request->user_name;
-        $emp->email=$request->email;
+        $emp->first_name=is_null($request->first_name)?$emp->first_name:$request->first_name;
+        $emp->last_name=is_null($request->last_name)?$emp->last_name:$request->last_name;
+        $emp->user_name=is_null($request->user_name)?$emp->user_name:$request->user_name;
+        $emp->email=is_null($request->email)?$emp->email:$request->email;
         if($request->password!=''){
         $emp->password=$request->password;
         }
        
-        $emp->employee_id=$request->employee_id;
-		$emp->role_id=$request->role_id;
-        $emp->joing_date=Carbon::createFromFormat('d/m/Y', $request->joing_date)->format('Y-m-d')
+        $emp->employee_id=is_null($request->employee_id)?$emp->employee_id:$request->employee_id;
+		$emp->role_id=is_null($request->role_id)?$emp->role_id:$request->role_id;
+        $emp->joing_date=is_null($request->joing_date)?$emp->joing_date:Carbon::createFromFormat('d/m/Y', $request->joing_date)->format('Y-m-d')
         ;
         $emp->phone_no=$request->phone_no;
-        $emp->company_id=$request->company_id;
-        $emp->department_id=$request->department_id;
-        $emp->designation_id=$request->designation_id;
+        $emp->company_id=is_null($request->company_id)?$emp->company_id:$request->company_id;
+        $emp->department_id=is_null($request->department_id)?$emp->department_id:$request->department_id;
+        $emp->designation_id=is_null($request->designation_id)?$emp->designation_id:$request->designation_id;
 
         $emp->save();
 
