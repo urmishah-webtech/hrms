@@ -34,7 +34,7 @@
         </div>
         
         <!-- Custom Policy -->
-        <div class="custom-policy">
+        <div class="custom-policy" style="display: none">
             <div class="leave-header">
                 <div class="title">Custom policy</div>
                 <div class="leave-action">

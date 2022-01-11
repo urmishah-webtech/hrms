@@ -20,7 +20,7 @@ class EmployeeLeaveController extends Controller
         $total_leaves+=is_null($lt->hospitalisation_days)?0:$lt->hospitalisation_days;
         }
         $data=EmployeeLeave::where('employee_id',Auth::id())->orderBy('id','desc')->get();
-        $my_manager_name=Employee::where('id',Auth::user()->manager_id)->first();
+        $my_manager_name=Employee::where('id',Auth::user()->man_id)->first();
        
         $taken_leaves=0;
         if(!empty($data)){
@@ -34,25 +34,6 @@ class EmployeeLeaveController extends Controller
     } 
     public function save_leave(Request $request){
 
-        $on_leave_already=EmployeeLeave::where([
-            ['from_date', '>=', date('Y-m-d',strtotime($request->start_date))],
-            ['to_date', '<=', date('Y-m-d',strtotime($request->end_date))],
-            ['employee_id',Auth::id()],
-        ])
-        ->orWhere([
-            ['from_date', '>=', date('Y-m-d',strtotime($request->start_date))],
-            ['to_date', '<=', date('Y-m-d',strtotime($request->end_date))],
-        ])
-        ->orWhere([
-            ['from_date', '<=', date('Y-m-d',strtotime($request->start_date))],
-            ['to_date', '>=', date('Y-m-d',strtotime($request->end_date))],
-        ])->first();
-
-        if($on_leave_already)
-        {
-            return json_encode(0);
-        }
-
         $el=new EmployeeLeave();
         $el->remaining_leave=$request->remaining_leaves;
         $fdate = strtotime($request->start_date);
@@ -63,6 +44,7 @@ class EmployeeLeaveController extends Controller
         $el->leave_reason=$request->leave_reason;
         $el->leave_type_id=$request->leave_type_id;
         $el->employee_id=Auth::id();
+        $el->manager_id=Auth::user()->man_id;
         $el->save();
         return json_encode("1");
     }

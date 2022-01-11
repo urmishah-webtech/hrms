@@ -221,6 +221,8 @@ Route::get('/termination', 'TerminationController@list')->name('termination');
 Route::post('/create-termination', 'TerminationController@save')->name('termination.save');
 Route::post('/update-termination', 'TerminationController@update')->name('termination.update');
 Route::get('/delete-termination/{id?}', 'TerminationController@delete')->name('termination.delete');
+Route::get('/open-termination-create-form/{id?}', 'TerminationController@openCreateForm')->name('termination.openCreateForm');
+
 
 
 

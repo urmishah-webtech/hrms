@@ -72,7 +72,7 @@
                                                     <div class="dropdown-menu dropdown-menu-right">
                                                         <a class="dropdown-item editresignationlink" href="#" data-toggle="modal" data-target="#edit_resignation" data-id="{{$item->id}}"><i class="fa fa-pencil m-r-5"></i> Edit</a>
                                                         <a class="dropdown-item deleteresignationlink" href="#" data-toggle="modal" data-target="#delete_resignation" data-id="{{$item->id}}"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-                                                        <a class="dropdown-item deleteresignationlink" href="#"> Termination</a>
+                                                        <a class="dropdown-item" href="{{route('termination.openCreateForm', $item->id)}}"> Termination</a>
                                                     </div>
                                                 </div>
                                             </td>

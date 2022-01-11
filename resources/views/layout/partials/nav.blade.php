@@ -82,7 +82,7 @@
 					@endif
 					@if (Auth::user()->role_id == 1 || Auth::user()->role_id==2)
 					<li>
-						<a class="{{ Request::is('leaves') ? 'active' : '' }}" href="{{ url('leaves') }}">Leaves Approve<span class="badge badge-pill bg-primary float-right">1</span></a></li>								
+						<a class="{{ Request::is('leaves') ? 'active' : '' }}" href="{{ url('leaves') }}">Leaves Approve</a></li>								
 	
 					<li>
 					@endif
