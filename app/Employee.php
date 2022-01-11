@@ -26,4 +26,9 @@ class Employee extends Authenticatable
     {
         return $this->belongsTo('App\Department');
     }
+
+    public function getcompany()
+    {
+        return $this->belongsTo('App\Setting', 'company_id', 'id');
+    }
 }

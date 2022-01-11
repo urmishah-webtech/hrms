@@ -13,7 +13,11 @@ class PromotionController extends Controller
 {
     public function index(){
         $employees = Employee::all();
-        $data = Promotion::orderBy('id', 'DESC')->get();
+        if (request()->has('employee')) {
+            $data = Promotion::where('employeeid', request()->get('employee'))->orderBy('id', 'DESC')->get();
+        } else {
+            $data = Promotion::orderBy('id', 'DESC')->get();
+        }
         return view('promotion', compact('employees', 'data'));
     }
 
@@ -37,6 +41,7 @@ class PromotionController extends Controller
         }
         $date = Carbon::createFromFormat('d/m/Y', $request->date)->format('Y-m-d');
         Promotion::create(['employeeid' => $request->employeeid, 'promotionform' => $request->promotionform, 'promotionto' => $request->promotionto, 'department' => $request->department, 'date' => $date]);
+        Employee::where('id', $request->employeeid)->update(['designation_id'=> $request->promotionto]);
         return redirect()->back()->with('msg', 'Created Successfully');
     }
 
@@ -52,6 +57,7 @@ class PromotionController extends Controller
     public function updatePromotion(Request $request){
         $date = Carbon::createFromFormat('d/m/Y', $request->date)->format('Y-m-d');
         Promotion::where('id', $request->id)->update(['employeeid' => $request->employeeid, 'promotionform' => $request->promotionform, 'promotionto' => $request->promotionto, 'date' => $date]);
+        Employee::where('id', $request->employeeid)->update(['designation_id'=> $request->promotionto]);
         return redirect()->back()->with('msg', 'Updated Successfully');
     }
 
