@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ChangesToEmployeeLeaves extends Migration
+class ChangesInEmployeeLeavesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,9 +14,10 @@ class ChangesToEmployeeLeaves extends Migration
     public function up()
     {
         Schema::table('employee_leaves', function (Blueprint $table) {
-            $table->dropForeign('employee_leaves_leave_type_id_foreign');
-            //$table->dropColumn('leave_type_id');
-           // $table->tinyInteger('leave_type_id')->comment('0=causal leave ,1= sick leave,2=hospitalisation,3=maternity,4=paternity,5=lop')->nullable();
+            //
+            $table->dropColumn('leave_type_id');
+
+            //$table->tinyInteger('leave_type_id')->comment('0=causal leave ,1= sick leave,2=hospitalisation,3=maternity,4=paternity,5=lop')->nullable();
         });
     }
 
