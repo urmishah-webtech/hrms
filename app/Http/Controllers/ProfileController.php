@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Employee;
 use App\ProfilePersonalInformations; 
 use App\ProfileEmergencyContact; 
+use App\TerminationType;
+use App\Termination;
 use Auth;
 use Illuminate\Support\Carbon;
 use Validator;
@@ -20,9 +22,9 @@ class ProfileController extends Controller
         $userd = Auth::user()->id;
         $emp_profile=Employee::where('id',$userd)->first();
 		$per_info=ProfilePersonalInformations::where('emp_id',$userd)->first();
-		 
+		$terminate_emp = Termination::where('employee_id', $userd)->first();  
 		$contact=ProfileEmergencyContact::where('emp_id',$userd)->first();		
-        return view('profile',compact('emp_profile','per_info','contact'));
+        return view('profile',compact('emp_profile','per_info','contact','terminate_emp'));
     }
 	 
 	public function add_profile_personal_informations(Request $request){

@@ -169,7 +169,8 @@ class EmployeeVerbalWarningController extends Controller
     public function Profile_EmployeeVerbalWarning_list($id){ 
         $userd = Auth::user()->id;
         $first_comment = EmployeeFirstVerbalWarning::where('emp_id', $id)->get();
-         
+        $second_comment = EmployeeSecondVerbalWarning::where('emp_id', $id)->get();
+        $third_comment = EmployeeThirdVerbalWarning::where('emp_id', $id)->get();
         //dd($first_comment);
         $emp_role = Employee::where('role_id', 3)->get('id');         
         $first_getw = EmployeeFirstVerbalWarning::where('emp_id',$userd)->get();
@@ -179,7 +180,7 @@ class EmployeeVerbalWarningController extends Controller
         $second_adman = EmployeeSecondVerbalWarning::all();
         $third_emp = EmployeeThirdVerbalWarning::where('emp_id',$userd)->get();
         $third_adman = EmployeeThirdVerbalWarning::all();
-        return view('/profile-employee-warning',compact('first_comment','emp_role','first_warning_dt','first_getw','second_emp','second_adman','third_emp','third_adman'));
+        return view('/profile-employee-warning',compact('first_comment', 'second_comment', 'third_comment', 'emp_role','first_warning_dt','first_getw','second_emp','second_adman','third_emp','third_adman'));
          
     }
     /*public function Profile_Employee_Warning(Request $request){        

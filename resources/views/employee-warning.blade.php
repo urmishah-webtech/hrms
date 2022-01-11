@@ -17,11 +17,11 @@
                                 <li class="breadcrumb-item active">Employees Warning</li>
                             </ul>
                         </div>
- 
+                        @if(Auth::user()->role_id != 3)
                         <div class="col-auto float-right ml-auto">
                             <a href="#" class="btn add-btn" data-toggle="modal" data-target="#add_indicator"><i class="fa fa-plus"></i> Add New</a>
                         </div>
-                         
+                        @endif 
                     </div>
                 </div>
                 <!-- /Page Header -->
@@ -243,6 +243,9 @@
 													 											 
 													 <tr>
 														<td>1</td>
+                                                        @if(Auth::user()->role_id == 3)
+                                                        <input type="hidden" name="emp_id[]" value="{{Auth::user()->id}}">
+                                                        @endif
                                                         @if(Auth::user()->role_id != 3)
                                                         <td>
                                                             <select class="select" name="emp_id[]" required>
@@ -298,6 +301,9 @@
 													 											 
 													 <tr>
 														<td>1</td>
+                                                        @if(Auth::user()->role_id == 3)
+                                                        <input type="hidden" name="emp_id[]" value="{{Auth::user()->id}}">
+                                                        @endif
                                                         @if(Auth::user()->role_id != 3)
                                                         <td>
                                                             <select class="select" name="emp_id[]">
@@ -352,6 +358,9 @@
 													 											 
 													 <tr>
 														<td>1</td>
+                                                        @if(Auth::user()->role_id == 3)
+                                                        <input type="hidden" name="emp_id[]" value="{{Auth::user()->id}}">
+                                                        @endif
                                                         @if(Auth::user()->role_id != 3)
                                                         <td>
                                                             <select class="select" name="emp_id[]" >
@@ -425,7 +434,7 @@
 												<thead>
 													<tr>
 														<th style="width:40px;">#</th>
-                                                        <th>Employees</th>
+                                                        @if(Auth::user()->role_id != 3)<th>Employees</th>@endif
 														<th>Employee Comment</th>
 														<th>Manager's Comment</th>
 														<th>Admin Comment</th>
@@ -435,6 +444,7 @@
 												<tbody id="table_goals_tbody">       
 													<tr>  
 														<td id="indexid"></td>
+                                                        @if(Auth::user()->role_id != 3)
                                                         <td>
                                                             <select class="form-control" id="select_emp_id_edit" name="emp_id" readonly style="pointer-events:none;">
                                                                 <option>Select Employee</option>
@@ -445,6 +455,7 @@
                                                                 @endisset
                                                             </select>
                                                         </td>
+                                                        @endif
 														<td><input type="text" class="form-control" name="employee_comments" id="employee_comments" @if(Auth::user()->role_id != 3) readonly @endif></td>
 														<td><input type="text" class="form-control" name="managers_comments" id="managers_comments" @if(Auth::user()->role_id != 2)readonly @endif ></td>
 														<td><input type="text" class="form-control" name="admin_comments" id="admin_comments" @if(Auth::user()->role_id != 1)readonly @endif></td>
@@ -490,7 +501,7 @@
 												<thead>
 													<tr>
 														<th style="width:40px;">#</th>
-                                                        <th>Employees</th>
+                                                        @if(Auth::user()->role_id != 3)<th>Employees</th>@endif
 														<th>Employee Comment</th>
 														<th>Manager's Comment</th>
 														<th>Admin Comment</th>
@@ -500,6 +511,7 @@
 												<tbody id="table_goals_tbody">       
 													<tr>  
 														<td id="indexid2"></td>
+                                                        @if(Auth::user()->role_id != 3)
                                                         <td>
                                                             <select class="form-control" id="select_emp_id_edit2" name="emp_id" readonly style="pointer-events:none;">
                                                                 <option>Select Employee</option>
@@ -510,6 +522,7 @@
                                                                 @endisset
                                                             </select>
                                                         </td>
+                                                        @endif
 														<td><input type="text" class="form-control" name="employee_comments" id="employee_comments2" @if(Auth::user()->role_id != 3) readonly @endif></td>
 														<td><input type="text" class="form-control" name="managers_comments" id="managers_comments2" @if(Auth::user()->role_id != 2)readonly @endif ></td>
 														<td><input type="text" class="form-control" name="admin_comments" id="admin_comments2" @if(Auth::user()->role_id != 1)readonly @endif></td>
@@ -555,7 +568,7 @@
 												<thead>
 													<tr>
 														<th style="width:40px;">#</th>
-                                                        <th>Employee</th>
+                                                        @if(Auth::user()->role_id != 3)<th>Employee</th>@endif
 														<th>Employee Comment</th>
 														<th>Manager's Comment</th>
 														<th>Admin Comment</th> 
@@ -564,6 +577,7 @@
 												<tbody id="table_goals_tbody">       
 													<tr>  
 														<td id="indexid3"></td>
+                                                        @if(Auth::user()->role_id != 3)
                                                         <td>
                                                             <select class="form-control" id="select_emp_id_edit3" name="emp_id" readonly style="pointer-events:none;">
                                                                 <option>Select Employee</option>
@@ -574,6 +588,7 @@
                                                                 @endisset
                                                             </select>
                                                         </td>
+                                                        @endif
 														<td><input type="text" class="form-control" name="employee_comments" id="employee_comments3" @if(Auth::user()->role_id != 3) readonly @endif></td>
 														<td><input type="text" class="form-control" name="managers_comments" id="managers_comments3" @if(Auth::user()->role_id != 2)readonly @endif ></td>
 														<td><input type="text" class="form-control" name="admin_comments" id="admin_comments3" @if(Auth::user()->role_id != 1)readonly @endif></td>
