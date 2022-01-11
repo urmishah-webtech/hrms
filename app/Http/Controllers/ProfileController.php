@@ -20,6 +20,7 @@ class ProfileController extends Controller
         $userd = Auth::user()->id;
         $emp_profile=Employee::where('id',$userd)->first();
 		$per_info=ProfilePersonalInformations::where('emp_id',$userd)->first();
+		 
 		$contact=ProfileEmergencyContact::where('emp_id',$userd)->first();		
         return view('profile',compact('emp_profile','per_info','contact'));
     }

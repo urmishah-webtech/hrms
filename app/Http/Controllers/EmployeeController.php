@@ -188,7 +188,7 @@ class EmployeeController extends Controller
         if($search_designation!=""){
             $emp=$emp->where('designation_id',$search_designation);
         }
-        $emps=$emp->get();
+        $emps=$emp->get();        
         $modules=Module::get();
         $emp_permissions=EmpPermission::get();
         $permission_modules=PermissionModule::get();

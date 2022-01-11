@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 class Employee extends Authenticatable
 {
     use HasRoles, Notifiable;
+  
     protected $fillable = [
         'name', 'email', 'role_id', 'gender',
     ];

@@ -50,7 +50,12 @@
                                                 <a href="profile">{{$termination->employee->first_name}} {{$termination->employee->last_name}}</a>
                                             </h2>
                                         </td>
-                                        <td>{{$termination->employee->department->name}}</td>
+                                        <td>@if(isset($termination->employee->department->name))
+                                            {{$termination->employee->department->name}}
+                                            @else
+                                            -
+                                            @endif
+                                        </td>
                                         <td>{{$termination->type}}</td>
                                         <td>{{date('d M Y', strtotime($termination->termination_date))}}</td>
                                         <td>{{$termination->reason}}</td>
@@ -96,7 +101,7 @@
                                     <select class="select" name="employee_id">
                                         @if($employees)
                                         @foreach($employees as $employee)
-                                            <option value="{{$employee->id}}">{{$employee->first_name}} {{$employee->last_name}}</option>
+                                            <option value="{{$employee->id}}" <?php if(!empty($resignation) && $resignation->employeeid == $employee->id) echo 'selected="selected"'; ?>>{{$employee->first_name}} {{$employee->last_name}}</option>
                                         @endforeach
                                         @endif
                                     </select>
@@ -123,12 +128,15 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Reason <span class="text-danger">*</span></label>
-                                    <textarea class="form-control" rows="4" name="reason"></textarea>
+                                    <textarea class="form-control" rows="4" name="reason" style="text-align: inherit;">
+                                        <?php if(!empty($resignation) && !empty($resignation->reason)) echo $resignation->reason;
+                                        ?>
+                                    </textarea>
                                 </div>
                                 <div class="form-group">
                                     <label>Notice Date <span class="text-danger">*</span></label>
                                     <div class="cal-icon">
-                                        <input type="text" class="form-control datetimepicker" name="notice_date">
+                                        <input type="text" class="form-control datetimepicker" name="notice_date" @if(!empty($resignation) && !empty($resignation->noticedate)) value="{{$resignation->noticedate}}" @endif>
                                     </div>
                                 </div>
                                 <div class="submit-section">
@@ -266,3 +274,13 @@
         });
 
     </script>
+    @if(!empty(Session::get('form')) && Session::get('form') == 'create')
+    <script>
+    $(function() {
+        $('#add_termination').modal('show');
+
+
+    });
+    </script>
+    <?php session()->forget('form');?>
+    @endif

@@ -74,6 +74,18 @@
 					<li class="{{ Request::is('resignation') ? 'active' : '' }}">
 						<a  href="{{ url('resignation') }}"><i class="la la-external-link-square"></i> <span>Resignation</span>  </a>
 					</li>
+					@if (Auth::user()->role_id != 1)
+					<li>
+						<a class="{{ Request::is('leaves-employee') ? 'active' : '' }}" href="{{ url('leaves-employee') }}"><i class="la la-external-link-square"></i>
+						Leaves</a></li>	
+					<li>
+					@endif
+					@if (Auth::user()->role_id == 1 || Auth::user()->role_id==2)
+					<li>
+						<a class="{{ Request::is('leaves') ? 'active' : '' }}" href="{{ url('leaves') }}">Leaves Approve</a></li>								
+	
+					<li>
+					@endif
 					<li class="menu-title"> 
 						<span>Administration</span>
 					</li> 

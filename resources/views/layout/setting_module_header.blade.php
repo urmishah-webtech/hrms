@@ -375,6 +375,11 @@
 				<li class="{{ Request::is('theme-settings') ? 'active' : '' }}">
 					<a  href="{{ url('theme-settings') }}"><i class="la la-photo"></i><span>Theme Settings</span>  </a>
 				</li>
+				@if(Auth::user()->role_id==1)
+				<li class="{{ Request::is('leave-settings') ? 'active' : '' }}">
+					<a  href="{{ url('leave-settings') }}"><i class="la la-photo"></i><span>Leave Settings</span>  </a>
+				</li>
+				@endif
 				<li class="{{ Request::is('roles-permissions') ? 'active' : '' }}">
 					<a  href="{{ url('roles-permissions') }}"><i class="la la-key"></i> <span>Roles & Permissions</span>  </a>
 				</li>

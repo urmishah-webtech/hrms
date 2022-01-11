@@ -81,7 +81,13 @@ Route::post('search_employee','EmployeeController@search_employee')->name('searc
 Route::get('/leave-settings','LeaveTypeController@index')->name('leave-settings');
 Route::post('/save_leave_settings','LeaveTypeController@save_leave_settings')->name('save_leave_settings');
 Route::get('/leaves-employee','EmployeeLeaveController@index')->name('leaves-employee');
-    
+Route::post('/save_leave','EmployeeLeaveController@save_leave')->name('save_leave');
+Route::post('/update_leave','EmployeeLeaveController@update_leave')->name('update_leave');
+Route::get('/delete_emp_leave/{id}','EmployeeLeaveController@delete_leave')->name('delete_leave');
+Route::get('/edit_emp_leave/{id}','EmployeeLeaveController@edit_leave')->name('edit_leave');
+Route::get('/leaves','AdminLeaveController@index')->name('leaves');
+Route::get('/change_leave_status/{type}/{id}','AdminLeaveController@change_leave_status')->name('change_leave_status');
+Route::post('search_leave_employees','AdminLeaveController@search_leave_employee')->name('search_leave_employees');
 //leave routes end
 
 
@@ -90,10 +96,6 @@ Route::post('save-holiday','HolidayController@save')->name('holiday.save');
 Route::get('/delete-holiday/{id?}', 'HolidayController@delete')->name('holiday.delete');
 Route::post('/update-holiday', 'HolidayController@update')->name('holiday.update');
 Route::get('/get-holidays','HolidayController@getHolidays');
-
-Route::get('/leaves', function () {
-    return view('leaves');
-});
 
 Route::get('/attendance', function () {
     return view('attendance');
@@ -219,6 +221,8 @@ Route::get('/termination', 'TerminationController@list')->name('termination');
 Route::post('/create-termination', 'TerminationController@save')->name('termination.save');
 Route::post('/update-termination', 'TerminationController@update')->name('termination.update');
 Route::get('/delete-termination/{id?}', 'TerminationController@delete')->name('termination.delete');
+Route::get('/open-termination-create-form/{id?}', 'TerminationController@openCreateForm')->name('termination.openCreateForm');
+
 
 
 
