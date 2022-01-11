@@ -152,7 +152,7 @@
 			function GetDynamicTextBox(table_id) {
 				$('#comments_remove').remove();
 				var rowsLength = document.getElementById(table_id).getElementsByTagName("tbody")[0].getElementsByTagName("tr").length+1;
-				return '<td>'+rowsLength+'</td>' + '<td><input type="text" name = "employee_comments[]" class="form-control" @if(Auth::user()->role_id != 3) readonly @endif></td>'+ '<td><input type="text" name = "managers_comments[]" class="form-control" @if(Auth::user()->role_id != 2)readonly @endif></td>' + '<td><input type="text" name = "admin_comments[]" class="form-control" @if(Auth::user()->role_id != 1)readonly @endif></td>' + '<td><input type="text" name = "areas_for_improvement[]" class="form-control" @if(Auth::user()->role_id == 3)readonly @endif></td>' + '<td><button type="button" class="btn btn-danger" id="comments_remove"><i class="fa fa-trash-o"></i></button></td>'
+				return '<td>'+rowsLength+'</td>' + '@if(Auth::user()->role_id != 3)<td><select class="form-control" name="emp_id[]" ><option>Select Employee</option>@isset($emp_name) @foreach($emp_name as $val)<option value="{{ $val->id }}">{{ $val->first_name }}</option>@endforeach @endisset</select></td>@endif' + '<td><input type="text" name = "employee_comments[]" class="form-control" @if(Auth::user()->role_id != 3) readonly @endif></td>'+ '<td><input type="text" name = "managers_comments[]" class="form-control" @if(Auth::user()->role_id != 2)readonly @endif></td>' + '<td><input type="text" name = "admin_comments[]" class="form-control" @if(Auth::user()->role_id != 1)readonly @endif></td>' + '<td><input type="text" name = "areas_for_improvement[]" class="form-control" @if(Auth::user()->role_id == 3)readonly @endif></td>' + '<td><button type="button" class="btn btn-danger" id="comments_remove"><i class="fa fa-trash-o"></i></button></td>'
 			}
 		});
 		/// Second Warning
@@ -171,7 +171,7 @@
 			function GetDynamicTextBox(table_id) {
 				$('#comments_remove').remove();
 				var rowsLength = document.getElementById(table_id).getElementsByTagName("tbody")[0].getElementsByTagName("tr").length+1;
-				return '<td>'+rowsLength+'</td>' + '<td><input type="text" name = "employee_comments[]" class="form-control" @if(Auth::user()->role_id != 3) readonly @endif></td>'+ '<td><input type="text" name = "managers_comments[]" class="form-control" @if(Auth::user()->role_id != 2)readonly @endif></td>' + '<td><input type="text" name = "admin_comments[]" class="form-control" @if(Auth::user()->role_id != 1)readonly @endif></td>' + '<td><input type="text" name = "areas_for_improvement[]" class="form-control" @if(Auth::user()->role_id == 3)readonly @endif></td>' + '<td><button type="button" class="btn btn-danger" id="comments_remove"><i class="fa fa-trash-o"></i></button></td>'
+				return '<td>'+rowsLength+'</td>' + '@if(Auth::user()->role_id != 3)<td><select class="form-control" name="emp_id[]" ><option>Select Employee</option>@isset($emp_name) @foreach($emp_name as $val)<option value="{{ $val->id }}">{{ $val->first_name }}</option>@endforeach @endisset</select></td>@endif' +'<td><input type="text" name = "employee_comments[]" class="form-control" @if(Auth::user()->role_id != 3) readonly @endif></td>'+ '<td><input type="text" name = "managers_comments[]" class="form-control" @if(Auth::user()->role_id != 2)readonly @endif></td>' + '<td><input type="text" name = "admin_comments[]" class="form-control" @if(Auth::user()->role_id != 1)readonly @endif></td>' + '<td><input type="text" name = "areas_for_improvement[]" class="form-control" @if(Auth::user()->role_id == 3)readonly @endif></td>' + '<td><button type="button" class="btn btn-danger" id="comments_remove"><i class="fa fa-trash-o"></i></button></td>'
 			}
 		});
 		/// Third Warning
@@ -190,7 +190,7 @@
 			function GetDynamicTextBox(table_id) {
 				$('#comments_remove').remove();
 				var rowsLength = document.getElementById(table_id).getElementsByTagName("tbody")[0].getElementsByTagName("tr").length+1;
-				return '<td>'+rowsLength+'</td>' + '<td><input type="text" name = "employee_comments[]" class="form-control" @if(Auth::user()->role_id != 3) readonly @endif></td>'+ '<td><input type="text" name = "managers_comments[]" class="form-control" @if(Auth::user()->role_id != 2)readonly @endif></td>' + '<td><input type="text" name = "admin_comments[]" class="form-control" @if(Auth::user()->role_id != 1)readonly @endif></td>' + '<td><button type="button" class="btn btn-danger" id="comments_remove"><i class="fa fa-trash-o"></i></button></td>'
+				return '<td>'+rowsLength+'</td>'+ '@if(Auth::user()->role_id != 3)<td><select class="form-control" name="emp_id[]" ><option>Select Employee</option>@isset($emp_name) @foreach($emp_name as $val)<option value="{{ $val->id }}">{{ $val->first_name }}</option>@endforeach @endisset</select></td>@endif' + '<td><input type="text" name = "employee_comments[]" class="form-control" @if(Auth::user()->role_id != 3) readonly @endif></td>'+ '<td><input type="text" name = "managers_comments[]" class="form-control" @if(Auth::user()->role_id != 2)readonly @endif></td>' + '<td><input type="text" name = "admin_comments[]" class="form-control" @if(Auth::user()->role_id != 1)readonly @endif></td>' + '<td><button type="button" class="btn btn-danger" id="comments_remove"><i class="fa fa-trash-o"></i></button></td>'
 			}
 		});
 		</script>
@@ -663,16 +663,20 @@
  
 			$(document).on("click",".editwarningbtn",function() {
 				var id=$(this).data('id');
+				var seelct_emp=$(this).data('emp_id');
 				$("#indexid").text(id);				 
 				$("input[id=getidjq]").val($(this).data('id')); 
 				var employee_comments = $(this).data('employee_comments');							
 				$("#employee_comments").val(employee_comments); 
+				$("#select_emp_id_edit option[value='"+seelct_emp+"']").prop('selected',true);
 				$("#managers_comments").val($(this).data('managers_comments')); 
 				$("#admin_comments").val($(this).data('admin_comments')); 
 				$("#areas_for_improvement").val($(this).data('areas_for_improvement')); 									 
 			})
 			$(document).on("click",".secondeditwarningbtn",function() {
 				var id=$(this).data('id');
+				var seelct_emp=$(this).data('emp_id');
+				$("#select_emp_id_edit2 option[value='"+seelct_emp+"']").prop('selected',true);
 				$("#indexid2").text(id);				 
 				$("input[id=getidjq2]").val($(this).data('id')); 
 				$("#employee_comments2").val($(this).data('employee_comments')); 
@@ -682,6 +686,8 @@
 			})
 			$(document).on("click",".thirdeditwarningbtn",function() {
 				var id=$(this).data('id');
+				var seelct_emp=$(this).data('emp_id');
+				$("#select_emp_id_edit3 option[value='"+seelct_emp+"']").prop('selected',true);
 				$("#indexid3").text(id);				 
 				$("input[id=getidjq3]").val($(this).data('id')); 
 				$("#employee_comments3").val($(this).data('employee_comments')); 

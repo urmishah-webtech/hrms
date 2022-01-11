@@ -17,9 +17,11 @@
                                 <li class="breadcrumb-item active">Employees Warning</li>
                             </ul>
                         </div>
+                        @if(Auth::user()->role_id != 3)
                         <div class="col-auto float-right ml-auto">
                             <a href="#" class="btn add-btn" data-toggle="modal" data-target="#add_indicator"><i class="fa fa-plus"></i> Add New</a>
                         </div>
+                        @endif 
                     </div>
                 </div>
                 <!-- /Page Header -->
@@ -38,6 +40,7 @@
                                     <tr>
                                         <th style="width: 30px;">#</th>
                                         <th>Warning</th>
+                                        <th>Employees</th>
                                         <th>Employee Comments</th>
                                         <th>Manager's Comments</th>
                                         <th>Admin Comments</th>
@@ -53,6 +56,7 @@
                                         <input type="hidden" name="editid" value="{{ @$val->id }}">
                                         <td>{{ @$val->id }}</td>
                                         <td>First</td>
+                                        <td>{{ @$val->employee->first_name }}</td>
                                         <td class="tdindicator">{{ @$val->employee_comments }}</td>                                        
                                         <td>{{ @$val->managers_comments}}</td>                                        
                                         <td>{{ @$val->admin_comments}}</td>
@@ -61,7 +65,7 @@
                                             <div class="dropdown dropdown-action">
                                                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item editwarningbtn" href="#" data-id="{{ @$val->id }}"  data-employee_comments="{{ @$val->employee_comments }}" data-managers_comments="{{ @$val->managers_comments }}" data-admin_comments="{{ @$val->admin_comments }}" data-areas_for_improvement="{{ @$val->areas_for_improvement }}" data-toggle="modal" data-target="#edit_indicator"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                                    <a class="dropdown-item editwarningbtn" href="#" data-id="{{ @$val->id }}" data-emp_id="{{ @$val->emp_id }}"  data-employee_comments="{{ @$val->employee_comments }}" data-managers_comments="{{ @$val->managers_comments }}" data-admin_comments="{{ @$val->admin_comments }}" data-areas_for_improvement="{{ @$val->areas_for_improvement }}" data-toggle="modal" data-target="#edit_indicator"><i class="fa fa-pencil m-r-5"></i> Edit</a>
                                                     <a class="dropdown-item deleteWarningbtn" href="#" data-id="{{ @$val->id }}" data-toggle="modal" data-target="#delete_EmpVerbalWarning"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                                                 </div>
                                             </div>
@@ -76,7 +80,8 @@
                                         <input type="hidden" name="editid" value="{{ @$val->id }}">
                                         <td>{{ @$val->id }}</td>
                                         <td>First</td>
-                                        <td class="tdindicator">{{ @$val->employee_comments }}</td>                                        
+                                        <td>{{ @$val->employee->first_name }}</td>
+                                        <td>{{ @$val->employee_comments }}</td>                                        
                                         <td>{{ @$val->managers_comments}}</td>                                        
                                         <td>{{ @$val->admin_comments}}</td>
                                         <td>{{ @$val->areas_for_improvement }}</td>
@@ -84,7 +89,7 @@
                                             <div class="dropdown dropdown-action">
                                                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item editwarningbtn" href="#" data-id="{{ @$val->id }}"  data-employee_comments="{{ @$val->employee_comments }}" data-managers_comments="{{ @$val->managers_comments }}" data-admin_comments="{{ @$val->admin_comments }}" data-areas_for_improvement="{{ @$val->areas_for_improvement }}" data-toggle="modal" data-target="#edit_indicator"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                                    <a class="dropdown-item editwarningbtn" href="#" data-id="{{ @$val->id }}" data-emp_id="{{ @$val->emp_id }}" data-employee_comments="{{ @$val->employee_comments }}" data-managers_comments="{{ @$val->managers_comments }}" data-admin_comments="{{ @$val->admin_comments }}" data-areas_for_improvement="{{ @$val->areas_for_improvement }}" data-toggle="modal" data-target="#edit_indicator"><i class="fa fa-pencil m-r-5"></i> Edit</a>
                                                     <a class="dropdown-item deleteWarningbtn" href="#" data-id="{{ @$val->id }}" data-toggle="modal" data-target="#delete_EmpVerbalWarning"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                                                 </div>
                                             </div>
@@ -101,6 +106,7 @@
                                         <input type="hidden" name="editid" value="{{ @$val->id }}">
                                         <td>{{ @$val->id }}</td>
                                         <td>Second</td>
+                                        <td>{{ @$val->employee->first_name }}</td>
                                         <td class="tdindicator">{{ @$val->employee_comments }}</td>                                        
                                         <td>{{ @$val->managers_comments}}</td>                                        
                                         <td>{{ @$val->admin_comments}}</td>
@@ -109,7 +115,7 @@
                                             <div class="dropdown dropdown-action">
                                                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item secondeditwarningbtn" href="#" data-id="{{ @$val->id }}"  data-employee_comments="{{ @$val->employee_comments }}" data-managers_comments="{{ @$val->managers_comments }}" data-admin_comments="{{ @$val->admin_comments }}" data-areas_for_improvement="{{ @$val->areas_for_improvement }}" data-toggle="modal" data-target="#edit_second_warning"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                                    <a class="dropdown-item secondeditwarningbtn" href="#" data-id="{{ @$val->id }}" data-emp_id="{{ @$val->emp_id }}"  data-employee_comments="{{ @$val->employee_comments }}" data-managers_comments="{{ @$val->managers_comments }}" data-admin_comments="{{ @$val->admin_comments }}" data-areas_for_improvement="{{ @$val->areas_for_improvement }}" data-toggle="modal" data-target="#edit_second_warning"><i class="fa fa-pencil m-r-5"></i> Edit</a>
                                                     <a class="dropdown-item seconddeleteWarningbtn" href="#" data-id="{{ @$val->id }}" data-toggle="modal" data-target="#delete_EmpVerbalWarning"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                                                 </div>
                                             </div>
@@ -124,6 +130,7 @@
                                         <input type="hidden" name="editid" value="{{ @$val->id }}">
                                         <td>{{ @$val->id }}</td>
                                         <td>Second</td>
+                                        <td>{{ @$val->employee->first_name }}</td>
                                         <td class="tdindicator">{{ @$val->employee_comments }}</td>                                        
                                         <td>{{ @$val->managers_comments}}</td>                                        
                                         <td>{{ @$val->admin_comments}}</td>
@@ -132,7 +139,7 @@
                                             <div class="dropdown dropdown-action">
                                                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item secondeditwarningbtn" href="#" data-id="{{ @$val->id }}"  data-employee_comments="{{ @$val->employee_comments }}" data-managers_comments="{{ @$val->managers_comments }}" data-admin_comments="{{ @$val->admin_comments }}" data-areas_for_improvement="{{ @$val->areas_for_improvement }}" data-toggle="modal" data-target="#edit_second_warning"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                                    <a class="dropdown-item secondeditwarningbtn" href="#" data-id="{{ @$val->id }}" data-emp_id="{{ @$val->emp_id }}"  data-employee_comments="{{ @$val->employee_comments }}" data-managers_comments="{{ @$val->managers_comments }}" data-admin_comments="{{ @$val->admin_comments }}" data-areas_for_improvement="{{ @$val->areas_for_improvement }}" data-toggle="modal" data-target="#edit_second_warning"><i class="fa fa-pencil m-r-5"></i> Edit</a>
                                                     <a class="dropdown-item seconddeleteWarningbtn" href="#" data-id="{{ @$val->id }}" data-toggle="modal" data-target="#delete_EmpVerbalWarning"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                                                 </div>
                                             </div>
@@ -149,6 +156,7 @@
                                         <input type="hidden" name="editid" value="{{ @$val->id }}">
                                         <td>{{ @$val->id }}</td>
                                         <td>Third</td>
+                                        <td>{{ @$val->employee->first_name }}</td>
                                         <td class="tdindicator">{{ @$val->employee_comments }}</td>                                        
                                         <td>{{ @$val->managers_comments}}</td>                                        
                                         <td>{{ @$val->admin_comments}}</td>
@@ -157,7 +165,7 @@
                                             <div class="dropdown dropdown-action">
                                                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item thirdeditwarningbtn" href="#" data-id="{{ @$val->id }}"  data-employee_comments="{{ @$val->employee_comments }}" data-managers_comments="{{ @$val->managers_comments }}" data-admin_comments="{{ @$val->admin_comments }}" data-toggle="modal" data-target="#edit_third_warning"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                                    <a class="dropdown-item thirdeditwarningbtn" href="#" data-id="{{ @$val->id }}" data-emp_id="{{ @$val->emp_id }}"  data-employee_comments="{{ @$val->employee_comments }}" data-managers_comments="{{ @$val->managers_comments }}" data-admin_comments="{{ @$val->admin_comments }}" data-toggle="modal" data-target="#edit_third_warning"><i class="fa fa-pencil m-r-5"></i> Edit</a>
                                                     <a class="dropdown-item thirddeleteWarningbtn" href="#" data-id="{{ @$val->id }}" data-toggle="modal" data-target="#delete_EmpVerbalWarning"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                                                 </div>
                                             </div>
@@ -172,6 +180,7 @@
                                         <input type="hidden" name="editid" value="{{ @$val->id }}">
                                         <td>{{ @$val->id }}</td>
                                         <td>Third</td>
+                                        <td>{{ @$val->employee->first_name }}</td>
                                         <td class="tdindicator">{{ @$val->employee_comments }}</td>                                        
                                         <td>{{ @$val->managers_comments}}</td>                                        
                                         <td>{{ @$val->admin_comments}}</td>
@@ -180,7 +189,7 @@
                                             <div class="dropdown dropdown-action">
                                                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item thirdeditwarningbtn" href="#" data-id="{{ @$val->id }}"  data-employee_comments="{{ @$val->employee_comments }}" data-managers_comments="{{ @$val->managers_comments }}" data-admin_comments="{{ @$val->admin_comments }}" data-toggle="modal" data-target="#edit_third_warning"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                                    <a class="dropdown-item thirdeditwarningbtn" href="#" data-id="{{ @$val->id }}" data-emp_id="{{ @$val->emp_id }}"   data-employee_comments="{{ @$val->employee_comments }}" data-managers_comments="{{ @$val->managers_comments }}" data-admin_comments="{{ @$val->admin_comments }}" data-toggle="modal" data-target="#edit_third_warning"><i class="fa fa-pencil m-r-5"></i> Edit</a>
                                                     <a class="dropdown-item thirddeleteWarningbtn" href="#" data-id="{{ @$val->id }}" data-toggle="modal" data-target="#delete_EmpVerbalWarning"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                                                 </div>
                                             </div>
@@ -222,6 +231,7 @@
 												<thead>
 													<tr> 
 														<th style="width:40px;">#</th>
+                                                        @if(Auth::user()->role_id != 3)<th>Employees</th>@endif
 														<th>Employee Comment</th>
 														<th>Manager's Comment</th>
 														<th>Admin Comment</th>
@@ -233,6 +243,21 @@
 													 											 
 													 <tr>
 														<td>1</td>
+                                                        @if(Auth::user()->role_id == 3)
+                                                        <input type="hidden" name="emp_id[]" value="{{Auth::user()->id}}">
+                                                        @endif
+                                                        @if(Auth::user()->role_id != 3)
+                                                        <td>
+                                                            <select class="select" name="emp_id[]" required>
+                                                                <option>Select Employee</option>
+                                                                @isset($emp_name)
+                                                                    @foreach($emp_name as $val)
+                                                                        <option value="{{ $val->id }}">{{ $val->first_name }}</option>
+                                                                    @endforeach
+                                                                @endisset
+                                                            </select>
+                                                        </td>
+                                                        @endif
 														<td><input type="text" class="form-control" name="employee_comments[]"  @if(Auth::user()->role_id != 3) readonly @endif ></td>
 														<td><input type="text" class="form-control" name="managers_comments[]" @if(Auth::user()->role_id != 2)readonly @endif></td>
 														<td><input type="text" class="form-control" name="admin_comments[]" @if(Auth::user()->role_id != 1)readonly @endif></td>
@@ -264,6 +289,7 @@
 												<thead>
 													<tr>
 														<th style="width:40px;">#</th>
+                                                        @if(Auth::user()->role_id != 3)<th>Employees</th>@endif
 														<th>Employee Comment</th>
 														<th>Manager's Comment</th>
 														<th>Admin Comment</th>
@@ -275,6 +301,21 @@
 													 											 
 													 <tr>
 														<td>1</td>
+                                                        @if(Auth::user()->role_id == 3)
+                                                        <input type="hidden" name="emp_id[]" value="{{Auth::user()->id}}">
+                                                        @endif
+                                                        @if(Auth::user()->role_id != 3)
+                                                        <td>
+                                                            <select class="select" name="emp_id[]">
+                                                                <option>Select Employee</option>
+                                                                @isset($emp_name)
+                                                                    @foreach($emp_name as $val)
+                                                                        <option value="{{ $val->id }}">{{ $val->first_name }}</option>
+                                                                    @endforeach
+                                                                @endisset
+                                                            </select>
+                                                        </td>
+                                                        @endif
 														<td><input type="text" class="form-control" name="employee_comments[]"  @if(Auth::user()->role_id != 3) readonly @endif ></td>
 														<td><input type="text" class="form-control" name="managers_comments[]" @if(Auth::user()->role_id != 2)readonly @endif></td>
 														<td><input type="text" class="form-control" name="admin_comments[]" @if(Auth::user()->role_id != 1)readonly @endif></td>
@@ -306,6 +347,7 @@
 												<thead>
 													<tr>
 														<th style="width:40px;">#</th>
+                                                        @if(Auth::user()->role_id != 3)<th>Employees</th>@endif
 														<th>Employee Comment</th>
 														<th>Manager's Comment</th>
 														<th>Admin Comment</th>
@@ -316,6 +358,21 @@
 													 											 
 													 <tr>
 														<td>1</td>
+                                                        @if(Auth::user()->role_id == 3)
+                                                        <input type="hidden" name="emp_id[]" value="{{Auth::user()->id}}">
+                                                        @endif
+                                                        @if(Auth::user()->role_id != 3)
+                                                        <td>
+                                                            <select class="select" name="emp_id[]" >
+                                                                <option>Select Employee</option>
+                                                                @isset($emp_name)
+                                                                    @foreach($emp_name as $val)
+                                                                        <option value="{{ $val->id }}">{{ $val->first_name }}</option>
+                                                                    @endforeach
+                                                                @endisset
+                                                            </select>
+                                                        </td>
+                                                        @endif
 														<td><input type="text" class="form-control" name="employee_comments[]"  @if(Auth::user()->role_id != 3) readonly @endif ></td>
 														<td><input type="text" class="form-control" name="managers_comments[]" @if(Auth::user()->role_id != 2)readonly @endif></td>
 														<td><input type="text" class="form-control" name="admin_comments[]" @if(Auth::user()->role_id != 1)readonly @endif></td>
@@ -331,7 +388,22 @@
 										</div>
 									</div>
 								</div>
-							</section>                           
+							</section>   
+                            <section class="review-section" >
+								<div class="row">
+									<div class="col-md-12">
+										<div class="table-responsive">
+											<table class="table table-bordered" >
+												<tbody >
+                                                    <tr>
+                                                         <th>System will recommend a Performance Improvement Plan (PIP), which will be measured, and if any issues with completing that PIP, then Termination will be in effect.</th>
+                                                     </tr> 	
+												</tbody>
+											</table>
+										</div>
+									</div>
+								</div>
+							</section>                         
                         </div>
                     </div>
                 </div>
@@ -362,6 +434,7 @@
 												<thead>
 													<tr>
 														<th style="width:40px;">#</th>
+                                                        @if(Auth::user()->role_id != 3)<th>Employees</th>@endif
 														<th>Employee Comment</th>
 														<th>Manager's Comment</th>
 														<th>Admin Comment</th>
@@ -371,6 +444,18 @@
 												<tbody id="table_goals_tbody">       
 													<tr>  
 														<td id="indexid"></td>
+                                                        @if(Auth::user()->role_id != 3)
+                                                        <td>
+                                                            <select class="form-control" id="select_emp_id_edit" name="emp_id" readonly style="pointer-events:none;">
+                                                                <option>Select Employee</option>
+                                                                @isset($emp_name)
+                                                                    @foreach($emp_name as $val)
+                                                                        <option value="{{ $val->id }}" >{{ $val->first_name }}</option>
+                                                                    @endforeach
+                                                                @endisset
+                                                            </select>
+                                                        </td>
+                                                        @endif
 														<td><input type="text" class="form-control" name="employee_comments" id="employee_comments" @if(Auth::user()->role_id != 3) readonly @endif></td>
 														<td><input type="text" class="form-control" name="managers_comments" id="managers_comments" @if(Auth::user()->role_id != 2)readonly @endif ></td>
 														<td><input type="text" class="form-control" name="admin_comments" id="admin_comments" @if(Auth::user()->role_id != 1)readonly @endif></td>
@@ -416,6 +501,7 @@
 												<thead>
 													<tr>
 														<th style="width:40px;">#</th>
+                                                        @if(Auth::user()->role_id != 3)<th>Employees</th>@endif
 														<th>Employee Comment</th>
 														<th>Manager's Comment</th>
 														<th>Admin Comment</th>
@@ -425,6 +511,18 @@
 												<tbody id="table_goals_tbody">       
 													<tr>  
 														<td id="indexid2"></td>
+                                                        @if(Auth::user()->role_id != 3)
+                                                        <td>
+                                                            <select class="form-control" id="select_emp_id_edit2" name="emp_id" readonly style="pointer-events:none;">
+                                                                <option>Select Employee</option>
+                                                                @isset($emp_name)
+                                                                    @foreach($emp_name as $val)
+                                                                        <option value="{{ $val->id }}" >{{ $val->first_name }}</option>
+                                                                    @endforeach
+                                                                @endisset
+                                                            </select>
+                                                        </td>
+                                                        @endif
 														<td><input type="text" class="form-control" name="employee_comments" id="employee_comments2" @if(Auth::user()->role_id != 3) readonly @endif></td>
 														<td><input type="text" class="form-control" name="managers_comments" id="managers_comments2" @if(Auth::user()->role_id != 2)readonly @endif ></td>
 														<td><input type="text" class="form-control" name="admin_comments" id="admin_comments2" @if(Auth::user()->role_id != 1)readonly @endif></td>
@@ -470,6 +568,7 @@
 												<thead>
 													<tr>
 														<th style="width:40px;">#</th>
+                                                        @if(Auth::user()->role_id != 3)<th>Employee</th>@endif
 														<th>Employee Comment</th>
 														<th>Manager's Comment</th>
 														<th>Admin Comment</th> 
@@ -478,6 +577,18 @@
 												<tbody id="table_goals_tbody">       
 													<tr>  
 														<td id="indexid3"></td>
+                                                        @if(Auth::user()->role_id != 3)
+                                                        <td>
+                                                            <select class="form-control" id="select_emp_id_edit3" name="emp_id" readonly style="pointer-events:none;">
+                                                                <option>Select Employee</option>
+                                                                @isset($emp_name)
+                                                                    @foreach($emp_name as $val)
+                                                                        <option value="{{ $val->id }}" >{{ $val->first_name }}</option>
+                                                                    @endforeach
+                                                                @endisset
+                                                            </select>
+                                                        </td>
+                                                        @endif
 														<td><input type="text" class="form-control" name="employee_comments" id="employee_comments3" @if(Auth::user()->role_id != 3) readonly @endif></td>
 														<td><input type="text" class="form-control" name="managers_comments" id="managers_comments3" @if(Auth::user()->role_id != 2)readonly @endif ></td>
 														<td><input type="text" class="form-control" name="admin_comments" id="admin_comments3" @if(Auth::user()->role_id != 1)readonly @endif></td>
