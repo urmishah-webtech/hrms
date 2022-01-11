@@ -6,7 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Employee;
 use App\ProfilePersonalInformations; 
-use App\ProfileEmergencyContact; 
+use App\ProfileEmergencyContact;
+use App\Promotion;
+use App\Termination;
 use Auth;
 use Illuminate\Support\Carbon;
 use Validator;
@@ -15,13 +17,16 @@ use DB;
  
 class ProfileController extends Controller
 {
-    public function Profile_employees()
+    public function Profile_employees($id)
 	{
-        $userd = Auth::user()->id;
+        // $userd = Auth::user()->id;
+		$userd = $id;
         $emp_profile=Employee::where('id',$userd)->first();
 		$per_info=ProfilePersonalInformations::where('emp_id',$userd)->first();
-		$contact=ProfileEmergencyContact::where('emp_id',$userd)->first();		
-        return view('profile',compact('emp_profile','per_info','contact'));
+		$contact=ProfileEmergencyContact::where('emp_id',$userd)->first();	
+		$promotiondata = Promotion::where('employeeid', $id)->get();
+		$terminate_emp = Termination::where('employee_id', $userd)->first();
+        return view('profile',compact('emp_profile','per_info','contact', 'promotiondata', 'id', 'terminate_emp'));
     }
 	 
 	public function add_profile_personal_informations(Request $request){
