@@ -68,7 +68,6 @@
                             @isset($employee_tb)
                                 @foreach ($employee_tb as $item)
                                 <option value="{{ $item->id }}" @if(@$search_employee_name==$item->id ) selected @endif>{{ $item->first_name }}</option>
-                                   <!-- <option value="{{ $item->employee_id }}" @if(@$search_employee_name==$item->employee_id ) selected @endif>{{ $item->employee->first_name }}</option>-->
                                 @endforeach
                             @endisset
                         </select>

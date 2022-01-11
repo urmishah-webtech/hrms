@@ -104,6 +104,9 @@
                                                 <h2 class="table-avatar">
                                                     <a href="profile" class="avatar avatar-xs"><img src="img/profiles/avatar-09.jpg" alt=""></a>
                                                     <a href="#">{{ @$my_manager_name->first_name }}</a>
+                                                    @empty($my_manager_name)
+                                                        Admin
+                                                    @endempty
                                                 </h2>
                                             </td>
                                             <td class="text-right">
