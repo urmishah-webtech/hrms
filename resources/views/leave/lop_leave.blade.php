@@ -61,9 +61,9 @@
             <!-- /Carry Forward -->
             
             <!-- Earned Leave -->
-            <div class="leave-row">
+            <div class="leave-row" style="display: none">
                 <div class="leave-left">
-                    <div class="input-box" style="display: none">
+                    <div class="input-box" >
                         <label class="d-block">Earned leave</label>
                         <div class="leave-inline-form">
                             <div class="form-check form-check-inline">
@@ -88,7 +88,7 @@
         </div>
         
         <!-- Custom Policy -->
-        <div class="custom-policy">
+        <div class="custom-policy" style="display: none">
             <div class="leave-header">
                 <div class="title">Custom policy</div>
                 <div class="leave-action">
