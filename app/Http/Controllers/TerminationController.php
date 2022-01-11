@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\TerminationType;
 use App\Termination;
+use App\Resignation;
 use App\Employee;
 use Auth;
 
@@ -70,13 +71,21 @@ class TerminationController extends Controller
 	];
         
     public function list()
-	{
+	{   
+
+        $resignation = null;   
+        if(!empty(session()->get('resignation_id'))) {
+
+            $resignation =Resignation::find(session()->get('resignation_id'));
+            session()->forget('resignation_id');
+        }
+
 		$terminations = Termination::with(['employee' => function($q) {
 			return $q->with('department');
 		}])->get();
 		$types = TerminationType::where('status', 'Active')->get()->pluck(['type']);
 		$employees = Employee::all();
-    	return view('termination')->with(['terminations'=>$terminations, 'types' => $types, 'employees' => $employees]);
+    	return view('termination')->with(['terminations'=>$terminations, 'types' => $types, 'employees' => $employees, 'resignation' => $resignation]);
 	}
     public function save(Request $request)
     {
@@ -104,5 +113,13 @@ class TerminationController extends Controller
     		return redirect()->back()->with('message', 'Data Deleted.'); 
     	}
     	return redirect()->back()->with('message', 'Try Again!');
+    }
+    public function openCreateForm($resignation_id)
+    {
+
+        session()->put('form', 'create');
+        session()->put('resignation_id', $resignation_id);
+
+        return redirect()->to(route('termination'));
     }
 }
