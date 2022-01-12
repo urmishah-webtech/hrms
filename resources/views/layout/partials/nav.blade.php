@@ -15,22 +15,30 @@
 						<a href="{{ url('employee-dashboard') }}"><i class="la la-dashboard"></i><span>Employee Dashboard</span></a>
 						@endif								
 						 </a>								 
-					</li>					 
+					</li>	
+					@if(Auth::user()->role_id != 3)				 
 					<li class="menu-title"> 
 						<span>Employees</span>
 					</li>
+					
 					<li class="submenu">
 						<a href="#" class="noti-dot"><i class="la la-user"></i> <span> Employees</span> <span class="menu-arrow"></span></a>
 						<ul style="display: none;">
+							@if (Auth::user()->role_id == 1 || Auth::user()->role_id==2)
 							<li>
 								<a class="{{ Request::is('employees') ? 'active' : '' }}" href="{{ url('employees') }}">All Employees</a>
-							</li>			
+							</li>		
+							@endif	
+							@if (Auth::user()->role_id == 1 )
 							<li>
 								<a class="{{ Request::is('departments') ? 'active' : '' }}" href="{{ url('departments') }}">Departments</a>
 							</li>	
+							@endif
+							@if (Auth::user()->role_id == 1 )
 							<li>
 								<a class="{{ Request::is('designations') ? 'active' : '' }}" href="{{ url('designations') }}">Designations</a>
 							</li>
+							@endif
 							<li>
 								<a class="{{ Request::is('employee-warning') ? 'active' : '' }}" href="{{ url('employee-warning') }}">Warning</a>
 							</li>	
@@ -39,7 +47,7 @@
         					</li>	
 						</ul>
 					</li>
-						
+					@endif	
 					<li class="menu-title"> 
 						<span>Performance</span>
 					</li>
@@ -68,9 +76,11 @@
         				<a  href="{{ url('termination') }}"><i class="la la-external-link-square"></i> <span>Termination</span> </a>
         			</li>
 	
+					@if (auth()->user()->role_id != 3)
 					<li class="{{ Request::is('promotion') ? 'active' : '' }}">
 						<a  href="{{ url('promotion') }}"><i class="la la-bullhorn"></i> <span>Promotion</span>  </a>
 					</li>
+					@endif
 					<li class="{{ Request::is('resignation') ? 'active' : '' }}">
 						<a  href="{{ url('resignation') }}"><i class="la la-external-link-square"></i> <span>Resignation</span>  </a>
 					</li>
@@ -99,7 +109,7 @@
 						<a href="#"><i class="la la-user"></i> <span> Profile </span> <span class="menu-arrow"></span></a>
 						<ul style="display: none;">
 							<li>
-								<a class="{{ Request::is('profile') ? 'active' : '' }}" href="{{ url('profile') }}"> Employee Profile  </a>
+								<a class="{{ Request::is('profile') ? 'active' : '' }}" href="{{ route('profile_details', auth()->user()->id) }}"> Employee Profile  </a>
 							</li>
 						</ul>
 					</li>

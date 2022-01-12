@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfessionalExcellenceController;
 use App\Http\Middleware\AuthCheck;
+use App\Http\Middleware\IsAdmin;
 
 /*
 |--------------------------------------------------------------------------
@@ -106,18 +107,7 @@ Route::get('/attendance-employee', function () {
 // Route::get('/departments', function () {
 //     return view('departments');
 // });
-Route::get('/departments','DepartmentController@departments')->name('departments');
-Route::post('add_deaprtment','DepartmentController@add_department')->name('add_department');
-Route::post('edit_department','DepartmentController@edit_department')->name('edit_department');
-Route::post('delete_department','DepartmentController@delete_department')->name('delete_department');
 
-// Route::get('/designations', function () {
-//     return view('designations');
-// });
-Route::get('/designations','DesignationController@designations')->name('designations');
-Route::post('add_designation','DesignationController@add_designation')->name('add_designation');
-Route::post('edit_designation','DesignationController@edit_designation')->name('edit_designation');
-Route::post('delete_designation','DesignationController@delete_designation')->name('delete_designation');
 
 Route::get('/timesheet', function () {
     return view('timesheet');
@@ -321,9 +311,9 @@ Route::get('/delete-termination-type/{id?}', 'TerminationController@deleteType')
 Route::get('/leave-type', function () {
     return view('leave-type');
 });
-Route::get('/profile', function () {
-    return view('profile');
-});
+// Route::get('/profile', function () {
+//     return view('profile');
+// });
 Route::get('/client-profile', function () {
     return view('client-profile');
 });
@@ -625,7 +615,7 @@ Route::post('/edit_man_PerfomanceManagerUse','EmployeePerformanceController@add_
 Route::post('/edit_manPerformanceIdentity','EmployeePerformanceController@add_manager_PerformanceIdentity')->name('edit_manPerformanceIdentity');
 Route::post('search_employee_perfomance','EmployeePerformanceController@search_employee_Perfomance')->name('search_employee_perfomance');
 Route::post('add_managerid_Employee','EmployeePerformanceController@add_managerid_EmployeeBasicInfo')->name('add_managerid_Employees');
-Route::get('profile','ProfileController@Profile_employees')->name('profile_details'); 
+Route::get('profile/{id}','ProfileController@Profile_employees')->name('profile_details'); 
 Route::post('add_personal_info','ProfileController@add_profile_personal_informations')->name('add_personal_info');
 Route::post('add_emergency_contact','ProfileController@add_profile_emergency_contact')->name('add_emergency_contact'); 
 Route::get('/profile-employee-warning/{id}','EmployeeVerbalWarningController@Profile_EmployeeVerbalWarning_list')->name('Edit_Profile_Warning');
@@ -665,6 +655,18 @@ Route::namespace('Auth')->group(function(){
     Route::get('/password/reset/{token}','ResetPasswordController@showResetForm')->name('password.reset');
     Route::post('/password/reset','ResetPasswordController@reset')->name('password.update');
 
+});
+Route::middleware([IfAdmin::class])->group(function () {
+Route::get('/departments','DepartmentController@departments')->name('departments');
+Route::post('add_deaprtment','DepartmentController@add_department')->name('add_department');
+Route::post('edit_department','DepartmentController@edit_department')->name('edit_department');
+Route::post('delete_department','DepartmentController@delete_department')->name('delete_department');
+
+
+Route::get('/designations','DesignationController@designations')->name('designations');
+Route::post('add_designation','DesignationController@add_designation')->name('add_designation');
+Route::post('edit_designation','DesignationController@edit_designation')->name('edit_designation');
+Route::post('delete_designation','DesignationController@delete_designation')->name('delete_designation');
 });
 
  Auth::routes();

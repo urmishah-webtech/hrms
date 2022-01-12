@@ -21,7 +21,16 @@
                     </div>
                 </div>
                 <!-- /Page Header -->
-                
+                @if ($errors->any())
+                <div class="alert alert-danger alert-block">
+                    <button type="button" class="close" data-dismiss="alert">×</button>    
+                   
+                    @if($errors->any())
+                    {!! implode('', $errors->all('<div>:message</div>')) !!}
+                    @endif
+                   
+                </div>
+                @endif
                 <div class="card mb-0">
                     <div class="card-body">
                         <div class="row">
@@ -29,14 +38,18 @@
                                 <div class="profile-view">
                                     <div class="profile-img-wrap">
                                         <div class="profile-img">
-                                            <a href="#"><img alt="" src="img/profiles/avatar-02.jpg"></a>
+                                            <a href="#"><img alt="" src="{{url('img/profiles/avatar-02.jpg')}}"></a>
                                         </div>
                                     </div>
                                     <div class="profile-basic">
                                         <div class="row">
                                             <div class="col-md-5">
                                                 <div class="profile-info-left">
-                                                    <h3 class="user-name m-t-0 mb-0">{{Auth::user()->first_name}}</h3>
+                                                    <h3 class="user-name m-t-0 mb-0">{{$emp_profile->first_name}} {{$emp_profile->last_name}}</h3>
+                                                    <input type="hidden" value="{{$emp_profile->first_name}}" id="first_name">
+                                                    <input type="hidden" value="{{$emp_profile->last_name}}" id="last_name">
+                                                    <input type="hidden" value="{{$emp_profile->phone_no}}" id="phone_no">
+
                                                     <h6 class="staff-id">Department : {{ @$emp_profile->designation->department->name}}</h6>
                                                     <small class="staff-id">Designation : {{ @$emp_profile->designation->name }}</small>
                                                     <div class="staff-id">Employee ID : {{ @$emp_profile->employee_id }}</div>
@@ -48,7 +61,7 @@
                                                 <ul class="personal-info">
 													<li class="profl_firstedit">
                                                         <div class="title">User Role:</div>
-                                                        <div class="text">{{@$emp_profile->role_id}}</div>
+                                                        <div class="text">{{@$emp_profile->role->name}}</div>
                                                     </li>
                                                     <li class="profl_firstedit">
                                                         <div class="title">Phone:</div>
@@ -63,6 +76,10 @@
                                                         <div class="text">{{ @$emp_profile->joing_date }}</div>
                                                     </li> 
                                                 </ul>
+                                                @if(Auth::id()==$emp_profile->id)
+                                                <a href="" class="edit-icon" data-toggle="modal" data-target="#change_info_modal" data-id="{{ @$emp_profile->id }}" data-first_name="{{@$emp_profile->first_name}}"
+                                                    data-last_name="{{@$emp_profile->last_name}}"  data-phone_no="{{$emp_profile->phone_no}}"  ><i class="fa fa-pencil"></i></a>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -162,12 +179,123 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col-md-6 d-flex">
+                                <div class="card profile-box flex-fill">
+                                    <div class="card-body">
+                                        <h3 class="card-title">Experience <a href="{{route('promotions', ['employee' => $id])}}" class="edit-icon" target="_blank"><i class="fa fa-pencil"></i></a></h3>
+                                        <div class="experience-box">
+                                            <ul class="experience-list">
+                                                @if (!empty($promotiondata))
+                                                    @foreach ($promotiondata as $key =>  $promotions)
+                                                        @if ($key == 0)
+                                                        <li>
+                                                            <div class="experience-user">
+                                                                <div class="before-circle"></div>
+                                                            </div>
+                                                            <div class="experience-content">
+                                                                <div class="timeline-content">
+                                                                    <a href="#/" class="name">{{optional($promotions->desfrom)->name}} at {{optional(optional($promotions->employee)->getcompany)->company_name}}</a>
+                                                                    <span class="time">{{date('d F, Y', strtotime(optional($promotions->employee)->joing_date))}} - {{date('d F, Y', strtotime($promotions->date))}}</span>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                        @endif
+                                                        <li>
+                                                            <div class="experience-user">
+                                                                <div class="before-circle"></div>
+                                                            </div>
+                                                            <div class="experience-content">
+                                                                <div class="timeline-content">
+                                                                    <a href="#/" class="name">{{optional($promotions->desto)->name}} at {{optional(optional($promotions->employee)->getcompany)->company_name}}</a>
+                                                                    <span class="time">{{date('d F, Y', strtotime($promotions->date))}} - @if(!empty($promotiondata[$key+1])) {{date('d F, Y', strtotime($promotiondata[$key+1]->date))}}  @else Present  @endif</span>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    @endforeach
+                                                @endif
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @if(Auth::user()->role_id != 1)
+                            <div class="col-md-6 d-flex">
+                                <div class="card profile-box flex-fill">
+                                    <div class="card-body">
+                                        <h3 class="card-title">Warnings </h3>
+                                        <div class="experience-box">
+                                            <ul class="experience-list">
+                                                <li>
+                                                    <div class="experience-user">
+                                                        <div class="before-circle"></div>
+                                                    </div>
+                                                    <div class="experience-content">
+                                                        <div class="timeline-content">
+                                                            <a  class="name">1st Verbal Warning</a>
+                                                            <div>Admin Comment   </div>
+                                                            <div>Manager's Comment</div>
+                                                            <div>Employee Comment</div>
+                                                        </div>
+                                                    </div> 
+                                                </li>
+                                                <li>
+                                                    <div class="experience-user">
+                                                        <div class="before-circle"></div>
+                                                    </div>
+                                                    <div class="experience-content">
+                                                        <div class="timeline-content">
+                                                            <a  class="name">2nd Verbal Warning</a>
+                                                            <div>Admin Comment   </div>
+                                                            <div>Manager's Comment</div>
+                                                            <div>Employee Comment</div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="experience-user">
+                                                        <div class="before-circle"></div>
+                                                    </div>
+                                                    <div class="experience-content">
+                                                        <div class="timeline-content">
+                                                            <a class="name">3rd Verbal Warning</a>
+                                                            <div>Admin Comment   </div>
+                                                            <div>Manager's Comment</div>
+                                                            <div>Employee Comment</div>
+                                                            <a href="/profile-employee-warning/{{Auth::user()->id}}" class="btn add-btn" style="float: none;margin-top: 13px;">View Comment</a>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                @isset($terminate_emp)
+                                                <li>
+                                                    <div class="experience-user">
+                                                        <div class="before-circle"></div>
+                                                    </div>
+                                                    <div class="experience-content">
+                                                        <div class="timeline-content">
+                                                            <a href="#/" class="name">Termination</a>
+                                                            <div> Termination Type : {{@$terminate_emp->type}} </div>
+                                                            <div>Termination Date : {{@$terminate_emp->termination_date}}</div>
+                                                            <div>Reason : {{@$terminate_emp->reason}}</div>
+                                                            <div>Notice Date :{{@$terminate_emp->notice_date}}</div>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                                @endisset
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                        @endif
+                        </div>
                           
                     </div>
                         
                 </div>
             </div>
-            
+            @include('change_emp_info')
             <!-- Personal Info Modal -->
             <div id="personal_info_modal" class="modal custom-modal fade" role="dialog">
                 <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
