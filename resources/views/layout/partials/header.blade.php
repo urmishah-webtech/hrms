@@ -275,7 +275,9 @@
                     </div>
                 </li>
                 <!-- /Message Notifications -->
-
+                <?php
+                $id=Auth::id();
+                ?>
                 <li class="nav-item dropdown has-arrow main-drop">
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                         <span class="user-img"><img src="img/profiles/avatar-21.jpg" alt="">
@@ -283,7 +285,7 @@
                         <span>{{ Auth::user()->first_name }}</span>
                     </a>
                     <div class="dropdown-menu">
-                        <a class="dropdown-item" href="profile">My Profile</a>
+                        <a class="dropdown-item" href="{{ url('profile').'/'.$id }}">My Profile</a>
                         <a class="dropdown-item" href="settings">Settings</a>
                         <a class="dropdown-item" href="{{ route('logout') }}"
                         onclick="event.preventDefault();                                document.getElementById('logout-form').submit();">Logout</a>

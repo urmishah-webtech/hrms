@@ -110,15 +110,16 @@ class EmployeeController extends Controller
         return back();
     }
     public function update_employee(Request $request){
-    
-        if(Auth::user()->role_id==2)
+        if(Auth::user()->role_id==3 || Auth::user()->role_id==2)
         {
             $validator = Validator::make($request->all(), [
                 'first_name' => 'required',
                 'last_name' => 'required', 
                 'phone_no' => 'required',
+                'confirm_password'=>'required_with:password|same:password'
             ]); 
         }
+       
         else{
             $validator = Validator::make($request->all(), [
                 'first_name' => 'required',
@@ -145,9 +146,8 @@ class EmployeeController extends Controller
         $emp->user_name=is_null($request->user_name)?$emp->user_name:$request->user_name;
         $emp->email=is_null($request->email)?$emp->email:$request->email;
         if($request->password!=''){
-        $emp->password=$request->password;
-        }
-       
+        $emp->password=Hash::make($request->password);
+        } 
         $emp->employee_id=is_null($request->employee_id)?$emp->employee_id:$request->employee_id;
 		$emp->role_id=is_null($request->role_id)?$emp->role_id:$request->role_id;
         $emp->joing_date=is_null($request->joing_date)?$emp->joing_date:Carbon::createFromFormat('d/m/Y', $request->joing_date)->format('Y-m-d')

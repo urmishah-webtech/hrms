@@ -15,10 +15,12 @@
 						<a href="{{ url('employee-dashboard') }}"><i class="la la-dashboard"></i><span>Employee Dashboard</span></a>
 						@endif								
 						 </a>								 
-					</li>					 
+					</li>	
+					@if(Auth::user()->role_id != 3)				 
 					<li class="menu-title"> 
 						<span>Employees</span>
 					</li>
+					
 					<li class="submenu">
 						<a href="#" class="noti-dot"><i class="la la-user"></i> <span> Employees</span> <span class="menu-arrow"></span></a>
 						<ul style="display: none;">
@@ -45,7 +47,7 @@
         					</li>	
 						</ul>
 					</li>
-						
+					@endif	
 					<li class="menu-title"> 
 						<span>Performance</span>
 					</li>
