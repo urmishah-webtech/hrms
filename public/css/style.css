@@ -8508,3 +8508,12 @@ ul.comment-list li ul.children {
 	justify-content: center;
 	font-size: 11px;
 }
+#view_emp_indicator select.view_emp_indicat
+{	appearance: none;
+    pointer-events: none;}
+#view_emp_appraisal select.view_emp_apprais
+{	appearance: none;
+    pointer-events: none;}
+#view_emp_appraisal input.view_emp_apprais
+{	appearance: none;
+    pointer-events: none;}
