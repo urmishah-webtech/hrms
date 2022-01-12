@@ -12,18 +12,35 @@ class ResignationController extends Controller
 {
     public function index(){
         $getrole = auth()->user();
+        $selfresignation = Resignation::where('employeeid', $getrole->id)->exists();
+        $check = 0;
         if (!empty($getrole)) {
             $role = $getrole->role_id;
-            if ($role == 3) {
-                $data = Resignation::orderBy('id', 'DESC')->get();
-            } else {
-                $data = Resignation::where('employeeid', $getrole->id)->get();
+            if ($role != 1) {
+                if ($selfresignation) {
+                    $self = Resignation::where('employeeid', $getrole->id)->orderBy('id', 'DESC')->first();
+                    // dd($self);
+                    if ($self->status == 'Disapproved') {
+                        $check = 1;
+                    }
+                }else{
+                    $check = 1;
+                }
             }
+            $query = Resignation::with('employee', 'decisionmaker', 'getdepartment');
+            if ($role == 2) {
+                $getemployees = Employee::where('man_id', $getrole->id)->pluck('id')->toArray();
+                $query = $query->whereIn('employeeid', $getemployees)->orWhere('employeeid', $getrole->id);
+            } 
+            if($role == 3) {
+                $query = $query->where('employeeid', $getrole->id);
+            }
+            $data = $query->orderBy('id', 'DESC')->get();
         } else {
             $role = '';
             $data = '';
         }
-        return view('resignation', compact('data', 'role'));
+        return view('resignation', compact('data', 'role', 'check'));
     }
 
     public function addResignation(Request $request){
