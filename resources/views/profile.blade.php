@@ -21,7 +21,16 @@
                     </div>
                 </div>
                 <!-- /Page Header -->
-                
+                @if ($errors->any())
+                <div class="alert alert-danger alert-block">
+                    <button type="button" class="close" data-dismiss="alert">×</button>    
+                   
+                    @if($errors->any())
+                    {!! implode('', $errors->all('<div>:message</div>')) !!}
+                    @endif
+                   
+                </div>
+                @endif
                 <div class="card mb-0">
                     <div class="card-body">
                         <div class="row">
@@ -29,7 +38,7 @@
                                 <div class="profile-view">
                                     <div class="profile-img-wrap">
                                         <div class="profile-img">
-                                            <a href="#"><img alt="" src="img/profiles/avatar-02.jpg"></a>
+                                            <a href="#"><img alt="" src="{{url('img/profiles/avatar-02.jpg')}}"></a>
                                         </div>
                                     </div>
                                     <div class="profile-basic">
@@ -37,6 +46,10 @@
                                             <div class="col-md-5">
                                                 <div class="profile-info-left">
                                                     <h3 class="user-name m-t-0 mb-0">{{$emp_profile->first_name}} {{$emp_profile->last_name}}</h3>
+                                                    <input type="hidden" value="{{$emp_profile->first_name}}" id="first_name">
+                                                    <input type="hidden" value="{{$emp_profile->last_name}}" id="last_name">
+                                                    <input type="hidden" value="{{$emp_profile->phone_no}}" id="phone_no">
+
                                                     <h6 class="staff-id">Department : {{ @$emp_profile->designation->department->name}}</h6>
                                                     <small class="staff-id">Designation : {{ @$emp_profile->designation->name }}</small>
                                                     <div class="staff-id">Employee ID : {{ @$emp_profile->employee_id }}</div>
@@ -48,7 +61,7 @@
                                                 <ul class="personal-info">
 													<li class="profl_firstedit">
                                                         <div class="title">User Role:</div>
-                                                        <div class="text">{{@$emp_profile->role_id}}</div>
+                                                        <div class="text">{{@$emp_profile->role->name}}</div>
                                                     </li>
                                                     <li class="profl_firstedit">
                                                         <div class="title">Phone:</div>
@@ -63,6 +76,10 @@
                                                         <div class="text">{{ @$emp_profile->joing_date }}</div>
                                                     </li> 
                                                 </ul>
+                                                @if(Auth::id()==$emp_profile->id)
+                                                <a href="" class="edit-icon" data-toggle="modal" data-target="#change_info_modal" data-id="{{ @$emp_profile->id }}" data-first_name="{{@$emp_profile->first_name}}"
+                                                    data-last_name="{{@$emp_profile->last_name}}"  data-phone_no="{{$emp_profile->phone_no}}"  ><i class="fa fa-pencil"></i></a>
+                                                @endif
                                             </div>
                                         </div>
                                     </div>
@@ -278,7 +295,7 @@
                         
                 </div>
             </div>
-            
+            @include('change_emp_info')
             <!-- Personal Info Modal -->
             <div id="personal_info_modal" class="modal custom-modal fade" role="dialog">
                 <div class="modal-dialog modal-dialog-centered modal-lg" role="document">

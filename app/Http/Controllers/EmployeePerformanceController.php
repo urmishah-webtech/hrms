@@ -29,7 +29,9 @@ class EmployeePerformanceController extends Controller
     public function get_employees(){
         $dep=Department::get();
         $des=Designation::get();
-        $emps=Employee::where('role_id', 3)->get();   
+       // $des_man = 
+        if(Auth::user()->role_id == 2){$emps=Employee::where('man_id',Auth::id())->get();}
+        else{$emps=Employee::where('role_id', 3)->get();}   
         $emp_id=Employee::get('id');		
         return view('/employees-performance',compact('dep','des','emps','emp_id'));
     }

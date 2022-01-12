@@ -843,7 +843,9 @@
 				$(this).find('.deleteresignationlink').click(function(){
 					var resid = $(this).attr('data-id');
 					$('#deleteresignationid').val(resid);
-				})
+				});
+
+				
 				 
 				 
 			});
