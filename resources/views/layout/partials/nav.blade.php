@@ -73,9 +73,7 @@
 					<li>
 						<a class="{{ Request::is('employee-warning') ? 'active' : '' }}" href="{{ url('employee-warning') }}"><i class="la la-external-link-square"></i><span>Warning</span></a>
 					</li>	
-					<li>
-						<a class="{{ Request::is('holidays') ? 'active' : '' }}" href="{{ url('holidays') }}"><i class="la la-cog"></i><span>Holidays</span></a>
-					</li>	
+					
 					@if (auth()->user()->role_id != 3)
 					<li class="{{ Request::is('promotion') ? 'active' : '' }}">
 						<a  href="{{ url('promotion') }}"><i class="la la-bullhorn"></i> <span>Promotion</span>  </a>
@@ -86,16 +84,19 @@
 					</li>
 					@if (Auth::user()->role_id != 1)
 					<li>
-						<a class="{{ Request::is('leaves-employee') ? 'active' : '' }}" href="{{ url('leaves-employee') }}"><i class="la la-external-link-square"></i>
-						Leaves</a></li>	
+						<a class="{{ Request::is('leaves-employee') ? 'active' : '' }}" href="{{ url('leaves-employee') }}"><i class="la la-user-secret"></i>
+						<span>Leaves</span></a></li>	
 					<li>
 					@endif
 					@if (Auth::user()->role_id == 1 || Auth::user()->role_id==2)
 					<li>
-						<a class="{{ Request::is('leaves') ? 'active' : '' }}" href="{{ url('leaves') }}">Leaves Approve</a></li>								
+						<a class="{{ Request::is('leaves') ? 'active' : '' }}" href="{{ url('leaves') }}"><i class="la la-cube"></i><span>Leaves Approval</span></a></li>								
 	
 					<li>
 					@endif
+					<li>
+						<a class="{{ Request::is('holidays') ? 'active' : '' }}" href="{{ url('holidays') }}"><i class="la la-bullhorn"></i><span>Holidays</span></a>
+					</li>
 					@if (Auth::user()->role_id == 1)
 					<li class="menu-title"> 
 						<span>Administration</span>
