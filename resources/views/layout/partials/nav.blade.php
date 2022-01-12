@@ -99,7 +99,7 @@
 						<a href="#"><i class="la la-user"></i> <span> Profile </span> <span class="menu-arrow"></span></a>
 						<ul style="display: none;">
 							<li>
-								<a class="{{ Request::is('profile') ? 'active' : '' }}" href="{{ url('profile') }}"> Employee Profile  </a>
+								<a class="{{ Request::is('profile') ? 'active' : '' }}" href="{{ route('profile_details', auth()->user()->id) }}"> Employee Profile  </a>
 							</li>
 						</ul>
 					</li>
