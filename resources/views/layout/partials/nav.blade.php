@@ -96,12 +96,14 @@
 	
 					<li>
 					@endif
+					@if (Auth::user()->role_id == 1)
 					<li class="menu-title"> 
 						<span>Administration</span>
 					</li> 
 					<li class="{{ Request::is('settings') ? 'active' : '' }}">
 						<a  href="{{ url('settings') }}"><i class="la la-cog"></i><span>Settings</span>  </a>
 					</li>
+					@endif
 					<li class="menu-title"> 
 						<span>Pages</span>
 					</li>

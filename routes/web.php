@@ -674,3 +674,7 @@ Route::post('delete_designation','DesignationController@delete_designation')->na
 //     return view('authregister');
 // });
  
+Route::get('test', function () {
+    event(new App\Events\leaveAdded('abcd'));
+    return "Event has been sent!";
+});

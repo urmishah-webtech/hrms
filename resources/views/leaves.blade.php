@@ -16,9 +16,11 @@
                                 <li class="breadcrumb-item active">Leaves</li>
                             </ul>
                         </div>
+                        {{-- @if(Auth::user()->role_id!=1)
                         <div class="col-auto float-right ml-auto">
                             <a href="#" class="btn add-btn" data-toggle="modal" data-target="#add_leave"><i class="fa fa-plus"></i> Add Leave</a>
                         </div>
+                        @endif --}}
                     </div>
                 </div>
                 <!-- /Page Header -->
@@ -224,10 +226,12 @@
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
+                            @if(Auth::user()->role_id!=1)
                             <h5 class="modal-title">Add Leave</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
+                            @endif
                         </div>
                         <div class="modal-body">
                             <form>
