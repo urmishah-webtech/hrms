@@ -76,9 +76,11 @@
         				<a  href="{{ url('termination') }}"><i class="la la-external-link-square"></i> <span>Termination</span> </a>
         			</li>
 	
+					@if (auth()->user()->role_id != 3)
 					<li class="{{ Request::is('promotion') ? 'active' : '' }}">
 						<a  href="{{ url('promotion') }}"><i class="la la-bullhorn"></i> <span>Promotion</span>  </a>
 					</li>
+					@endif
 					<li class="{{ Request::is('resignation') ? 'active' : '' }}">
 						<a  href="{{ url('resignation') }}"><i class="la la-external-link-square"></i> <span>Resignation</span>  </a>
 					</li>

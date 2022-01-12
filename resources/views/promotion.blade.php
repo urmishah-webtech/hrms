@@ -17,7 +17,9 @@
                             </ul>
                         </div>
                         <div class="col-auto float-right ml-auto">
+                            @if (auth()->user()->role_id == 1)
                             <a href="#" class="btn add-btn" data-toggle="modal" data-target="#add_promotion"><i class="fa fa-plus"></i> Add Promotion</a>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -37,7 +39,9 @@
                                         <th>Promotion Designation From </th>
                                         <th>Promotion Designation To </th>
                                         <th>Promotion Date </th>
+                                        @if (auth()->user()->role_id == 1)
                                         <th class="text-right">Action</th>
+                                        @endif
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -55,6 +59,7 @@
                                             <td>{{optional($item->desfrom)->name}}</td>
                                             <td>{{optional($item->desto)->name}}</td>
                                             <td>{{date('F j, Y', strtotime($item->date))}}</td>
+                                            @if (auth()->user()->role_id == 1)
                                             <td class="text-right">
                                                 <div class="dropdown dropdown-action">
                                                     <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
@@ -64,6 +69,7 @@
                                                     </div>
                                                 </div>
                                             </td>
+                                            @endif
                                         </tr>
                                         @endforeach
                                     @endif
