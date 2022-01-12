@@ -9,21 +9,29 @@ use App\Appraisal;
 use App\Employee;
 use Validator;
 use DB;
+use Auth;
+use Redirect;
+
 class AppraisalController extends Controller
 {
     public function appraisal(){
         $appraisal=Appraisal::get();
         $employees=Employee::get();  
-        //dd($employees);               
-        return view('performance-appraisal',compact('appraisal','employees'));
+        $login_emp = Appraisal::where('employee_id', Auth::user()->id)->get(); 
+        $manager_e = Employee::where('man_id',Auth::id())->get()->pluck('id')->toArray();
+        $appr_man = Appraisal::whereIN('employee_id', $manager_e)->get(); 
+        $select_emp_man = Employee::where('man_id',Auth::id())->get(); 
+        $admin_emp=Employee::where('role_id','!=',1)->get();       
+        return view('performance-appraisal',compact('appraisal','employees','login_emp','appr_man','select_emp_man','admin_emp'));
     }
     public function add_appraisal (Request $request){
         
         $validator = Validator::make($request->all(), [
+            'employees' => 'required',
             'appraisal_date' => 'required',           
         ]);
         if($validator->fails()){
-            return back()->with('error', 'Error in creating Appraisal');
+            return Redirect::back()->withErrors($validator);
         }
         $apprais =new Appraisal();
         $apprais->employee_id=$request->employees;
@@ -50,10 +58,11 @@ class AppraisalController extends Controller
     }
     public function edit_appraisal(Request $request){               
         $validator = Validator::make($request->all(), [
+            'employees' => 'required',
             'appraisal_date' => 'required', 
         ]);
         if($validator->fails()){
-            return back()->with('error', 'Error in updating Appraisal');
+            return Redirect::back()->withErrors($validator);
         }
         $apprais= Appraisal::find($request->id);        
         if($apprais){
