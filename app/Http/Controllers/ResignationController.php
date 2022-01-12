@@ -12,18 +12,23 @@ class ResignationController extends Controller
 {
     public function index(){
         $getrole = auth()->user();
+        $check = 0;
         if (!empty($getrole)) {
             $role = $getrole->role_id;
-            if ($role == 3) {
-                $data = Resignation::orderBy('id', 'DESC')->get();
-            } else {
-                $data = Resignation::where('employeeid', $getrole->id)->get();
+            $query = Resignation::with('employee', 'decisionmaker', 'getdepartment');
+            if ($role == 2) {
+                $getemployees = Employee::where('man_id', $getrole->id)->pluck('id')->toArray();
+                $query = $query->whereIn('employeeid', $getemployees)->orWhere('employeeid', $getrole->id);
+            } 
+            if($role == 3) {
+                $query = $query->where('employeeid', $getrole->id);
             }
+            $data = $query->orderBy('id', 'DESC')->get();
         } else {
             $role = '';
             $data = '';
         }
-        return view('resignation', compact('data', 'role'));
+        return view('resignation', compact('data', 'role', 'check'));
     }
 
     public function addResignation(Request $request){

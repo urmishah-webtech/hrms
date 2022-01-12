@@ -17,7 +17,7 @@
                             </ul>
                         </div>
                         <div class="col-auto float-right ml-auto">
-                            @if (!empty($role) && $role !=3 && !count($data))
+                            @if ($check)
                             <a href="#" class="btn add-btn" data-toggle="modal" data-target="#add_resignation"><i class="fa fa-plus"></i> Add Resignation</a>
                             @endif
                         </div>
@@ -39,7 +39,7 @@
                                         <th>Resignation Date </th>
                                         <th>Status </th>
                                         <th>Decision By </th>
-                                        @if (!empty($role) && $role == 3)
+                                        @if (!empty($role) && $role != 3)
                                             <th>2 Weeks Notice</th>
                                             <th>Rehireable</th>
                                             <th class="text-right">Action</th>
@@ -63,9 +63,10 @@
                                         <td>{{$item->resignationdate}}</td>
                                         <td>{{$item->status}}</td>
                                         <td>{{optional($item->decisionmaker)->first_name}} {{optional($item->decisionmaker)->last_name}}</td>
-                                        @if (!empty($role) && $role == 3)
+                                        @if (!empty($role) && $role != 3)
                                             <td>{{$item->twoweeknotice}}</td>
                                             <td>{{$item->rehireable}}</td>
+                                            @if($item->employeeid != auth()->user()->id)
                                             <td class="text-right">
                                                 <div class="dropdown dropdown-action">
                                                     <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
@@ -76,6 +77,7 @@
                                                     </div>
                                                 </div>
                                             </td>
+                                            @endif
                                         @endif
                                     </tr>
                                        @endforeach
