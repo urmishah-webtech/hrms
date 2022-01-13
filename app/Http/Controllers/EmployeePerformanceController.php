@@ -572,6 +572,9 @@ class EmployeePerformanceController extends Controller
         if($search_designation!=""){
             $emp=$emp->where('designation_id',$search_designation);
         }
+        if(Auth::user()->role_id==2){
+        $emp->where('man_id',Auth::id())->get();
+        }
         $emps=$emp->get();
          
         return view('employees-performance',compact('dep','des','emps',
