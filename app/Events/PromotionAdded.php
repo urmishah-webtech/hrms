@@ -14,15 +14,16 @@ use Illuminate\Queue\SerializesModels;
 class PromotionAdded implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-    public $message;
+    public $message, $user;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($message)
+    public function __construct($message, $user)
     {
         $this->message = $message;
+        $this->user = $user;
     }
 
     /**
@@ -37,6 +38,6 @@ class PromotionAdded implements ShouldBroadcastNow
 
     public function broadcastAs()
     {
-        return 'promotionadded';
+        return 'promotionadded-'.$this->user;
     }
 }

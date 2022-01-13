@@ -883,7 +883,8 @@
 
     // Subscribe to the channel we specified in our Laravel Event
     var channel = pusher.subscribe('promotion-added');
-    var channelname = 'promotionadded';
+	var authuser = {{auth()->user()->id}};
+    var channelname = 'promotionadded-'+authuser;
 
     // Bind a function to a Event (the full Laravel class)
     channel.bind(channelname, function(data) {
