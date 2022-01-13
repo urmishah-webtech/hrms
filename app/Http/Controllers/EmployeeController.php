@@ -210,7 +210,8 @@ class EmployeeController extends Controller
         $modules=Module::get();
         $emp_permissions=EmpPermission::get();
         $permission_modules=PermissionModule::get();
+        $roles=Role::get();
         return view('employees',compact('dep','des','emps','modules','emp_permissions','permission_modules',
-        'search_employee_id','search_name','search_designation'));
+        'search_employee_id','search_name','search_designation','roles'));
     }
 }

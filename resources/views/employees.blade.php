@@ -32,7 +32,7 @@
                 <!-- /Page Header -->
                 
                 <!-- Search Filter -->
-                <form action="{{ route('search_employee') }}" method="post">
+                <form action="{{ route('search_employee') }}" method="get">
                     @csrf
                     <div class="row filter-row">
                         <div class="col-sm-6 col-md-3">  

@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Employee;
+use App\EmployeeFirstVerbalWarning;
+use App\EmployeeSecondVerbalWarning;
+use App\EmployeeThirdVerbalWarning;
 use App\ProfilePersonalInformations; 
 use App\ProfileEmergencyContact; 
 use App\TerminationType;
@@ -27,7 +30,10 @@ class ProfileController extends Controller
 		$contact=ProfileEmergencyContact::where('emp_id',$userd)->first();	
 		$promotiondata = Promotion::where('employeeid', $id)->get();
 		$terminate_emp = Termination::where('employee_id', $userd)->first();
-        return view('profile',compact('emp_profile','per_info','contact', 'promotiondata', 'id', 'terminate_emp'));
+		$first_war = EmployeeFirstVerbalWarning::where('emp_id',$userd)->first();  
+		$second_war = EmployeeSecondVerbalWarning::where('emp_id',$userd)->first();
+		$third_war = EmployeeThirdVerbalWarning::where('emp_id',$userd)->first();
+        return view('profile',compact('emp_profile','per_info','contact', 'promotiondata', 'id', 'terminate_emp','first_war','second_war','third_war'));
     }
 	 
 	public function add_profile_personal_informations(Request $request){

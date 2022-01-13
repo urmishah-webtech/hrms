@@ -227,6 +227,7 @@
                                         <h3 class="card-title">Warnings </h3>
                                         <div class="experience-box">
                                             <ul class="experience-list">
+                                                @isset($first_war)
                                                 <li>
                                                     <div class="experience-user">
                                                         <div class="before-circle"></div>
@@ -240,6 +241,8 @@
                                                         </div>
                                                     </div> 
                                                 </li>
+                                                @endisset
+                                                @isset($second_war)
                                                 <li>
                                                     <div class="experience-user">
                                                         <div class="before-circle"></div>
@@ -253,6 +256,8 @@
                                                         </div>
                                                     </div>
                                                 </li>
+                                                @endisset
+                                                @isset($third_war)
                                                 <li>
                                                     <div class="experience-user">
                                                         <div class="before-circle"></div>
@@ -263,10 +268,13 @@
                                                             <div>Admin Comment   </div>
                                                             <div>Manager's Comment</div>
                                                             <div>Employee Comment</div>
-                                                            <a href="/profile-employee-warning/{{Auth::user()->id}}" class="btn add-btn" style="float: none;margin-top: 13px;">View Comment</a>
                                                         </div>
                                                     </div>
                                                 </li>
+                                                @endisset
+                                                @if($first_war || $second_war || $third_war)
+                                                <a href="/profile-employee-warning/{{Auth::user()->id}}" class="btn add-btn" style="float: none;margin-left:37px;">View Comment</a>
+                                                @endif
                                                 @isset($terminate_emp)
                                                 <li>
                                                     <div class="experience-user">

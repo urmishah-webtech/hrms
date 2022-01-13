@@ -36,12 +36,11 @@
                                     <tr>
                                         <th style="width: 30px;">#</th>
                                         <th>Warning</th>
-										<th>Employees</th>
+										@if(Auth::user()->role_id != 3)<th>Employees</th>@endif
                                         @if(Auth::user()->role_id != 2)<th>Employee Comments</th>@endif
                                         <th>Manager's Comments</th>
                                         <th>Admin Comments</th>
                                         <th>Areas for Improvement</th>
-                                        <th class="text-right">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>                                
@@ -52,12 +51,12 @@
                                         <input type="hidden" name="editid" value="{{ @$val->id }}">
                                         <td>{{ @$val->id }}</td>
                                         <td>First</td>
-										<td>{{ @$val->employee->first_name }}</td>
+										@if(Auth::user()->role_id != 3)<td>{{ @$val->employee->first_name }}</td>@endif
 										@if(Auth::user()->role_id != 2)<td class="tdindicator">{{ @$val->employee_comments }}</td>@endif                                        
                                         <td>{{ @$val->managers_comments}}</td>                                        
                                         <td>{{ @$val->admin_comments}}</td>
                                         <td>{{ @$val->areas_for_improvement }}</td>                                       
-                                        <td class="text-right">
+                                        <!--<td class="text-right">
                                             <div class="dropdown dropdown-action">
                                                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                                 <div class="dropdown-menu dropdown-menu-right">
@@ -65,7 +64,7 @@
                                                     <a class="dropdown-item deleteWarningbtn" href="#" data-id="{{ @$val->id }}" data-toggle="modal" data-target="#delete_EmpVerbalWarning"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                                                 </div>
                                             </div>
-                                        </td>
+                                        </td>-->
                                     </tr>
                                      @endforeach
                                     @endisset 
@@ -75,12 +74,12 @@
                                         <input type="hidden" name="editid" value="{{ @$val->id }}">
                                         <td>{{ @$val->id }}</td>
                                         <td>Second</td>
-										<td>{{ @$val->employee->first_name }}</td>
+										@if(Auth::user()->role_id != 3)<td>{{ @$val->employee->first_name }}</td>@endif
 										@if(Auth::user()->role_id != 2) <td class="tdindicator">{{ @$val->employee_comments }}</td>  @endif                                      
                                         <td>{{ @$val->managers_comments}}</td>                                        
                                         <td>{{ @$val->admin_comments}}</td>
                                         <td>{{ @$val->areas_for_improvement }}</td>                                       
-                                        <td class="text-right">
+                                        <!--<td class="text-right">
                                             <div class="dropdown dropdown-action">
                                                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                                 <div class="dropdown-menu dropdown-menu-right">
@@ -88,7 +87,7 @@
                                                     <a class="dropdown-item seconddeleteWarningbtn" href="#" data-id="{{ @$val->id }}" data-toggle="modal" data-target="#delete_EmpVerbalWarning"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                                                 </div>
                                             </div>
-                                        </td>
+                                        </td>-->
                                     </tr>
                                      @endforeach
                                     @endisset
@@ -98,12 +97,12 @@
                                         <input type="hidden" name="editid" value="{{ @$val->id }}">
                                         <td>{{ @$val->id }}</td>
                                         <td>Third</td>
-										<td>{{ @$val->employee->first_name }}</td>
+										@if(Auth::user()->role_id != 3)<td>{{ @$val->employee->first_name }}</td>@endif
                                         @if(Auth::user()->role_id != 2)<td class="tdindicator">{{ @$val->employee_comments }}</td>@endif                                        
                                         <td>{{ @$val->managers_comments}}</td>                                        
                                         <td>{{ @$val->admin_comments}}</td>
                                         <td>{{ @$val->areas_for_improvement }}</td>                                       
-                                        <td class="text-right">
+                                        <!--<td class="text-right">
                                             <div class="dropdown dropdown-action">
 												<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                                 <div class="dropdown-menu dropdown-menu-right">
@@ -111,7 +110,7 @@
                                                     <a class="dropdown-item thirddeleteWarningbtn" href="#" data-id="{{ @$val->id }}" data-toggle="modal" data-target="#delete_EmpVerbalWarning"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                                                 </div>
                                             </div>
-                                        </td>
+                                        </td>--->
                                     </tr>
                                      @endforeach
                                     @endisset                 

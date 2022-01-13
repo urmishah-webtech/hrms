@@ -76,7 +76,7 @@ Route::post('add_employee','EmployeeController@add_employee')->name('add_employe
 Route::post('delete_employee','EmployeeController@delete_employee')->name('delete_employee');
 Route::post('edit_employee','EmployeeController@edit_employee')->name('edit_employee');
 Route::post('update_employee','EmployeeController@update_employee')->name('update_employee');
-Route::post('search_employee','EmployeeController@search_employee')->name('search_employee');
+Route::get('search_employee','EmployeeController@search_employee')->name('search_employee');
 
 //leave routes start --BY URMI SHAH 
 Route::get('/leave-settings','LeaveTypeController@index')->name('leave-settings');
@@ -674,7 +674,7 @@ Route::post('delete_designation','DesignationController@delete_designation')->na
 //     return view('authregister');
 // });
  
-Route::get('test', function () {
-    event(new App\Events\leaveAdded('abcd'));
+Route::get('/testpusher', function () {
+    event(new App\Events\PromotionAdded('Added'));
     return "Event has been sent!";
 });
