@@ -8,6 +8,10 @@ use App\Termination;
 use App\Resignation;
 use App\Employee;
 use Auth;
+use App\Notification;
+use App\Events\TerminationAdded;
+
+
 
 class TerminationController extends Controller
 {
@@ -80,18 +84,56 @@ class TerminationController extends Controller
             session()->forget('resignation_id');
         }
 
-		$terminations = Termination::with(['employee' => function($q) {
-			return $q->with('department');
-		}])->get();
+       $user = auth()->user();
+        if (!empty($user)) {
+            $role = $user->role_id;
+            if ($role == 1) {
+                $terminations = Termination::with(['employee' => function($q) {
+                    return $q->with('department');
+                }])->get();
+
+            } else if($role == 2) {
+         
+                 $terminations = Termination::with(['employee' => function($q) {
+                    return $q->with('department');
+
+                }])->where(function ($query) use ($user) {
+                    $query->where('employee_id', $user->id)
+                        ->orWhereHas('employee', function($q) use ($user){
+                            return $q->where('man_id', $user->id);
+                        });
+                })->get();
+
+
+            } else {
+                $terminations = Termination::with(['employee' => function($q) {
+                    return $q->with('department');
+                }])->where('employee_id', $user->id)->get();
+            }
+        } 
+
 		$types = TerminationType::where('status', 'Active')->get()->pluck(['type']);
 		$employees = Employee::all();
-    	return view('termination')->with(['terminations'=>$terminations, 'types' => $types, 'employees' => $employees, 'resignation' => $resignation]);
+    	return view('termination')->with(['terminations'=>$terminations, 'types' => $types, 'employees' => $employees, 'resignation' => $resignation, 'user' => $user]);
 	}
     public function save(Request $request)
     {
     	$validated = $request->validate($this->terminationRules);
     	$validated['terminated_by'] = Auth::id();
     	Termination::create($validated);
+
+        $employee = Employee::find($validated['employee_id']);
+
+        if($employee->role_id == 3 && !empty($employee->man_id)) {
+            $message1 = 'Your employee '.$employee->first_name.' '.$employee->last_name.' will terminate on  '.$validated['termination_date'];
+            Notification::create(['employeeid' => $employee->man_id, 'message' => $message1]);
+            event(new TerminationAdded($message1));
+        }
+
+        $message = 'You will terminate on  '.$validated['termination_date'];
+        Notification::create(['employeeid' => $validated['employee_id'], 'message' => $message]);
+        event(new TerminationAdded($message));
+
     	return redirect()->to(route('termination'));
     }
     public function update(Request $request)
@@ -99,6 +141,19 @@ class TerminationController extends Controller
     	$validated = $request->validate($this->terminationRules);
     	$type = Termination::where('id', $request->id)->update($validated);
     	if($type) {
+
+            $employee = Employee::find($validated['employee_id']);
+
+            if($employee->role_id == 3 && !empty($employee->man_id)) {
+                $message1 = 'Your employee '.$employee->first_name.' '.$employee->last_name.' \'s termination is updated ';
+                Notification::create(['employeeid' => $employee->man_id, 'message' => $message1]);
+                event(new TerminationAdded($message1));
+            }
+
+            $message = 'Your termination is updated !';
+            Notification::create(['employeeid' => $validated['employee_id'], 'message' => $message]);
+            event(new TerminationAdded($message));
+
     		return redirect()->back()->with('message', 'Data Updated.');
     	}
     	return redirect()->back()->with('alert', 'Try Again!.');
@@ -106,10 +161,25 @@ class TerminationController extends Controller
     }
     public function delete($id)
     {
+
+        $employee_id = Termination::find($id)->employee_id;
     	
     	$deleted = Termination::where('id', $id)->delete();
 
     	if($deleted) {
+
+            $employee = Employee::find($employee_id);
+
+            if($employee->role_id == 3 && !empty($employee->man_id)) {
+                $message1 = 'Your employee '.$employee->first_name.' '.$employee->last_name.' \'s termination is Canceled ';
+                Notification::create(['employeeid' => $employee->man_id, 'message' => $message1]);
+                event(new TerminationAdded($message1));
+            }
+
+            $message = 'Your termination is Canceled !';
+            Notification::create(['employeeid' => $employee_id, 'message' => $message]);
+            event(new TerminationAdded($message));
+
     		return redirect()->back()->with('message', 'Data Deleted.'); 
     	}
     	return redirect()->back()->with('message', 'Try Again!');
