@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Designation;
 use App\Employee;
+use App\Events\PromotionAdded;
+use App\Notification;
 use App\Promotion;
 use Carbon\Carbon;
 use Validator;
@@ -40,8 +42,13 @@ class PromotionController extends Controller
             return redirect()->back()->withErrors($validator);
         }
         $date = Carbon::createFromFormat('d/m/Y', $request->date)->format('Y-m-d');
-        Promotion::create(['employeeid' => $request->employeeid, 'promotionform' => $request->promotionform, 'promotionto' => $request->promotionto, 'department' => $request->department, 'date' => $date]);
+        $newpromotion = Promotion::create(['employeeid' => $request->employeeid, 'promotionform' => $request->promotionform, 'promotionto' => $request->promotionto, 'department' => $request->department, 'date' => $date]);
         Employee::where('id', $request->employeeid)->update(['designation_id'=> $request->promotionto]);
+        $designationfrom = optional($newpromotion->desfrom)->name;
+        $designationto = optional($newpromotion->desto)->name;
+        $message = 'Congratulations! You are promoted from '.$designationfrom.' to '.$designationto;
+        Notification::create(['employeeid' => $newpromotion->employeeid, 'message' => $message]);
+        event(new PromotionAdded($message));
         return redirect()->back()->with('msg', 'Created Successfully');
     }
 

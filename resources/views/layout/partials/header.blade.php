@@ -83,11 +83,13 @@
                     </div>
                 </li>
                 <!-- /Flag -->
-            
+            @php
+                $notifications = getnotifications(auth()->user()->id);
+            @endphp
                 <!-- Notifications -->
                 <li class="nav-item dropdown">
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                        <i class="fa fa-bell-o"></i> <span class="badge badge-pill">3</span>
+                        <i class="fa fa-bell-o"></i> <span class="badge badge-pill" id="noti-badge">{{count($notifications)}}</span>
                     </a>
                     <div class="dropdown-menu notifications">
                         <div class="topnav-dropdown-header">
@@ -96,20 +98,24 @@
                         </div>
                         <div class="noti-content">
                             <ul class="notification-list">
-                                <li class="notification-message">
-                                    <a href="activities">
-                                        <div class="media">
-                                            <span class="avatar">
-                                                <img alt="" src="img/profiles/avatar-02.jpg">
-                                            </span>
-                                            <div class="media-body">
-                                                <p class="noti-details"><span class="noti-title">John Doe</span> added new task <span class="noti-title">Patient appointment booking</span></p>
-                                                <p class="noti-time"><span class="notification-time">4 mins ago</span></p>
+                                @if (!empty($notifications))
+                                    @foreach ($notifications as $item)
+                                    <li class="notification-message">
+                                        <a href="activities">
+                                            <div class="media">
+                                                <span class="avatar">
+                                                    <img alt="" src="img/profiles/avatar-02.jpg">
+                                                </span>
+                                                <div class="media-body">
+                                                    <p class="noti-details"><span class="noti-title">{{$item->message}}</span> </p>
+                                                    <p class="noti-time"><span class="notification-time">{{date('d-m-Y H:i', strtotime($item->created_at))}}</span></p>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="notification-message">
+                                        </a>
+                                    </li>
+                                    @endforeach
+                                @endif
+                                {{-- <li class="notification-message">
                                     <a href="activities">
                                         <div class="media">
                                             <span class="avatar">
@@ -121,46 +127,7 @@
                                             </div>
                                         </div>
                                     </a>
-                                </li>
-                                <li class="notification-message">
-                                    <a href="activities">
-                                        <div class="media">
-                                            <span class="avatar">
-                                                <img alt="" src="img/profiles/avatar-06.jpg">
-                                            </span>
-                                            <div class="media-body">
-                                                <p class="noti-details"><span class="noti-title">Misty Tison</span> added <span class="noti-title">Domenic Houston</span> and <span class="noti-title">Claire Mapes</span> to project <span class="noti-title">Doctor available module</span></p>
-                                                <p class="noti-time"><span class="notification-time">8 mins ago</span></p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="notification-message">
-                                    <a href="activities">
-                                        <div class="media">
-                                            <span class="avatar">
-                                                <img alt="" src="img/profiles/avatar-17.jpg">
-                                            </span>
-                                            <div class="media-body">
-                                                <p class="noti-details"><span class="noti-title">Rolland Webber</span> completed task <span class="noti-title">Patient and Doctor video conferencing</span></p>
-                                                <p class="noti-time"><span class="notification-time">12 mins ago</span></p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="notification-message">
-                                    <a href="activities">
-                                        <div class="media">
-                                            <span class="avatar">
-                                                <img alt="" src="img/profiles/avatar-13.jpg">
-                                            </span>
-                                            <div class="media-body">
-                                                <p class="noti-details"><span class="noti-title">Bernardo Galaviz</span> added new task <span class="noti-title">Private chat module</span></p>
-                                                <p class="noti-time"><span class="notification-time">2 days ago</span></p>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
+                                </li> --}}
                             </ul>
                         </div>
                         <div class="topnav-dropdown-footer">

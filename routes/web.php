@@ -672,3 +672,7 @@ Route::namespace('Auth')->group(function(){
 //     return view('authregister');
 // });
  
+Route::get('/testpusher', function () {
+    event(new App\Events\PromotionAdded('Added'));
+    return "Event has been sent!";
+});
