@@ -16,9 +16,11 @@
                                 <li class="breadcrumb-item active">Termination</li>
                             </ul>
                         </div>
+                        @if(!empty($user) && $user->role_id == 3)
                         <div class="col-auto float-right ml-auto">
                             <a href="#" class="btn add-btn" data-toggle="modal" data-target="#add_termination"><i class="fa fa-plus"></i> Add Termination</a>
                         </div>
+                        @endif
                     </div>
                 </div>
                 <!-- /Page Header -->
@@ -64,10 +66,16 @@
                                             <div class="dropdown dropdown-action">
                                                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                                 <div class="dropdown-menu dropdown-menu-right">
+                                                    @if(!empty($user) && $user->role_id == 3)
                                                     <a id="editForm" class="dropdown-item" href="#" data-toggle="modal" data-target="#edit_termination" data-id="{{$termination->id}}" data-employee_id="{{$termination->employee_id}}" data-type="{{$termination->type}}" data-termination_date="{{$termination->termination_date}}" data-reason="{{$termination->reason}}" data-notice_date="{{$termination->notice_date}}" >
                                                         <i class="fa fa-pencil m-r-5"></i> Edit
                                                     </a>
-                                                    <a id="deleteForm" class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_termination" data-id="{{$termination->id}}"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                                                    <a id="deleteForm" class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_termination" data-id="{{$termination->id}}"><i class="fa fa-trash-o m-r-5"></i> Delete
+                                                    </a>
+                                                    @endif
+                                                    <a id="viewForm" class="dropdown-item" href="#" data-toggle="modal" data-target="#view_termination" data-id="{{$termination->id}}" data-employee_id="{{$termination->employee->first_name .' '.$termination->employee->last_name}}" data-type="{{$termination->type}}" data-termination_date="{{$termination->termination_date}}" data-reason="{{$termination->reason}}" data-notice_date="{{$termination->notice_date}}" >
+                                                        <i class="fa fa-eye m-r-5"></i> View
+                                                    </a>
                                                 </div>
                                             </div>
                                         </td>
@@ -190,7 +198,7 @@
                                 <div class="form-group">
                                     <label>Termination Date <span class="text-danger">*</span></label>
                                     <div class="cal-icon">
-                                        <input type="text" class="form-control datetimepicker" value="28/02/2019" name="termination_date" id="termination_date">
+                                        <input type="text" class="form-control datetimepicker" value="28/02/2019" name="termination_date" id="termination_date_view">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -237,6 +245,52 @@
                 </div>
             </div>
             <!-- /Delete Termination Modal -->
+
+            <!-- View Termination Modal -->
+            <div id="view_termination" class="modal custom-modal fade" role="dialog">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">View Termination</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                           
+                                <div class="form-group">
+                                    <label>Terminated Employee <span class="text-danger">*</span></label>
+                                    <input type="text" name="employee_id" class="form-control" id="employee_id_view" readonly="readonly">
+                                    
+                                </div>
+                                <div class="form-group">
+                                    <label>Termination Type <span class="text-danger">*</span></label>
+                                    <div class="add-group-btn">
+                                        <input type="text" name="type" id="type_view" class="form-control" readonly="readonly">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Termination Date <span class="text-danger">*</span></label>
+                                    <div class="cal-icon">
+                                        <input type="text" class="form-control datetimepicker" value="28/02/2019" name="termination_date" id="termination_date" readonly="readonly">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label>Reason <span class="text-danger">*</span></label>
+                                    <textarea class="form-control" rows="4" name="reason" id="reason_view" readonly="readonly"></textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>Notice Date <span class="text-danger">*</span></label>
+                                    <div class="cal-icon">
+                                        <input type="text" class="form-control datetimepicker" name="notice_date" id="notice_date_view" readonly="readonly">
+                                    </div>
+                                </div>
+                               
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /View Termination Modal -->
         
         </div>
         <!-- /Page Wrapper -->
@@ -269,6 +323,17 @@
                 event.preventDefault();
                 var id = $(this).data('id');
                 $('#delete_url').attr("href", '/delete-termination/'+id); 
+               
+            });
+
+            $('body').on('click', '#viewForm', function (event) {
+
+                event.preventDefault();
+                $('#termination_date.view').val($(this).data('termination_date'));
+                $('#reason_view').val($(this).data('reason'));
+                $('#notice_date_view').val($(this).data('notice_date'));
+                $('#employee_id_view').val($(this).data('employee_id'));
+                $('#type_view').val($(this).data('type'));
                
             });
         });

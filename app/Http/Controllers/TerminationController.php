@@ -80,12 +80,37 @@ class TerminationController extends Controller
             session()->forget('resignation_id');
         }
 
-		$terminations = Termination::with(['employee' => function($q) {
-			return $q->with('department');
-		}])->get();
+       $user = auth()->user();
+        if (!empty($user)) {
+            $role = $user->role_id;
+            if ($role == 3) {
+                $terminations = Termination::with(['employee' => function($q) {
+                    return $q->with('department');
+                }])->get();
+
+            } else if($role == 1) {
+         
+                 $terminations = Termination::with(['employee' => function($q) {
+                    return $q->with('department');
+
+                }])->where(function ($query) use ($user) {
+                    $query->where('employee_id', $user->id)
+                        ->orWhereHas('employee', function($q) use ($user){
+                            return $q->where('manager_id', $user->id);
+                        });
+                })->get();
+
+
+            } else {
+                $terminations = Termination::with(['employee' => function($q) {
+                    return $q->with('department');
+                }])->where('employee_id', $user->id)->get();
+            }
+        } 
+
 		$types = TerminationType::where('status', 'Active')->get()->pluck(['type']);
 		$employees = Employee::all();
-    	return view('termination')->with(['terminations'=>$terminations, 'types' => $types, 'employees' => $employees, 'resignation' => $resignation]);
+    	return view('termination')->with(['terminations'=>$terminations, 'types' => $types, 'employees' => $employees, 'resignation' => $resignation, 'user' => $user]);
 	}
     public function save(Request $request)
     {
