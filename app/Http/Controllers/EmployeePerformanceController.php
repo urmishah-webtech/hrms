@@ -31,8 +31,8 @@ class EmployeePerformanceController extends Controller
         $dep=Department::get();
         $des=Designation::get();
        // $des_man = 
-        if(Auth::user()->role_id == 2){$emps=Employee::where('man_id',Auth::id())->get();}
-        else{$emps=Employee::where('role_id', 3)->get();}   
+        if(Auth::user()->role_id == 2){$emps=Employee::where('man_id',Auth::id())->where('role_id', '!=',1)->get();}
+        else{$emps=Employee::where('role_id', '!=',1)->get();}   
         $emp_id=Employee::get('id');		
         return view('/employees-performance',compact('dep','des','emps','emp_id'));
     }
@@ -559,7 +559,7 @@ class EmployeePerformanceController extends Controller
     public function search_employee_Perfomance(Request $request){
         $dep=Department::get();
         $des=Designation::get();
-        $emp=new Employee;
+        $emp= Employee::where('role_id','!=',1);
         $search_employee_id=$request->search_employee_id;
         $search_name=$request->search_name;
         $search_designation=$request->search_designation;
