@@ -14,6 +14,7 @@ use App\AdditionCommentRole;
 use App\AppraiseeStrength;
 use App\PersonalGoal;
 use App\Employee;
+use App\EmployeeLeave;
 use App\ProfessionalGoalsAchieved;
 use App\ProfessionalGoalsForthcoming;
 use App\TrainingRequirements;
@@ -70,6 +71,10 @@ class EmployeePerformanceController extends Controller
 			$emp_add= Employee::where('id', $id)->first();          
             $emp_add->man_id=$request->man_id;
             $emp_add->save();
+
+            $leave_emp_add= EmployeeLeave::where('employee_id', $id)->first();          
+            $leave_emp_add->manager_id=$request->man_id;
+            $leave_emp_add->save();
 		}
 		return back();
 	}
