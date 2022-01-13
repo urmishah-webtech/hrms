@@ -16,7 +16,7 @@
                                 <li class="breadcrumb-item active">Termination</li>
                             </ul>
                         </div>
-                        @if(!empty($user) && $user->role_id == 3)
+                        @if(!empty($user) && $user->role_id == 1)
                         <div class="col-auto float-right ml-auto">
                             <a href="#" class="btn add-btn" data-toggle="modal" data-target="#add_termination"><i class="fa fa-plus"></i> Add Termination</a>
                         </div>
@@ -66,7 +66,7 @@
                                             <div class="dropdown dropdown-action">
                                                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                    @if(!empty($user) && $user->role_id == 3)
+                                                    @if(!empty($user) && $user->role_id == 1)
                                                     <a id="editForm" class="dropdown-item" href="#" data-toggle="modal" data-target="#edit_termination" data-id="{{$termination->id}}" data-employee_id="{{$termination->employee_id}}" data-type="{{$termination->type}}" data-termination_date="{{$termination->termination_date}}" data-reason="{{$termination->reason}}" data-notice_date="{{$termination->notice_date}}" >
                                                         <i class="fa fa-pencil m-r-5"></i> Edit
                                                     </a>

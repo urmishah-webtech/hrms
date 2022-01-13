@@ -83,12 +83,12 @@ class TerminationController extends Controller
        $user = auth()->user();
         if (!empty($user)) {
             $role = $user->role_id;
-            if ($role == 3) {
+            if ($role == 1) {
                 $terminations = Termination::with(['employee' => function($q) {
                     return $q->with('department');
                 }])->get();
 
-            } else if($role == 1) {
+            } else if($role == 2) {
          
                  $terminations = Termination::with(['employee' => function($q) {
                     return $q->with('department');
