@@ -8,6 +8,9 @@ use App\EmployeeLeave;
 use App\Employee;
 use Auth;
 use Carbon\Carbon;
+use App\Notification;
+use App\Events\leaveAdded;
+
 class EmployeeLeaveController extends Controller
 {
     public function index()
@@ -46,6 +49,11 @@ class EmployeeLeaveController extends Controller
         $el->employee_id=Auth::id();
         $el->manager_id=Auth::user()->man_id;
         $el->save();
+
+        $message = Auth::user()->first_name.Auth::user()->last_name.'has put leave';
+        Notification::create(['employeeid' => Auth::id(), 'message' => $message]);
+        event(new leaveAdded($message,Auth::id()));
+
         return json_encode("1");
     }
     public function delete_leave(Request $request,$id){
