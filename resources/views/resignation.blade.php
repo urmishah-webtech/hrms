@@ -53,8 +53,8 @@
                                         <td>{{$key+1}}</td>
                                         <td>
                                             <h2 class="table-avatar blue-link">
-                                                <a href="profile" class="avatar"><img alt="" src="img/profiles/avatar-02.jpg"></a>
-                                                <a href="profile">{{optional($item->employee)->first_name}} {{optional($item->employee)->last_name}}</a>
+                                                {{-- <a href="profile" class="avatar"><img alt="" src="img/profiles/avatar-02.jpg"></a> --}}
+                                                <a href="{{route('profile_details', $item->employeeid)}}">{{optional($item->employee)->first_name}} {{optional($item->employee)->last_name}}</a>
                                             </h2>
                                         </td>
                                         <td>{{optional($item->getdepartment)->name}}</td>
