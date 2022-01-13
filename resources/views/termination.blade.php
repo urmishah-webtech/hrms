@@ -48,8 +48,8 @@
                                         <td>{{$termination->id}}</td>
                                         <td>
                                             <h2 class="table-avatar blue-link">
-                                                <a href="profile" class="avatar"><img alt="" src="img/profiles/avatar-02.jpg"></a>
-                                                <a href="profile">{{$termination->employee->first_name}} {{$termination->employee->last_name}}</a>
+                                                <a href="profile/{{$termination->employee_id}}" class="avatar"><img alt="" src="img/profiles/avatar-02.jpg"></a>
+                                                <a href="profile/{{$termination->employee_id}}">{{$termination->employee->first_name}} {{$termination->employee->last_name}}</a>
                                             </h2>
                                         </td>
                                         <td>@if(isset($termination->employee->department->name))
@@ -198,7 +198,7 @@
                                 <div class="form-group">
                                     <label>Termination Date <span class="text-danger">*</span></label>
                                     <div class="cal-icon">
-                                        <input type="text" class="form-control datetimepicker" value="28/02/2019" name="termination_date" id="termination_date_view">
+                                        <input type="text" class="form-control datetimepicker" name="termination_date" id="termination_date_view">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -272,7 +272,7 @@
                                 <div class="form-group">
                                     <label>Termination Date <span class="text-danger">*</span></label>
                                     <div class="cal-icon">
-                                        <input type="text" class="form-control datetimepicker" value="28/02/2019" name="termination_date" id="termination_date" readonly="readonly">
+                                        <input type="text" class="form-control" name="termination_date" id="termination_date_view" readonly="readonly">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -282,7 +282,7 @@
                                 <div class="form-group">
                                     <label>Notice Date <span class="text-danger">*</span></label>
                                     <div class="cal-icon">
-                                        <input type="text" class="form-control datetimepicker" name="notice_date" id="notice_date_view" readonly="readonly">
+                                        <input type="text" class="form-control" name="notice_date" id="notice_date_view" readonly="readonly">
                                     </div>
                                 </div>
                                
@@ -329,7 +329,7 @@
             $('body').on('click', '#viewForm', function (event) {
 
                 event.preventDefault();
-                $('#termination_date.view').val($(this).data('termination_date'));
+                $('#termination_date_view').val($(this).data('termination_date'));
                 $('#reason_view').val($(this).data('reason'));
                 $('#notice_date_view').val($(this).data('notice_date'));
                 $('#employee_id_view').val($(this).data('employee_id'));

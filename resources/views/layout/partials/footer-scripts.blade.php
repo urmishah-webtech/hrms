@@ -884,7 +884,6 @@
     // Subscribe to the channel we specified in our Laravel Event
     var channel = pusher.subscribe('promotion-added');
     var channelname = 'promotionadded';
-   
 
     // Bind a function to a Event (the full Laravel class)
     channel.bind(channelname, function(data) {
@@ -892,5 +891,15 @@
 	   var newcount = parseInt(pre) + parseInt(1);
 	   $('#noti-badge').html(newcount);
 	   $('.notification-list').prepend('<li class="notification-message"><a href="activities"><div class="media"><span class="avatar"><img alt="" src="img/profiles/avatar-03.jpg"></span><div class="media-body"><p class="noti-details"><span class="noti-title">'+data.message+'</span> </p><p class="noti-time"><span class="notification-time">a few seconds ago</span></p></div></div></a></li>')
+    });
+
+    var termination_channel = pusher.subscribe('termination-added');
+    var termination_channelname = 'terminationadded';
+
+    termination_channel.bind(termination_channelname, function(termination_data) {
+       var pre = $('#noti-badge').html();
+	   var newcount = parseInt(pre) + parseInt(1);
+	   $('#noti-badge').html(newcount);
+	   $('.notification-list').prepend('<li class="notification-message"><a href="activities"><div class="media"><span class="avatar"><img alt="" src="img/profiles/avatar-03.jpg"></span><div class="media-body"><p class="noti-details"><span class="noti-title">'+termination_data.message+'</span> </p><p class="noti-time"><span class="notification-time">a few seconds ago</span></p></div></div></a></li>')
     });
 </script>
