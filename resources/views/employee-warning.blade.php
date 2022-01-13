@@ -65,7 +65,6 @@
                                                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                                 <div class="dropdown-menu dropdown-menu-right">
                                                     <a class="dropdown-item editwarningbtn edslpoin1" href="#" data-id="{{ @$val->id }}" data-emp_id="{{ @$val->emp_id }}"  data-employee_comments="{{ @$val->employee_comments }}" data-managers_comments="{{ @$val->managers_comments }}" data-admin_comments="{{ @$val->admin_comments }}" data-areas_for_improvement="{{ @$val->areas_for_improvement }}" data-toggle="modal" data-target="#edit_warningemployee"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                                    <a class="dropdown-item deleteWarningbtn" href="#" data-id="{{ @$val->id }}" data-toggle="modal" data-target="#delete_EmpVerbalWarning"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                                                 </div>
                                             </div>
                                         </td>
@@ -89,7 +88,7 @@
                                                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                                 <div class="dropdown-menu dropdown-menu-right">
                                                     <a class="dropdown-item editwarningbtn edslpoin1" href="#" data-id="{{ @$val->id }}" data-emp_id="{{ @$val->emp_id }}" data-employee_comments="{{ @$val->employee_comments }}" data-managers_comments="{{ @$val->managers_comments }}" data-admin_comments="{{ @$val->admin_comments }}" data-areas_for_improvement="{{ @$val->areas_for_improvement }}" data-toggle="modal" data-target="#edit_warningemployee"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                                    <a class="dropdown-item deleteWarningbtn" href="#" data-id="{{ @$val->id }}" data-toggle="modal" data-target="#delete_EmpVerbalWarning"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                                                    <!--<a class="dropdown-item deleteWarningbtn" href="#" data-id="{{ @$val->id }}" data-toggle="modal" data-target="#delete_EmpVerbalWarning"><i class="fa fa-trash-o m-r-5"></i> Delete</a>-->
                                                 </div>
                                             </div>
                                         </td>
@@ -210,7 +209,7 @@
                                                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                                 <div class="dropdown-menu dropdown-menu-right">
                                                     <a class="dropdown-item editwarningbtn edslpoin3" href="#" data-id3="{{ @$val->id }}" data-emp_id3="{{ @$val->emp_id }}"  data-employee_comments3="{{ @$val->employee_comments }}" data-managers_comments3="{{ @$val->managers_comments }}" data-admin_comments3="{{ @$val->admin_comments }}" data-toggle="modal" data-target="#edit_warningemployee"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                                    <a class="dropdown-item thirddeleteWarningbtn" href="#" data-id="{{ @$val->id }}" data-toggle="modal" data-target="#delete_EmpVerbalWarning"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                                                     
                                                 </div>
                                             </div>
                                         </td>
@@ -234,7 +233,7 @@
                                                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                                 <div class="dropdown-menu dropdown-menu-right">
                                                     <a class="dropdown-item editwarningbtn edslpoin3" href="#" data-id3="{{ @$val->id }}" data-emp_id3="{{ @$val->emp_id }}"   data-employee_comments3="{{ @$val->employee_comments }}" data-managers_comments3="{{ @$val->managers_comments }}" data-admin_comments3="{{ @$val->admin_comments }}" data-toggle="modal" data-target="#edit_warningemployee"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                                    <a class="dropdown-item thirddeleteWarningbtn" href="#" data-id="{{ @$val->id }}" data-toggle="modal" data-target="#delete_EmpVerbalWarning"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                                                    
                                                 </div>
                                             </div>
                                         </td>

@@ -100,17 +100,6 @@ class EmployeeVerbalWarningController extends Controller
         }
         return back();       
     }
-    /*public function update_EmployeeFirstVerbalWarning(Request $request)
-    {    
-        $id = $request->getid;      
-        $score= EmployeeFirstVerbalWarning::where('id',$id)->first();  
-        $score->employee_comments = $request->employee_comments;
-        $score->managers_comments = $request->managers_comments;
-        $score->admin_comments = $request->admin_comments;
-        $score->areas_for_improvement = $request->areas_for_improvement; 
-        $score->save();
-        return back();       
-    }*/
     public function delete_EmployeeVerbalWarning(Request $request){        
         $warning= EmployeeFirstVerbalWarning::where('id',$request->id)->delete();
         if($warning==1){ dd();
@@ -279,8 +268,7 @@ class EmployeeVerbalWarningController extends Controller
         $userd = Auth::user()->id;
         $first_comment = EmployeeFirstVerbalWarning::where('emp_id', $id)->get();
         $second_comment = EmployeeSecondVerbalWarning::where('emp_id', $id)->get();
-        $third_comment = EmployeeThirdVerbalWarning::where('emp_id', $id)->get();
-        //dd($first_comment);
+        $third_comment = EmployeeThirdVerbalWarning::where('emp_id', $id)->get(); 
         $emp_role = Employee::where('role_id', 3)->get('id');         
         $first_getw = EmployeeFirstVerbalWarning::where('emp_id',$userd)->get();
         $first_warning_dt = EmployeeFirstVerbalWarning::all();
@@ -292,8 +280,5 @@ class EmployeeVerbalWarningController extends Controller
         return view('/profile-employee-warning',compact('first_comment', 'second_comment', 'third_comment', 'emp_role','first_warning_dt','first_getw','second_emp','second_adman','third_emp','third_adman'));
          
     }
-    /*public function Profile_Employee_Warning(Request $request){        
-        
-        
-    }*/
+     
 }
