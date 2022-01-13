@@ -16,21 +16,25 @@
                                 <li class="breadcrumb-item active">Performance</li>
                             </ul>
                         </div>
+                        @if(Auth::user()->role_id != 3)
                         <div class="col-auto float-right ml-auto">
                             <a href="#" class="btn add-btn" data-toggle="modal" data-target="#add_indicator"><i class="fa fa-plus"></i> Add New</a>
                         </div>
+                        @endif
                     </div>
                 </div>
                 <!-- /Page Header -->
                 
                 <div class="row">
                     <div class="col-md-12">
-                        @if ($message = Session::get('error'))
-                        <div class="alert alert-danger alert-block">
-                            <button type="button" class="close" data-dismiss="alert">×</button>    
-                            <strong>{{ $message }}</strong>
-                        </div>
+                    @if ($errors->any())
+                    <div class="alert alert-danger alert-block">
+                        <button type="button" class="close" data-dismiss="alert">×</button>
+                        @if($errors->any())
+                        {!! implode('', $errors->all('<div>:message</div>')) !!}
                         @endif
+                    </div>
+                    @endif
                         <div class="table-responsive">
                             <table class="table table-striped custom-table mb-0 datatable">
                                 <thead>
@@ -38,15 +42,16 @@
                                         <th style="width: 30px;">#</th>
                                         <th>Designation</th>
                                         <th>Department</th>
-                                        <th>Added By</th>
+                                        <th>Employee</th>
                                         <th>Create At</th>
                                         <th>Status</th>
                                         <th class="text-right">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @isset($indicators)
-                                    @foreach($indicators as $val)
+                                    @if(Auth::user()->role_id == 3)
+                                    @isset($login_emp)
+                                    @foreach($login_emp as $val)
                                     <tr class="trindicator">
                                         <td>{{ @$val->id }}</td>
                                         <td class="tdindicator">{{ @$val->designation->name }}</td>                                        
@@ -57,7 +62,40 @@
                                                 <a href="profile">{{ @$val->employee->first_name }}</a>
                                             </h2>
                                         </td>
-                                        <td>{{ @$val->created_at->format('d-m-y') }}</td>
+                                        <td>{{date('d M Y', strtotime(@$val->created_at))}}</td>
+                                        <td> 
+                                            <div class="dropdown action-label">
+                                                <a class="btn btn-white btn-sm btn-rounded" href="#" data-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fa fa-dot-circle-o @if(@$val->status== '1')text-success @else text-danger @endif"></i> @if(@$val->status== '1') Active @else Inactive @endif
+                                                </a>
+                                            </div>
+                                        </td>
+                                        <td class="text-right">
+                                            <div class="dropdown dropdown-action">
+                                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a class="dropdown-item empviewindicater" href="#" data-id="{{ @$val->id }}" data-employee_id="{{ @$val->employee->first_name }}" data-status="{{ @$val->status }}" data-ability_to_meet_deadline="{{ @$val->ability_to_meet_deadline }}" data-efficiency="{{ @$val->efficiency }}" data-attendance="{{ @$val->attendance }}" data-quality_of_work="{{ @$val->quality_of_work }}" data-conflict_management="{{ @$val->conflict_management }}" data-presentation_skills="{{ @$val->presentation_skills }}" data-critical_thinking="{{ @$val->critical_thinking }}" data-administration="{{ @$val->administration }}" data-teamwork="{{ @$val->teamwork }}" data-management="{{ @$val->management }}" data-professionalism="{{ @$val->professionalism }}" data-marketing="{{ @$val->marketing }}" data-integrity="{{ @$val->integrity }}" data-cust="{{ @$val->customer_experience }}" data-designation="{{ @$val->designation->name }}" data-toggle="modal" data-target="#view_emp_indicator"><i class="fa fa-eye m-r-5"></i> View</a>
+                                                    
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                    @endisset 
+                                    @elseif(Auth::user()->role_id == 2)
+                                    @isset($indi_man)
+                                    @foreach($indi_man as $val)
+                                    <tr class="trindicator">
+                                        <td>{{ @$val->id }}</td>
+                                        <td class="tdindicator">{{ @$val->designation->name }}</td>                                        
+                                        <td>{{ @$val->designation->department->name}}</td>                                        
+                                        <td>
+                                            <h2 class="table-avatar">
+                                                <a href="profile" class="avatar"><img alt="" src="img/profiles/avatar-02.jpg"></a>
+                                                <a href="profile">{{ @$val->employee->first_name }}</a>
+                                            </h2>
+                                        </td>
+                                        <td>{{date('d M Y', strtotime(@$val->created_at))}}</td>
                                         <td>
                                             <div class="dropdown action-label">
                                                 <a class="btn btn-white btn-sm btn-rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
@@ -74,13 +112,51 @@
                                                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                                 <div class="dropdown-menu dropdown-menu-right">
                                                     <a class="dropdown-item editIndicateBtn" href="#" data-employee_id="{{ @$val->employee_id }}" data-status="{{ @$val->status }}" data-ability_to_meet_deadline="{{ @$val->ability_to_meet_deadline }}" data-efficiency="{{ @$val->efficiency }}" data-attendance="{{ @$val->attendance }}" data-quality_of_work="{{ @$val->quality_of_work }}" data-conflict_management="{{ @$val->conflict_management }}" data-presentation_skills="{{ @$val->presentation_skills }}" data-critical_thinking="{{ @$val->critical_thinking }}" data-administration="{{ @$val->administration }}" data-teamwork="{{ @$val->teamwork }}" data-management="{{ @$val->management }}" data-professionalism="{{ @$val->professionalism }}" data-marketing="{{ @$val->marketing }}" data-integrity="{{ @$val->integrity }}" data-cust="{{ @$val->customer_experience }}" data-indi-id="{{ @$val->designation_id }}" data-id="{{ @$val->id }}" data-toggle="modal" data-target="#edit_indicator"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                                    <a class="dropdown-item deleteIndicateBtn" href="#" data-id="{{ @$val->id }}" data-toggle="modal" data-target="#delete_indicator"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                                                    <a class="dropdown-item deleteIndicateBtn" href="#" data-id="{{ @$val->id }}" data-toggle="modal" data-target="#delete_indicator"><i class="fa fa-trash-o m-r-5"></i> Delete</a> 
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                    @endisset 
+                                    @else
+                                    @isset($indicators)
+                                    @foreach($indicators as $val)
+                                    <tr class="trindicator">
+                                        <td>{{ @$val->id }}</td>
+                                        <td class="tdindicator">{{ @$val->designation->name }}</td>                                        
+                                        <td>{{ @$val->designation->department->name}}</td>                                        
+                                        <td>
+                                            <h2 class="table-avatar">
+                                                <a href="profile" class="avatar"><img alt="" src="img/profiles/avatar-02.jpg"></a>
+                                                <a href="profile">{{ @$val->employee->first_name }}</a>
+                                            </h2>
+                                        </td>
+                                        <td>{{date('d M Y', strtotime(@$val->created_at))}}</td>
+                                        <td>
+                                            <div class="dropdown action-label">
+                                                <a class="btn btn-white btn-sm btn-rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fa fa-dot-circle-o @if(@$val->status== '1')text-success @else text-danger @endif"></i> @if(@$val->status== '1') Active @else Inactive @endif
+                                                </a>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-success"></i> <input type="radio" class="list_status5_35 status1" name="status" id="status1{{ @$val->id }}"  data-id="{{ @$val->id }}" value="1"> <label for="status1{{ @$val->id }}">Active</label></a>
+                                                    <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-danger"></i> <input type="radio" class="list_status5_35 status0" name="status" id="status0{{ @$val->id }}"  data-id="{{ @$val->id }}"  value="0"><label for="status0{{ @$val->id }}">Inactive</label></a>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="text-right">
+                                            <div class="dropdown dropdown-action">
+                                                <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a class="dropdown-item editIndicateBtn" href="#" data-employee_id="{{ @$val->employee_id }}" data-status="{{ @$val->status }}" data-ability_to_meet_deadline="{{ @$val->ability_to_meet_deadline }}" data-efficiency="{{ @$val->efficiency }}" data-attendance="{{ @$val->attendance }}" data-quality_of_work="{{ @$val->quality_of_work }}" data-conflict_management="{{ @$val->conflict_management }}" data-presentation_skills="{{ @$val->presentation_skills }}" data-critical_thinking="{{ @$val->critical_thinking }}" data-administration="{{ @$val->administration }}" data-teamwork="{{ @$val->teamwork }}" data-management="{{ @$val->management }}" data-professionalism="{{ @$val->professionalism }}" data-marketing="{{ @$val->marketing }}" data-integrity="{{ @$val->integrity }}" data-cust="{{ @$val->customer_experience }}" data-indi-id="{{ @$val->designation_id }}" data-id="{{ @$val->id }}" data-toggle="modal" data-target="#edit_indicator"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                                    <a class="dropdown-item deleteIndicateBtn" href="#" data-id="{{ @$val->id }}" data-toggle="modal" data-target="#delete_indicator"><i class="fa fa-trash-o m-r-5"></i> Delete</a> 
                                                 </div>
                                             </div>
                                         </td>
                                     </tr>
                                      @endforeach
-                                    @endisset                          
+                                    @endisset
+                                    @endif                         
                                 </tbody>
                             </table>
                         </div>
@@ -106,7 +182,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class="col-form-label">Designation</label>
-                                            <select class="form-control" name="designation" required>
+                                            <select class="form-control" name="designation">
                                                 <option value="">Select Designation</option>
                                                 @isset($designations)
                                                     @foreach ($designations as $item)
@@ -119,13 +195,21 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class="col-form-label">Employee</label>
-                                            <select class="form-control" name="employee" required>
+                                            <select class="form-control" name="employee" >
                                                 <option value="">Select Employee</option>
-                                                @isset($employees)
-                                                    @foreach ($employees as $item)
+                                                @if(Auth::user()->role_id == 1)
+                                                @isset($admin_emp)
+                                                    @foreach ($admin_emp as $item)
                                                     <option value="{{ $item->id }}">{{ $item->first_name }}</option> 
                                                     @endforeach
                                                 @endisset
+                                                @else
+                                                @isset($select_emp_man)
+                                                    @foreach ($select_emp_man as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->first_name }}</option> 
+                                                    @endforeach
+                                                @endisset
+                                                @endif
                                             </select>                                           
                                         </div>
                                     </div>                   
@@ -328,11 +412,19 @@
                                             <label class="col-form-label">Employee</label>
                                             <select class="form-control" id="employee" name="employee">
                                                 <option value="">Select Employee</option>
-                                                @isset($employees)
-                                                    @foreach ($employees as $item)
-                                                    <option value="{{ $item->id }}">{{ $item->first_name }}</option> 
-                                                    @endforeach
-                                                @endisset
+                                                @if(Auth::user()->role_id == 1)
+                                                    @isset($admin_emp)
+                                                        @foreach ($admin_emp as $item)
+                                                        <option value="{{ $item->id }}">{{ $item->first_name }}</option> 
+                                                        @endforeach
+                                                    @endisset
+                                                @else
+                                                    @isset($select_emp_man)
+                                                        @foreach ($select_emp_man as $item)
+                                                        <option value="{{ $item->id }}">{{ $item->first_name }}</option> 
+                                                        @endforeach
+                                                    @endisset
+                                                @endif
                                             </select>                                           
                                         </div>
                                     </div>                                                                                                          
@@ -501,6 +593,192 @@
                 </div>
             </div>
             <!-- /Edit Performance Indicator Modal -->
+
+            <!-- view Performance Indicator Modal -->
+            <div id="view_emp_indicator" class="modal custom-modal fade" role="dialog">
+                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">View Performance Indicator</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">                                
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group"> 
+                                            <label class="col-form-label">Designation</label> 
+                                            <p class="form-control" id="view_designationlist"> </p> 
+                                        </div> 
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Employee</label>
+                                            <p class="form-control" id="view_employee"> </p>
+                                        </div>
+                                    </div>                            
+                                    <div class="col-sm-6">
+                                        <h4 class="modal-sub-title">Technical</h4>
+                                        <div class="form-group">                                           
+                                            <label class="col-form-label">Customer Experience</label>    
+                                            <select class="form-control view_emp_indicat" id="view_customer_experience">
+                                                <option value="0">None</option>
+                                                <option value="1">Beginner</option>
+                                                <option value="2">Intermediate</option>
+                                                <option value="3">Advanced</option>
+                                                <option value="4">Expert / Leader</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Marketing</label>
+                                            <select class="form-control view_emp_indicat" id="view_marketing">
+                                                <option value="0">None</option>
+                                                <option value="1">Beginner</option>
+                                                <option value="2">Intermediate</option>
+                                                <option value="3">Advanced</option>
+                                                <option value="4">Expert / Leader</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Management</label>
+                                            <select class="form-control view_emp_indicat" id="view_management" name="management">
+                                                <option value="0">None</option>
+                                                <option value="1">Beginner</option>
+                                                <option value="2">Intermediate</option>
+                                                <option value="3">Advanced</option>
+                                                <option value="4">Expert / Leader</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Administration</label>
+                                            <select class="form-control view_emp_indicat" id="view_administration" >
+                                                <option value="0">None</option>
+                                                <option value="1">Beginner</option>
+                                                <option value="2">Intermediate</option>
+                                                <option value="3">Advanced</option>
+                                                <option value="4">Expert / Leader</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Presentation Skill</label>
+                                            <select class="form-control view_emp_indicat" id="view_presentation_skills" >
+                                                <option value="0">None</option>
+                                                <option value="1">Beginner</option>
+                                                <option value="2">Intermediate</option>
+                                                <option value="3">Advanced</option>
+                                                <option value="4">Expert / Leader</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Quality Of Work</label>
+                                            <select class="form-control view_emp_indicat" id="view_quality_of_work">
+                                                <option value="0">None</option>
+                                                <option value="1">Beginner</option>
+                                                <option value="2">Intermediate</option>
+                                                <option value="3">Advanced</option>
+                                                <option value="4">Expert / Leader</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Efficiency</label>
+                                            <select class="form-control view_emp_indicat" id="view_efficiency">
+                                                <option value="0">None</option>
+                                                <option value="1">Beginner</option>
+                                                <option value="2">Intermediate</option>
+                                                <option value="3">Advanced</option>
+                                                <option value="4">Expert / Leader</option>
+                                            </select>
+                                        </div>
+                                    </div>                                    
+                                    <div class="col-sm-6">
+                                        <h4 class="modal-sub-title">Organizational</h4>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Integrity</label>
+                                            <select class="form-control view_emp_indicat" id="view_integrity">
+                                                <option value="0">None</option>
+                                                <option value="1">Beginner</option>
+                                                <option value="2">Intermediate</option>
+                                                <option value="3">Advanced</option>
+                                                <option value="4">Expert / Leader</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Professionalism</label>
+                                            <select class="form-control view_emp_indicat" id="view_professionalism">
+                                                <option value="0">None</option>
+                                                <option value="1">Beginner</option>
+                                                <option value="2">Intermediate</option>
+                                                <option value="3">Advanced</option>
+                                                <option value="4">Expert / Leader</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Team Work</label>
+                                            <select class="form-control view_emp_indicat" id="view_teamwork">
+                                                <option value="0">None</option>
+                                                <option value="1">Beginner</option>
+                                                <option value="2">Intermediate</option>
+                                                <option value="3">Advanced</option>
+                                                <option value="4">Expert / Leader</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Critical Thinking</label>
+                                            <select class="form-control view_emp_indicat" id="view_critical_thinking">
+                                                <option value="0">None</option>
+                                                <option value="1">Beginner</option>
+                                                <option value="2">Intermediate</option>
+                                                <option value="3">Advanced</option>
+                                                <option value="4">Expert / Leader</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Conflict Management</label>
+                                            <select class="form-control view_emp_indicat" id="view_conflict_management">
+                                                <option value="0">None</option>
+                                                <option value="1">Beginner</option>
+                                                <option value="2">Intermediate</option>
+                                                <option value="3">Advanced</option>
+                                                <option value="4">Expert / Leader</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Attendance</label>
+                                            <select class="form-control view_emp_indicat" id="view_attendance">
+                                                <option value="0">None</option>
+                                                <option value="1">Beginner</option>
+                                                <option value="2">Intermediate</option>
+                                                <option value="3">Advanced</option>
+                                                <option value="4">Expert / Leader</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-form-label">Ability To Meet Deadline</label>
+                                            <select class="form-control view_emp_indicat" id="view_ability_to_meet_deadline">
+                                                <option value="0">None</option>
+                                                <option value="1">Beginner</option>
+                                                <option value="2">Intermediate</option>
+                                                <option value="3">Advanced</option>
+                                                <option value="4">Expert / Leader</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Status</label>                                            
+                                            <select class="form-control view_emp_indicat" id="view_status">
+                                                <option value="1">Active</option>
+                                                <option value="0">Inactive</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /View Performance Indicator Modal -->
             
             <!-- Delete Performance Indicator Modal -->
             <div class="modal custom-modal fade" id="delete_indicator" role="dialog">
@@ -554,5 +832,42 @@
 				});
 			});
 		});
+        $(document).on("click",".empviewindicater",function(){
+            $("#view_designationlist").text($(this).data('designation'));
+            $("#view_employee").text($(this).data('employee_id'));
+            var cust_exp =$(this).data('cust');	
+			$("#view_customer_experience option[value='"+cust_exp+"']").prop('selected',true);
+            var integrity =$(this).data('integrity');	
+            $("#view_integrity option[value='"+integrity+"']").prop('selected',true);
+            var marketing =$(this).data('marketing');	
+            $("#view_marketing option[value='"+marketing+"']").prop('selected',true);
+            var professionalism =$(this).data('professionalism');	
+            $("#view_professionalism option[value='"+professionalism+"']").prop('selected',true);
+            var management =$(this).data('management');	
+            $("#view_management option[value='"+management+"']").prop('selected',true);
+            var teamwork =$(this).data('teamwork');	
+            $("#view_teamwork option[value='"+teamwork+"']").prop('selected',true);
+            var administration =$(this).data('administration');	
+            $("#view_administration option[value='"+administration+"']").prop('selected',true);
+            var critical_thinking =$(this).data('critical_thinking');	
+            $("#view_critical_thinking option[value='"+critical_thinking+"']").prop('selected',true);
+            var presentation_skills =$(this).data('presentation_skills');	
+            $("#view_presentation_skills option[value='"+presentation_skills+"']").prop('selected',true);
+            var conflict_management =$(this).data('conflict_management');	
+            $("#view_conflict_management option[value='"+conflict_management+"']").prop('selected',true);
+            var quality_of_work =$(this).data('quality_of_work');	
+            $("#view_quality_of_work option[value='"+quality_of_work+"']").prop('selected',true);
+            var attendance =$(this).data('attendance');	
+            $("#view_attendance option[value='"+attendance+"']").prop('selected',true);
+            var efficiency =$(this).data('efficiency');	
+            $("#view_efficiency option[value='"+efficiency+"']").prop('selected',true);
+            var ability_to_meet_deadline =$(this).data('ability_to_meet_deadline');	
+            $("#view_ability_to_meet_deadline option[value='"+ability_to_meet_deadline+"']").prop('selected',true);
+            var status =$(this).data('status');	
+            $("#view_status option[value='"+status+"']").prop('selected',true);
+             
+            
+            							 
+        });
 	</script>
 @endsection

@@ -52,9 +52,9 @@
 													<span class="action-circle large" data-toggle="modal" data-target="#edit_role">
 														<i class="material-icons editRoleBtn"  data-id="{{ $val->id }}">edit</i>
 													</span>
-													<span class="action-circle large delete-btn" data-toggle="modal" data-target="#delete_role">
+													{{-- <span class="action-circle large delete-btn" data-toggle="modal" data-target="#delete_role">
 														<i class="material-icons delRoleBtn"  data-id="{{ $val->id }}">delete</i>
-													</span>
+													</span> --}}
 												</span>
 											</a>
 										</li>

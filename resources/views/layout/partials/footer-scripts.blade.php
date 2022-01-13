@@ -671,28 +671,43 @@
 				$("#select_emp_id_edit option[value='"+seelct_emp+"']").prop('selected',true);
 				$("#managers_comments").val($(this).data('managers_comments')); 
 				$("#admin_comments").val($(this).data('admin_comments')); 
-				$("#areas_for_improvement").val($(this).data('areas_for_improvement')); 									 
+				$("#areas_for_improvement").val($(this).data('areas_for_improvement')); 
+
+				var seelct_emp2=$(this).data('emp_id2');
+				$("#select_emp_id_edit2 option[value='"+seelct_emp2+"']").prop('selected',true);
+				$("#indexid2").text($(this).data('id2'));				 
+				$("input[id=getidjq2]").val($(this).data('id2')); 
+				$("#employee_comments2").val($(this).data('employee_comments2')); 
+				$("#managers_comments2").val($(this).data('managers_comments2')); 
+				$("#admin_comments2").val($(this).data('admin_comments2')); 
+				$("#areas_for_improvement2").val($(this).data('areas_for_improvement2'));									 
+				var seelct_emp3=$(this).data('emp_id3');
+				$("#select_emp_id_edit3 option[value='"+seelct_emp3+"']").prop('selected',true);
+				$("#indexid3").text($(this).data('id3'));				 
+				$("input[id=getidjq3]").val($(this).data('id3'));  
+				$("#employee_comments3").val($(this).data('employee_comments3')); 
+				$("#managers_comments3").val($(this).data('managers_comments3')); 
+				$("#admin_comments3").val($(this).data('admin_comments3')); 
 			})
-			$(document).on("click",".secondeditwarningbtn",function() {
-				var id=$(this).data('id');
-				var seelct_emp=$(this).data('emp_id');
-				$("#select_emp_id_edit2 option[value='"+seelct_emp+"']").prop('selected',true);
-				$("#indexid2").text(id);				 
-				$("input[id=getidjq2]").val($(this).data('id')); 
-				$("#employee_comments2").val($(this).data('employee_comments')); 
-				$("#managers_comments2").val($(this).data('managers_comments')); 
-				$("#admin_comments2").val($(this).data('admin_comments')); 
-				$("#areas_for_improvement2").val($(this).data('areas_for_improvement')); 	
+			$(document).on("click",".edslpoin1",function() {
+				$("#select_emp_id_edit").addClass("edit_warning_pointer");
+				$("#select_emp_id_edit2").removeClass("edit_warning_pointer");
+				$("#select_emp_id_edit3").removeClass("edit_warning_pointer");	
+			})
+			$(document).on("click",".edslpoin2",function() {
+				$("#select_emp_id_edit2").addClass("edit_warning_pointer");
+				$("#select_emp_id_edit").removeClass("edit_warning_pointer");
+				$("#select_emp_id_edit3").removeClass("edit_warning_pointer");		
+			})
+			$(document).on("click",".edslpoin3",function() {
+				$("#select_emp_id_edit3").addClass("edit_warning_pointer");
+				$("#select_emp_id_edit2").removeClass("edit_warning_pointer");
+				$("#select_emp_id_edit").removeClass("edit_warning_pointer");
+				 	
 			})
 			$(document).on("click",".thirdeditwarningbtn",function() {
 				var id=$(this).data('id');
-				var seelct_emp=$(this).data('emp_id');
-				$("#select_emp_id_edit3 option[value='"+seelct_emp+"']").prop('selected',true);
-				$("#indexid3").text(id);				 
-				$("input[id=getidjq3]").val($(this).data('id')); 
-				$("#employee_comments3").val($(this).data('employee_comments')); 
-				$("#managers_comments3").val($(this).data('managers_comments')); 
-				$("#admin_comments3").val($(this).data('admin_comments')); 
+				
 			})
 			$(document).on("click",".deleteWarningbtn",function() {
 				var id= $(this).data('id');
@@ -843,7 +858,9 @@
 				$(this).find('.deleteresignationlink').click(function(){
 					var resid = $(this).attr('data-id');
 					$('#deleteresignationid').val(resid);
-				})
+				});
+
+				
 				 
 				 
 			});
@@ -867,7 +884,6 @@
     // Subscribe to the channel we specified in our Laravel Event
     var channel = pusher.subscribe('promotion-added');
     var channelname = 'promotionadded';
-   
 
     // Bind a function to a Event (the full Laravel class)
     channel.bind(channelname, function(data) {
@@ -875,5 +891,15 @@
 	   var newcount = parseInt(pre) + parseInt(1);
 	   $('#noti-badge').html(newcount);
 	   $('.notification-list').prepend('<li class="notification-message"><a href="activities"><div class="media"><span class="avatar"><img alt="" src="img/profiles/avatar-03.jpg"></span><div class="media-body"><p class="noti-details"><span class="noti-title">'+data.message+'</span> </p><p class="noti-time"><span class="notification-time">a few seconds ago</span></p></div></div></a></li>')
+    });
+
+    var termination_channel = pusher.subscribe('termination-added');
+    var termination_channelname = 'terminationadded';
+
+    termination_channel.bind(termination_channelname, function(termination_data) {
+       var pre = $('#noti-badge').html();
+	   var newcount = parseInt(pre) + parseInt(1);
+	   $('#noti-badge').html(newcount);
+	   $('.notification-list').prepend('<li class="notification-message"><a href="activities"><div class="media"><span class="avatar"><img alt="" src="img/profiles/avatar-03.jpg"></span><div class="media-body"><p class="noti-details"><span class="noti-title">'+termination_data.message+'</span> </p><p class="noti-time"><span class="notification-time">a few seconds ago</span></p></div></div></a></li>')
     });
 </script>

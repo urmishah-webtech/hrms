@@ -14,6 +14,7 @@ use App\AdditionCommentRole;
 use App\AppraiseeStrength;
 use App\PersonalGoal;
 use App\Employee;
+use App\EmployeeLeave;
 use App\ProfessionalGoalsAchieved;
 use App\ProfessionalGoalsForthcoming;
 use App\TrainingRequirements;
@@ -29,7 +30,9 @@ class EmployeePerformanceController extends Controller
     public function get_employees(){
         $dep=Department::get();
         $des=Designation::get();
-        $emps=Employee::where('role_id', 3)->get();   
+       // $des_man = 
+        if(Auth::user()->role_id == 2){$emps=Employee::where('man_id',Auth::id())->where('role_id', '!=',1)->get();}
+        else{$emps=Employee::where('role_id', '!=',1)->get();}   
         $emp_id=Employee::get('id');		
         return view('/employees-performance',compact('dep','des','emps','emp_id'));
     }
@@ -68,6 +71,10 @@ class EmployeePerformanceController extends Controller
 			$emp_add= Employee::where('id', $id)->first();          
             $emp_add->man_id=$request->man_id;
             $emp_add->save();
+
+            $leave_emp_add= EmployeeLeave::where('employee_id', $id)->first();          
+            $leave_emp_add->manager_id=$request->man_id;
+            $leave_emp_add->save();
 		}
 		return back();
 	}
@@ -552,7 +559,7 @@ class EmployeePerformanceController extends Controller
     public function search_employee_Perfomance(Request $request){
         $dep=Department::get();
         $des=Designation::get();
-        $emp=new Employee;
+        $emp= Employee::where('role_id','!=',1);
         $search_employee_id=$request->search_employee_id;
         $search_name=$request->search_name;
         $search_designation=$request->search_designation;
@@ -564,6 +571,9 @@ class EmployeePerformanceController extends Controller
         }
         if($search_designation!=""){
             $emp=$emp->where('designation_id',$search_designation);
+        }
+        if(Auth::user()->role_id==2){
+        $emp->where('man_id',Auth::id())->get();
         }
         $emps=$emp->get();
          

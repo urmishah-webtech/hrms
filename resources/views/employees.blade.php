@@ -19,7 +19,9 @@
                             </ul>
                         </div>
                         <div class="col-auto float-right ml-auto">
+                            @if(Auth::user()->role_id==1)
                             <a href="#" class="btn add-btn" data-toggle="modal" data-target="#add_employee"><i class="fa fa-plus"></i> Add Employee</a>
+                            @endif
                             <div class="view-icons">
                                 {{-- <a href="employees" class="grid-view btn btn-link active"><i class="fa fa-th"></i></a> --}}
                                 {{-- <a href="employees-list" class="list-view btn btn-link"><i class="fa fa-bars"></i></a> --}}
@@ -30,7 +32,7 @@
                 <!-- /Page Header -->
                 
                 <!-- Search Filter -->
-                <form action="{{ route('search_employee') }}" method="post">
+                <form action="{{ route('search_employee') }}" method="get">
                     @csrf
                     <div class="row filter-row">
                         <div class="col-sm-6 col-md-3">  
@@ -301,38 +303,60 @@
                                             <input class="form-control" value="" type="text" name="last_name" id="emp_last_name">
                                         </div>
                                     </div>
+                                    
                                     <div class="col-sm-6">
                                         <div class="form-group">
+                                            @if(Auth::user()->role_id==2)
+                                            <label class="col-form-label">Username <span class="text-danger"></span></label>
+                                            <input class="form-control" value="" type="text" disabled name="" id="emp_user_name">
+                                            @else
                                             <label class="col-form-label">Username <span class="text-danger">*</span></label>
                                             <input class="form-control" value="" type="text" name="user_name" id="emp_user_name">
+                                            @endif
                                         </div>
                                     </div>
+                                    @if(Auth::user()->role_id==2)
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Email <span class="text-danger">*</span></label>
+                                            <input class="form-control" value="" type="email" disabled name="" id="emp_email">
+                                        </div>
+                                    </div>
+                                    @else
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class="col-form-label">Email <span class="text-danger">*</span></label>
                                             <input class="form-control" value="" type="email"  name="email" id="emp_email">
                                         </div>
                                     </div>
+                                    @endif
+                                    @if(Auth::user()->role_id==2)
+                                    @else
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class="col-form-label">Password</label>
-                                            <input class="form-control" value="" type="password" name="password" placeholder="*****">
+                                            <input class="form-control" value="" type="password" autocomplete="off" name="password" placeholder="*****">
                                         </div>
                                     </div>
+                                    @endif
+                                    @if(Auth::user()->role_id==2)
+                                    @else
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class="col-form-label">Confirm Password</label>
                                             <input class="form-control" value="" type="password" name="confirm_password">
                                         </div>
                                     </div>
+                                    @endif
                                     <div class="col-sm-6">  
                                         <div class="form-group">
                                             <label class="col-form-label">Employee ID <span class="text-danger">*</span></label>
                                             <input type="text" value="" disabled class="form-control" name="emp_employee_id" id="emp_employee_id">
                                             <input type="hidden" value=""  class="form-control" name="employee_id" id="edit_employee_id">
-
                                         </div>
                                     </div>
+                                    @if(Auth::user()->role_id==2)
+                                    @else
 									<div class="col-sm-6">
                                         <div class="form-group">
                                             <label class="col-form-label">Role</label>
@@ -346,6 +370,7 @@
                                             </select>
                                         </div>
                                     </div>
+                                    @endif
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class="col-form-label">Gender</label>
@@ -357,30 +382,55 @@
                                             </select>
                                         </div>
                                     </div>
+                                    @if(Auth::user()->role_id==2)
+                                    <div class="col-sm-6">  
+                                        <div class="form-group">
+                                            <label class="col-form-label">Joining Date <span class="text-danger">*</span></label>
+                                            <div class="cal-icon"><input class="form-control datetimepicker" disabled name="" type="text" id="emp_joing_date"></div>
+                                        </div>
+                                    </div>
+                                    @else
                                     <div class="col-sm-6">  
                                         <div class="form-group">
                                             <label class="col-form-label">Joining Date <span class="text-danger">*</span></label>
                                             <div class="cal-icon"><input class="form-control datetimepicker" name="joing_date" type="text" id="emp_joing_date"></div>
                                         </div>
                                     </div>
+                                    @endif
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class="col-form-label">Phone </label>
                                             <input class="form-control" value="" type="text" name="phone_no" id="emp_phone_no">
                                         </div>
                                     </div>
+
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class="col-form-label">Company</label>
+                                            @if(Auth::user()->role_id==2)
+                                            <select class="select" name="" disabled>
+                                                <option value="1">Global Technologies</option>
+                                            </select>
+                                            @else
                                             <select class="select" name="company_id">
                                                 <option value="1">Global Technologies</option>
-            
                                             </select>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Department <span class="text-danger">*</span></label>
+                                            @if(Auth::user()->role_id==2)
+                                            <select class="form-control" id="edit_depList" name="" disabled>
+                                                <option>Select Department</option>
+                                                @isset($dep)
+                                                    @foreach($dep as $val)
+                                                        <option value="{{ $val->id }}">{{ $val->name }}</option>
+                                                    @endforeach
+                                                @endisset
+                                            </select>
+                                            @else
                                             <select class="form-control" id="edit_depList" name="department_id">
                                                 <option>Select Department</option>
                                                 @isset($dep)
@@ -389,14 +439,22 @@
                                                     @endforeach
                                                 @endisset
                                             </select>
+                                            @endif
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
+                                            @if(Auth::user()->role_id==2)
+                                            <label>Designation <span class="text-danger">*</span></label>
+                                            <select class="select" name="" disabled id="edit_designationList">
+                                                <option value="">Select Designation</option>
+                                            </select>
+                                            @else
                                             <label>Designation <span class="text-danger">*</span></label>
                                             <select class="select" name="designation_id" id="edit_designationList">
                                                 <option value="">Select Designation</option>
                                             </select>
+                                            @endif  
                                         </div>
                                     </div>
                                 </div>

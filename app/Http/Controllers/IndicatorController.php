@@ -9,24 +9,32 @@ use App\Designation;
 use App\Department;
 use App\Employee;
 use Validator;
- 
+use Redirect;
+use Auth;
+use DB;
 class IndicatorController extends Controller
 {
     public function indicators(){
         $indicators=Indicator::get();
         $designations=Designation::get();
         $employees=Employee::get();
+        $admin_emp=Employee::where('role_id','!=',1)->get();
+        $login_emp = Indicator::where('employee_id', Auth::user()->id)->get();
+        $employee_id = Indicator::get('employee_id'); 
+        $manager_e = Employee::where('man_id',Auth::id())->get()->pluck('id')->toArray();
+        $indi_man = Indicator::whereIN('employee_id', $manager_e)->get();
+        $select_emp_man = Employee::where('man_id',Auth::id())->get();
         //$designations=Designation::with('indicator_designation')->get();          
-        return view('performance-indicator',compact('indicators','designations', 'employees'));
+        return view('performance-indicator',compact('indicators','designations', 'employees','login_emp','indi_man','select_emp_man','admin_emp'));
     }
     public function add_indicator (Request $request){
         
         $validator = Validator::make($request->all(), [
-            'customer_experience' => 'required',
-            'marketing' => 'required',
+            'designation' => 'required',
+            'employee' => 'required',
         ]);
         if($validator->fails()){
-            return back()->with('error', 'Error in creating Indicators');
+            return Redirect::back()->withErrors($validator);
         }
         $indicat =new Indicator();
         $indicat->designation_id=$request->designation;
@@ -56,7 +64,7 @@ class IndicatorController extends Controller
             'employee' => 'required',
         ]);
         if($validator->fails()){
-            return back()->with('error', 'Error in updating indicator');
+            return Redirect::back()->withErrors($validator);
         }
         $indicat= Indicator::find($request->id);              
         if($indicat){
