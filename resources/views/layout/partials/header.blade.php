@@ -49,7 +49,7 @@
             <ul class="nav user-menu">
             
                 <!-- Search -->
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <div class="top-nav-search">
                         <a href="javascript:void(0);" class="responsive-search">
                             <i class="fa fa-search"></i>
@@ -59,11 +59,11 @@
                             <button class="btn" type="submit"><i class="fa fa-search"></i></button>
                         </form>
                     </div>
-                </li>
+                </li> --}}
                 <!-- /Search -->
             
                 <!-- Flag -->
-                <li class="nav-item dropdown has-arrow flag-nav">
+                {{-- <li class="nav-item dropdown has-arrow flag-nav">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button">
                         <img src="img/flags/us.png" alt="" height="20"> <span>English</span>
                     </a>
@@ -81,7 +81,7 @@
                             <img src="img/flags/de.png" alt="" height="16"> German
                         </a>
                     </div>
-                </li>
+                </li> --}}
                 <!-- /Flag -->
             
                 <!-- Notifications -->
@@ -286,7 +286,7 @@
                     </a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="{{ url('profile').'/'.$id }}">My Profile</a>
-                        <a class="dropdown-item" href="settings">Settings</a>
+                        <a class="dropdown-item" href="{{ url('settings') }}">Settings</a>
                         <a class="dropdown-item" href="{{ route('logout') }}"
                         onclick="event.preventDefault();                                document.getElementById('logout-form').submit();">Logout</a>
 							<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -302,7 +302,7 @@
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
                 <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item" href="profile">My Profile</a>
-                    <a class="dropdown-item" href="settings">Settings</a>
+                    <a class="dropdown-item" href="{{ url('settings') }}">Settings</a>
                     <a class="dropdown-item" href="{{ route('logout') }}">Logout</a>
                 </div>
             </div>
