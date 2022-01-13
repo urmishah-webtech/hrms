@@ -16,6 +16,7 @@ class PromotionController extends Controller
         $query = Promotion::with('employee', 'desfrom', 'desto', 'getdepartment');
         if (auth()->user()->role_id == 2) {
             $getemployees = $employees->where('man_id', auth()->user()->id)->pluck('id')->toArray();
+            $employees = $employees->where('man_id', auth()->user()->id);
             $query = $query->whereIn('employeeid', $getemployees);
         }
         if (request()->has('employee')) {
