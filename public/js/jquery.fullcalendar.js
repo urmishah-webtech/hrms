@@ -141,13 +141,14 @@
             slotDuration: '00:15:00', /* If we want to split day time each 15minutes */
             minTime: '08:00:00',
             maxTime: '19:00:00',  
+            displayEventTime: false,
             defaultView: 'month',  
             handleWindowResize: true,   
             height: $(window).height() - 200,   
             header: {
                 left: 'prev,next today',
                 center: 'title',
-                right: 'month,agendaWeek,agendaDay'
+                right: ''
             },
             events: defaultEvents,
             editable: true,
