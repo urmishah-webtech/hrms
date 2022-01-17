@@ -895,7 +895,7 @@
     });
 
     var termination_channel = pusher.subscribe('termination-added');
-    var termination_channelname = 'terminationadded';
+    var termination_channelname = 'terminationadded-'+authuser;
 
     termination_channel.bind(termination_channelname, function(termination_data) {
        var pre = $('#noti-badge').html();

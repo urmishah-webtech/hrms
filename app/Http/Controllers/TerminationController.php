@@ -127,12 +127,12 @@ class TerminationController extends Controller
         if($employee->role_id == 3 && !empty($employee->man_id)) {
             $message1 = 'Your employee '.$employee->first_name.' '.$employee->last_name.' will terminate on  '.$validated['termination_date'];
             Notification::create(['employeeid' => $employee->man_id, 'message' => $message1]);
-            event(new TerminationAdded($message1));
+            event(new TerminationAdded($message1, $employee->man_id));
         }
 
         $message = 'You will terminate on  '.$validated['termination_date'];
         Notification::create(['employeeid' => $validated['employee_id'], 'message' => $message]);
-        event(new TerminationAdded($message));
+        event(new TerminationAdded($message, $validated['employee_id']));
 
     	return redirect()->to(route('termination'));
     }
@@ -147,12 +147,12 @@ class TerminationController extends Controller
             if($employee->role_id == 3 && !empty($employee->man_id)) {
                 $message1 = 'Your employee '.$employee->first_name.' '.$employee->last_name.' \'s termination is updated ';
                 Notification::create(['employeeid' => $employee->man_id, 'message' => $message1]);
-                event(new TerminationAdded($message1));
+                event(new TerminationAdded($message1, $employee->man_id));
             }
 
             $message = 'Your termination is updated !';
             Notification::create(['employeeid' => $validated['employee_id'], 'message' => $message]);
-            event(new TerminationAdded($message));
+            event(new TerminationAdded($message, $validated['employee_id']));
 
     		return redirect()->back()->with('message', 'Data Updated.');
     	}
@@ -173,12 +173,12 @@ class TerminationController extends Controller
             if($employee->role_id == 3 && !empty($employee->man_id)) {
                 $message1 = 'Your employee '.$employee->first_name.' '.$employee->last_name.' \'s termination is Canceled ';
                 Notification::create(['employeeid' => $employee->man_id, 'message' => $message1]);
-                event(new TerminationAdded($message1));
+                event(new TerminationAdded($message1, $employee->man_id));
             }
 
             $message = 'Your termination is Canceled !';
             Notification::create(['employeeid' => $employee_id, 'message' => $message]);
-            event(new TerminationAdded($message));
+            event(new TerminationAdded($message, $employee_id));
 
     		return redirect()->back()->with('message', 'Data Deleted.'); 
     	}
