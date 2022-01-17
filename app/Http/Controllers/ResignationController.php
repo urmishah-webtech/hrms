@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Employee;
+use App\Events\EmployeeResignation;
+use App\Notification;
 use App\Resignation;
 use Carbon\Carbon;
 use Validator;
@@ -62,6 +64,19 @@ class ResignationController extends Controller
         $noticedate = Carbon::createFromFormat('d/m/Y', $request->noticedate)->format('Y-m-d');
         $resignationdate = Carbon::createFromFormat('d/m/Y', $request->resignationdate)->format('Y-m-d');
         Resignation::create(['employeeid' => $request->employeeid, 'department' => $department, 'noticedate' => $noticedate, 'resignationdate' => $resignationdate, 'reason' => $request->reason]);
+        $empmessage = 'Your resignation request has been sent to your manager and admin.';
+        Notification::create(['employeeid' => $request->employeeid, 'message' => $empmessage]);
+        event(new EmployeeResignation($empmessage, $request->employeeid));
+        $empname = getemployeename($request->employeeid);
+        $message = $empname.' has sent a resignation request.';
+        $adminid = Employee::where('role_id', 1)->first()->id;
+        Notification::create(['employeeid' => $adminid, 'message' => $message]);
+        event(new EmployeeResignation($message, $adminid));
+        $managerid = Employee::where('id', $request->employeeid)->first()->man_id;
+        if (!empty($managerid)) {
+            Notification::create(['employeeid' => $managerid, 'message' => $message]);
+            event(new EmployeeResignation($message, $managerid));
+        }
         return redirect()->back()->with('msg', 'Created Successfully');
     }
 
@@ -75,6 +90,10 @@ class ResignationController extends Controller
 
     public function updateResignation(Request $request){
         Resignation::where('id', $request->id)->update(['decisionby' => $request->decisionby, 'status' => $request->status, 'twoweeknotice' => $request->twoweeknotice, 'rehireable' => $request->rehireable]);
+        $message = 'Your resignation request has been '.$request->status.' by '.getemployeename($request->decisionby);
+        $emp = Resignation::where('id', $request->id)->first()->employeeid;
+        Notification::create(['employeeid' => $emp, 'message' => $message]);
+        event(new EmployeeResignation($message, $emp));
         return redirect()->back()->with('msg', 'Updated successfully');
     }
 
