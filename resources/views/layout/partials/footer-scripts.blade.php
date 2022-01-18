@@ -904,13 +904,31 @@
 	   $('.notification-list').prepend('<li class="notification-message"><a href="activities"><div class="media"><span class="avatar"><img alt="" src="img/profiles/avatar-03.jpg"></span><div class="media-body"><p class="noti-details"><span class="noti-title">'+termination_data.message+'</span> </p><p class="noti-time"><span class="notification-time">a few seconds ago</span></p></div></div></a></li>')
     });
 
-	var channel = pusher.subscribe('leave-added');
-    var channelname = 'leaveadded';
-	 
-	channel.bind(channelname, function(data) {
+	
+	var leave_added_channel = pusher.subscribe('leave-added');
+    var leave_added_channelname = 'leaveadded'
+	
+	var leave_added_auth_id={{ Auth::id() }}
+	leave_added_channel.bind(leave_added_channelname, function(leave_added_data) {
+	   if(leave_added_auth_id==leave_added_data.id || jQuery.inArray(leave_added_auth_id, leave_added_data.admin_ids) !== -1){
        var pre = $('#noti-badge').html();
 	   var newcount = parseInt(pre) + parseInt(1);
 	   $('#noti-badge').html(newcount);
-	   $('.notification-list').prepend('<li class="notification-message"><a href="activities"><div class="media"><span class="avatar"><img alt="" src="img/profiles/avatar-03.jpg"></span><div class="media-body"><p class="noti-details"><span class="noti-title">'+data.message+'</span> </p><p class="noti-time"><span class="notification-time">a few seconds ago</span></p></div></div></a></li>')
+	   $('.notification-list').prepend('<li class="notification-message"><a href="activities"><div class="media"><span class="avatar"><img alt="" src="img/profiles/avatar-03.jpg"></span><div class="media-body"><p class="noti-details"><span class="noti-title">'+leave_added_data.message+'</span> </p><p class="noti-time"><span class="notification-time">a few seconds ago</span></p></div></div></a></li>')
+	   }
+    });
+	
+	var leave_approve_channel = pusher.subscribe('leave-approved');
+    var leave_approve_channelname = ' '
+	
+	var leave_approve_auth_id={{ Auth::id() }}
+
+	leave_approve_channel.bind(leave_approve_channelname, function(leave_approve_data) {
+	   if(leave_approve_auth_id==leave_approve_data.id){
+       var pre = $('#noti-badge').html();
+	   var newcount = parseInt(pre) + parseInt(1);
+	   $('#noti-badge').html(newcount);
+	   $('.notification-list').prepend('<li class="notification-message"><a href="activities"><div class="media"><span class="avatar"><img alt="" src="img/profiles/avatar-03.jpg"></span><div class="media-body"><p class="noti-details"><span class="noti-title">'+leave_approve_data.message+'</span> </p><p class="noti-time"><span class="notification-time">a few seconds ago</span></p></div></div></a></li>')
+	   }
     });
 </script>

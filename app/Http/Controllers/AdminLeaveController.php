@@ -9,6 +9,8 @@ use App\Employee;
 use Auth;
 use Carbon\Carbon;
 use DB;
+use App\Notification;
+use App\Events\LeaveApprove;
 
 class AdminLeaveController extends Controller
 {
@@ -62,6 +64,10 @@ class AdminLeaveController extends Controller
             return back()->with('error','Timelimit for Changing Status is over ! you cant change now');
         }
         $data->save();
+        $type_name=($type=='2')?'approved':'rejected';
+        $message='Hi, Your leave has been '.$type_name;
+        Notification::create(['employeeid' => $data->employee_id, 'message' => $message]);
+        event(new LeaveApprove($message,$data->employee_id));
         return back();
     }
     public function search_leave_employee(Request $request){
