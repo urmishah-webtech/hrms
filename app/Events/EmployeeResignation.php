@@ -7,17 +7,14 @@ use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 
-
-class TerminationAdded implements ShouldBroadcastNow
+class EmployeeResignation implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-
-     public $message, $user;
-
+    public $message, $user;
     /**
      * Create a new event instance.
      *
@@ -36,11 +33,11 @@ class TerminationAdded implements ShouldBroadcastNow
      */
     public function broadcastOn()
     {
-        return ['termination-added'];
+        return ['employee-resignation'];
     }
 
     public function broadcastAs()
     {
-        return 'terminationadded-'.$this->user;
+        return 'employeeresignation-'.$this->user;
     }
 }
