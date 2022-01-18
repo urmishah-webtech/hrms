@@ -929,7 +929,7 @@
     });
 	
 	var leave_approve_channel = pusher.subscribe('leave-approved');
-    var leave_approve_channelname = ' '
+    var leave_approve_channelname = 'leaveapproved'
 	
 	var leave_approve_auth_id={{ Auth::id() }}
 
@@ -941,4 +941,19 @@
 	   $('.notification-list').prepend('<li class="notification-message"><a href="activities"><div class="media"><span class="avatar"><img alt="" src="img/profiles/avatar-03.jpg"></span><div class="media-body"><p class="noti-details"><span class="noti-title">'+leave_approve_data.message+'</span> </p><p class="noti-time"><span class="notification-time">a few seconds ago</span></p></div></div></a></li>')
 	   }
     });
+	$(".clear-noti").click(function(){
+		var logged_id={{ Auth::id() }}
+		$(".notification-list").empty();
+		$('#noti-badge').html(0);
+		$.ajax({
+          url: "{{ url('clear_notification') }}",
+          type:"POST",
+          data:{
+            "_token": "{{ csrf_token() }}",
+            "id":logged_id
+          },
+          success:function(response){
+		  }
+		});
+	})
 </script>

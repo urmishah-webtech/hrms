@@ -668,7 +668,7 @@ Route::post('add_designation','DesignationController@add_designation')->name('ad
 Route::post('edit_designation','DesignationController@edit_designation')->name('edit_designation');
 Route::post('delete_designation','DesignationController@delete_designation')->name('delete_designation');
 });
-
+ Route::post('clear_notification','NotificationController@clear_notification')->name('clear_notification');
  Auth::routes();
 // Route::get('/register', function () {
 //     return view('authregister');
