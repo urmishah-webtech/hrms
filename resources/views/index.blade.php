@@ -90,7 +90,10 @@
                                         <td>
                                             <h2><a href="{{route('profile_details', $employee->id)}}">{{$employee->first_name}} {{$employee->last_name}}</a></h2>
                                         </td>
-                                        <td>{{@$employee->man_id->employee->first_name}}</td>
+                                        <?php
+                                        $manager=DB::table('employees')->where('id',$employee->man_id)->first();
+                                        ?>
+                                        <td>{{@$manager->first_name.' '.@$manager->last_name}}</td>
                                         <td>{{@$employee->designation->department->name}}</td>
                                         <td>
                                             <span class="badge bg-inverse-warning">{{@$employee->designation->name}}</span>
