@@ -859,9 +859,7 @@
 					var resid = $(this).attr('data-id');
 					$('#deleteresignationid').val(resid);
 				});
-
-				
-				 
+ 
 				 
 			});
 		});
@@ -925,6 +923,42 @@
 	   var newcount = parseInt(pre) + parseInt(1);
 	   $('#noti-badge').html(newcount);
 	   $('.notification-list').prepend('<li class="notification-message"><a href="activities"><div class="media"><span class="avatar"><img alt="" src="img/profiles/avatar-03.jpg"></span><div class="media-body"><p class="noti-details"><span class="noti-title">'+leave_added_data.message+'</span> </p><p class="noti-time"><span class="notification-time">a few seconds ago</span></p></div></div></a></li>')
+	   }
+    });
+
+	var indistatus_added_channel = pusher.subscribe('indicator-status');
+    var indistatus_added_channelname = 'indicatorstatus'
+	var indistatus_added_auth_id={{ Auth::id() }}
+	indistatus_added_channel.bind(indistatus_added_channelname, function(indistatus_added_data) {
+	   if(indistatus_added_auth_id==indistatus_added_data.id || jQuery.inArray(indistatus_added_auth_id) !== -1){
+       var pre = $('#noti-badge').html();
+	   var newcount = parseInt(pre) + parseInt(1);
+	   $('#noti-badge').html(newcount);
+	   $('.notification-list').prepend('<li class="notification-message"><a href="activities"><div class="media"><span class="avatar"><img alt="" src="img/profiles/avatar-03.jpg"></span><div class="media-body"><p class="noti-details"><span class="noti-title">'+indistatus_added_data.message+'</span> </p><p class="noti-time"><span class="notification-time">a few seconds ago</span></p></div></div></a></li>')
+	   }
+    });
+
+	var appraisalstatus_added_channel = pusher.subscribe('appraisal-status');
+    var appraisalstatus_added_channelname = 'appraisalstatus'
+	var appraisalstatus_added_auth_id={{ Auth::id() }}
+	appraisalstatus_added_channel.bind(appraisalstatus_added_channelname, function(appraisalstatus_added_data) {
+	   if(appraisalstatus_added_auth_id==appraisalstatus_added_data.id || jQuery.inArray(appraisalstatus_added_auth_id) !== -1){
+       var pre = $('#noti-badge').html();
+	   var newcount = parseInt(pre) + parseInt(1);
+	   $('#noti-badge').html(newcount);
+	   $('.notification-list').prepend('<li class="notification-message"><a href="activities"><div class="media"><span class="avatar"><img alt="" src="img/profiles/avatar-03.jpg"></span><div class="media-body"><p class="noti-details"><span class="noti-title">'+appraisalstatus_added_data.message+'</span> </p><p class="noti-time"><span class="notification-time">a few seconds ago</span></p></div></div></a></li>')
+	   }
+    });
+
+	var empperfomstatus_added_channel = pusher.subscribe('employee-perfomance-status');
+    var empperfomstatus_added_channelname = 'empperfomancestatus'
+	var empperfomstatus_added_auth_id={{ Auth::id() }}
+	empperfomstatus_added_channel.bind(empperfomstatus_added_channelname, function(empperfomstatus_added_data) {
+	   if(empperfomstatus_added_auth_id==empperfomstatus_added_data.id || jQuery.inArray(empperfomstatus_added_auth_id) !== -1){
+       var pre = $('#noti-badge').html();
+	   var newcount = parseInt(pre) + parseInt(1);
+	   $('#noti-badge').html(newcount);
+	   $('.notification-list').prepend('<li class="notification-message"><a href="activities"><div class="media"><span class="avatar"><img alt="" src="img/profiles/avatar-03.jpg"></span><div class="media-body"><p class="noti-details"><span class="noti-title">'+empperfomstatus_added_data.message+'</span> </p><p class="noti-time"><span class="notification-time">a few seconds ago</span></p></div></div></a></li>')
 	   }
     });
 	
