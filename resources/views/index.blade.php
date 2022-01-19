@@ -98,25 +98,25 @@
                             <div class="stats-info">
                                 <p>Today Leave <strong>{{$on_leave}} <small>/ {{$total_emp}}</small></strong></p>
                                 <div class="progress">
-                                    <div class="progress-bar @if($progress_leave <= 30) bg-primary @elseif($progress_leave >= 31 || $progress_leave <= 60)   bg-warning @else bg-danger @endif" role="progressbar" style="width: {{$progress_leave}}%" aria-valuenow="{{$progress_leave}}" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar @if($progress_leave >= 61) bg-danger @elseif($progress_leave >= 31 || $progress_leave <= 60) bg-warning @else bg-primary @endif" role="progressbar" style="width: {{$progress_leave}}%" aria-valuenow="{{$progress_leave}}" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                             </div>
                             <div class="stats-info">
                                 <p>Planned Leaves <strong>{{$plan_count}} <small>/ {{$on_leave}}</small></strong></p>
                                 <div class="progress">
-                                    <div class="progress-bar @if($plan_data <= 30) bg-primary @elseif($plan_data >= 31 || $plan_data <= 60)   bg-warning @else bg-danger @endif" role="progressbar" style="width: {{$plan_data}}%" aria-valuenow="{{$plan_data}}" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar @if($plan_data >= 61) bg-danger @elseif($plan_data >= 31 || $plan_data <= 60) bg-warning @else bg-primary @endif" role="progressbar" style="width: {{$plan_data}}%" aria-valuenow="{{$plan_data}}" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                             </div>
                             <div class="stats-info">
                                 <p>Unplanned Leaves <strong>{{$unplan_data}} <small>/ {{$on_leave}}</small></strong></p>
                                 <div class="progress">
-                                    <div class="progress-bar @if($unplan_count <= 30) bg-primary @elseif($unplan_count >= 31 || $unplan_count <= 60)   bg-warning @else bg-danger @endif" role="progressbar" style="width: {{$unplan_count}}%" aria-valuenow="{{$unplan_count}}" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar @if($unplan_count >= 61) bg-danger @elseif($unplan_count >= 31 || $unplan_count <= 60) bg-warning @else bg-primary @endif" role="progressbar" style="width: {{$unplan_count}}%" aria-valuenow="{{$unplan_count}}" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                             </div>
                             <div class="stats-info">
                                 <p>Pending Requests <strong>{{$pending_req}}</strong></p>
                                 <div class="progress">
-                                    <div class="progress-bar @if($pending_persent <= 30) bg-primary @elseif($pending_persent >= 31 || $pending_persent <= 60)   bg-warning @else bg-danger @endif" role="progressbar" style="width: {{$pending_persent}}%" aria-valuenow="{{$pending_persent}}" aria-valuemin="0" aria-valuemax="100"></div>
+                                    <div class="progress-bar @if($pending_persent >= 61) bg-danger @elseif($pending_persent >= 31 || $pending_persent <= 60) bg-warning @else bg-primary @endif" role="progressbar" style="width: {{$pending_persent}}%" aria-valuenow="{{$pending_persent}}" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>
                             </div>
                             <!--<div class="stats-info">
