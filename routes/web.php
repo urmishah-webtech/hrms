@@ -556,13 +556,13 @@ Route::get('/performance-indicator','IndicatorController@indicators')->name('ind
 Route::post('add_indicator','IndicatorController@add_indicator')->name('add_indicators');
 Route::post('edit_indicator','IndicatorController@edit_indicator')->name('edit_indicators');
 Route::post('delete_indicator','IndicatorController@delete_indicator')->name('delete_indicator');
-Route::post('changestatus','IndicatorController@changestatusDropdown')->name('chang_status'); 
+Route::get('changestatusDropdown/{type}/{id}','IndicatorController@changestatusDropdown')->name('changestatusDropdown'); 
 
 Route::get('/performance-appraisal','AppraisalController@appraisal')->name('appraisal');
 Route::post('add_appraisal','AppraisalController@add_appraisal')->name('add_appraisal');
 Route::post('edit_appraisal','AppraisalController@edit_appraisal')->name('edit_appraisal');
 Route::post('delete_appraisal','AppraisalController@delete_appraisal')->name('delete_appraisal');
-Route::post('change_apstatus','AppraisalController@change_appraisal_status')->name('chang_appraisal_status');
+Route::get('change_appraisal_status/{type}/{id}','AppraisalController@change_appraisal_status')->name('change_appraisal_status'); 
 
 Route::get('/notifications-settings','NotificationsettController@notificationsetting');
 Route::post('changeNotificationAccess','NotificationsettController@changeNotificationAccess')->name('chg_Notifi');

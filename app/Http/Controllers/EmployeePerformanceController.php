@@ -24,6 +24,8 @@ use App\PerformanceIdentity;
 use App\KeyprofessionalExcellences;
 use App\User;
 use Auth;
+use App\Notification;
+use App\Events\EmployeePerfomanceStatus;
 
 class EmployeePerformanceController extends Controller
 {
@@ -586,6 +588,10 @@ class EmployeePerformanceController extends Controller
         $status=Employee::where('id',$request->empid)->first();             
         $status->perfomance_status=$request->perfomance_status;
         $status->save();
+
+        $message='Hi, Your Employee Performance Status has been Complete';
+        Notification::create(['employeeid' => $status->id, 'message' => $message]);
+        event(new EmployeePerfomanceStatus($message,$status->id));
         return back();
     }
 }

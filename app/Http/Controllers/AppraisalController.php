@@ -11,6 +11,9 @@ use Validator;
 use DB;
 use Auth;
 use Redirect;
+use App\Notification;
+use App\Events\AppraisalStatus;
+
 
 class AppraisalController extends Controller
 {
@@ -101,10 +104,19 @@ class AppraisalController extends Controller
         }
      
     }
-    public function change_appraisal_status(Request $request){     
-        $modules=Appraisal::where('id',$request->id)->first();         
+    public function change_appraisal_status($type,$id){     
+        /*$modules=Appraisal::where('id',$request->id)->first();         
         $modules->status=$request->status;
         $modules->save();
-        return json_encode("1");
+        return json_encode("1");*/
+
+        $data=Appraisal::where('id',$id)->first();
+        $data->status=$type;
+        $data->save();
+        $type_name=($type=='1')?'Active':'Inactive';    
+        $message='Hi, Your Performance Appraisal Status has been '.$type_name;
+        Notification::create(['employeeid' => $data->employee_id, 'message' => $message]);
+        event(new AppraisalStatus($message,$data->employee_id));
+        return back();
     }
 }
