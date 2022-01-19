@@ -60,7 +60,7 @@ class HomeController extends Controller
         if($on_leave != 0){$unplan_count=$unplan_data*100/$on_leave;}else{$unplan_count=0;}  
         $pending_req=EmployeeLeave::where('status', 1)->get()->count(); 
         $pending_persent = $pending_req/100;
-
+         
         $emp = Employee::where('role_id','3')->orderBy('id', 'DESC')->limit(3)->get();
         $res = Resignation::orderBy('id', 'DESC')->limit(3)->get();
         $promotion = Promotion::orderBy('id', 'DESC')->limit(5)->get();
