@@ -87,6 +87,8 @@ Route::post('/update_leave','EmployeeLeaveController@update_leave')->name('updat
 Route::get('/delete_emp_leave/{id}','EmployeeLeaveController@delete_leave')->name('delete_leave');
 Route::get('/edit_emp_leave/{id}','EmployeeLeaveController@edit_leave')->name('edit_leave');
 Route::get('/leaves','AdminLeaveController@index')->name('leaves');
+Route::get('/leave-calender','AdminLeaveController@leave_calender')->name('leave-calender');
+Route::get('/leave_render','AdminLeaveController@leave_render')->name('leave_render');
 Route::get('/change_leave_status/{type}/{id}','AdminLeaveController@change_leave_status')->name('change_leave_status');
 Route::post('search_leave_employees','AdminLeaveController@search_leave_employee')->name('search_leave_employees');
 //leave routes end
