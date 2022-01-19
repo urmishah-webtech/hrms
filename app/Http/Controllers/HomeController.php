@@ -56,8 +56,8 @@ class HomeController extends Controller
         ");
         $plan_count = count($planed_leave);
         $unplan_data=$on_leave-$plan_count;
-        if($on_leave != 0){$plan_data = $plan_count*100/$on_leave;
-        $unplan_count=$unplan_data*100/$on_leave;}  
+        if($on_leave != 0){$plan_data = $plan_count*100/$on_leave;}else{$plan_data=0;}
+        if($on_leave != 0){$unplan_count=$unplan_data*100/$on_leave;}else{$unplan_count=0;}  
         $pending_req=EmployeeLeave::where('status', 1)->get()->count(); 
         $pending_persent = $pending_req/100;
 
@@ -104,8 +104,8 @@ class HomeController extends Controller
         ");
         $plan_count = count($planed_leave);
         $unplan_data=$on_leave-$plan_count;
-        if($on_leave != 0){$plan_data = $plan_count*100/$on_leave;
-        $unplan_count=$unplan_data*100/$on_leave;}  
+        if($on_leave != 0){$plan_data = $plan_count*100/$on_leave;}else{$plan_data=0;}
+        if($on_leave != 0){$unplan_count=$unplan_data*100/$on_leave;}else{$unplan_count=0;}
         $pending_req=EmployeeLeave::where('status', 1)->get()->count(); 
         $pending_persent = $pending_req/100;
 
