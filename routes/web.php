@@ -87,6 +87,8 @@ Route::post('/update_leave','EmployeeLeaveController@update_leave')->name('updat
 Route::get('/delete_emp_leave/{id}','EmployeeLeaveController@delete_leave')->name('delete_leave');
 Route::get('/edit_emp_leave/{id}','EmployeeLeaveController@edit_leave')->name('edit_leave');
 Route::get('/leaves','AdminLeaveController@index')->name('leaves');
+Route::get('/leave-calender','AdminLeaveController@leave_calender')->name('leave-calender');
+Route::get('/leave_render','AdminLeaveController@leave_render')->name('leave_render');
 Route::get('/change_leave_status/{type}/{id}','AdminLeaveController@change_leave_status')->name('change_leave_status');
 Route::post('search_leave_employees','AdminLeaveController@search_leave_employee')->name('search_leave_employees');
 //leave routes end
@@ -556,13 +558,13 @@ Route::get('/performance-indicator','IndicatorController@indicators')->name('ind
 Route::post('add_indicator','IndicatorController@add_indicator')->name('add_indicators');
 Route::post('edit_indicator','IndicatorController@edit_indicator')->name('edit_indicators');
 Route::post('delete_indicator','IndicatorController@delete_indicator')->name('delete_indicator');
-Route::post('changestatus','IndicatorController@changestatusDropdown')->name('chang_status'); 
+Route::get('changestatusDropdown/{type}/{id}','IndicatorController@changestatusDropdown')->name('changestatusDropdown'); 
 
 Route::get('/performance-appraisal','AppraisalController@appraisal')->name('appraisal');
 Route::post('add_appraisal','AppraisalController@add_appraisal')->name('add_appraisal');
 Route::post('edit_appraisal','AppraisalController@edit_appraisal')->name('edit_appraisal');
 Route::post('delete_appraisal','AppraisalController@delete_appraisal')->name('delete_appraisal');
-Route::post('change_apstatus','AppraisalController@change_appraisal_status')->name('chang_appraisal_status');
+Route::get('change_appraisal_status/{type}/{id}','AppraisalController@change_appraisal_status')->name('change_appraisal_status'); 
 
 Route::get('/notifications-settings','NotificationsettController@notificationsetting');
 Route::post('changeNotificationAccess','NotificationsettController@changeNotificationAccess')->name('chg_Notifi');
