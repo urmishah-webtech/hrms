@@ -859,9 +859,7 @@
 					var resid = $(this).attr('data-id');
 					$('#deleteresignationid').val(resid);
 				});
-
-				
-				 
+ 
 				 
 			});
 		});
@@ -932,7 +930,7 @@
     var indistatus_added_channelname = 'indicatorstatus'
 	var indistatus_added_auth_id={{ Auth::id() }}
 	indistatus_added_channel.bind(indistatus_added_channelname, function(indistatus_added_data) {
-	   if(indistatus_added_auth_id==indistatus_added_data.id || jQuery.inArray(indistatus_added_auth_id){
+	   if(indistatus_added_auth_id==indistatus_added_data.id || jQuery.inArray(indistatus_added_auth_id) !== -1){
        var pre = $('#noti-badge').html();
 	   var newcount = parseInt(pre) + parseInt(1);
 	   $('#noti-badge').html(newcount);
@@ -944,7 +942,7 @@
     var appraisalstatus_added_channelname = 'appraisalstatus'
 	var appraisalstatus_added_auth_id={{ Auth::id() }}
 	appraisalstatus_added_channel.bind(appraisalstatus_added_channelname, function(appraisalstatus_added_data) {
-	   if(appraisalstatus_added_auth_id==appraisalstatus_added_data.id || jQuery.inArray(appraisalstatus_added_auth_id){
+	   if(appraisalstatus_added_auth_id==appraisalstatus_added_data.id || jQuery.inArray(appraisalstatus_added_auth_id) !== -1){
        var pre = $('#noti-badge').html();
 	   var newcount = parseInt(pre) + parseInt(1);
 	   $('#noti-badge').html(newcount);
@@ -956,7 +954,7 @@
     var empperfomstatus_added_channelname = 'empperfomancestatus'
 	var empperfomstatus_added_auth_id={{ Auth::id() }}
 	empperfomstatus_added_channel.bind(empperfomstatus_added_channelname, function(empperfomstatus_added_data) {
-	   if(empperfomstatus_added_auth_id==empperfomstatus_added_data.id || jQuery.inArray(empperfomstatus_added_auth_id){
+	   if(empperfomstatus_added_auth_id==empperfomstatus_added_data.id || jQuery.inArray(empperfomstatus_added_auth_id) !== -1){
        var pre = $('#noti-badge').html();
 	   var newcount = parseInt(pre) + parseInt(1);
 	   $('#noti-badge').html(newcount);
