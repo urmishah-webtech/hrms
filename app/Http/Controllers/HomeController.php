@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Employee;
+use App\EmployeeFirstVerbalWarning;
+use App\EmployeeSecondVerbalWarning;
+use App\EmployeeThirdVerbalWarning;
+use App\Termination;
 use Auth;
 use Carbon\Carbon;
 use DB;
