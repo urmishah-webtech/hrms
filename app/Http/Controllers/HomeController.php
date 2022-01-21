@@ -48,6 +48,7 @@ class HomeController extends Controller
         $res = Resignation::orderBy('id', 'DESC')->limit(3)->get();
         $promotion = Promotion::orderBy('id', 'DESC')->limit(5)->get();
         $appraisal = Appraisal::orderBy('id', 'DESC')->limit(5)->get();
+        
         return view('index',compact('emp_total','per_status_complete','per_status_incomp','man_total', 'emp', 'res', 'promotion', 'appraisal'));
     }
 
