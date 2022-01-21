@@ -74,10 +74,11 @@ class HomeController extends Controller
         $last_month_emp_count=Employee::whereMonth('created_at', '=', Carbon::now()->subMonth()->month)->where('role_id','!=',1)->get()->count();
         $current_month_emp_count=Employee::whereMonth('created_at', '=', Carbon::now()->month)->where('role_id','!=',1)->get()->count();
         $emp_per=(($current_month_emp_count-$last_month_emp_count)/$current_month_emp_count)*100;
-       
+        $promotion_month = Promotion::whereMonth('date', '=', Carbon::now()->month)->get();
+        $promotion_previousmonth = Promotion::whereMonth('date', '=', Carbon::now()->subMonth()->month)->get();
         $currentyear = Carbon::now()->year;
         $lastsixyears = [$currentyear];
-        for ($i=1; $i < 7; $i++) { 
+        for ($i=1; $i < 7; $i++) {
             array_push($lastsixyears, $currentyear-$i);
         }
         $newemp = [];
@@ -97,7 +98,7 @@ class HomeController extends Controller
             $final[$key] = $data;
         }
         $linechartdata = json_encode($final);
-        return view('index',compact('emp_total','per_status_complete','per_status_incomp','man_total', 'emp', 'res', 'promotion', 'appraisal','on_leave','on_leave_data','total_emp','progress_leave','plan_count','unplan_count','pending_persent','unplan_data','plan_data','pending_req', 'linechartdata'));
+        return view('index',compact('emp_total','per_status_complete','per_status_incomp','man_total', 'emp', 'res', 'promotion', 'appraisal','on_leave','on_leave_data','total_emp','progress_leave','plan_count','unplan_count','pending_persent','unplan_data','plan_data','pending_req', 'linechartdata', 'promotion_month', 'promotion_previousmonth'));
     }
 
     public function editPromotion(){
@@ -144,7 +145,7 @@ class HomeController extends Controller
         $res = Resignation::orderBy('id', 'DESC')->limit(3)->get();
         $promotion = Promotion::orderBy('id', 'DESC')->limit(5)->get();
         $appraisal = Appraisal::orderBy('id', 'DESC')->limit(5)->get();
-        
+
 		return view('index',compact('emp_total','per_status_complete','per_status_incomp','man_total', 'emp', 'res', 'promotion', 'appraisal','on_leave','on_leave_data','total_emp','progress_leave','plan_count','unplan_count','pending_persent','unplan_data','plan_data','pending_req'));
 		}
 		else
