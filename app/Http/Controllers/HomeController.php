@@ -15,6 +15,8 @@ use App\EmployeeLeave;
 use App\Resignation;
 use App\Promotion;
 use App\Appraisal;
+use App\PersonalExcellence;
+
 class HomeController extends Controller
 {
     /**
@@ -42,7 +44,10 @@ class HomeController extends Controller
         $first_withdraw = EmployeeFirstVerbalWarning::where('emp_id',$userd)->where('status',0)->get();
         $first_war = EmployeeFirstVerbalWarning::where('emp_id',$userd)->where('status',1)->get();
         $terminate_emp = Termination::where('employee_id', $userd)->get();
-        return view('employee-dashboard',compact('third_withdraw','third_war','second_withdraw','second_war','first_withdraw','first_war','terminate_emp'));
+        $promotiondata = Promotion::where('employeeid', $userd)->get();
+        $personal_excellence=PersonalExcellence::where('emp_id',$userd)->first();
+        $on_leave_data=EmployeeLeave::where('employee_id',$userd)->get();
+        return view('employee-dashboard',compact('third_withdraw','third_war','second_withdraw','second_war','first_withdraw','first_war','terminate_emp','promotiondata','personal_excellence','on_leave_data'));
     }
 	public function adminHome()
     {
@@ -113,6 +118,7 @@ class HomeController extends Controller
             $final[$key] = $data;
         }
         $linechartdata = json_encode($final);
+        
         return view('index',compact('emp_total','per_status_complete','per_status_incomp','man_total', 'emp', 'res', 'promotion', 'appraisal','on_leave','on_leave_data','total_emp','progress_leave','plan_count','unplan_count','pending_persent','unplan_data','plan_data','pending_req', 'linechartdata',
         'last_month_emp_count','current_month_emp_count','emp_per','last_month_resi_count','current_month_resi_count','resi_per'));
     }

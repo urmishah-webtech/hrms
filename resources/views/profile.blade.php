@@ -184,7 +184,7 @@
                             <div class="col-md-6 d-flex">
                                 <div class="card profile-box flex-fill">
                                     <div class="card-body">
-                                        <h3 class="card-title">Experience <a href="{{route('promotions', ['employee' => $id])}}" class="edit-icon" target="_blank"><i class="fa fa-pencil"></i></a></h3>
+                                        <h3 class="card-title">Employee History <a href="{{route('promotions', ['employee' => $id])}}" class="edit-icon" target="_blank"><i class="fa fa-pencil"></i></a></h3>
                                         <div class="experience-box">
                                             <ul class="experience-list">
                                                 @if (!empty($promotiondata))
