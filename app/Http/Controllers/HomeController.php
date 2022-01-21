@@ -47,7 +47,8 @@ class HomeController extends Controller
         $promotiondata = Promotion::where('employeeid', $userd)->get();
         $personal_excellence=PersonalExcellence::where('emp_id',$userd)->first();
         $on_leave_data=EmployeeLeave::where('employee_id',$userd)->get();
-        return view('employee-dashboard',compact('third_withdraw','third_war','second_withdraw','second_war','first_withdraw','first_war','terminate_emp','promotiondata','personal_excellence','on_leave_data'));
+        $resignation = Resignation::where('employeeid', $userd)->orderBy('id', 'DESC')->get();
+        return view('employee-dashboard',compact('third_withdraw','third_war','second_withdraw','second_war','first_withdraw','first_war','terminate_emp','promotiondata','personal_excellence','on_leave_data', 'resignation'));
     }
 	public function adminHome()
     {

@@ -65,16 +65,16 @@
             </div>
         </div>
         @include('percentage_stat')
-       
+
 		<div class="row">
-            
+
             <div class="col-md-6 text-center">
                 <div class="card">
                     <div class="card-body">
                         <h3 class="card-title">Leave Calendar</h3>
                         <div class="card card-transparent p-4" role="tabpanel">
                             <div class="tab-content p-0 bg-white">
-                                <div class="tab-pane active" id="home" role="tabpanel">
+                                <div class="tab-pane active home_calendar" id="home" role="tabpanel">
                                     <div class="response"></div>
                                     <div id='calendar1'></div>
                                 </div>
@@ -83,7 +83,7 @@
                     </div>
                 </div>
             </div>
-             
+
 			<div class="col-md-6 text-center">
 				<div class="card">
 					<div class="card-body">
@@ -94,7 +94,7 @@
 				</div>
 			</div>
 		</div>
-					 
+
         <!-- Statistics Widget -->
         <div class="row">
             <div class="col-md-12 col-lg-12 col-xl-4 d-flex">
@@ -136,7 +136,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="col-md-12 col-lg-6 col-xl-4 d-flex">
                 <div class="card flex-fill">
                     <div class="card-body">
@@ -174,7 +174,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="col-md-12 col-lg-6 col-xl-4 d-flex">
                 <div class="card flex-fill">
                     <div class="card-body">
@@ -195,7 +195,7 @@
                                 </div>
                                 <div class="col-6 text-right">
                                     <span class="badge bg-inverse-danger">
-                                    @if(@$val->status==1)Pending	
+                                    @if(@$val->status==1)Pending
                                     @elseif(@$val->status==2)Approved
                                     @else Disapproved @endif</span>
                                 </div>
@@ -212,7 +212,7 @@
         </div>
         <!-- /Statistics Widget -->
 
-        
+
 
         <div class="row">
             <div class="col-md-6 d-flex">
