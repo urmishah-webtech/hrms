@@ -8,11 +8,13 @@
 
 		<!-- Slimscroll JS -->
 		<script src="{{ URL::asset('js/jquery.slimscroll.min.js') }}"></script>
-		@if(Route::is(['jobs-dashboard','user-dashboard']))
+
 		<!-- Chart JS -->
 		<script src="{{ URL::asset('js/Chart.min.js') }}"></script>
+		<script src="{{ URL::asset('js/chart.js') }}"></script>
+
 		<script src="{{ URL::asset('js/line-chart.js') }}"></script>
-		@endif
+
 		<!-- Select2 JS -->
 		<script src="{{ URL::asset('js/select2.min.js') }}"></script>
 
