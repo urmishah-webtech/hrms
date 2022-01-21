@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Employee;
-use App\EmployeeLeave;
+use Auth;
 use Carbon\Carbon;
+use DB;
+use App\EmployeeLeave;
 use App\Resignation;
 use App\Promotion;
 use App\Appraisal;
-use Auth;
-use DB;
 class HomeController extends Controller
 {
     /**
@@ -75,7 +75,29 @@ class HomeController extends Controller
         $current_month_emp_count=Employee::whereMonth('created_at', '=', Carbon::now()->month)->where('role_id','!=',1)->get()->count();
         $emp_per=(($current_month_emp_count-$last_month_emp_count)/$current_month_emp_count)*100;
        
-        return view('index',compact('emp_total','per_status_complete','per_status_incomp','man_total', 'emp', 'res', 'promotion', 'appraisal','on_leave','on_leave_data','total_emp','progress_leave','plan_count','unplan_count','pending_persent','unplan_data','plan_data','pending_req'));
+        $currentyear = Carbon::now()->year;
+        $lastsixyears = [$currentyear];
+        for ($i=1; $i < 7; $i++) { 
+            array_push($lastsixyears, $currentyear-$i);
+        }
+        $newemp = [];
+        foreach ($lastsixyears as $key => $value) {
+            $newemptemp = Employee::where( DB::raw('YEAR(joing_date)'), '=', $value )->count();
+            array_push($newemp, $newemptemp);
+        }
+        $resignedemp = [];
+        foreach ($lastsixyears as $key => $value) {
+            $resemptemp = Resignation::where('status', 'Approved')->where( DB::raw('YEAR(resignationdate)'), '=', $value )->count();
+            array_push($resignedemp, $resemptemp);
+        }
+        foreach ($lastsixyears as $key => $value) {
+            $data['y'] = $value;
+            $data['a'] = $newemp[$key];
+            $data['b'] = $resignedemp[$key];
+            $final[$key] = $data;
+        }
+        $linechartdata = json_encode($final);
+        return view('index',compact('emp_total','per_status_complete','per_status_incomp','man_total', 'emp', 'res', 'promotion', 'appraisal','on_leave','on_leave_data','total_emp','progress_leave','plan_count','unplan_count','pending_persent','unplan_data','plan_data','pending_req', 'linechartdata'));
     }
 
     public function editPromotion(){
@@ -122,7 +144,7 @@ class HomeController extends Controller
         $res = Resignation::orderBy('id', 'DESC')->limit(3)->get();
         $promotion = Promotion::orderBy('id', 'DESC')->limit(5)->get();
         $appraisal = Appraisal::orderBy('id', 'DESC')->limit(5)->get();
-
+        
 		return view('index',compact('emp_total','per_status_complete','per_status_incomp','man_total', 'emp', 'res', 'promotion', 'appraisal','on_leave','on_leave_data','total_emp','progress_leave','plan_count','unplan_count','pending_persent','unplan_data','plan_data','pending_req'));
 		}
 		else

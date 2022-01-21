@@ -15,6 +15,9 @@
 
 		<script src="{{ URL::asset('js/line-chart.js') }}"></script>
 
+		<script src="{{URL::asset('plugins/morris/morris.min.js')}}"></script>
+		<script src="{{URL::asset('plugins/raphael/raphael.min.js')}}"></script>
+		<script src="{{URL::asset('js/chart.js')}}"></script>
 		<!-- Select2 JS -->
 		<script src="{{ URL::asset('js/select2.min.js') }}"></script>
 
@@ -1010,4 +1013,31 @@
 		  }
 		});
 	})
+
+
+
+	// Line Chart
+	var linechartdata = $('#linechartdata').val();
+	arr = $.parseJSON(linechartdata);
+	// console.log(arr);
+	// console.log([
+	// 		{ y: '2006', a: 50, b: 90 },
+	// 		{ y: '2007', a: 75,  b: 65 },
+	// 		{ y: '2008', a: 50,  b: 40 },
+	// 		{ y: '2009', a: 75,  b: 65 },
+	// 		{ y: '2010', a: 50,  b: 40 },
+	// 		{ y: '2011', a: 75,  b: 65 },
+	// 		{ y: '2012', a: 100, b: 50 }
+	// 	]);
+	Morris.Line({
+		element: 'line-charts-employees',
+		data: arr,
+		xkey: 'y',
+		ykeys: ['a', 'b'],
+		labels: ['New Employess', 'Resigned Employees'],
+		lineColors: ['#ff9b44','#fc6075'],
+		lineWidth: '3px',
+		resize: true,
+		redraw: true
+	});
  </script>
