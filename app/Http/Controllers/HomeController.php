@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Employee;
+use App\Resignation;
 use Auth;
+use Carbon\Carbon;
+use DB;
+
 class HomeController extends Controller
 {
     /**
@@ -41,7 +45,29 @@ class HomeController extends Controller
         $per_status_incomp= Employee::where('perfomance_status','0')->get()->count();
         } 
         $man_total= Employee::where('role_id','2')->get()->count(); 
-        return view('index',compact('emp_total','per_status_complete','per_status_incomp','man_total'));
+        $currentyear = Carbon::now()->year;
+        $lastsixyears = [$currentyear];
+        for ($i=1; $i < 7; $i++) { 
+            array_push($lastsixyears, $currentyear-$i);
+        }
+        $newemp = [];
+        foreach ($lastsixyears as $key => $value) {
+            $newemptemp = Employee::where( DB::raw('YEAR(joing_date)'), '=', $value )->count();
+            array_push($newemp, $newemptemp);
+        }
+        $resignedemp = [];
+        foreach ($lastsixyears as $key => $value) {
+            $resemptemp = Resignation::where('status', 'Approved')->where( DB::raw('YEAR(resignationdate)'), '=', $value )->count();
+            array_push($resignedemp, $resemptemp);
+        }
+        foreach ($lastsixyears as $key => $value) {
+            $data['y'] = $value;
+            $data['a'] = $newemp[$key];
+            $data['b'] = $resignedemp[$key];
+            $final[$key] = $data;
+        }
+        $linechartdata = json_encode($final);
+        return view('index',compact('emp_total','per_status_complete','per_status_incomp','man_total', 'linechartdata'));
     }
 	public function HomepageUrl()
     {

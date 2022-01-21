@@ -64,6 +64,18 @@
 							</div>
 						</div>
 					</div>
+
+					<div class="row">
+						<div class="col-md-6 text-center">
+							<div class="card">
+								<div class="card-body">
+									<h3 class="card-title">Employees Overview</h3>
+									<input type="hidden" id="linechartdata" value="{{$linechartdata}}">
+									<div id="line-charts-employees"></div>
+								</div>
+							</div>
+						</div>
+					</div>
 					 
 					<!--<div class="row">
 						<div class="col-md-12">
