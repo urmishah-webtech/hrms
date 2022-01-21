@@ -86,7 +86,7 @@ class HomeController extends Controller
             array_push($resignedemp, $resemptemp);
         }
         foreach ($lastsixyears as $key => $value) {
-            $data['y'] = $value;
+            $data['y'] = "".$value."";
             $data['a'] = $newemp[$key];
             $data['b'] = $resignedemp[$key];
             $final[$key] = $data;
