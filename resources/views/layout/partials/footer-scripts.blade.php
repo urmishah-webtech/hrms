@@ -1,19 +1,20 @@
 <!-- jQuery -->
 
 <script src="{{ URL::asset('js/jquery-3.5.1.min.js') }}"></script>
-		
+
 		<!-- Bootstrap Core JS -->
         <script src="{{ URL::asset('js/popper.min.js') }}"></script>
         <script src="{{ URL::asset('js/bootstrap.min.js') }}"></script>
-		
+
 		<!-- Slimscroll JS -->
 		<script src="{{ URL::asset('js/jquery.slimscroll.min.js') }}"></script>
-		@if(Route::is(['jobs-dashboard','user-dashboard']))
+
 		<!-- Chart JS -->
 		<script src="{{ URL::asset('js/Chart.min.js') }}"></script>
+		<script src="{{ URL::asset('js/chart.js') }}"></script>
+
 		<script src="{{ URL::asset('js/line-chart.js') }}"></script>
-		@endif
-		<!-- Chart JS -->
+
 		<script src="{{URL::asset('plugins/morris/morris.min.js')}}"></script>
 		<script src="{{URL::asset('plugins/raphael/raphael.min.js')}}"></script>
 		<script src="{{URL::asset('js/chart.js')}}"></script>
@@ -22,11 +23,11 @@
 
 		<script src="{{ URL::asset('js/jquery-ui.min.js') }}"></script>
 		<script src="{{ URL::asset('js/jquery.ui.touch-punch.min.js') }}"></script>
-		
+
 		<!-- Datetimepicker JS -->
 		<script src="{{ URL::asset('js/moment.min.js') }}"></script>
 		<script src="{{ URL::asset('js/bootstrap-datetimepicker.min.js') }}"></script>
-		
+
 		<!-- Calendar JS -->
 		<script src="{{ URL::asset('js/jquery-ui.min.js') }}"></script>
         <script src="{{ URL::asset('js/fullcalendar.min.js') }}"></script>
@@ -41,8 +42,8 @@
 
 		<!-- Summernote JS -->
 		<script src="{{ URL::asset('plugins/summernote/dist/summernote-bs4.min.js') }}"></script>
-		
-			
+
+
 		<script src="{{ URL::asset('plugins/sticky-kit-master/dist/sticky-kit.min.js') }}"></script>
 
 		<!-- Task JS -->
@@ -56,7 +57,7 @@
 		<script>
 		 $(document).ready(function(){
 
-		
+
 
 
 
@@ -67,11 +68,11 @@
         $("#customRange").change(function(){
             $("#result b").html($(this).val());
         });
-    });        
+    });
 		$(".header").stick_in_parent({
-			
+
 		});
-		// This is for the sticky sidebar    
+		// This is for the sticky sidebar
 		$(".stickyside").stick_in_parent({
 			offset_top: 60
 		});
@@ -161,8 +162,8 @@
 		});
 		/// Second Warning
 		$(function () {
-			$(document).on("click", '.btn-second-warning2', function () {  
-				var id = $(this).closest("table.table-review2").attr('id');   
+			$(document).on("click", '.btn-second-warning2', function () {
+				var id = $(this).closest("table.table-review2").attr('id');
 				console.log(id);
 				var div = $("<tr />");
 				div.html(GetDynamicTextBox(id));
@@ -180,8 +181,8 @@
 		});
 		/// Third Warning
 		$(function () {
-			$(document).on("click", '.btn-third-warning3', function () {  
-				var id = $(this).closest("table.table-review3").attr('id');   
+			$(document).on("click", '.btn-third-warning3', function () {
+				var id = $(this).closest("table.table-review3").attr('id');
 				console.log(id);
 				var div = $("<tr />");
 				div.html(GetDynamicTextBox(id));
@@ -204,21 +205,21 @@
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         }
     });
-   
+
 		$(document).ready(function(){
 			$(".departmentError").hide();
 			var deptname=''
 			$(document).on("click",".delDepBtn",function() {
-				
+
 				$(".deleteDepCont").attr('data-id', $(this).data('id'));
 			});
 		  $(document).on("click",".editBtn",function() {
-			  
+
 				deptname = $(this).closest('.trTag').find('.tdTag').html();
 				$("#editDeptText").val(deptname)
 				$("#editDeptId").val($(this).data('id'))
 			});
-			 
+
 			$(document).on("click",".deleteDepCont",function() {
 				var id= $(this).data('id');
 				$.ajax({
@@ -235,7 +236,7 @@
 							$('#delete_department').modal('toggle');
 							$(".employeeError").show();
 						}
-						else{ 
+						else{
 							location.reload();
 						}
 					}
@@ -254,7 +255,7 @@
 				var emp_id="emp_"+last_emp_id+Math.floor(Math.random() * 10000);
 				var id= $(this).data('id');
 				var roleid=$(this).data('role_id');
-						
+
 				$(".permissionCheck").prop('checked',false)
 				$.ajax({
 					type:'POST',
@@ -265,30 +266,30 @@
 						$("#emp_last_name").val(data.emp[0].last_name)
 						$("#emp_user_name").val(data.emp[0].user_name)
 						$("#emp_email").val(data.emp[0].email)
- 
-					
+
+
 						$("#emp_employee_id").val(data.emp[0].employee_id)
-						
-						 
- 
+
+
+
 						if(data.emp[0].employee_id!=null){
 							$("#emp_employee_id").val(data.emp[0].employee_id)
 							$("#edit_employee_id").val(data.emp[0].employee_id)
 
-						}			
+						}
 						else{
 							$("#emp_employee_id").val(emp_id)
 							$("#edit_employee_id").val(emp_id)
 
-						}	
+						}
 						$("#edit_role_id").val(data.emp[0].role_id)
- 
+
 						$("#emp_phone_no").val(data.emp[0].phone_no)
 
 						var d = new Date(data.emp[0].joing_date);
-						var dd = d.getDate(); 
-						var mm = d.getMonth()+1; 
-						var yyyy = d.getFullYear(); 
+						var dd = d.getDate();
+						var mm = d.getMonth()+1;
+						var yyyy = d.getFullYear();
 						$("#emp_joing_date").val(dd+'/'+mm+'/'+yyyy)
 						$("#emp_id").val(data.emp[0].id)
 						$("#edit_depList option[value='"+data.emp[0].department_id+"']").prop('selected',true);
@@ -296,12 +297,12 @@
 						$("#edit_role_id option[value='"+roleid+"']").prop('selected',true);
 						change_designation(data.emp[0].department_id)
 						$("#edit_designationList option[value='"+data.emp[0].designation_id	+"']").prop('selected',true);
-						$.each(data.permission_modules, function(key, val) 
-						{ 
+						$.each(data.permission_modules, function(key, val)
+						{
 							$(".permissionCheck[value='"+val['module_id']+"_"+val['emp_permission_id']	+"']").prop('checked',true);
 
 						});
-						
+
 					}
 				});
 			});
@@ -312,7 +313,7 @@
 						url:"{{ route('getDesignationAjax') }}",
 						type: "GET",
 						data:{"deptId":deptId},
-						success:function(data) {	
+						success:function(data) {
 							$('#edit_designationList').empty();
 							$.each(data, function(key,value) {
 								console.log(value['name'])
@@ -325,11 +326,11 @@
 				}
 			}
 			$(document).on("click",".delEmpBtn",function() {
-				
+
 				$(".deleteEmpCont").attr('data-id', $(this).data('id'));
 			});
 			$(document).on("click",".deleteEmpCont",function() {
-				
+
 				var id= $(this).data('id');
 				$.ajax({
 					type:'POST',
@@ -344,9 +345,9 @@
 				var editDesignationText = $(this).closest('.trDesignation').find('.tdDesignation').html();
 				$("#editDesignationText").val(editDesignationText)
 				var deptid=$(this).data('dept-id');
-			
+
 				$("#editDesignationId").val($(this).data('id'))
-				
+
 				$(".deptId option[value='"+deptid+"']").prop('selected',true);
 			});
 
@@ -376,7 +377,7 @@
 						url:"{{ route('getDesignationAjax') }}",
 						type: "GET",
 						data:{"deptId":deptId},
-						success:function(data) {	
+						success:function(data) {
 							$('#designationList').empty();
 							$.each(data, function(key,value) {
 								console.log(value['name'])
@@ -395,7 +396,7 @@
 						url:"{{ route('getDesignationAjax') }}",
 						type: "GET",
 						data:{"deptId":deptId},
-						success:function(data) {	
+						success:function(data) {
 							$('#edit_designationList').empty();
 							$.each(data, function(key,value) {
 								console.log(value['name'])
@@ -407,43 +408,43 @@
 					$('#edit_designationList').empty();
 				}
 			});
-			
-			$(document).on("click",".editIndicateBtn",function() {				 
-				var indiid=$(this).data('indi-id');							
-				$("#editIndicatorId").val($(this).data('id'))				
+
+			$(document).on("click",".editIndicateBtn",function() {
+				var indiid=$(this).data('indi-id');
+				$("#editIndicatorId").val($(this).data('id'))
 				$("#edit_designationlist option[value='"+indiid+"']").prop('selected',true);
-				var employee_id=$(this).data('employee_id');	
+				var employee_id=$(this).data('employee_id');
 				$("#employee option[value='"+employee_id+"']").prop('selected',true);
-				var cust_exp =$(this).data('cust');	
+				var cust_exp =$(this).data('cust');
 				$("#customer_experience option[value='"+cust_exp+"']").prop('selected',true);
-				var integrity =$(this).data('integrity');	
+				var integrity =$(this).data('integrity');
 				$("#integrity option[value='"+integrity+"']").prop('selected',true);
-				var marketing =$(this).data('marketing');	
+				var marketing =$(this).data('marketing');
 				$("#marketing option[value='"+marketing+"']").prop('selected',true);
-				var professionalism =$(this).data('professionalism');	
+				var professionalism =$(this).data('professionalism');
 				$("#professionalism option[value='"+professionalism+"']").prop('selected',true);
-				var management =$(this).data('management');	
+				var management =$(this).data('management');
 				$("#management option[value='"+management+"']").prop('selected',true);
-				var teamwork =$(this).data('teamwork');	
+				var teamwork =$(this).data('teamwork');
 				$("#teamwork option[value='"+teamwork+"']").prop('selected',true);
-				var administration =$(this).data('administration');	
+				var administration =$(this).data('administration');
 				$("#administration option[value='"+administration+"']").prop('selected',true);
-				var critical_thinking =$(this).data('critical_thinking');	
+				var critical_thinking =$(this).data('critical_thinking');
 				$("#critical_thinking option[value='"+critical_thinking+"']").prop('selected',true);
-				var presentation_skills =$(this).data('presentation_skills');	
+				var presentation_skills =$(this).data('presentation_skills');
 				$("#presentation_skills option[value='"+presentation_skills+"']").prop('selected',true);
-				var conflict_management =$(this).data('conflict_management');	
+				var conflict_management =$(this).data('conflict_management');
 				$("#conflict_management option[value='"+conflict_management+"']").prop('selected',true);
-				var quality_of_work =$(this).data('quality_of_work');	
+				var quality_of_work =$(this).data('quality_of_work');
 				$("#quality_of_work option[value='"+quality_of_work+"']").prop('selected',true);
-				var attendance =$(this).data('attendance');	
+				var attendance =$(this).data('attendance');
 				$("#attendance option[value='"+attendance+"']").prop('selected',true);
-				var efficiency =$(this).data('efficiency');	
+				var efficiency =$(this).data('efficiency');
 				$("#efficiency option[value='"+efficiency+"']").prop('selected',true);
-				var ability_to_meet_deadline =$(this).data('ability_to_meet_deadline');	
+				var ability_to_meet_deadline =$(this).data('ability_to_meet_deadline');
 				$("#ability_to_meet_deadline option[value='"+ability_to_meet_deadline+"']").prop('selected',true);
-				var status =$(this).data('status');	
-				$("#status option[value='"+status+"']").prop('selected',true);									 
+				var status =$(this).data('status');
+				$("#status option[value='"+status+"']").prop('selected',true);
 			});
 			$(document).on("click",".deleteIndicateBtn",function() {
 				$(".indicatorContDel").attr('data-id', $(this).data('id'));
@@ -463,46 +464,46 @@
 						}
 					}
 				});
-			});  
-			$(document).on("click",".editAppraisalBtn",function() {				 
-				var empid=$(this).data('emp-id');							
-				$("#editAppraisalId").val($(this).data('id'))				
-				$("#edit_employeeslist option[value='"+empid+"']").prop('selected',true);				
+			});
+			$(document).on("click",".editAppraisalBtn",function() {
+				var empid=$(this).data('emp-id');
+				$("#editAppraisalId").val($(this).data('id'))
+				$("#edit_employeeslist option[value='"+empid+"']").prop('selected',true);
 				var d = new Date($(this).data('appraisal_date'));
-				var dd = d.getDate(); 
-				var mm = d.getMonth()+1; 
-				var yyyy = d.getFullYear(); 
-				$("#appraisal_date").val(dd+'/'+mm+'/'+yyyy);				
-				var cust_exp =$(this).data('cust');	
+				var dd = d.getDate();
+				var mm = d.getMonth()+1;
+				var yyyy = d.getFullYear();
+				$("#appraisal_date").val(dd+'/'+mm+'/'+yyyy);
+				var cust_exp =$(this).data('cust');
 				$("#customer_experience option[value='"+cust_exp+"']").prop('selected',true);
-				var integrity =$(this).data('integrity');	
+				var integrity =$(this).data('integrity');
 				$("#integrity option[value='"+integrity+"']").prop('selected',true);
-				var marketing =$(this).data('marketing');	
+				var marketing =$(this).data('marketing');
 				$("#marketing option[value='"+marketing+"']").prop('selected',true);
-				var professionalism =$(this).data('professionalism');	
+				var professionalism =$(this).data('professionalism');
 				$("#professionalism option[value='"+professionalism+"']").prop('selected',true);
-				var management =$(this).data('management');	
+				var management =$(this).data('management');
 				$("#management option[value='"+management+"']").prop('selected',true);
-				var teamwork =$(this).data('teamwork');	
+				var teamwork =$(this).data('teamwork');
 				$("#teamwork option[value='"+teamwork+"']").prop('selected',true);
-				var administration =$(this).data('administration');	
+				var administration =$(this).data('administration');
 				$("#administration option[value='"+administration+"']").prop('selected',true);
-				var critical_thinking =$(this).data('critical_thinking');	
+				var critical_thinking =$(this).data('critical_thinking');
 				$("#critical_thinking option[value='"+critical_thinking+"']").prop('selected',true);
-				var presentation_skills =$(this).data('presentation_skills');	
+				var presentation_skills =$(this).data('presentation_skills');
 				$("#presentation_skills option[value='"+presentation_skills+"']").prop('selected',true);
-				var conflict_management =$(this).data('conflict_management');	
+				var conflict_management =$(this).data('conflict_management');
 				$("#conflict_management option[value='"+conflict_management+"']").prop('selected',true);
-				var quality_of_work =$(this).data('quality_of_work');	
+				var quality_of_work =$(this).data('quality_of_work');
 				$("#quality_of_work option[value='"+quality_of_work+"']").prop('selected',true);
-				var attendance =$(this).data('attendance');	
+				var attendance =$(this).data('attendance');
 				$("#attendance option[value='"+attendance+"']").prop('selected',true);
-				var efficiency =$(this).data('efficiency');	
+				var efficiency =$(this).data('efficiency');
 				$("#efficiency option[value='"+efficiency+"']").prop('selected',true);
-				var ability_to_meet_deadline =$(this).data('ability_to_meet_deadline');	
+				var ability_to_meet_deadline =$(this).data('ability_to_meet_deadline');
 				$("#ability_to_meet_deadline option[value='"+ability_to_meet_deadline+"']").prop('selected',true);
-				var status =$(this).data('status');	
-				$("#status option[value='"+status+"']").prop('selected',true);									 
+				var status =$(this).data('status');
+				$("#status option[value='"+status+"']").prop('selected',true);
 			});
 			$(document).on("click",".deleteAppraisalBtn",function() {
 				$(".appraisalContDel").attr('data-id', $(this).data('id'));
@@ -522,71 +523,71 @@
 						}
 					}
 				});
-			}); 
-			$('.achieved_employee').on('change', function() {            	 
+			});
+			$('.achieved_employee').on('change', function() {
 				var ret = Number($("#achieved_employee1").val()) + Number($("#achieved_employee12").val()) + Number($("#achieved_employee21").val()) + Number($("#achieved_employee22").val()) + Number($("#achieved_employee31").val()) + Number($("#achieved_employee32").val()) + Number($("#achieved_employee41").val()) + Number($("#achieved_employee42").val()) + Number($("#achieved_employee43").val());
-				$("#total_achieved_employee").val(ret);	
+				$("#total_achieved_employee").val(ret);
 			});
-			$('.scored_employee').on('change', function() {            	 
+			$('.scored_employee').on('change', function() {
 				var ret = Number($("#scored_employee1").val()) + Number($("#scored_employee12").val()) + Number($("#scored_employee21").val()) + Number($("#scored_employee22").val()) + Number($("#scored_employee31").val()) + Number($("#scored_employee32").val()) + Number($("#scored_employee41").val()) + Number($("#scored_employee42").val()) + Number($("#scored_employee43").val());
-				$("#total_scored_employee").val(ret);	
+				$("#total_scored_employee").val(ret);
 			});
-			$('.achieved_manager').on('change', function() {            	 
+			$('.achieved_manager').on('change', function() {
 				var ret = Number($("#achieved_manager1").val()) + Number($("#achieved_manager12").val()) + Number($("#achieved_manager21").val()) + Number($("#achieved_manager22").val()) + Number($("#achieved_manager31").val()) + Number($("#achieved_manager32").val()) + Number($("#achieved_manager41").val()) + Number($("#achieved_manager42").val()) + Number($("#achieved_manager43").val());
-				$("#total_achieved_manager").val(ret);	
+				$("#total_achieved_manager").val(ret);
 			});
-			$('.scored_manager').on('change', function() {            	 
+			$('.scored_manager').on('change', function() {
 				var ret = Number($("#scored_manager1").val()) + Number($("#scored_manager12").val()) + Number($("#scored_manager21").val()) + Number($("#scored_manager22").val()) + Number($("#scored_manager31").val()) + Number($("#scored_manager32").val()) + Number($("#scored_manager41").val()) + Number($("#scored_manager42").val()) + Number($("#scored_manager43").val());
-				$("#total_scored_manager").val(ret);	
+				$("#total_scored_manager").val(ret);
 			});
 
-			$('.personal_employee').on('change', function() {            	 
+			$('.personal_employee').on('change', function() {
 				 var ret = Number($("#plan_leave_employee").val()) + Number($("#time_cons_employee").val()) + Number($("#team_collaboration_employee").val()) + Number($("#professionalism_employee").val()) + Number($("#policy_employee").val()) + Number($("#initiatives_employee").val()) + Number($("#improvement_employee").val());
 				$("#total_score_employee").val(ret);
 				var percent = Math.round((ret/ 15)*100);
 				$("#total_percentage_empl").val(percent);
 			});
-			$('.personal_manager').on('change', function() {            	 
+			$('.personal_manager').on('change', function() {
 				 var ret = Number($("#plan_leave_manager").val()) + Number($("#time_cons_manager").val()) + Number($("#team_collaboration_manager").val()) + Number($("#professionalism_manager").val()) + Number($("#policy_manager").val()) + Number($("#initiatives_manager").val()) + Number($("#improvement_manager").val());
-				$("#total_score_manager").val(ret);	
+				$("#total_score_manager").val(ret);
 				var percent_man = Math.round((ret/ 15)*100);
 				$("#total_percentage_man").val(percent_man);
 			});
 
 			$('.percentage_employee_man').on('change', function() {
-				           	 
+
 				 var ret = Number($("#quality_id").val()) + Number($("#tat_id").val()) + Number($("#pms_new_ideas").val()) + Number($("#team_productivity").val()) + Number($("#knowledge_sharing").val()) + Number($("#emails_calls").val());
-				$("#total_percentage_employee").val(ret);	
+				$("#total_percentage_employee").val(ret);
 			});
-			$(document).on("click",".edit_personal_info",function() {				 
-				var id=$(this).data('id');							
+			$(document).on("click",".edit_personal_info",function() {
+				var id=$(this).data('id');
 				$("#passport_no").val($(this).data('passp'));
 				$("#tel").val($(this).data('tel'));
 				$("#nationality").val($(this).data('nati'));
-				$("#religion").val($(this).data('relg'));				 
+				$("#religion").val($(this).data('relg'));
 				$("#employment_of_spouse").val($(this).data('empsp'));
-				$("#No_of_children").val($(this).data('child'));				 
-				var marital_status =$(this).data('matst');	
+				$("#No_of_children").val($(this).data('child'));
+				var marital_status =$(this).data('matst');
 				$("#marital_status option[value='"+marital_status+"']").prop('selected',true);
 				if($(this).data('expdate')){
 				var d = new Date($(this).data('expdate'));
-				var dd = d.getDate(); 
-				var mm = d.getMonth()+1; 
-				var yyyy = d.getFullYear(); 
+				var dd = d.getDate();
+				var mm = d.getMonth()+1;
+				var yyyy = d.getFullYear();
 				$("#passport_expiry_date").val(dd+'/'+mm+'/'+yyyy);
-				}				 							 
+				}
 			});
-			$(document).on("click",".edit-emergency-contact",function() {				 
-				var id=$(this).data('id');							
+			$(document).on("click",".edit-emergency-contact",function() {
+				var id=$(this).data('id');
 				$("#primary_name").val($(this).data('pnm'));
 				$("#primary_relationship").val($(this).data('prs'));
 				$("#primary_phone1").val($(this).data('phn1'));
-				$("#primary_phone2").val($(this).data('phn2'));				 
+				$("#primary_phone2").val($(this).data('phn2'));
 				$("#secondary_name").val($(this).data('snm'));
-				$("#secondary_relationship").val($(this).data('srs'));	
+				$("#secondary_relationship").val($(this).data('srs'));
 				$("#secondary_phone1").val($(this).data('sphn1'));
-				$("#secondary_phone2").val($(this).data('sphn2'));			 
-				 				 							 
+				$("#secondary_phone2").val($(this).data('sphn2'));
+
 			});
 
 			// promotion scripts
@@ -664,54 +665,54 @@
 					$('#deleteproid').val(proid);
 				})
 			})
- 
+
 			$(document).on("click",".editwarningbtn",function() {
 				var id=$(this).data('id');
 				var seelct_emp=$(this).data('emp_id');
-				$("#indexid").text(id);				 
-				$("input[id=getidjq]").val($(this).data('id')); 
-				var employee_comments = $(this).data('employee_comments');							
-				$("#employee_comments").val(employee_comments); 
+				$("#indexid").text(id);
+				$("input[id=getidjq]").val($(this).data('id'));
+				var employee_comments = $(this).data('employee_comments');
+				$("#employee_comments").val(employee_comments);
 				$("#select_emp_id_edit option[value='"+seelct_emp+"']").prop('selected',true);
-				$("#managers_comments").val($(this).data('managers_comments')); 
-				$("#admin_comments").val($(this).data('admin_comments')); 
-				$("#areas_for_improvement").val($(this).data('areas_for_improvement')); 
+				$("#managers_comments").val($(this).data('managers_comments'));
+				$("#admin_comments").val($(this).data('admin_comments'));
+				$("#areas_for_improvement").val($(this).data('areas_for_improvement'));
 
 				var seelct_emp2=$(this).data('emp_id2');
 				$("#select_emp_id_edit2 option[value='"+seelct_emp2+"']").prop('selected',true);
-				$("#indexid2").text($(this).data('id2'));				 
-				$("input[id=getidjq2]").val($(this).data('id2')); 
-				$("#employee_comments2").val($(this).data('employee_comments2')); 
-				$("#managers_comments2").val($(this).data('managers_comments2')); 
-				$("#admin_comments2").val($(this).data('admin_comments2')); 
-				$("#areas_for_improvement2").val($(this).data('areas_for_improvement2'));									 
+				$("#indexid2").text($(this).data('id2'));
+				$("input[id=getidjq2]").val($(this).data('id2'));
+				$("#employee_comments2").val($(this).data('employee_comments2'));
+				$("#managers_comments2").val($(this).data('managers_comments2'));
+				$("#admin_comments2").val($(this).data('admin_comments2'));
+				$("#areas_for_improvement2").val($(this).data('areas_for_improvement2'));
 				var seelct_emp3=$(this).data('emp_id3');
 				$("#select_emp_id_edit3 option[value='"+seelct_emp3+"']").prop('selected',true);
-				$("#indexid3").text($(this).data('id3'));				 
-				$("input[id=getidjq3]").val($(this).data('id3'));  
-				$("#employee_comments3").val($(this).data('employee_comments3')); 
-				$("#managers_comments3").val($(this).data('managers_comments3')); 
-				$("#admin_comments3").val($(this).data('admin_comments3')); 
+				$("#indexid3").text($(this).data('id3'));
+				$("input[id=getidjq3]").val($(this).data('id3'));
+				$("#employee_comments3").val($(this).data('employee_comments3'));
+				$("#managers_comments3").val($(this).data('managers_comments3'));
+				$("#admin_comments3").val($(this).data('admin_comments3'));
 			})
 			$(document).on("click",".edslpoin1",function() {
 				$("#select_emp_id_edit").addClass("edit_warning_pointer");
 				$("#select_emp_id_edit2").removeClass("edit_warning_pointer");
-				$("#select_emp_id_edit3").removeClass("edit_warning_pointer");	
+				$("#select_emp_id_edit3").removeClass("edit_warning_pointer");
 			})
 			$(document).on("click",".edslpoin2",function() {
 				$("#select_emp_id_edit2").addClass("edit_warning_pointer");
 				$("#select_emp_id_edit").removeClass("edit_warning_pointer");
-				$("#select_emp_id_edit3").removeClass("edit_warning_pointer");		
+				$("#select_emp_id_edit3").removeClass("edit_warning_pointer");
 			})
 			$(document).on("click",".edslpoin3",function() {
 				$("#select_emp_id_edit3").addClass("edit_warning_pointer");
 				$("#select_emp_id_edit2").removeClass("edit_warning_pointer");
 				$("#select_emp_id_edit").removeClass("edit_warning_pointer");
-				 	
+
 			})
 			$(document).on("click",".thirdeditwarningbtn",function() {
 				var id=$(this).data('id');
-				
+
 			})
 			$(document).on("click",".deleteWarningbtn",function() {
 				var id= $(this).data('id');
@@ -743,7 +744,7 @@
 						location.reload();
 						}
 					}
-				}) 
+				})
 			})
 			$(document).on("click",".thirddeleteWarningbtn",function() {
 				var id= $(this).data('id');
@@ -864,17 +865,33 @@
 					$('#deleteresignationid').val(resid);
 				});
 
-				
-				 
-				 
+
 			});
+
+            var SITEURL = "{{url('/')}}";
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+            var calendar = $('#calendar1').fullCalendar({
+                events: SITEURL + "/leave_render",
+                eventRender: function (event, element, view) {
+                    if (event.allDay === 'true') {
+                        event.allDay = true;
+                    } else {
+                        event.allDay = false;
+                    }
+                    },
+
+            });
 		});
- 
+
 	</script>
 
 <script src="https://js.pusher.com/3.1/pusher.min.js"></script>
 <script>
-    
+
     // Enable pusher logging - don't include this in production
     // Pusher.logToConsole = true;
 
@@ -918,16 +935,84 @@
 	   $('.notification-list').prepend('<li class="notification-message"><a href="activities"><div class="media"><span class="avatar"><img alt="" src="img/profiles/avatar-03.jpg"></span><div class="media-body"><p class="noti-details"><span class="noti-title">'+termination_data.message+'</span> </p><p class="noti-time"><span class="notification-time">a few seconds ago</span></p></div></div></a></li>')
     });
 
-	var channel = pusher.subscribe('leave-added');
-    var channelname = 'leaveadded';
-	 
-	channel.bind(channelname, function(data) {
+
+	var leave_added_channel = pusher.subscribe('leave-added');
+    var leave_added_channelname = 'leaveadded'
+
+	var leave_added_auth_id={{ Auth::id() }}
+	leave_added_channel.bind(leave_added_channelname, function(leave_added_data) {
+	   if(leave_added_auth_id==leave_added_data.id || jQuery.inArray(leave_added_auth_id, leave_added_data.admin_ids) !== -1){
        var pre = $('#noti-badge').html();
 	   var newcount = parseInt(pre) + parseInt(1);
 	   $('#noti-badge').html(newcount);
-	   $('.notification-list').prepend('<li class="notification-message"><a href="activities"><div class="media"><span class="avatar"><img alt="" src="img/profiles/avatar-03.jpg"></span><div class="media-body"><p class="noti-details"><span class="noti-title">'+data.message+'</span> </p><p class="noti-time"><span class="notification-time">a few seconds ago</span></p></div></div></a></li>')
+	   $('.notification-list').prepend('<li class="notification-message"><a href="activities"><div class="media"><span class="avatar"><img alt="" src="img/profiles/avatar-03.jpg"></span><div class="media-body"><p class="noti-details"><span class="noti-title">'+leave_added_data.message+'</span> </p><p class="noti-time"><span class="notification-time">a few seconds ago</span></p></div></div></a></li>')
+	   }
     });
 
+	var indistatus_added_channel = pusher.subscribe('indicator-status');
+    var indistatus_added_channelname = 'indicatorstatus'
+	var indistatus_added_auth_id={{ Auth::id() }}
+	indistatus_added_channel.bind(indistatus_added_channelname, function(indistatus_added_data) {
+	   if(indistatus_added_auth_id==indistatus_added_data.id || jQuery.inArray(indistatus_added_auth_id) !== -1){
+       var pre = $('#noti-badge').html();
+	   var newcount = parseInt(pre) + parseInt(1);
+	   $('#noti-badge').html(newcount);
+	   $('.notification-list').prepend('<li class="notification-message"><a href="activities"><div class="media"><span class="avatar"><img alt="" src="img/profiles/avatar-03.jpg"></span><div class="media-body"><p class="noti-details"><span class="noti-title">'+indistatus_added_data.message+'</span> </p><p class="noti-time"><span class="notification-time">a few seconds ago</span></p></div></div></a></li>')
+	   }
+    });
+
+	var appraisalstatus_added_channel = pusher.subscribe('appraisal-status');
+    var appraisalstatus_added_channelname = 'appraisalstatus'
+	var appraisalstatus_added_auth_id={{ Auth::id() }}
+	appraisalstatus_added_channel.bind(appraisalstatus_added_channelname, function(appraisalstatus_added_data) {
+	   if(appraisalstatus_added_auth_id==appraisalstatus_added_data.id || jQuery.inArray(appraisalstatus_added_auth_id) !== -1){
+       var pre = $('#noti-badge').html();
+	   var newcount = parseInt(pre) + parseInt(1);
+	   $('#noti-badge').html(newcount);
+	   $('.notification-list').prepend('<li class="notification-message"><a href="activities"><div class="media"><span class="avatar"><img alt="" src="img/profiles/avatar-03.jpg"></span><div class="media-body"><p class="noti-details"><span class="noti-title">'+appraisalstatus_added_data.message+'</span> </p><p class="noti-time"><span class="notification-time">a few seconds ago</span></p></div></div></a></li>')
+	   }
+    });
+
+	var empperfomstatus_added_channel = pusher.subscribe('employee-perfomance-status');
+    var empperfomstatus_added_channelname = 'empperfomancestatus'
+	var empperfomstatus_added_auth_id={{ Auth::id() }}
+	empperfomstatus_added_channel.bind(empperfomstatus_added_channelname, function(empperfomstatus_added_data) {
+	   if(empperfomstatus_added_auth_id==empperfomstatus_added_data.id || jQuery.inArray(empperfomstatus_added_auth_id) !== -1){
+       var pre = $('#noti-badge').html();
+	   var newcount = parseInt(pre) + parseInt(1);
+	   $('#noti-badge').html(newcount);
+	   $('.notification-list').prepend('<li class="notification-message"><a href="activities"><div class="media"><span class="avatar"><img alt="" src="img/profiles/avatar-03.jpg"></span><div class="media-body"><p class="noti-details"><span class="noti-title">'+empperfomstatus_added_data.message+'</span> </p><p class="noti-time"><span class="notification-time">a few seconds ago</span></p></div></div></a></li>')
+	   }
+    });
+
+	var leave_approve_channel = pusher.subscribe('leave-approved');
+    var leave_approve_channelname = 'leaveapproved'
+
+	var leave_approve_auth_id={{ Auth::id() }}
+
+	leave_approve_channel.bind(leave_approve_channelname, function(leave_approve_data) {
+	   if(leave_approve_auth_id==leave_approve_data.id){
+       var pre = $('#noti-badge').html();
+	   var newcount = parseInt(pre) + parseInt(1);
+	   $('#noti-badge').html(newcount);
+	   $('.notification-list').prepend('<li class="notification-message"><a href="activities"><div class="media"><span class="avatar"><img alt="" src="img/profiles/avatar-03.jpg"></span><div class="media-body"><p class="noti-details"><span class="noti-title">'+leave_approve_data.message+'</span> </p><p class="noti-time"><span class="notification-time">a few seconds ago</span></p></div></div></a></li>')
+	   }
+    });
+	$(".clear-noti").click(function(){
+		var logged_id={{ Auth::id() }}
+		$(".notification-list").empty();
+		$('#noti-badge').html(0);
+		$.ajax({
+          url: "{{ url('clear_notification') }}",
+          type:"POST",
+          data:{
+            "_token": "{{ csrf_token() }}",
+            "id":logged_id
+          },
+          success:function(response){
+		  }
+		});
+	})
 
 
 
@@ -955,4 +1040,4 @@
 		resize: true,
 		redraw: true
 	});
-</script>
+ </script>

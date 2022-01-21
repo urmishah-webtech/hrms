@@ -49,10 +49,17 @@ class EmployeeLeaveController extends Controller
         $el->employee_id=Auth::id();
         $el->manager_id=Auth::user()->man_id;
         $el->save();
+        $admin_ids=array();
+        $admins=Employee::where('role_id',1)->get();
+        $message = Auth::user()->first_name.' '.Auth::user()->last_name.' has put leave';
+        foreach($admins as $val)
+        {
+            array_push($admin_ids,$val->id);
+            Notification::create(['employeeid' =>$val->id, 'message' => $message]);
 
-        $message = Auth::user()->first_name.Auth::user()->last_name.'has put leave';
-        Notification::create(['employeeid' => Auth::id(), 'message' => $message]);
-        event(new leaveAdded($message,Auth::id()));
+        }
+        Notification::create(['employeeid' => Auth::user()->man_id, 'message' => $message]);
+        event(new leaveAdded($message,Auth::user()->man_id,$admin_ids));
 
         return json_encode("1");
     }

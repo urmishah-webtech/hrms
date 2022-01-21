@@ -6,12 +6,14 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Indicator;
 use App\Designation;
+use App\Notification;
 use App\Department;
 use App\Employee;
 use Validator;
 use Redirect;
 use Auth;
 use DB;
+use App\Events\IndicatorStatus;
 class IndicatorController extends Controller
 {
     public function indicators(){
@@ -102,10 +104,14 @@ class IndicatorController extends Controller
             }
          
     }    
-    public function changestatusDropdown(Request $request){     
-        $modules=Indicator::where('id',$request->id)->first();         
-        $modules->status=$request->status;
-        $modules->save();
-        return json_encode("1");
+    public function changestatusDropdown($type,$id){ 
+        $data=Indicator::where('id',$id)->first();
+        $data->status=$type;
+        $data->save();
+        $type_name=($type=='1')?'Active':'Inactive';    
+        $message='Hi, Your Performance Indicator Status has been '.$type_name;
+        Notification::create(['employeeid' => $data->employee_id, 'message' => $message]);
+        event(new IndicatorStatus($message,$data->employee_id));
+        return back();
     }
 }

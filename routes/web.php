@@ -29,7 +29,7 @@ Route::get('/', function () {
          return redirect('index');
         //return view('auth/login');
     });
-     
+
 Route::middleware([AuthCheck::class])->group(function () {
 
 // Route::get('/index', function () {
@@ -61,11 +61,11 @@ Route::get('/contacts', function () {
     return view('contacts');
 });
 Route::get('/inbox', function () {
-    return view('inbox');    
+    return view('inbox');
 });
 Route::get('/file-manager', function () {
     return view('file-manager');
-});  
+});
 // Route::get('/employees', function () {
 //     return view('employees');
 // });
@@ -78,7 +78,7 @@ Route::post('edit_employee','EmployeeController@edit_employee')->name('edit_empl
 Route::post('update_employee','EmployeeController@update_employee')->name('update_employee');
 Route::get('search_employee','EmployeeController@search_employee')->name('search_employee');
 
-//leave routes start --BY URMI SHAH 
+//leave routes start --BY URMI SHAH
 Route::get('/leave-settings','LeaveTypeController@index')->name('leave-settings');
 Route::post('/save_leave_settings','LeaveTypeController@save_leave_settings')->name('save_leave_settings');
 Route::get('/leaves-employee','EmployeeLeaveController@index')->name('leaves-employee');
@@ -87,6 +87,8 @@ Route::post('/update_leave','EmployeeLeaveController@update_leave')->name('updat
 Route::get('/delete_emp_leave/{id}','EmployeeLeaveController@delete_leave')->name('delete_leave');
 Route::get('/edit_emp_leave/{id}','EmployeeLeaveController@edit_leave')->name('edit_leave');
 Route::get('/leaves','AdminLeaveController@index')->name('leaves');
+Route::get('/leave-calender','AdminLeaveController@leave_calender')->name('leave-calender');
+Route::get('/leave_render','AdminLeaveController@leave_render')->name('leave_render');
 Route::get('/change_leave_status/{type}/{id}','AdminLeaveController@change_leave_status')->name('change_leave_status');
 Route::post('search_leave_employees','AdminLeaveController@search_leave_employee')->name('search_leave_employees');
 //leave routes end
@@ -237,9 +239,10 @@ Route::get('/jobs-applicants', function () {
 Route::get('/knowledgebase', function () {
     return view('knowledgebase');
 });
-Route::get('/activities', function () {
-    return view('activities');
-});
+// Route::get('/activities', function () {
+//     return view('activities');
+// });
+Route::get('activities','NotificationController@index')->name('activities');
 Route::get('/users', function () {
     return view('users');
 });
@@ -548,21 +551,21 @@ Route::get('/sub-category', function () {
     return view('sub-category');
 });
 
- 
+
 Route::get('email-settings','EmailsettingsController@Emailsettings')->name('emailsettings');
 Route::post('email_setting_update','EmailsettingsController@Emailsetting_update')->name('emailsetting_update');
- 
+
 Route::get('/performance-indicator','IndicatorController@indicators')->name('indicators');
 Route::post('add_indicator','IndicatorController@add_indicator')->name('add_indicators');
 Route::post('edit_indicator','IndicatorController@edit_indicator')->name('edit_indicators');
 Route::post('delete_indicator','IndicatorController@delete_indicator')->name('delete_indicator');
-Route::post('changestatus','IndicatorController@changestatusDropdown')->name('chang_status'); 
+Route::get('changestatusDropdown/{type}/{id}','IndicatorController@changestatusDropdown')->name('changestatusDropdown');
 
 Route::get('/performance-appraisal','AppraisalController@appraisal')->name('appraisal');
 Route::post('add_appraisal','AppraisalController@add_appraisal')->name('add_appraisal');
 Route::post('edit_appraisal','AppraisalController@edit_appraisal')->name('edit_appraisal');
 Route::post('delete_appraisal','AppraisalController@delete_appraisal')->name('delete_appraisal');
-Route::post('change_apstatus','AppraisalController@change_appraisal_status')->name('chang_appraisal_status');
+Route::get('change_appraisal_status/{type}/{id}','AppraisalController@change_appraisal_status')->name('change_appraisal_status');
 
 Route::get('/notifications-settings','NotificationsettController@notificationsetting');
 Route::post('changeNotificationAccess','NotificationsettController@changeNotificationAccess')->name('chg_Notifi');
@@ -580,26 +583,26 @@ Route::post('add_personalexcel','PersonalExcellencesController@add_PersonalExcel
 Route::post('add_specialInitiatives','SpecialInitiativesController@store_SpecialInitiatives')->name('add_specialInitiatives');
 Route::post('add_commentsRole','CommentsRolesController@store_CommentsRole')->name('add_commentsRole');
 Route::post('add_additioncommentRole','AdditionCommentRoleController@store_AdditionCommentRole')->name('add_additioncommentRole');
-Route::post('add_appraiseestrength','AppraiseeStrengthsController@store_AppraiseeStrength')->name('add_appraiseestrength');  
-Route::post('add_personalGoal','PersonalGoalController@store_PersonalGoal')->name('add_personalGoal'); 
-Route::post('add_professional_achived','ProfessionalGoalsAchievedController@store_ProfessionalGoalsAchieved')->name('add_professional_achived');  
-Route::post('add_professional_forthcoming','ProfessionalGoalsForthcomingController@store_ProfessionalGoalsForthcoming')->name('add_professional_forthcoming'); 
-Route::post('add_training_requirements','TrainingRequirementsController@store_TrainingRequirements')->name('add_training_requirements'); 
-Route::post('add_general_comment','OtherGeneralCommentController@store_OtherGeneralComment')->name('add_general_comment'); 
-Route::post('add_perfomancemanageruse','PerfomanceManagerUseController@store_PerfomanceManagerUse')->name('add_perfomancemanageruse'); 
+Route::post('add_appraiseestrength','AppraiseeStrengthsController@store_AppraiseeStrength')->name('add_appraiseestrength');
+Route::post('add_personalGoal','PersonalGoalController@store_PersonalGoal')->name('add_personalGoal');
+Route::post('add_professional_achived','ProfessionalGoalsAchievedController@store_ProfessionalGoalsAchieved')->name('add_professional_achived');
+Route::post('add_professional_forthcoming','ProfessionalGoalsForthcomingController@store_ProfessionalGoalsForthcoming')->name('add_professional_forthcoming');
+Route::post('add_training_requirements','TrainingRequirementsController@store_TrainingRequirements')->name('add_training_requirements');
+Route::post('add_general_comment','OtherGeneralCommentController@store_OtherGeneralComment')->name('add_general_comment');
+Route::post('add_perfomancemanageruse','PerfomanceManagerUseController@store_PerfomanceManagerUse')->name('add_perfomancemanageruse');
 Route::post('add_perfomanceIdentitie','PerformanceIdentitiesController@store_PerformanceIdentity')->name('add_perfomanceIdentitie');
- 
- 
+
+
 Route::get('/employees-performance','EmployeePerformanceController@get_employees')->name('employees_perfomance')->middleware('isemployeepermission');
-Route::get('/edit-performance/{id}','EmployeePerformanceController@edit_employees')->name('employees_per')->middleware('isemployeepermission'); 
- 
- 
- 
- 
+Route::get('/edit-performance/{id}','EmployeePerformanceController@edit_employees')->name('employees_per')->middleware('isemployeepermission');
+
+
+
+
 
 Route::get('/employees-performance','EmployeePerformanceController@get_employees')->name('employees_perfomance')->middleware('isemployeepermission');
 Route::get('edit-performance/{id}','EmployeePerformanceController@edit_employees')->name('employees_per')->middleware('isemployeepermission');
- 
+
 Route::post('/edit_man_professionalExcellence','EmployeePerformanceController@add_manager_ProfessionalExcellence')->name('edit_man_professionalExcellence');
 Route::post('/edit_man_PersonalExcellence','EmployeePerformanceController@add_manager_PersonalExcellence')->name('edit_man_PersonalExcellence');
 Route::post('/edit_man_SpecialInitiatives','EmployeePerformanceController@add_manager_SpecialInitiatives')->name('edit_man_SpecialInitiatives');
@@ -615,14 +618,14 @@ Route::post('/edit_man_PerfomanceManagerUse','EmployeePerformanceController@add_
 Route::post('/edit_manPerformanceIdentity','EmployeePerformanceController@add_manager_PerformanceIdentity')->name('edit_manPerformanceIdentity');
 Route::post('search_employee_perfomance','EmployeePerformanceController@search_employee_Perfomance')->name('search_employee_perfomance');
 Route::post('add_managerid_Employee','EmployeePerformanceController@add_managerid_EmployeeBasicInfo')->name('add_managerid_Employees');
-Route::get('profile/{id}','ProfileController@Profile_employees')->name('profile_details'); 
+Route::get('profile/{id}','ProfileController@Profile_employees')->name('profile_details');
 Route::post('add_personal_info','ProfileController@add_profile_personal_informations')->name('add_personal_info');
-Route::post('add_emergency_contact','ProfileController@add_profile_emergency_contact')->name('add_emergency_contact'); 
+Route::post('add_emergency_contact','ProfileController@add_profile_emergency_contact')->name('add_emergency_contact');
 Route::get('/profile-employee-warning/{id}','EmployeeVerbalWarningController@Profile_EmployeeVerbalWarning_list')->name('Edit_Profile_Warning');
- 
 
 
-Route::post('add_Perfomance_status','EmployeePerformanceController@add_Perfomance_status_user')->name('add_Perfomance_status'); 
+
+Route::post('add_Perfomance_status','EmployeePerformanceController@add_Perfomance_status_user')->name('add_Perfomance_status');
 Route::post('add_KeyprofessionalExcellences',[ProfessionalExcellenceController::class,'store_KeyprofessionalExcellences'])->name('add_KeyprofessionalExcellences');
 
 Route::get('employee-warning','EmployeeVerbalWarningController@EmployeeFirstVerbalWarning_list')->name('employee-warning');
@@ -635,15 +638,15 @@ Route::post('delete_secondEmpVerbalWarning','EmployeeVerbalWarningController@del
 Route::post('add_EmployeeThirdVerbalWarning','EmployeeVerbalWarningController@store_EmployeeThirdVerbalWarning')->name('add_EmployeeThirdVerbalWarning');
 Route::post('update_EmpThirdVerbalWarning','EmployeeVerbalWarningController@update_EmployeeThirdVerbalWarning')->name('update_EmployeeThirdVerbalWarning');
 Route::post('delete_EmpThirdVerbalWarning','EmployeeVerbalWarningController@delete_EmployeeThirdVerbalWarning')->name('delete_EmployeeThirdVerbalWarning');
- 
+
 
 
 
 });
 Route::namespace('Auth')->group(function(){
-        
+
     //Login Routes
-    Route::get('/login','LoginController@showLoginForm')->name('login');	 
+    Route::get('/login','LoginController@showLoginForm')->name('login');
     Route::post('/login','LoginController@login');
     Route::post('/logout','LoginController@logout')->name('logout');
 
@@ -668,12 +671,12 @@ Route::post('add_designation','DesignationController@add_designation')->name('ad
 Route::post('edit_designation','DesignationController@edit_designation')->name('edit_designation');
 Route::post('delete_designation','DesignationController@delete_designation')->name('delete_designation');
 });
-
+ Route::post('clear_notification','NotificationController@clear_notification')->name('clear_notification');
  Auth::routes();
 // Route::get('/register', function () {
 //     return view('authregister');
 // });
- 
+
 // Route::get('/testpusher', function () {
 //     event(new App\Events\PromotionAdded('Added'));
 //     return "Event has been sent!";

@@ -9,7 +9,10 @@ use App\Employee;
 use Auth;
 use Carbon\Carbon;
 use DB;
-
+use App\Notification;
+use App\Events\LeaveApprove;
+use Response;
+use DateTime;
 class AdminLeaveController extends Controller
 {
     public function index()
@@ -62,6 +65,10 @@ class AdminLeaveController extends Controller
             return back()->with('error','Timelimit for Changing Status is over ! you cant change now');
         }
         $data->save();
+        $type_name=($type=='2')?'approved':'rejected';
+        $message='Hi, Your leave has been '.$type_name;
+        Notification::create(['employeeid' => $data->employee_id, 'message' => $message]);
+        event(new LeaveApprove($message,$data->employee_id));
         return back();
     }
     public function search_leave_employee(Request $request){
@@ -180,5 +187,36 @@ class AdminLeaveController extends Controller
         $search_leave_type='';
         $view= view('leaves',\compact('data','employee_tb','total_emp','present_emp','plan_count','unplan_count','pending_req'));
         return $view;
+    }
+    public function leave_calender()
+    {
+        return view('leave_calender');
+    }
+    public function leave_render(){
+        $result = array();
+        $count = 0;
+        if(Auth::user()->role_id==2){
+        $info2 = EmployeeLeave::where('manager_id',Auth::id())->get();
+        }else{
+        $info2 = EmployeeLeave::get();
+        }
+        foreach($info2 as $value){
+            $color = sprintf("#%06x",rand(0,16777215));
+            $date = new DateTime($value->to_date);
+            $date->modify('+1 day');
+
+            $result[$count]['id']              = $value->id;
+            $result[$count]['title']           = $value->employee->first_name.' '.$value->employee->last_name;
+            $result[$count]['start']           = $value->from_date;
+            $result[$count]['end']             = $date->format('Y-m-d');
+            if($value->employee->role_id==2){
+            $result[$count]['backgroundColor'] = '#ff9b44';
+            $result[$count]['borderColor']     = '#ff9b44';
+            }
+          
+            $count++;
+        }
+
+        return json_encode($result);
     }
 }
