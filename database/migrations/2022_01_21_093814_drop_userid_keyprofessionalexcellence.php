@@ -14,6 +14,7 @@ class DropUseridKeyprofessionalexcellence extends Migration
     public function up()
     {
         Schema::table('keyprofessional_excellences', function (Blueprint $table) {
+			$table->dropForeign(['user_id']);
 			 $table->dropColumn('user_id'); 		
         });
     }
