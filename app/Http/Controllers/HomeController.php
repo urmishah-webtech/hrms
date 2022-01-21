@@ -75,6 +75,10 @@ class HomeController extends Controller
         $current_month_emp_count=Employee::whereMonth('created_at', '=', Carbon::now()->month)->where('role_id','!=',1)->get()->count();
         $emp_per=(($current_month_emp_count-$last_month_emp_count)/$current_month_emp_count)*100;
        
+        $last_month_resi_count=Resignation::whereMonth('resignationdate', '=', Carbon::now()->subMonth()->month)->get()->count();
+        $current_month_resi_count=Resignation::whereMonth('resignationdate', '=', Carbon::now()->month)->get()->count();
+        $resi_per=(($current_month_resi_count-$last_month_resi_count)/$current_month_resi_count)*100;
+       
         $currentyear = Carbon::now()->year;
         $lastsixyears = [$currentyear];
         for ($i=1; $i < 7; $i++) { 
@@ -97,7 +101,8 @@ class HomeController extends Controller
             $final[$key] = $data;
         }
         $linechartdata = json_encode($final);
-        return view('index',compact('emp_total','per_status_complete','per_status_incomp','man_total', 'emp', 'res', 'promotion', 'appraisal','on_leave','on_leave_data','total_emp','progress_leave','plan_count','unplan_count','pending_persent','unplan_data','plan_data','pending_req', 'linechartdata'));
+        return view('index',compact('emp_total','per_status_complete','per_status_incomp','man_total', 'emp', 'res', 'promotion', 'appraisal','on_leave','on_leave_data','total_emp','progress_leave','plan_count','unplan_count','pending_persent','unplan_data','plan_data','pending_req', 'linechartdata',
+        'last_month_emp_count','current_month_emp_count','emp_per','last_month_resi_count','current_month_resi_count','resi_per'));
     }
 
     public function editPromotion(){
