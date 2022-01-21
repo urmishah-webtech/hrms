@@ -46,14 +46,20 @@ class HomeController extends Controller
         $terminate_emp = Termination::where('employee_id', $userd)->get();
         $promotiondata = Promotion::where('employeeid', $userd)->get();
         $personal_excellence=PersonalExcellence::where('emp_id',$userd)->first();
-        $on_leave_data=EmployeeLeave::where('employee_id',$userd)->get();
+        $on_leave_data=EmployeeLeave::where('employee_id',$userd)->orderBy('created_at','desc')->take(2)->get();
         return view('employee-dashboard',compact('third_withdraw','third_war','second_withdraw','second_war','first_withdraw','first_war','terminate_emp','promotiondata','personal_excellence','on_leave_data'));
     }
 	public function adminHome()
     {
-        $emp_total= Employee::where('role_id','!=','1')->get()->count();
         if(Auth::user()->role_id==2){
-        $per_status_complete= Employee::where('perfomance_status','1')->where('man_id',Auth::user()->id)->get()->count();
+        $emp_total= Employee::where('role_id','!=','1')->where('man_id',Auth::id())->get()->count();
+        }
+        else{
+        $emp_total= Employee::where('role_id','!=','1')->get()->count();
+ 
+        }
+        if(Auth::user()->role_id==2){
+        $per_status_complete= Employee::where('perfomance_status','1')->where('man_id',Auth::user()->id)->get()->count();    
         }else{
         $per_status_complete= Employee::where('perfomance_status','1')->get()->count();
         }
@@ -118,9 +124,10 @@ class HomeController extends Controller
             $final[$key] = $data;
         }
         $linechartdata = json_encode($final);
-        
+        $my_leaves=EmployeeLeave::where('employee_id',Auth::user()->id)->orderBy('created_at','desc')->take(5)->get();
+        $terminated_emp_under_me=Employee::join('termination as t','t.employee_id','employees.id')->where('man_id',Auth::user()->id)->get()->count(); 
         return view('index',compact('emp_total','per_status_complete','per_status_incomp','man_total', 'emp', 'res', 'promotion', 'appraisal','on_leave','on_leave_data','total_emp','progress_leave','plan_count','unplan_count','pending_persent','unplan_data','plan_data','pending_req', 'linechartdata',
-        'last_month_emp_count','current_month_emp_count','emp_per','last_month_resi_count','current_month_resi_count','resi_per'));
+        'last_month_emp_count','current_month_emp_count','emp_per','last_month_resi_count','current_month_resi_count','resi_per','terminated_emp_under_me','my_leaves'));
     }
 
     public function editPromotion(){

@@ -31,7 +31,7 @@
                             <span class="text-sm text-muted">Leave Date</span>
                         </div>
                         <div class="col-6 text-right">
-                            <span class="badge bg-inverse-danger">
+                            <span class="badge @if(@$val->status==1) bg-inverse-warning @elseif(@$val->status==2) bg-inverse-success  @else bg-inverse-danger  @endif">
                             @if(@$val->status==1)Pending	
                             @elseif(@$val->status==2)Approved
                             @else Disapproved @endif</span>
