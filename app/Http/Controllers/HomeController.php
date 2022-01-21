@@ -34,7 +34,7 @@ class HomeController extends Controller
     }
 	public function adminHome()
     {
-        $emp_total= Employee::where('role_id','3')->get()->count();
+        $emp_total= Employee::where('role_id','!=','1')->get()->count();
         if(Auth::user()->role_id==2){
         $per_status_complete= Employee::where('perfomance_status','1')->where('man_id',Auth::user()->id)->get()->count();
         }else{
@@ -70,6 +70,11 @@ class HomeController extends Controller
         $res = Resignation::orderBy('id', 'DESC')->limit(3)->get();
         $promotion = Promotion::orderBy('id', 'DESC')->limit(5)->get();
         $appraisal = Appraisal::orderBy('id', 'DESC')->limit(5)->get();
+
+        $last_month_emp_count=Employee::whereMonth('created_at', '=', Carbon::now()->subMonth()->month)->where('role_id','!=',1)->get()->count();
+        $current_month_emp_count=Employee::whereMonth('created_at', '=', Carbon::now()->month)->where('role_id','!=',1)->get()->count();
+        $emp_per=(($current_month_emp_count-$last_month_emp_count)/$current_month_emp_count)*100;
+       
         $currentyear = Carbon::now()->year;
         $lastsixyears = [$currentyear];
         for ($i=1; $i < 7; $i++) { 
