@@ -159,6 +159,9 @@
                                             </tr> @php $i++; @endphp
                                             @endforeach
                                             @endif
+                                            @if(count($third_withdraw) == 0 && count($third_war)==0 && count($second_withdraw)==0 && count($second_war)==0 && count($first_withdraw)==0 && count($first_war)==0 && count($terminate_emp)==0)
+                                               <tr> <td colspan="4" style="text-align: center;">No Data Found<td></tr>
+                                            @endif
                                         </tbody>
                                     </table>
                                 </div>
