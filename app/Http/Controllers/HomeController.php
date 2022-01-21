@@ -44,7 +44,11 @@ class HomeController extends Controller
         $per_status_incomp= Employee::where('perfomance_status','0')->get()->count();
         }
         $man_total= Employee::where('role_id','2')->get()->count();
-        $emp = Employee::where('role_id','3')->orderBy('id', 'DESC')->limit(3)->get();
+        if(Auth::user()->role_id==1){
+           $emp = Employee::where('role_id','3')->orderBy('id', 'DESC')->limit(3)->get();
+        }elseif(Auth::user()->role_id==2){
+            $emp = Employee::where('role_id','3')->where('man_id',Auth::user()->id)->orderBy('id', 'DESC')->limit(3)->get();
+        }
         $res = Resignation::orderBy('id', 'DESC')->limit(3)->get();
         $promotion = Promotion::orderBy('id', 'DESC')->limit(5)->get();
         $appraisal = Appraisal::orderBy('id', 'DESC')->limit(5)->get();

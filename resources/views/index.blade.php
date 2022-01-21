@@ -66,6 +66,36 @@
         </div>
 
         <div class="row">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6 text-center">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">Leave Calendar</h3>
+                                <div class="card card-transparent p-4" role="tabpanel">
+                                    <div class="tab-content p-0 bg-white">
+                                       <div class="tab-pane active" id="home" role="tabpanel">
+                                            <div class="response"></div>
+                                            <div id='calendar1'></div>
+                                       </div>
+                                    </div>
+                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-center">
+                        <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">Sales Overview</h3>
+                                <div id="line-charts"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
             <div class="col-md-6 d-flex">
                 <div class="card card-table flex-fill">
                     <div class="card-header">
@@ -88,7 +118,7 @@
                                     <tr>
                                         <td><a href="{{route('profile_details', $employee->id)}}">{{$employee->employee_id}}</a></td>
                                         <td>
-                                            <h2><a href="{{route('profile_details', $employee->id)}}">{{$employee->first_name}} {{$employee->last_name}}</a></h2>
+                                            <h2><a href="{{route('profile_details', $employee->id)}}">{{$employee->first_name}}</a></h2>
                                         </td>
                                         <?php
                                         $manager=DB::table('employees')->where('id',$employee->man_id)->first();
@@ -413,30 +443,7 @@
 </div>
 <!-- /Delete Promotion Modal -->
 
-{{-- <script>
-    $( document ).ready(function() {
-        $(document).on("click",".list_status5_35",function() {
+<script>
 
-            var id=$(this).data('id');
-
-            var status;
-            if($(".status1").is(":checked"))
-            {
-                status=1;
-            }
-            else{
-                status=0;
-            }
-
-            $.ajax({
-                type:'POST',
-                url:"{{ route('chang_appraisal_status') }}",
-                data:{"id":id,"status":status,"_token": "{{ csrf_token() }}"},
-                success:function(data){
-                    location.reload();
-                }
-            });
-        });
-    });
-</script> --}}
+</script>
 @endsection
