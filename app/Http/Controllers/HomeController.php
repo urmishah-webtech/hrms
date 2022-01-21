@@ -34,7 +34,7 @@ class HomeController extends Controller
     }
 	public function adminHome()
     {
-        $emp_total= Employee::where('role_id','3')->get()->count();
+        $emp_total= Employee::where('role_id','!=','1')->get()->count();
         if(Auth::user()->role_id==2){
         $per_status_complete= Employee::where('perfomance_status','1')->where('man_id',Auth::user()->id)->get()->count();
         }else{
@@ -71,6 +71,10 @@ class HomeController extends Controller
         $promotion = Promotion::orderBy('id', 'DESC')->limit(5)->get();
         $appraisal = Appraisal::orderBy('id', 'DESC')->limit(5)->get();
 
+        $last_month_emp_count=Employee::whereMonth('created_at', '=', Carbon::now()->subMonth()->month)->where('role_id','!=',1)->get()->count();
+        $current_month_emp_count=Employee::whereMonth('created_at', '=', Carbon::now()->month)->where('role_id','!=',1)->get()->count();
+        $emp_per=(($current_month_emp_count-$last_month_emp_count)/$current_month_emp_count)*100;
+       
         return view('index',compact('emp_total','per_status_complete','per_status_incomp','man_total', 'emp', 'res', 'promotion', 'appraisal','on_leave','on_leave_data','total_emp','progress_leave','plan_count','unplan_count','pending_persent','unplan_data','plan_data','pending_req'));
     }
 
