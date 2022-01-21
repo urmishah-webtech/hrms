@@ -632,13 +632,17 @@ Route::get('employee-warning','EmployeeVerbalWarningController@EmployeeFirstVerb
 Route::post('add_EmployeeFirstVerbalWarning','EmployeeVerbalWarningController@store_EmployeeFirstVerbalWarning')->name('add_EmployeeFirstVerbalWarning');
 Route::post('update_EmployeeFirstVerbal','EmployeeVerbalWarningController@update_EmployeeFirstVerbalWarning')->name('update_EmployeeFirstVerbalWarning');
 Route::post('delete_EmpVerbalWarning','EmployeeVerbalWarningController@delete_EmployeeVerbalWarning')->name('delete_EmpVerbalWarning');
+Route::get('changeFirstWarningstatus/{type}/{id}','EmployeeVerbalWarningController@changeFirstWarningstatus')->name('changeFirstWarningstatus');
+
 Route::post('add_EmployeeSecondVerbalWarning','EmployeeVerbalWarningController@store_EmployeeSecondVerbalWarning')->name('add_EmployeeSecondVerbalWarning');
 Route::post('update_EmpSecondVerbalWarning','EmployeeVerbalWarningController@update_EmployeeSecondVerbalWarning')->name('update_EmployeeSecondVerbalWarning');
 Route::post('delete_secondEmpVerbalWarning','EmployeeVerbalWarningController@delete_EmployeeSecondVerbalWarning')->name('delete_secondEmpVerbalWarning');
+Route::get('changeSecondWarningstatus/{type}/{id}','EmployeeVerbalWarningController@changeSecondWarningstatus')->name('changeSecondWarningstatus');
+
 Route::post('add_EmployeeThirdVerbalWarning','EmployeeVerbalWarningController@store_EmployeeThirdVerbalWarning')->name('add_EmployeeThirdVerbalWarning');
 Route::post('update_EmpThirdVerbalWarning','EmployeeVerbalWarningController@update_EmployeeThirdVerbalWarning')->name('update_EmployeeThirdVerbalWarning');
 Route::post('delete_EmpThirdVerbalWarning','EmployeeVerbalWarningController@delete_EmployeeThirdVerbalWarning')->name('delete_EmployeeThirdVerbalWarning');
-
+Route::get('changeThirdWarningstatus/{type}/{id}','EmployeeVerbalWarningController@changeThirdWarningstatus')->name('changeThirdWarningstatus'); 
 
 
 

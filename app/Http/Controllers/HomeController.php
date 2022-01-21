@@ -30,7 +30,15 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('employee-dashboard');
+        $userd = Auth::user()->id;
+        $third_withdraw = EmployeeThirdVerbalWarning::where('emp_id',$userd)->where('status',0)->get();
+        $third_war = EmployeeThirdVerbalWarning::where('emp_id',$userd)->where('status',1)->get();
+        $second_withdraw = EmployeeSecondVerbalWarning::where('emp_id',$userd)->where('status',0)->get();
+        $second_war = EmployeeSecondVerbalWarning::where('emp_id',$userd)->where('status',1)->get();
+        $first_withdraw = EmployeeFirstVerbalWarning::where('emp_id',$userd)->where('status',0)->get();
+        $first_war = EmployeeFirstVerbalWarning::where('emp_id',$userd)->where('status',1)->get();
+        $terminate_emp = Termination::where('employee_id', $userd)->get();
+        return view('employee-dashboard',compact('third_withdraw','third_war','second_withdraw','second_war','first_withdraw','first_war','terminate_emp'));
     }
 	public function adminHome()
     {
@@ -149,7 +157,15 @@ class HomeController extends Controller
 		}
 		else
 		{
-			return view('employee-dashboard');
+			$userd = Auth::user()->id;
+            $third_withdraw = EmployeeThirdVerbalWarning::where('emp_id',$userd)->where('status',0)->get();
+            $third_war = EmployeeThirdVerbalWarning::where('emp_id',$userd)->where('status',1)->get();
+            $second_withdraw = EmployeeSecondVerbalWarning::where('emp_id',$userd)->where('status',0)->get();
+            $second_war = EmployeeSecondVerbalWarning::where('emp_id',$userd)->where('status',1)->get();
+            $first_withdraw = EmployeeFirstVerbalWarning::where('emp_id',$userd)->where('status',0)->get();
+            $first_war = EmployeeFirstVerbalWarning::where('emp_id',$userd)->where('status',1)->get();
+            $terminate_emp = Termination::where('employee_id', $userd)->get();
+            return view('employee-dashboard',compact('third_withdraw','third_war','second_withdraw','second_war','first_withdraw','first_war','terminate_emp'));
 		}
     }
 

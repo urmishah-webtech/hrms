@@ -53,6 +53,7 @@ class EmployeeVerbalWarningController extends Controller
                 $scores->admin_comments = $admin_comments[$key] ? $admin_comments[$key] : '';
                 $scores->areas_for_improvement = $areas_for_improvement[$key] ? $areas_for_improvement[$key] : '';
                 $scores->warning_by = $emp_id;
+                $scores->status = 1;
                 $scores->save();                
             }
         }
@@ -132,6 +133,7 @@ class EmployeeVerbalWarningController extends Controller
                 $scores->admin_comments = $admin_comments[$key] ? $admin_comments[$key] : '';
                 $scores->areas_for_improvement = $areas_for_improvement[$key] ? $areas_for_improvement[$key] : '';
                 $scores->warning_by = $emp_id;
+                $scores->status = 1;
                 $scores->save();                
             }
         }
@@ -211,6 +213,7 @@ class EmployeeVerbalWarningController extends Controller
                 $scores->managers_comments = $managers_comments[$key] ? $managers_comments[$key] : '';  
                 $scores->admin_comments = $admin_comments[$key] ? $admin_comments[$key] : '';
                 $scores->warning_by = $emp_id;
+                $scores->status = 1;
                 $scores->save();                
             }
         }
@@ -280,5 +283,22 @@ class EmployeeVerbalWarningController extends Controller
         return view('/profile-employee-warning',compact('first_comment', 'second_comment', 'third_comment', 'emp_role','first_warning_dt','first_getw','second_emp','second_adman','third_emp','third_adman'));
          
     }
-     
+    public function changeFirstWarningstatus($type,$id){ 
+        $data=EmployeeFirstVerbalWarning::where('id',$id)->first();
+        $data->status=$type;
+        $data->save();
+        return back();
+    }
+    public function changeSecondWarningstatus($type,$id){ 
+        $data=EmployeeSecondVerbalWarning::where('id',$id)->first();
+        $data->status=$type;
+        $data->save();
+        return back();
+    }
+    public function changeThirdWarningstatus($type,$id){ 
+        $data=EmployeeThirdVerbalWarning::where('id',$id)->first();
+        $data->status=$type;
+        $data->save();
+        return back();
+    }
 }
