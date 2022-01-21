@@ -65,29 +65,25 @@
             </div>
         </div>
         @include('percentage_stat')
-        <div class="row">
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-6 text-center">
-                        <div class="card">
-                            <div class="card-body">
-                                <h3 class="card-title">Total Revenue</h3>
-                                <div id="bar-charts"></div>
+       
+		<div class="row">
+            
+            <div class="col-md-6 text-center">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">Leave Calendar</h3>
+                        <div class="card card-transparent p-4" role="tabpanel">
+                            <div class="tab-content p-0 bg-white">
+                                <div class="tab-pane active" id="home" role="tabpanel">
+                                    <div class="response"></div>
+                                    <div id='calendar1'></div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 text-center">
-                        <div class="card">
-                            <div class="card-body">
-                                <h3 class="card-title">Sales Overview</h3>
-                                <div id="line-charts"></div>
                             </div>
-                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-		<div class="row">
+             
 			<div class="col-md-6 text-center">
 				<div class="card">
 					<div class="card-body">
@@ -216,35 +212,7 @@
         </div>
         <!-- /Statistics Widget -->
 
-        <div class="row">
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-6 text-center">
-                        <div class="card">
-                            <div class="card-body">
-                                <h3 class="card-title">Leave Calendar</h3>
-                                <div class="card card-transparent p-4" role="tabpanel">
-                                    <div class="tab-content p-0 bg-white">
-                                       <div class="tab-pane active" id="home" role="tabpanel">
-                                            <div class="response"></div>
-                                            <div id='calendar1'></div>
-                                       </div>
-                                    </div>
-                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 text-center">
-                        <div class="card">
-                            <div class="card-body">
-                                <h3 class="card-title">Sales Overview</h3>
-                                <div id="line-charts"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
 
         <div class="row">
             <div class="col-md-6 d-flex">

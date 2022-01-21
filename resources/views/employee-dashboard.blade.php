@@ -13,7 +13,7 @@
                             </div>
                             <div class="welcome-det">
                                 <h3>Welcome {{Auth::user()->first_name}}</h3>
-                                <p>Monday, 20 May 2019</p>
+                                {{-- <p>{{ Auth::user()->designation()->name }}</p> --}}
                             </div>
                         </div>
                     </div>
@@ -167,6 +167,8 @@
 					</div>
                 
                     </div>
+                    @include('employee_dashboard.working_history_and_performance')
+                    @include('employee_dashboard.leave')
                     <div class="row">
                     <div class="col-lg-8 col-md-8">
                         <section class="dash-section">

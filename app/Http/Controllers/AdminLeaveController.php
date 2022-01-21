@@ -197,6 +197,9 @@ class AdminLeaveController extends Controller
         $count = 0;
         if(Auth::user()->role_id==2){
         $info2 = EmployeeLeave::where('manager_id',Auth::id())->get();
+        }
+        elseif(Auth::user()->role_id!=1){
+         $info2 = EmployeeLeave::where('employee_id',Auth::id())->get();
         }else{
         $info2 = EmployeeLeave::get();
         }
