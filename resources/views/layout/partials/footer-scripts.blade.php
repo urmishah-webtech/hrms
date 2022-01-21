@@ -1019,19 +1019,20 @@
 	// Line Chart
 	var linechartdata = $('#linechartdata').val();
 	arr = $.parseJSON(linechartdata);
-	// console.log(arr);
-	// console.log([
-	// 		{ y: '2006', a: 50, b: 90 },
-	// 		{ y: '2007', a: 75,  b: 65 },
-	// 		{ y: '2008', a: 50,  b: 40 },
-	// 		{ y: '2009', a: 75,  b: 65 },
-	// 		{ y: '2010', a: 50,  b: 40 },
-	// 		{ y: '2011', a: 75,  b: 65 },
-	// 		{ y: '2012', a: 100, b: 50 }
-	// 	]);
+	finalarr = arr.reverse();
+	console.log(finalarr);
+	console.log([
+			{ y: '2006', a: 50, b: 90 },
+			{ y: '2007', a: 75,  b: 65 },
+			{ y: '2008', a: 50,  b: 40 },
+			{ y: '2009', a: 75,  b: 65 },
+			{ y: '2010', a: 50,  b: 40 },
+			{ y: '2011', a: 75,  b: 65 },
+			{ y: '2012', a: 100, b: 50 }
+		]);
 	Morris.Line({
 		element: 'line-charts-employees',
-		data: arr,
+		data: finalarr,
 		xkey: 'y',
 		ykeys: ['a', 'b'],
 		labels: ['New Employess', 'Resigned Employees'],

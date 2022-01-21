@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Employee;
+use App\EmployeeFirstVerbalWarning;
+use App\EmployeeSecondVerbalWarning;
+use App\EmployeeThirdVerbalWarning;
+use App\Termination;
 use Auth;
 use Carbon\Carbon;
 use DB;
@@ -11,6 +15,8 @@ use App\EmployeeLeave;
 use App\Resignation;
 use App\Promotion;
 use App\Appraisal;
+use App\PersonalExcellence;
+
 class HomeController extends Controller
 {
     /**
@@ -30,7 +36,18 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('employee-dashboard');
+        $userd = Auth::user()->id;
+        $third_withdraw = EmployeeThirdVerbalWarning::where('emp_id',$userd)->where('status',0)->get();
+        $third_war = EmployeeThirdVerbalWarning::where('emp_id',$userd)->where('status',1)->get();
+        $second_withdraw = EmployeeSecondVerbalWarning::where('emp_id',$userd)->where('status',0)->get();
+        $second_war = EmployeeSecondVerbalWarning::where('emp_id',$userd)->where('status',1)->get();
+        $first_withdraw = EmployeeFirstVerbalWarning::where('emp_id',$userd)->where('status',0)->get();
+        $first_war = EmployeeFirstVerbalWarning::where('emp_id',$userd)->where('status',1)->get();
+        $terminate_emp = Termination::where('employee_id', $userd)->get();
+        $promotiondata = Promotion::where('employeeid', $userd)->get();
+        $personal_excellence=PersonalExcellence::where('emp_id',$userd)->first();
+        $on_leave_data=EmployeeLeave::where('employee_id',$userd)->get();
+        return view('employee-dashboard',compact('third_withdraw','third_war','second_withdraw','second_war','first_withdraw','first_war','terminate_emp','promotiondata','personal_excellence','on_leave_data'));
     }
 	public function adminHome()
     {
@@ -76,6 +93,11 @@ class HomeController extends Controller
         $emp_per=(($current_month_emp_count-$last_month_emp_count)/$current_month_emp_count)*100;
         $promotion_month = Promotion::whereMonth('date', '=', Carbon::now()->month)->get();
         $promotion_previousmonth = Promotion::whereMonth('date', '=', Carbon::now()->subMonth()->month)->get();
+
+        $last_month_resi_count=Resignation::whereMonth('resignationdate', '=', Carbon::now()->subMonth()->month)->get()->count();
+        $current_month_resi_count=Resignation::whereMonth('resignationdate', '=', Carbon::now()->month)->get()->count();
+        $resi_per=(($current_month_resi_count-$last_month_resi_count)/$current_month_resi_count)*100;
+
         $currentyear = Carbon::now()->year;
         $lastsixyears = [$currentyear];
         for ($i=1; $i < 7; $i++) {
@@ -92,13 +114,15 @@ class HomeController extends Controller
             array_push($resignedemp, $resemptemp);
         }
         foreach ($lastsixyears as $key => $value) {
-            $data['y'] = $value;
+            $data['y'] = "".$value."";
             $data['a'] = $newemp[$key];
             $data['b'] = $resignedemp[$key];
             $final[$key] = $data;
         }
         $linechartdata = json_encode($final);
-        return view('index',compact('emp_total','per_status_complete','per_status_incomp','man_total', 'emp', 'res', 'promotion', 'appraisal','on_leave','on_leave_data','total_emp','progress_leave','plan_count','unplan_count','pending_persent','unplan_data','plan_data','pending_req', 'linechartdata', 'promotion_month', 'promotion_previousmonth'));
+
+        return view('index',compact('emp_total','per_status_complete','per_status_incomp','man_total', 'emp', 'res', 'promotion', 'appraisal','on_leave','on_leave_data','total_emp','progress_leave','plan_count','unplan_count','pending_persent','unplan_data','plan_data','pending_req', 'linechartdata',
+        'last_month_emp_count','current_month_emp_count','emp_per','last_month_resi_count','current_month_resi_count','resi_per','promotion_month', 'promotion_previousmonth'));
     }
 
     public function editPromotion(){
@@ -150,7 +174,15 @@ class HomeController extends Controller
 		}
 		else
 		{
-			return view('employee-dashboard');
+			$userd = Auth::user()->id;
+            $third_withdraw = EmployeeThirdVerbalWarning::where('emp_id',$userd)->where('status',0)->get();
+            $third_war = EmployeeThirdVerbalWarning::where('emp_id',$userd)->where('status',1)->get();
+            $second_withdraw = EmployeeSecondVerbalWarning::where('emp_id',$userd)->where('status',0)->get();
+            $second_war = EmployeeSecondVerbalWarning::where('emp_id',$userd)->where('status',1)->get();
+            $first_withdraw = EmployeeFirstVerbalWarning::where('emp_id',$userd)->where('status',0)->get();
+            $first_war = EmployeeFirstVerbalWarning::where('emp_id',$userd)->where('status',1)->get();
+            $terminate_emp = Termination::where('employee_id', $userd)->get();
+            return view('employee-dashboard',compact('third_withdraw','third_war','second_withdraw','second_war','first_withdraw','first_war','terminate_emp'));
 		}
     }
 

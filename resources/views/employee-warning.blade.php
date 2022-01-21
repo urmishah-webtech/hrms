@@ -45,6 +45,7 @@
                                         <th>Manager's Comments</th>
                                         <th>Admin Comments</th>
                                         <th>Areas for Improvement</th>
+                                        @if(Auth::user()->role_id == 1)<th>Status</th>@endif 
                                         <th class="text-right">Action</th>
                                     </tr>
                                 </thead>
@@ -59,7 +60,7 @@
                                         <td class="tdindicator">{{ @$val->employee_comments }}</td>                                        
                                         <td>{{ @$val->managers_comments}}</td>                                        
                                         <td>{{ @$val->admin_comments}}</td>
-                                        <td>{{ @$val->areas_for_improvement }}</td>                                       
+                                        <td>{{ @$val->areas_for_improvement }}</td>  
                                         <td class="text-right">
                                             <div class="dropdown dropdown-action">
                                                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
@@ -107,6 +108,17 @@
                                         <td>{{ @$val->managers_comments}}</td>                                        
                                         <td>{{ @$val->admin_comments}}</td>
                                         <td>{{ @$val->areas_for_improvement }}</td>
+                                        <td>
+                                            <div class="dropdown action-label">
+                                                <a class="btn btn-white btn-sm btn-rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fa fa-dot-circle-o @if(@$val->status== '0')text-success @else text-danger @endif"></i> @if(@$val->status== '1') Active @else Withdraw @endif
+                                                </a>
+                                                <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="{{ url('changeFirstWarningstatus').'/1'.'/'.@$val->id }}"><i class="fa fa-dot-circle-o text-danger"></i>Active</a>
+                                                    <a class="dropdown-item" href="{{ url('changeFirstWarningstatus').'/0'.'/'.@$val->id }}"><i class="fa fa-dot-circle-o text-success"></i>Withdraw</a>
+                                                </div>
+                                            </div>
+                                        </td>
                                         <td class="text-right">
                                             <div class="dropdown dropdown-action">
                                                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
@@ -116,6 +128,7 @@
                                                 </div>
                                             </div>
                                         </td>
+                                        
                                     </tr>
                                     @endforeach
                                     @endisset
@@ -179,6 +192,17 @@
                                         <td>{{ @$val->managers_comments}}</td>                                        
                                         <td>{{ @$val->admin_comments}}</td>
                                         <td>{{ @$val->areas_for_improvement }}</td>
+                                        <td>
+                                            <div class="dropdown action-label">
+                                                <a class="btn btn-white btn-sm btn-rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fa fa-dot-circle-o @if(@$val->status== '0')text-success @else text-danger @endif"></i> @if(@$val->status== '1') Active @else Withdraw @endif
+                                                </a>
+                                                <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="{{ url('changeSecondWarningstatus').'/1'.'/'.@$val->id }}"><i class="fa fa-dot-circle-o text-danger"></i>Active</a>
+                                                    <a class="dropdown-item" href="{{ url('changeSecondWarningstatus').'/0'.'/'.@$val->id }}"><i class="fa fa-dot-circle-o text-success"></i>Withdraw</a>
+                                                </div>
+                                            </div>
+                                        </td>
                                         <td class="text-right">
                                             <div class="dropdown dropdown-action">
                                                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
@@ -252,6 +276,17 @@
                                         <td>{{ @$val->managers_comments}}</td>                                        
                                         <td>{{ @$val->admin_comments}}</td>
                                         <td></td>
+                                        <td>
+                                            <div class="dropdown action-label">
+                                                <a class="btn btn-white btn-sm btn-rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
+                                                    <i class="fa fa-dot-circle-o @if(@$val->status== '0')text-success @else text-danger @endif"></i> @if(@$val->status== '1') Active @else Withdraw @endif
+                                                </a>
+                                                <div class="dropdown-menu">
+                                                <a class="dropdown-item" href="{{ url('changeThirdWarningstatus').'/1'.'/'.@$val->id }}"><i class="fa fa-dot-circle-o text-danger"></i>Active</a>
+                                                    <a class="dropdown-item" href="{{ url('changeThirdWarningstatus').'/0'.'/'.@$val->id }}"><i class="fa fa-dot-circle-o text-success"></i>Withdraw</a>
+                                                </div>
+                                            </div>
+                                        </td>
                                         <td class="text-right">
                                             <div class="dropdown dropdown-action">
                                                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
