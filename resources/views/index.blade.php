@@ -41,6 +41,7 @@
                     </div>
                 </div>
             </div>
+            @if(Auth::user()->role_id==1)
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                 <div class="card dash-widget">
                     <div class="card-body">
@@ -52,6 +53,19 @@
                     </div>
                 </div>
             </div>
+            @else
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <div class="card dash-widget">
+                    <div class="card-body">
+                        <span class="dash-widget-icon"><i class="fa fa-diamond"></i></span>
+                        <div class="dash-widget-info">
+                            <h3>{{@$terminated_emp_under_me}}</h3>
+                            <span>Terminated Employees</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endif
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                 <div class="card dash-widget">
                     <div class="card-body">
@@ -84,6 +98,8 @@
                 </div>
             </div>
 
+            @if(Auth::user()->role_id==1)
+
 			<div class="col-md-6 text-center">
 				<div class="card">
 					<div class="card-body">
@@ -93,6 +109,39 @@
 					</div>
 				</div>
 			</div>
+            @else
+            <div class="col-md-6">
+                <div class="card flex-fill">
+                    <div class="card-body">
+                        <h3 class="card-title">My leaves</h3>
+                        @isset($my_leaves)
+                        @foreach($my_leaves as $val)
+                        <div class="leave-info-box">
+                            <div class="media align-items-center">
+
+                            </div>
+                            <div class="row align-items-center mt-3">
+                                <div class="col-6">
+                                    <h6 class="mb-0">{{ $val->from_date }} - {{$val->to_date}}</h6>
+                                    <span class="text-sm text-muted">Leave Date</span>
+                                </div>
+                                <div class="col-6 text-right">
+                                    <span class="badge @if(@$val->status==1) bg-inverse-warning @elseif(@$val->status==2) bg-inverse-success  @else bg-inverse-danger  @endif">
+                                    @if(@$val->status==1)Pending
+                                    @elseif(@$val->status==2)Approved
+                                    @else Disapproved @endif</span>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                        @endisset
+                        <div class="load-more text-center">
+                            <a class="text-dark" href="{{ url('leaves') }}">Load More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endif
 		</div>
 
         <!-- Statistics Widget -->

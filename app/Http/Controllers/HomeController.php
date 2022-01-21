@@ -52,7 +52,13 @@ class HomeController extends Controller
     }
 	public function adminHome()
     {
+        if(Auth::user()->role_id==2){
+        $emp_total= Employee::where('role_id','!=','1')->where('man_id',Auth::id())->get()->count();
+        }
+        else{
         $emp_total= Employee::where('role_id','!=','1')->get()->count();
+
+        }
         if(Auth::user()->role_id==2){
         $per_status_complete= Employee::where('perfomance_status','1')->where('man_id',Auth::user()->id)->get()->count();
         }else{
