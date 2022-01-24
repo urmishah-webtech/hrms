@@ -5,8 +5,8 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between mb-3">
                         <div>
-                            <span class="d-block">New Employees</span>
-                            <span class="d-block">(this month)</span>
+                            <span class="d-block">New Employees ({{date('M')}})</span>
+                            {{-- <span class="d-block"></span> --}}
 
                         </div>
                         <div>
@@ -31,14 +31,14 @@
                             <span class="d-block">Promotions</span>
                         </div>
                         <div>
-                            <span class="text-success"><?php $promotion_percent = (count($promotion_month)/100)*100; ?>{{$promotion_percent}}%</span>
+                            <span class="text-success">{{$pro_per}}%</span>
                         </div>
                     </div>
-                    <h3 class="mb-3">{{@count($promotion_month)}}</h3>
+                    <h3 class="mb-3">{{$promotion_month}}</h3>
                     <div class="progress mb-2" style="height: 5px;">
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: {{$promotion_percent}}%;" aria-valuenow="{{$promotion_percent}}" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar bg-primary" role="progressbar" style="width: {{$pro_per}}%;" aria-valuenow="{{$pro_per}}" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
-                    <p class="mb-0">Previous Month <span class="text-muted">{{@count($promotion_previousmonth)}}</span></p>
+                    <p class="mb-0">Previous Month <span class="text-muted">{{$promotion_previousmonth}}</span></p>
                 </div>
             </div>
 
@@ -54,7 +54,7 @@
                     </div>
                     <?php
                     $per=$ter_per<0?$ter_per:2;
-                   
+
                     ?>
                     <h3 class="mb-3">{{ @$current_month_ter_count }}</h3>
                     <div class="progress mb-2" style="height: 5px;">

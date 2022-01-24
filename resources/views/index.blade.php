@@ -495,7 +495,7 @@
                                         <tr>
                                             <td>{{$i}}</td>
                                             <td>{{$val->employee->first_name}}</td>
-                                            <td>Third {{count($third_withdraw)}}</td>
+                                            <td>Third</td>
                                             <td>{{date('d M Y', strtotime(@$val->updated_at))}}</td>
                                             <td class="text-center">
                                                 <div class="action-label">
@@ -555,6 +555,7 @@
                                     @foreach($terminate_emp as $val)
                                     <tr>
                                         <td>{{$i}} </td>
+                                        <td>{{$val->employee->first_name}}</td>
                                         <td>Fourth</td>
                                         <td>{{date('d M Y', strtotime(@$val->updated_at))}}</td>
                                         <td class="text-center">
