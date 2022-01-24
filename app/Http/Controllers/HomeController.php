@@ -160,11 +160,11 @@ class HomeController extends Controller
        
       
         //Warning
-        $third_withdraw = EmployeeThirdVerbalWarning::whereIn('emp_id',$manager_emp)->orwhere('emp_id', Auth::user()->id)->where('status',0)->get();
+        $third_withdraw = EmployeeThirdVerbalWarning::whereIn('emp_id',$manager_emp)->orwhere('emp_id', Auth::user()->id)->get();
         $third_war = EmployeeThirdVerbalWarning::whereIn('emp_id',$manager_emp)->orwhere('emp_id', Auth::user()->id)->where('status',1)->get();
-        $second_withdraw = EmployeeSecondVerbalWarning::whereIn('emp_id',$manager_emp)->orwhere('emp_id', Auth::user()->id)->where('status',0)->get();
+        $second_withdraw = EmployeeSecondVerbalWarning::whereIn('emp_id',$manager_emp)->orwhere('emp_id', Auth::user()->id)->get();
         $second_war = EmployeeSecondVerbalWarning::whereIn('emp_id',$manager_emp)->orwhere('emp_id', Auth::user()->id)->where('status',1)->get();
-        $first_withdraw = EmployeeFirstVerbalWarning::whereIn('emp_id',$manager_emp)->orwhere('emp_id', Auth::user()->id)->where('status',0)->get();
+        $first_withdraw = EmployeeFirstVerbalWarning::whereIn('emp_id',$manager_emp)->orwhere('emp_id', Auth::user()->id)->get();
         $first_war = EmployeeFirstVerbalWarning::whereIn('emp_id',$manager_emp)->orwhere('emp_id', Auth::user()->id)->where('status',1)->get();
         $terminate_emp = Termination::where('employee_id', $manager_emp)->get();
 
