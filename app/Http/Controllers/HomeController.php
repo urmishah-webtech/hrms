@@ -168,7 +168,7 @@ class HomeController extends Controller
         $first_war = EmployeeFirstVerbalWarning::whereIn('emp_id',$manager_emp)->orwhere('emp_id', Auth::user()->id)->where('status',1)->get();
         $terminate_emp = Termination::where('employee_id', $manager_emp)->get();
 
-        /// Personal Excellence
+        /// Personal Excellence admin
         $excel_80100 = PersonalExcellence::where('total_percentage_manager','>=',80)->where('total_percentage_manager','<=',100)->get('total_percentage_manager')->count();
         $excel_6079 = PersonalExcellence::where('total_percentage_manager','>=',60)->where('total_percentage_manager','<=',79)->get('total_percentage_manager')->count();
         $excel_4059 = PersonalExcellence::where('total_percentage_manager','>=',40)->where('total_percentage_manager','<=',59)->get('total_percentage_manager')->count();
@@ -181,9 +181,23 @@ class HomeController extends Controller
         if($excel_total_entry != 0){$width_2039 = ($excel_2039*100)/$excel_total_entry;} else{$width_2039 = 0;}
         if($excel_total_entry != 0){$width_119 = ($excel_119*100)/$excel_total_entry;} else{$width_119 = 0;}
 
+        /// Manager
+        $man_empls =  Employee::where('man_id',Auth::user()->id)->get('id')->pluck('id')->toArray(); 
+        $man_excel_80100 = PersonalExcellence::whereIn('emp_id',$man_empls)->where('total_percentage_manager','>=',80)->where('total_percentage_manager','<=',100)->get('total_percentage_manager')->count();
+        $man_excel_6079 = PersonalExcellence::whereIn('emp_id',$man_empls)->where('total_percentage_manager','>=',60)->where('total_percentage_manager','<=',79)->get('total_percentage_manager')->count();
+        $man_excel_4059 = PersonalExcellence::whereIn('emp_id',$man_empls)->where('total_percentage_manager','>=',40)->where('total_percentage_manager','<=',59)->get('total_percentage_manager')->count();
+        $man_excel_2039 = PersonalExcellence::whereIn('emp_id',$man_empls)->where('total_percentage_manager','>=',20)->where('total_percentage_manager','<=',39)->get('total_percentage_manager')->count();
+        $man_excel_119 = PersonalExcellence::whereIn('emp_id',$man_empls)->where('total_percentage_manager','>=',1)->where('total_percentage_manager','<=',19)->get('total_percentage_manager')->count();
+        $man_excel_total_entry = PersonalExcellence::whereIn('emp_id',$man_empls)->get()->count();  
+        if($man_excel_total_entry != 0){$man_width_80100 = ($man_excel_80100*100)/$man_excel_total_entry;} else{$man_width_80100 = 0;}
+        if($man_excel_total_entry != 0){$man_width_6079 = ($man_excel_6079*100)/$man_excel_total_entry;} else{$man_width_6079 = 0;}
+        if($man_excel_total_entry != 0){$man_width_4059 = ($man_excel_4059*100)/$man_excel_total_entry;} else{$man_width_4059 = 0;}
+        if($man_excel_total_entry != 0){$man_width_2039 = ($man_excel_2039*100)/$man_excel_total_entry;} else{$man_width_2039 = 0;}
+        if($man_excel_total_entry != 0){$man_width_119 = ($man_excel_119*100)/$man_excel_total_entry;} else{$man_width_119 = 0;}
+
         return view('index',compact('emp_total','per_status_complete','per_status_incomp','man_total', 'emp', 'res', 'promotion', 'appraisal','on_leave','on_leave_data','total_emp','progress_leave','plan_count','unplan_count','pending_persent','unplan_data','plan_data','pending_req', 'linechartdata',
         'last_month_emp_count','current_month_emp_count','emp_per','last_month_resi_count','current_month_resi_count','resi_per','promotion_month', 'promotion_previousmonth','excel_80100','excel_6079','excel_4059','excel_2039','excel_119','excel_total_entry','width_80100','width_6079','width_4059','width_2039','width_119','third_withdraw','third_war',
-        'second_withdraw','second_war','first_withdraw','first_war','terminate_emp','my_leaves','terminated_emp_under_me','last_month_ter_count','current_month_ter_count','ter_per'));
+        'second_withdraw','second_war','first_withdraw','first_war','terminate_emp','my_leaves','terminated_emp_under_me','last_month_ter_count','current_month_ter_count','ter_per','man_excel_80100','man_excel_6079','man_excel_4059','man_excel_2039','man_excel_119','man_width_80100','man_width_6079','man_width_4059','man_width_2039','man_width_119'));
 
     }
 
