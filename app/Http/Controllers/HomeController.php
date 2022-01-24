@@ -128,11 +128,11 @@ class HomeController extends Controller
 
         $last_month_resi_count=Resignation::whereMonth('resignationdate', '=', Carbon::now()->subMonth()->month)->get()->count();
         $current_month_resi_count=Resignation::whereMonth('resignationdate', '=', Carbon::now()->month)->get()->count();
-        if($current_month_resi_count != 0){$resi_per=(($current_month_resi_count-$last_month_resi_count)/$current_month_resi_count)*100;}else{$resi_per = 0;}
+        if($last_month_resi_count != 0){$resi_per=(($current_month_resi_count-$last_month_resi_count)/$last_month_resi_count)*100;}else{$resi_per = 0;}
 
         $last_month_ter_count=Termination::whereMonth('termination_date', '=', Carbon::now()->subMonth()->month)->get()->count();
         $current_month_ter_count=Termination::whereMonth('termination_date', '=', Carbon::now()->month)->get()->count();
-        if($current_month_ter_count!=0){$ter_per=(($current_month_ter_count-$last_month_ter_count)/$current_month_ter_count)*100;}else{$ter_per=0;}
+        if($last_month_ter_count!=0){$ter_per=(($current_month_ter_count-$last_month_ter_count)/$last_month_ter_count)*100;}else{$ter_per=0;}
 
         $currentyear = Carbon::now()->year;
         $lastsixyears = [$currentyear];
