@@ -109,6 +109,9 @@
 					<li class="{{ Request::is('settings') ? 'active' : '' }}">
 						<a  href="{{ url('settings') }}"><i class="la la-cog"></i><span>Settings</span>  </a>
 					</li>
+					<li class="{{ Request::is('organizational-chart') ? 'active' : '' }}">
+						<a  href="{{ url('organizational-chart') }}"><i class="la la-cog"></i><span>Organizational Chart</span>  </a>
+					</li>
 					@endif
 					<li class="menu-title"> 
 						<span>Pages</span>

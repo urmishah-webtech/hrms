@@ -41,6 +41,7 @@
                     </div>
                 </div>
             </div>
+            @if(Auth::user()->role_id==1)
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                 <div class="card dash-widget">
                     <div class="card-body">
@@ -52,6 +53,19 @@
                     </div>
                 </div>
             </div>
+            @else
+            <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+                <div class="card dash-widget">
+                    <div class="card-body">
+                        <span class="dash-widget-icon"><i class="fa fa-diamond"></i></span>
+                        <div class="dash-widget-info">
+                            <h3>{{@$terminated_emp_under_me}}</h3>
+                            <span>Terminated Employees</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endif
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                 <div class="card dash-widget">
                     <div class="card-body">
@@ -64,30 +78,30 @@
                 </div>
             </div>
         </div>
+        @if(Auth::user()->role_id==1)
         @include('percentage_stat')
-        <div class="row">
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-6 text-center">
-                        <div class="card">
-                            <div class="card-body">
-                                <h3 class="card-title">Total Revenue</h3>
-                                <div id="bar-charts"></div>
+        @endif
+
+		<div class="row">
+
+            <div class="col-md-6 text-center">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">Leave Calendar</h3>
+                        <div class="card card-transparent p-4" role="tabpanel">
+                            <div class="tab-content p-0 bg-white">
+                                <div class="tab-pane active home_calendar" id="home" role="tabpanel">
+                                    <div class="response"></div>
+                                    <div id='calendar1'></div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 text-center">
-                        <div class="card">
-                            <div class="card-body">
-                                <h3 class="card-title">Sales Overview</h3>
-                                <div id="line-charts"></div>
                             </div>
-                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-		<div class="row">
+
+            @if(Auth::user()->role_id==1)
+
 			<div class="col-md-6 text-center">
 				<div class="card">
 					<div class="card-body">
@@ -97,8 +111,41 @@
 					</div>
 				</div>
 			</div>
+            @else
+            <div class="col-md-6">
+                <div class="card flex-fill">
+                    <div class="card-body">
+                        <h3 class="card-title">My leaves</h3>
+                        @isset($my_leaves)
+                        @foreach($my_leaves as $val)
+                        <div class="leave-info-box">
+                            <div class="media align-items-center">
+
+                            </div>
+                            <div class="row align-items-center mt-3">
+                                <div class="col-6">
+                                    <h6 class="mb-0">{{ $val->from_date }} - {{$val->to_date}}</h6>
+                                    <span class="text-sm text-muted">Leave Date</span>
+                                </div>
+                                <div class="col-6 text-right">
+                                    <span class="badge @if(@$val->status==1) bg-inverse-warning @elseif(@$val->status==2) bg-inverse-success  @else bg-inverse-danger  @endif">
+                                    @if(@$val->status==1)Pending
+                                    @elseif(@$val->status==2)Approved
+                                    @else Disapproved @endif</span>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                        @endisset
+                        <div class="load-more text-center">
+                            <a class="text-dark" href="{{ url('leaves') }}">Load More</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endif
 		</div>
-					 
+
         <!-- Statistics Widget -->
         <div class="row">
             <div class="col-md-12 col-lg-12 col-xl-4 d-flex">
@@ -140,45 +187,62 @@
                     </div>
                 </div>
             </div>
-            
+
             <div class="col-md-12 col-lg-6 col-xl-4 d-flex">
                 <div class="card flex-fill">
                     <div class="card-body">
-                        <h4 class="card-title">Task Statistics</h4>
+                        <h4 class="card-title">Personal Excellence</h4>
                         <div class="statistics">
                             <div class="row">
                                 <div class="col-md-6 col-6 text-center">
                                     <div class="stats-box mb-4">
-                                        <p>Total Tasks</p>
-                                        <h3>385</h3>
+                                        <p>Performance <br>Complete</p>
+                                        <h3>{{@$per_status_complete}}</h3>
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-6 text-center">
                                     <div class="stats-box mb-4">
-                                        <p>Overdue Tasks</p>
-                                        <h3>19</h3>
+                                        <p>Performance Incomplete</p>
+                                        <h3>{{@$per_status_incomp}}</h3>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        @if(Auth::user()->role_id == 2)
                         <div class="progress mb-4">
-                            <div class="progress-bar bg-purple" role="progressbar" style="width: 30%" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100">30%</div>
-                            <div class="progress-bar bg-warning" role="progressbar" style="width: 22%" aria-valuenow="18" aria-valuemin="0" aria-valuemax="100">22%</div>
-                            <div class="progress-bar bg-success" role="progressbar" style="width: 24%" aria-valuenow="12" aria-valuemin="0" aria-valuemax="100">24%</div>
-                            <div class="progress-bar bg-danger" role="progressbar" style="width: 26%" aria-valuenow="14" aria-valuemin="0" aria-valuemax="100">21%</div>
-                            <div class="progress-bar bg-info" role="progressbar" style="width: 10%" aria-valuenow="14" aria-valuemin="0" aria-valuemax="100">10%</div>
+                            <div class="progress-bar bg-purple" role="progressbar" style="width: {{round($man_width_80100, 2)}}%" aria-valuenow="{{round($man_width_80100, 2)}}" aria-valuemin="0" aria-valuemax="100">{{round($man_width_80100, 2)}}%</div>
+                            <div class="progress-bar bg-warning" role="progressbar" style="width: {{round($man_width_6079, 2)}}%" aria-valuenow="{{round($man_width_6079, 2)}}" aria-valuemin="0" aria-valuemax="100">{{round($man_width_6079, 2)}}%</div>
+                            <div class="progress-bar bg-success" role="progressbar" style="width: {{round($man_width_4059, 2)}}%" aria-valuenow="{{round($man_width_4059, 2)}}" aria-valuemin="0" aria-valuemax="100">{{round($man_width_4059, 2)}}%</div>
+                            <div class="progress-bar bg-danger" role="progressbar" style="width: {{round($man_width_2039, 2)}}%" aria-valuenow="{{round($man_width_2039, 2)}}" aria-valuemin="0" aria-valuemax="100">{{round($man_width_2039, 2)}}%</div>
+                            <div class="progress-bar bg-info" role="progressbar" style="width: {{round($man_width_119, 2)}}%" aria-valuenow="{{round($man_width_119, 2)}}" aria-valuemin="0" aria-valuemax="100">{{round($man_width_119, 2)}}%</div>
                         </div>
                         <div>
-                            <p><i class="fa fa-dot-circle-o text-purple mr-2"></i>Completed Tasks <span class="float-right">166</span></p>
-                            <p><i class="fa fa-dot-circle-o text-warning mr-2"></i>Inprogress Tasks <span class="float-right">115</span></p>
-                            <p><i class="fa fa-dot-circle-o text-success mr-2"></i>On Hold Tasks <span class="float-right">31</span></p>
-                            <p><i class="fa fa-dot-circle-o text-danger mr-2"></i>Pending Tasks <span class="float-right">47</span></p>
-                            <p class="mb-0"><i class="fa fa-dot-circle-o text-info mr-2"></i>Review Tasks <span class="float-right">5</span></p>
+                            <p><i class="fa fa-dot-circle-o text-purple mr-2"></i>100 - 80 %<span class="float-right">{{$man_excel_80100}}</span></p>
+                            <p><i class="fa fa-dot-circle-o text-warning mr-2"></i>80 - 60 %<span class="float-right">{{$man_excel_6079}}</span></p>
+                            <p><i class="fa fa-dot-circle-o text-success mr-2"></i>60 - 40 %<span class="float-right">{{$man_excel_4059}}</span></p>
+                            <p><i class="fa fa-dot-circle-o text-danger mr-2"></i>40 - 20 %<span class="float-right">{{$man_excel_2039}}</span></p>
+                            <p class="mb-0"><i class="fa fa-dot-circle-o text-info mr-2"></i>20 - 1 %<span class="float-right">{{$man_excel_119}}</span></p>
                         </div>
+                        @else
+                        <div class="progress mb-4">
+                            <div class="progress-bar bg-purple" role="progressbar" style="width: {{round($width_80100, 2)}}%" aria-valuenow="{{round($width_80100, 2)}}" aria-valuemin="0" aria-valuemax="100">{{round($width_80100, 2)}}%</div>
+                            <div class="progress-bar bg-warning" role="progressbar" style="width: {{round($width_6079, 2)}}%" aria-valuenow="{{round($width_6079, 2)}}" aria-valuemin="0" aria-valuemax="100">{{round($width_6079, 2)}}%</div>
+                            <div class="progress-bar bg-success" role="progressbar" style="width: {{round($width_4059, 2)}}%" aria-valuenow="{{round($width_4059, 2)}}" aria-valuemin="0" aria-valuemax="100">{{round($width_4059, 2)}}%</div>
+                            <div class="progress-bar bg-danger" role="progressbar" style="width: {{round($width_2039, 2)}}%" aria-valuenow="{{round($width_2039, 2)}}" aria-valuemin="0" aria-valuemax="100">{{round($width_2039, 2)}}%</div>
+                            <div class="progress-bar bg-info" role="progressbar" style="width: {{round($width_119, 2)}}%" aria-valuenow="{{round($width_119, 2)}}" aria-valuemin="0" aria-valuemax="100">{{round($width_119, 2)}}%</div>
+                        </div>
+                        <div>
+                            <p><i class="fa fa-dot-circle-o text-purple mr-2"></i>100 - 80 %<span class="float-right">{{$excel_80100}}</span></p>
+                            <p><i class="fa fa-dot-circle-o text-warning mr-2"></i>80 - 60 %<span class="float-right">{{$excel_6079}}</span></p>
+                            <p><i class="fa fa-dot-circle-o text-success mr-2"></i>60 - 40 %<span class="float-right">{{$excel_4059}}</span></p>
+                            <p><i class="fa fa-dot-circle-o text-danger mr-2"></i>40 - 20 %<span class="float-right">{{$excel_2039}}</span></p>
+                            <p class="mb-0"><i class="fa fa-dot-circle-o text-info mr-2"></i>20 - 1 %<span class="float-right">{{$excel_119}}</span></p>
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
-            
+
             <div class="col-md-12 col-lg-6 col-xl-4 d-flex">
                 <div class="card flex-fill">
                     <div class="card-body">
@@ -199,7 +263,7 @@
                                 </div>
                                 <div class="col-6 text-right">
                                     <span class="badge bg-inverse-danger">
-                                    @if(@$val->status==1)Pending	
+                                    @if(@$val->status==1)Pending
                                     @elseif(@$val->status==2)Approved
                                     @else Disapproved @endif</span>
                                 </div>
@@ -216,35 +280,7 @@
         </div>
         <!-- /Statistics Widget -->
 
-        <div class="row">
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-6 text-center">
-                        <div class="card">
-                            <div class="card-body">
-                                <h3 class="card-title">Leave Calendar</h3>
-                                <div class="card card-transparent p-4" role="tabpanel">
-                                    <div class="tab-content p-0 bg-white">
-                                       <div class="tab-pane active" id="home" role="tabpanel">
-                                            <div class="response"></div>
-                                            <div id='calendar1'></div>
-                                       </div>
-                                    </div>
-                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 text-center">
-                        <div class="card">
-                            <div class="card-body">
-                                <h3 class="card-title">Sales Overview</h3>
-                                <div id="line-charts"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
 
         <div class="row">
             <div class="col-md-6 d-flex">
@@ -432,7 +468,117 @@
                 </div>
             </div>
         </div>
+        @if(Auth::user()->role_id==2)
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card card-table">
+                    <div class="card-header">
+                        <h3 class="card-title mb-0">Employees Warning</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-nowrap custom-table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Employee Name</th>
+                                        <th>Warning Stage</th>
+                                        <th>Date</th>
+                                    <th class="text-center">Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @php $i = 1; @endphp
+                                    <!---3 Warning and withdraw---->
+                                    @if(!empty($third_withdraw) && count($third_withdraw) > 0)
+                                    @foreach($third_withdraw as $val)
+                                        <tr>
+                                            <td>{{$i}}</td>
+                                            <td>{{$val->employee->first_name}}</td>
+                                            <td>Third</td>
+                                            <td>{{date('d M Y', strtotime(@$val->updated_at))}}</td>
+                                            <td class="text-center">
+                                                <div class="action-label">
+                                                    <a class="btn btn-white btn-sm btn-rounded">
+                                                        @if($val->status == 0) <i class="fa fa-dot-circle-o text-success"></i> Withdraw
+                                                        @elseif($val->status == 1) <i class="fa fa-dot-circle-o text-danger"></i> Active @endif
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    @php $i++; @endphp
+                                    @endforeach
+                                    <!---2 Warning and withdraw---->
+                                    @elseif(!empty($second_withdraw) && count($second_withdraw) > 0)
+                                    @foreach($second_withdraw as $val)
+                                    <tr>
+                                        <td>{{$i}}</td>
+                                        <td>{{$val->employee->first_name}}</td>
+                                        <td>Second</td>
+                                        <td>{{date('d M Y', strtotime(@$val->updated_at))}}</td>
+                                        <td class="text-center">
+                                            <div class="action-label">
+                                                <a class="btn btn-white btn-sm btn-rounded" >
+                                                    @if($val->status == 0) <i class="fa fa-dot-circle-o text-success"></i> Withdraw
+                                                        @elseif($val->status == 1) <i class="fa fa-dot-circle-o text-danger"></i> Active @endif
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    @php $i++; @endphp
+                                    @endforeach
+                                    <!---1 Warning and withdraw---->
+                                    @elseif(!empty($first_withdraw) && count($first_withdraw) > 0)
+                                    @foreach($first_withdraw as $val)
+                                    <tr>
+                                        <td>{{$i}}</td>
+                                        <td>{{$val->employee->first_name}}</td>
+                                        <td>First</td>
+                                        <td>{{date('d M Y', strtotime(@$val->updated_at))}}</td>
+                                        <td class="text-center">
+                                            <div class="action-label">
+                                                <a class="btn btn-white btn-sm btn-rounded" >
+                                                    @if($val->status == 0) <i class="fa fa-dot-circle-o text-success"></i> Withdraw
+                                                    @elseif($val->status == 1) <i class="fa fa-dot-circle-o text-danger"></i> Active @endif
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    @php $i++; @endphp
+                                    @endforeach
+                                    @else
+                                    @endif
+                                    <!--- warning--->
 
+                                    <!--- termination --->
+                                    @if(!empty($terminate_emp) && count($terminate_emp) > 0)
+                                    @foreach($terminate_emp as $val)
+                                    <tr>
+                                        <td>{{$i}} </td>
+                                        <td>{{$val->employee->first_name}}</td>
+                                        <td>Fourth</td>
+                                        <td>{{date('d M Y', strtotime(@$val->updated_at))}}</td>
+                                        <td class="text-center">
+                                            <div class="action-label">
+                                                <a class="btn btn-white btn-sm btn-rounded">
+                                                    <i class="fa fa-dot-circle-o text-danger"></i>Termination
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr> @php $i++; @endphp
+                                    @endforeach
+                                    @endif
+                                    {{-- @if(count($third_withdraw) == 0 && count($third_war)==0 && count($second_withdraw)==0 && count($second_war)==0 && count($first_withdraw)==0 && count($first_war)==0 && count($terminate_emp)==0)
+                                    <tr> <td colspan="4" style="text-align: center;">No Data Found<td></tr>
+                                    @endif --}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @endif
         <!--<div class="row">
             <div class="col-md-12">
                 <div class="card-group m-b-30">
