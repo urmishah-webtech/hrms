@@ -198,7 +198,7 @@
                                 <div class="form-group">
                                     <label>Termination Date <span class="text-danger">*</span></label>
                                     <div class="cal-icon">
-                                        <input type="text" class="form-control datetimepicker" name="termination_date" id="termination_date_view">
+                                        <input type="text" class="form-control datetimepicker" name="termination_date" id="termination_date">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -300,19 +300,30 @@
 <script type="text/javascript">
         $(document).ready(function () {
 
-            $('.datetimepicker').datetimepicker({
-                format: 'YYYY-MM-DD',
-                locale: 'en'
-            });
-        
+           
             
             $('body').on('click', '#editForm', function (event) {
 
                 event.preventDefault();
                 $('#id').val($(this).data('id'));
-                $('#termination_date').val($(this).data('termination_date'));
+
+                var termination_date = new Date($(this).data('termination_date'));
+                
+                var dd = termination_date.getDate();
+                var mm = termination_date.getMonth()+1;
+                var yyyy = termination_date.getFullYear();
+
+                $('#termination_date').val(dd+'/'+mm+'/'+yyyy);
                 $('#reason').val($(this).data('reason'));
-                $('#notice_date').val($(this).data('notice_date'));
+
+
+                var notice_date = new Date($(this).data('notice_date'));
+                
+                var dd1 = notice_date.getDate();
+                var mm1 = notice_date.getMonth()+1;
+                var yyyy1 = notice_date.getFullYear();
+
+                $('#notice_date').val(dd1+'/'+mm1+'/'+yyyy1);
                 $('#employee_id').val($(this).data('employee_id')).change();
                 $('#type').val($(this).data('type')).change();
                
@@ -329,9 +340,27 @@
             $('body').on('click', '#viewForm', function (event) {
 
                 event.preventDefault();
-                $('#termination_date_view').val($(this).data('termination_date'));
+
+                 var termination_date = new Date($(this).data('termination_date'));
+                
+                var dd = termination_date.getDate();
+                var mm = termination_date.getMonth()+1;
+                var yyyy = termination_date.getFullYear();
+
+                $('#termination_date_view').val(dd+'/'+mm+'/'+yyyy);
+
+
+
+                var notice_date = new Date($(this).data('notice_date'));
+                
+                var dd1 = notice_date.getDate();
+                var mm1 = notice_date.getMonth()+1;
+                var yyyy1 = notice_date.getFullYear();
+
+                $('#notice_date_view').val(dd1+'/'+mm1+'/'+yyyy1);
+
+
                 $('#reason_view').val($(this).data('reason'));
-                $('#notice_date_view').val($(this).data('notice_date'));
                 $('#employee_id_view').val($(this).data('employee_id'));
                 $('#type_view').val($(this).data('type'));
                

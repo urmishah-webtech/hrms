@@ -10,6 +10,8 @@ use App\Employee;
 use Auth;
 use App\Notification;
 use App\Events\TerminationAdded;
+use Carbon\Carbon;
+
 
 
 
@@ -120,6 +122,9 @@ class TerminationController extends Controller
     {
     	$validated = $request->validate($this->terminationRules);
     	$validated['terminated_by'] = Auth::id();
+
+        $validated['termination_date'] = Carbon::createFromFormat('d/m/Y', $validated['termination_date'])->format('Y-m-d');
+        $validated['notice_date'] = Carbon::createFromFormat('d/m/Y', $validated['notice_date'])->format('Y-m-d');
     	Termination::create($validated);
 
         $employee = Employee::find($validated['employee_id']);
@@ -139,6 +144,8 @@ class TerminationController extends Controller
     public function update(Request $request)
     {
     	$validated = $request->validate($this->terminationRules);
+        $validated['termination_date'] = Carbon::createFromFormat('d/m/Y', $validated['termination_date'])->format('Y-m-d');
+        $validated['notice_date'] = Carbon::createFromFormat('d/m/Y', $validated['notice_date'])->format('Y-m-d');
     	$type = Termination::where('id', $request->id)->update($validated);
     	if($type) {
 
