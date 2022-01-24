@@ -207,11 +207,11 @@
                             </div>
                         </div>
                         <div class="progress mb-4">
-                            <div class="progress-bar bg-purple" role="progressbar" style="width: {{$width_80100}}%" aria-valuenow="{{$width_80100}}" aria-valuemin="0" aria-valuemax="100">{{$width_80100}}%</div>
-                            <div class="progress-bar bg-warning" role="progressbar" style="width: {{$width_6079}}%" aria-valuenow="{{$width_6079}}" aria-valuemin="0" aria-valuemax="100">{{$width_6079}}%</div>
-                            <div class="progress-bar bg-success" role="progressbar" style="width: {{$width_4059}}%" aria-valuenow="{{$width_4059}}" aria-valuemin="0" aria-valuemax="100">{{$width_4059}}%</div>
-                            <div class="progress-bar bg-danger" role="progressbar" style="width: {{$width_2039}}%" aria-valuenow="{{$width_2039}}" aria-valuemin="0" aria-valuemax="100">{{$width_2039}}%</div>
-                            <div class="progress-bar bg-info" role="progressbar" style="width: {{$width_119}}%" aria-valuenow="{{$width_119}}" aria-valuemin="0" aria-valuemax="100">{{$width_119}}%</div>
+                            <div class="progress-bar bg-purple" role="progressbar" style="width: {{round($width_80100, 2)}}%" aria-valuenow="{{round($width_80100, 2)}}" aria-valuemin="0" aria-valuemax="100">{{round($width_80100, 2)}}%</div>
+                            <div class="progress-bar bg-warning" role="progressbar" style="width: {{round($width_6079, 2)}}%" aria-valuenow="{{round($width_6079, 2)}}" aria-valuemin="0" aria-valuemax="100">{{round($width_6079, 2)}}%</div>
+                            <div class="progress-bar bg-success" role="progressbar" style="width: {{round($width_4059, 2)}}%" aria-valuenow="{{round($width_4059, 2)}}" aria-valuemin="0" aria-valuemax="100">{{round($width_4059, 2)}}%</div>
+                            <div class="progress-bar bg-danger" role="progressbar" style="width: {{round($width_2039, 2)}}%" aria-valuenow="{{round($width_2039, 2)}}" aria-valuemin="0" aria-valuemax="100">{{round($width_2039, 2)}}%</div>
+                            <div class="progress-bar bg-info" role="progressbar" style="width: {{round($width_119, 2)}}%" aria-valuenow="{{round($width_119, 2)}}" aria-valuemin="0" aria-valuemax="100">{{round($width_119, 2)}}%</div>
                         </div>
                         <div>
                             <p><i class="fa fa-dot-circle-o text-purple mr-2"></i>100 - 80 %<span class="float-right">{{$excel_80100}}</span></p>
