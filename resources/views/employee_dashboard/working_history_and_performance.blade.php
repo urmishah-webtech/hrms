@@ -33,6 +33,18 @@
                                     </div>
                                 </li>
                             @endforeach
+                        @else
+                        <li>
+                            <div class="experience-user">
+                                <div class="before-circle"></div>
+                            </div>
+                            <div class="experience-content">
+                                <div class="timeline-content">
+                                    <a href="#/" class="name">{{Auth::user()->destination->name}} </a>
+                                    <span class="time">{{date('d F, Y', strtotime(Auth::user()->joining_date))}} Present </span>
+                                </div>
+                            </div>
+                        </li>
                         @endif
                     </ul>
                 </div>
