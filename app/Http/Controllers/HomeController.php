@@ -76,6 +76,9 @@ class HomeController extends Controller
             $emp = Employee::where('role_id','3')->where('man_id',Auth::user()->id)->orderBy('id', 'DESC')->limit(3)->get();
         }
         $today_date=Carbon::today()->format('Y-m-d');
+
+        //leave
+        if(Auth::user()->role_id==1){
         $total_emp=Employee::where('role_id','!=',1)->count();
         $on_leave=EmployeeLeave::where([ ['from_date', '>=', $today_date], ['to_date', '<=', $today_date],])  ->orWhere([['from_date', '>=', $today_date],['to_date', '<=', $today_date],])->orWhere([['from_date', '<=', $today_date],['to_date', '>=', $today_date],])->get()->groupBy('employee_id')->count();
         $on_leave_data=EmployeeLeave::where([ ['from_date', '>=', $today_date], ['to_date', '<=', $today_date],]) ->orWhere([['from_date', '>=', $today_date],['to_date', '<=', $today_date],])->orWhere([['from_date', '<=', $today_date],['to_date', '>=', $today_date],])->limit(2)->get();
@@ -88,6 +91,23 @@ class HomeController extends Controller
         if($on_leave != 0){$unplan_count=$unplan_data*100/$on_leave;}else{$unplan_count=0;}
         $pending_req=EmployeeLeave::where('status', 1)->get()->count();
         $pending_persent = $pending_req/100;
+        }
+        else{
+            $total_emp=Employee::where('role_id','!=',1)->where('man_id',Auth::id())->count();
+            $on_leave=EmployeeLeave::where([ ['from_date', '>=', $today_date], ['to_date', '<=', $today_date],])->orWhere([['from_date', '>=', $today_date],['to_date', '<=', $today_date],])->orWhere([['from_date', '<=', $today_date],['to_date', '>=', $today_date],])->where('manager_id',Auth::id())->get()->groupBy('employee_id')->count();
+            $on_leave_data=EmployeeLeave::where([ ['from_date', '>=', $today_date], ['to_date', '<=', $today_date],]) ->orWhere([['from_date', '>=', $today_date],['to_date', '<=', $today_date],])->orWhere([['from_date', '<=', $today_date],['to_date', '>=', $today_date],])->where('manager_id',Auth::id())->limit(2)->get();
+            $progress_leave = $on_leave*100/$total_emp;
+            $userd=Auth::id();
+            $planed_leave=DB::select("SELECT e2.* FROM `employee_leaves` e1 inner join `employee_leaves` e2 on date(e1.updated_at) < (e2.from_date) and e2.id=e1.id and e1.from_date <= (select current_date) and e1.to_date >= (select current_date) and e1.manager_id = '$userd';
+            ");
+            $plan_count = count($planed_leave);
+            $unplan_data=$on_leave-$plan_count;
+            if($on_leave != 0){$plan_data = $plan_count*100/$on_leave;}else{$plan_data=0;}
+            if($on_leave != 0){$unplan_count=$unplan_data*100/$on_leave;}else{$unplan_count=0;}
+            $pending_req=EmployeeLeave::where('status', 1)->where('manager_id',Auth::id())->get()->count();
+            $pending_persent = $pending_req/100;
+        }
+        //end leave
 
    //     $emp = Employee::where('role_id','3')->orderBy('id', 'DESC')->limit(3)->get();
         $res = Resignation::orderBy('id', 'DESC')->limit(3)->get();
@@ -103,6 +123,10 @@ class HomeController extends Controller
         $last_month_resi_count=Resignation::whereMonth('resignationdate', '=', Carbon::now()->subMonth()->month)->get()->count();
         $current_month_resi_count=Resignation::whereMonth('resignationdate', '=', Carbon::now()->month)->get()->count();
         $resi_per=(($current_month_resi_count-$last_month_resi_count)/$current_month_resi_count)*100;
+
+        $last_month_ter_count=Termination::whereMonth('termination_date', '=', Carbon::now()->subMonth()->month)->get()->count();
+        $current_month_ter_count=Termination::whereMonth('termination_date', '=', Carbon::now()->month)->get()->count();
+        $ter_per=(($current_month_ter_count-$last_month_ter_count)/$current_month_resi_count)*100;
 
         $currentyear = Carbon::now()->year;
         $lastsixyears = [$currentyear];
@@ -128,8 +152,9 @@ class HomeController extends Controller
         $linechartdata = json_encode($final);
         $my_leaves=EmployeeLeave::where('employee_id',Auth::user()->id)->orderBy('created_at','desc')->take(5)->get();
         $terminated_emp_under_me=Employee::join('termination as t','t.employee_id','employees.id')->where('man_id',Auth::user()->id)->get()->count(); 
+       
         return view('index',compact('emp_total','per_status_complete','per_status_incomp','man_total', 'emp', 'res', 'promotion', 'appraisal','on_leave','on_leave_data','total_emp','progress_leave','plan_count','unplan_count','pending_persent','unplan_data','plan_data','pending_req', 'linechartdata',
-        'last_month_emp_count','current_month_emp_count','emp_per','last_month_resi_count','current_month_resi_count','resi_per','terminated_emp_under_me','my_leaves','promotion_month','promotion_previousmonth'));
+        'last_month_emp_count','current_month_emp_count','emp_per','last_month_resi_count','current_month_resi_count','resi_per','terminated_emp_under_me','my_leaves','promotion_month','promotion_previousmonth','last_month_ter_count','current_month_ter_count','ter_per'));
     }
 
     public function editPromotion(){

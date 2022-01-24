@@ -78,8 +78,9 @@
                 </div>
             </div>
         </div>
+        @if(Auth::user()->role_id==1)
         @include('percentage_stat')
-       
+        @endif
 		<div class="row">
             
             <div class="col-md-6 text-center">

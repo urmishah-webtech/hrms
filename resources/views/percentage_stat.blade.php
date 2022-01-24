@@ -46,17 +46,21 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between mb-3">
                         <div>
-                            <span class="d-block">Expenses</span>
+                            <span class="d-block">Termination</span>
                         </div>
                         <div>
-                            <span class="text-danger">-2.8%</span>
+                            <span class="text-danger">{{ @$ter_per }}%</span>
                         </div>
                     </div>
-                    <h3 class="mb-3">$8,500</h3>
+                    <?php
+                    $per=$ter_per<0?$ter_per:2;
+                   
+                    ?>
+                    <h3 class="mb-3">{{ @$current_month_ter_count }}</h3>
                     <div class="progress mb-2" style="height: 5px;">
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: 70%;" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar @if($resi_per<=0) bg-primary @else bg-danger @endif" role="progressbar" style="width: {{ $per }}%;" aria-valuenow="{{ @$ter_per }}" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
-                    <p class="mb-0">Previous Month <span class="text-muted">$7,500</span></p>
+                    <p class="mb-0">Previous Month <span class="text-muted">{{ @$last_month_ter_count }}</span></p>
                 </div>
             </div>
 
