@@ -1,12 +1,12 @@
 <div class="row">
-            
+
     <div class="col-md-6 text-center">
         <div class="card">
             <div class="card-body">
                 <h3 class="card-title">Leave Calendar</h3>
                 <div class="card card-transparent p-4" role="tabpanel">
                     <div class="tab-content p-0 bg-white">
-                        <div class="tab-pane active" id="home" role="tabpanel">
+                        <div class="tab-pane active home_calendar" id="home" role="tabpanel">
                             <div class="response"></div>
                             <div id='calendar1'></div>
                         </div>
@@ -23,7 +23,7 @@
                 @foreach($on_leave_data as $val)
                 <div class="leave-info-box">
                     <div class="media align-items-center">
-                       
+
                     </div>
                     <div class="row align-items-center mt-3">
                         <div class="col-6">
@@ -32,7 +32,7 @@
                         </div>
                         <div class="col-6 text-right">
                             <span class="badge @if(@$val->status==1) bg-inverse-warning @elseif(@$val->status==2) bg-inverse-success  @else bg-inverse-danger  @endif">
-                            @if(@$val->status==1)Pending	
+                            @if(@$val->status==1)Pending
                             @elseif(@$val->status==2)Approved
                             @else Disapproved @endif</span>
                         </div>

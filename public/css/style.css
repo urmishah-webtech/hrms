@@ -8523,3 +8523,8 @@ ul.comment-list li ul.children {
 	pointer-events:none;
 	appearance: none;
 }
+.home_calendar .fc-event {
+    font-size: 8px;
+    margin: 1px 6px;
+    padding: 4px 4px;
+}

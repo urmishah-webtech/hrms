@@ -46,20 +46,22 @@ class HomeController extends Controller
         $terminate_emp = Termination::where('employee_id', $userd)->get();
         $promotiondata = Promotion::where('employeeid', $userd)->get();
         $personal_excellence=PersonalExcellence::where('emp_id',$userd)->first();
-        $on_leave_data=EmployeeLeave::where('employee_id',$userd)->orderBy('created_at','desc')->take(2)->get();
-        return view('employee-dashboard',compact('third_withdraw','third_war','second_withdraw','second_war','first_withdraw','first_war','terminate_emp','promotiondata','personal_excellence','on_leave_data'));
+        $on_leave_data=EmployeeLeave::where('employee_id',$userd)->get();
+        $resignation = Resignation::where('employeeid', $userd)->orderBy('id', 'DESC')->get();
+        return view('employee-dashboard',compact('third_withdraw','third_war','second_withdraw','second_war','first_withdraw','first_war','terminate_emp','promotiondata','personal_excellence','on_leave_data', 'resignation'));
     }
 	public function adminHome()
     {
+        $manager_emp = Employee::where('man_id',Auth::user()->id)->pluck('id')->toArray();
         if(Auth::user()->role_id==2){
         $emp_total= Employee::where('role_id','!=','1')->where('man_id',Auth::id())->get()->count();
         }
         else{
         $emp_total= Employee::where('role_id','!=','1')->get()->count();
- 
+
         }
         if(Auth::user()->role_id==2){
-        $per_status_complete= Employee::where('perfomance_status','1')->where('man_id',Auth::user()->id)->get()->count();    
+        $per_status_complete= Employee::where('perfomance_status','1')->where('man_id',Auth::user()->id)->get()->count();
         }else{
         $per_status_complete= Employee::where('perfomance_status','1')->get()->count();
         }
@@ -72,8 +74,15 @@ class HomeController extends Controller
         $man_total= Employee::where('role_id','2')->get()->count();
         if(Auth::user()->role_id==1){
            $emp = Employee::where('role_id','3')->orderBy('id', 'DESC')->limit(3)->get();
+           $res = Resignation::orderBy('id', 'DESC')->limit(3)->get();
+           $promotion = Promotion::orderBy('id', 'DESC')->limit(5)->get();
+           $appraisal = Appraisal::orderBy('id', 'DESC')->limit(5)->get();
         }elseif(Auth::user()->role_id==2){
             $emp = Employee::where('role_id','3')->where('man_id',Auth::user()->id)->orderBy('id', 'DESC')->limit(3)->get();
+
+            $res = Resignation::whereIn('employeeid', $manager_emp)->orwhere('employeeid', Auth::user()->id)->limit(5)->get();
+            $promotion = Promotion::whereIn('employeeid', $manager_emp)->orwhere('employeeid', Auth::user()->id)->limit(5)->get();
+            $appraisal = Appraisal::whereIn('employee_id', $manager_emp)->orwhere('employee_id', Auth::user()->id)->limit(5)->get();
         }
         $today_date=Carbon::today()->format('Y-m-d');
 
@@ -109,11 +118,6 @@ class HomeController extends Controller
         }
         //end leave
 
-   //     $emp = Employee::where('role_id','3')->orderBy('id', 'DESC')->limit(3)->get();
-        $res = Resignation::orderBy('id', 'DESC')->limit(3)->get();
-        $promotion = Promotion::orderBy('id', 'DESC')->limit(5)->get();
-        $appraisal = Appraisal::orderBy('id', 'DESC')->limit(5)->get();
-
         $last_month_emp_count=Employee::whereMonth('created_at', '=', Carbon::now()->subMonth()->month)->where('role_id','!=',1)->get()->count();
         $current_month_emp_count=Employee::whereMonth('created_at', '=', Carbon::now()->month)->where('role_id','!=',1)->get()->count();
         $emp_per=(($current_month_emp_count-$last_month_emp_count)/$current_month_emp_count)*100;
@@ -122,7 +126,7 @@ class HomeController extends Controller
 
         $last_month_resi_count=Resignation::whereMonth('resignationdate', '=', Carbon::now()->subMonth()->month)->get()->count();
         $current_month_resi_count=Resignation::whereMonth('resignationdate', '=', Carbon::now()->month)->get()->count();
-        $resi_per=(($current_month_resi_count-$last_month_resi_count)/$current_month_resi_count)*100;
+        if($current_month_resi_count != 0){$resi_per=(($current_month_resi_count-$last_month_resi_count)/$current_month_resi_count)*100;}else{$resi_per = 0;}
 
         $last_month_ter_count=Termination::whereMonth('termination_date', '=', Carbon::now()->subMonth()->month)->get()->count();
         $current_month_ter_count=Termination::whereMonth('termination_date', '=', Carbon::now()->month)->get()->count();
@@ -153,8 +157,33 @@ class HomeController extends Controller
         $my_leaves=EmployeeLeave::where('employee_id',Auth::user()->id)->orderBy('created_at','desc')->take(5)->get();
         $terminated_emp_under_me=Employee::join('termination as t','t.employee_id','employees.id')->where('man_id',Auth::user()->id)->get()->count(); 
        
+      
+        //Warning
+        $third_withdraw = EmployeeThirdVerbalWarning::whereIn('emp_id',$manager_emp)->orwhere('emp_id', Auth::user()->id)->where('status',0)->get();
+        $third_war = EmployeeThirdVerbalWarning::whereIn('emp_id',$manager_emp)->orwhere('emp_id', Auth::user()->id)->where('status',1)->get();
+        $second_withdraw = EmployeeSecondVerbalWarning::whereIn('emp_id',$manager_emp)->orwhere('emp_id', Auth::user()->id)->where('status',0)->get();
+        $second_war = EmployeeSecondVerbalWarning::whereIn('emp_id',$manager_emp)->orwhere('emp_id', Auth::user()->id)->where('status',1)->get();
+        $first_withdraw = EmployeeFirstVerbalWarning::whereIn('emp_id',$manager_emp)->orwhere('emp_id', Auth::user()->id)->where('status',0)->get();
+        $first_war = EmployeeFirstVerbalWarning::whereIn('emp_id',$manager_emp)->orwhere('emp_id', Auth::user()->id)->where('status',1)->get();
+        $terminate_emp = Termination::where('employee_id', $manager_emp)->get();
+
+        /// Personal Excellence
+        $excel_80100 = PersonalExcellence::where('total_percentage_manager','>=',80)->where('total_percentage_manager','<=',100)->get('total_percentage_manager')->count();
+        $excel_6079 = PersonalExcellence::where('total_percentage_manager','>=',60)->where('total_percentage_manager','<=',79)->get('total_percentage_manager')->count();
+        $excel_4059 = PersonalExcellence::where('total_percentage_manager','>=',40)->where('total_percentage_manager','<=',59)->get('total_percentage_manager')->count();
+        $excel_2039 = PersonalExcellence::where('total_percentage_manager','>=',20)->where('total_percentage_manager','<=',39)->get('total_percentage_manager')->count();
+        $excel_119 = PersonalExcellence::where('total_percentage_manager','>=',1)->where('total_percentage_manager','<=',19)->get('total_percentage_manager')->count();
+        $excel_total_entry = PersonalExcellence::get()->count();
+        if($excel_total_entry != 0){$width_80100 = ($excel_80100*100)/$excel_total_entry;} else{$width_80100 = 0;}
+        if($excel_total_entry != 0){$width_6079 = ($excel_6079*100)/$excel_total_entry;} else{$width_6079 = 0;}
+        if($excel_total_entry != 0){$width_4059 = ($excel_4059*100)/$excel_total_entry;} else{$width_4059 = 0;}
+        if($excel_total_entry != 0){$width_2039 = ($excel_2039*100)/$excel_total_entry;} else{$width_2039 = 0;}
+        if($excel_total_entry != 0){$width_119 = ($excel_119*100)/$excel_total_entry;} else{$width_119 = 0;}
+
         return view('index',compact('emp_total','per_status_complete','per_status_incomp','man_total', 'emp', 'res', 'promotion', 'appraisal','on_leave','on_leave_data','total_emp','progress_leave','plan_count','unplan_count','pending_persent','unplan_data','plan_data','pending_req', 'linechartdata',
-        'last_month_emp_count','current_month_emp_count','emp_per','last_month_resi_count','current_month_resi_count','resi_per','terminated_emp_under_me','my_leaves','promotion_month','promotion_previousmonth','last_month_ter_count','current_month_ter_count','ter_per'));
+        'last_month_emp_count','current_month_emp_count','emp_per','last_month_resi_count','current_month_resi_count','resi_per','promotion_month', 'promotion_previousmonth','excel_80100','excel_6079','excel_4059','excel_2039','excel_119','excel_total_entry','width_80100','width_6079','width_4059','width_2039','width_119','third_withdraw','third_war',
+        'second_withdraw','second_war','first_withdraw','first_war','terminate_emp','my_leaves','terminated_emp_under_me'));
+
     }
 
     public function editPromotion(){
