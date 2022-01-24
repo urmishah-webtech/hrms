@@ -10,7 +10,7 @@
 
                         </div>
                         <div>
-                            <span @if($emp_per>=0) class="text-success" @else class="text-danger" @endif>{{ @$emp_per }}%</span>
+                            <span @if($emp_per>=0) class="text-success" @else class="text-danger" @endif>{{ round(@$emp_per,2) }}%</span>
                         </div>
                     </div>
                     <h3 class="mb-3">{{ @$current_month_emp_count }}</h3>
@@ -58,7 +58,7 @@
                     ?>
                     <h3 class="mb-3">{{ @$current_month_ter_count }}</h3>
                     <div class="progress mb-2" style="height: 5px;">
-                        <div class="progress-bar @if($resi_per<=0) bg-primary @else bg-danger @endif" role="progressbar" style="width: {{ $per }}%;" aria-valuenow="{{ @$ter_per }}" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar @if($resi_per<=0) bg-primary @else bg-danger @endif" role="progressbar" style="width: {{ round($per,2) }}%;" aria-valuenow="{{ @$ter_per }}" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                     <p class="mb-0">Previous Month <span class="text-muted">{{ @$last_month_ter_count }}</span></p>
                 </div>
@@ -79,7 +79,7 @@
                     ?>
                     <h3 class="mb-3">{{ @$current_month_resi_count }}</h3>
                     <div class="progress mb-2" style="height: 5px;">
-                        <div class="progress-bar @if($resi_per<=0) bg-primary @else bg-danger @endif" role="progressbar" style="width: {{ @$per }}%;" aria-valuenow="{{ @$resi_per }}" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar @if($resi_per<=0) bg-primary @else bg-danger @endif" role="progressbar" style="width: {{ round(@$per,2) }}%;" aria-valuenow="{{ @$resi_per }}" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                     <p class="mb-0">Previous Month <span class="text-muted">{{ @$last_month_resi_count }}</span></p>
                 </div>
