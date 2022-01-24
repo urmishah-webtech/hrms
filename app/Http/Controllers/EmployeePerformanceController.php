@@ -74,9 +74,11 @@ class EmployeePerformanceController extends Controller
             $emp_add->man_id=$request->man_id;
             $emp_add->save();
 
-            $leave_emp_add= EmployeeLeave::where('employee_id', $id)->first();          
+            $leave_emp_add= EmployeeLeave::where('employee_id', $id)->first(); 
+            if($leave_emp_add){    
             $leave_emp_add->manager_id=$request->man_id;
             $leave_emp_add->save();
+            }
 		}
 		return back();
 	}
