@@ -1,4 +1,3 @@
-
 @extends('layout.mainlayout')
 @section('content')
 <?php use App\Employee ?>
@@ -967,7 +966,7 @@
                 </section>                
                 <section class="review-section row" id="PerfomanceIdentitie">
                     <div class="col-md-12">
-                        <div class="table-responsive">
+                        <div class="">
                         <form action="{{ route('edit_manPerformanceIdentity') }}" method="post">
                             @csrf
                             <input type="hidden" name="empid" value="@if(isset($emp_id)){{ $emp_id->id}}@endif">
@@ -1030,5 +1029,6 @@
             
         </div>
         <!-- /Page Wrapper -->
+         
        @endsection
  
