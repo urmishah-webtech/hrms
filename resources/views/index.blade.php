@@ -555,6 +555,7 @@
                                     @foreach($terminate_emp as $val)
                                     <tr>
                                         <td>{{$i}} </td>
+                                        <td>{{$val->employee->first_name}}</td>
                                         <td>Fourth</td>
                                         <td>{{date('d M Y', strtotime(@$val->updated_at))}}</td>
                                         <td class="text-center">
