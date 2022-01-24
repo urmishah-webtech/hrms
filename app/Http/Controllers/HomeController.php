@@ -171,7 +171,7 @@ class HomeController extends Controller
         $second_war = EmployeeSecondVerbalWarning::whereIn('emp_id',$manager_emp)->orwhere('emp_id', Auth::user()->id)->where('status',1)->get();
         $first_withdraw = EmployeeFirstVerbalWarning::whereIn('emp_id',$manager_emp)->orwhere('emp_id', Auth::user()->id)->get();
         $first_war = EmployeeFirstVerbalWarning::whereIn('emp_id',$manager_emp)->orwhere('emp_id', Auth::user()->id)->where('status',1)->get();
-        $terminate_emp = Termination::where('employee_id', $manager_emp)->get();
+        $terminate_emp = Termination::whereIn('employee_id', $manager_emp)->orwhere('emp_id', Auth::user()->id)->get();
 
         /// Personal Excellence admin
         $excel_80100 = PersonalExcellence::where('total_percentage_manager','>=',80)->where('total_percentage_manager','<=',100)->get('total_percentage_manager')->count();
