@@ -125,6 +125,10 @@ class HomeController extends Controller
         $promotion_month = Promotion::whereMonth('date', '=', Carbon::now()->month)->get()->count();
         $promotion_previousmonth = Promotion::whereMonth('date', '=', Carbon::now()->subMonth()->month)->get()->count();
         if($promotion_month != 0){$pro_per=(($promotion_month-$promotion_previousmonth)/$promotion_month)*100;}else{$pro_per=0;};
+        if($last_month_emp_count!=0){$emp_per=(($current_month_emp_count-$last_month_emp_count)/$last_month_emp_count)*100;}else{$emp_per=0;}
+
+        $promotion_month = Promotion::whereMonth('date', '=', Carbon::now()->month)->get();
+        $promotion_previousmonth = Promotion::whereMonth('date', '=', Carbon::now()->subMonth()->month)->get();
 
         $last_month_resi_count=Resignation::whereMonth('resignationdate', '=', Carbon::now()->subMonth()->month)->get()->count();
         $current_month_resi_count=Resignation::whereMonth('resignationdate', '=', Carbon::now()->month)->get()->count();
@@ -167,7 +171,7 @@ class HomeController extends Controller
         $second_war = EmployeeSecondVerbalWarning::whereIn('emp_id',$manager_emp)->orwhere('emp_id', Auth::user()->id)->where('status',1)->get();
         $first_withdraw = EmployeeFirstVerbalWarning::whereIn('emp_id',$manager_emp)->orwhere('emp_id', Auth::user()->id)->get();
         $first_war = EmployeeFirstVerbalWarning::whereIn('emp_id',$manager_emp)->orwhere('emp_id', Auth::user()->id)->where('status',1)->get();
-        $terminate_emp = Termination::where('employee_id', $manager_emp)->get();
+        $terminate_emp = Termination::whereIn('employee_id', $manager_emp)->orwhere('emp_id', Auth::user()->id)->get();
 
         /// Personal Excellence admin
         $excel_80100 = PersonalExcellence::where('total_percentage_manager','>=',80)->where('total_percentage_manager','<=',100)->get('total_percentage_manager')->count();

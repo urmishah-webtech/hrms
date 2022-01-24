@@ -53,7 +53,13 @@
                         </div>
                     </div>
                     <?php
-                    $per=$ter_per>=0?$ter_per:2;
+                    $per=$ter_per<0?$ter_per:2;
+
+                    ?>
+                    <h3 class="mb-3">{{ @$current_month_ter_count }}</h3>
+                    <div class="progress mb-2" style="height: 5px;">
+                        <div class="progress-bar @if($resi_per<=0) bg-primary @else bg-danger @endif" role="progressbar" style="width: {{ round($per,2) }}%;" aria-valuenow="{{ @$ter_per }}" aria-valuemin="0" aria-valuemax="100"></div>
+                   <?php $per=$ter_per>=0?$ter_per:2;
                     ?>
                     <h3 class="mb-3">{{ @$current_month_ter_count }}</h3>
                     <div class="progress mb-2" style="height: 5px;">
