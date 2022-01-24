@@ -462,6 +462,7 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
+                                        <th>Employee Name</th>
                                         <th>Warning Stage</th>
                                         <th>Date</th>
                                     <th class="text-center">Status</th>
@@ -469,51 +470,57 @@
                                 </thead>
                                 <tbody>
                                     @php $i = 1; @endphp
-                                    <!---withdraw---->
+                                    <!---3 Warning and withdraw---->
                                     @if(!empty($third_withdraw) && count($third_withdraw) > 0)
                                     @foreach($third_withdraw as $val)
-                                    <tr>
-                                        <td>{{$i}}</td>
-                                        <td>Third</td>
-                                        <td>{{date('d M Y', strtotime(@$val->updated_at))}}</td>
-                                        <td class="text-center">
-                                            <div class="action-label">
-                                                <a class="btn btn-white btn-sm btn-rounded">
-                                                    <i class="fa fa-dot-circle-o text-success"></i>Withdraw
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <td>{{$i}}</td>
+                                            <td>{{$val->employee->first_name}}</td>
+                                            <td>Third {{count($third_withdraw)}}</td>
+                                            <td>{{date('d M Y', strtotime(@$val->updated_at))}}</td>
+                                            <td class="text-center">
+                                                <div class="action-label">
+                                                    <a class="btn btn-white btn-sm btn-rounded">
+                                                        @if($val->status == 0) <i class="fa fa-dot-circle-o text-success"></i> Withdraw
+                                                        @elseif($val->status == 1) <i class="fa fa-dot-circle-o text-danger"></i> Active @endif
+                                                    </a>
+                                                </div>
+                                            </td>
+                                        </tr>
                                     @php $i++; @endphp
                                     @endforeach
-
+                                    <!---2 Warning and withdraw---->
                                     @elseif(!empty($second_withdraw) && count($second_withdraw) > 0)
                                     @foreach($second_withdraw as $val)
                                     <tr>
                                         <td>{{$i}}</td>
+                                        <td>{{$val->employee->first_name}}</td>
                                         <td>Second</td>
                                         <td>{{date('d M Y', strtotime(@$val->updated_at))}}</td>
                                         <td class="text-center">
                                             <div class="action-label">
                                                 <a class="btn btn-white btn-sm btn-rounded" >
-                                                    <i class="fa fa-dot-circle-o text-success"></i>Withdraw
+                                                    @if($val->status == 0) <i class="fa fa-dot-circle-o text-success"></i> Withdraw
+                                                        @elseif($val->status == 1) <i class="fa fa-dot-circle-o text-danger"></i> Active @endif
                                                 </a>
                                             </div>
                                         </td>
                                     </tr>
                                     @php $i++; @endphp
                                     @endforeach
-
+                                    <!---1 Warning and withdraw---->
                                     @elseif(!empty($first_withdraw) && count($first_withdraw) > 0)
                                     @foreach($first_withdraw as $val)
                                     <tr>
                                         <td>{{$i}}</td>
+                                        <td>{{$val->employee->first_name}}</td>
                                         <td>First</td>
                                         <td>{{date('d M Y', strtotime(@$val->updated_at))}}</td>
                                         <td class="text-center">
                                             <div class="action-label">
                                                 <a class="btn btn-white btn-sm btn-rounded" >
-                                                    <i class="fa fa-dot-circle-o text-success"></i>Withdraw
+                                                    @if($val->status == 0) <i class="fa fa-dot-circle-o text-success"></i> Withdraw
+                                                    @elseif($val->status == 1) <i class="fa fa-dot-circle-o text-danger"></i> Active @endif
                                                 </a>
                                             </div>
                                         </td>
@@ -523,56 +530,7 @@
                                     @else
                                     @endif
                                     <!--- warning--->
-                                    @if(!empty($third_war) && count($third_war) > 0)
-                                    @foreach($third_war as $val)
-                                    <tr>
-                                        <td>{{$i}}</td>
-                                        <td>Third</td>
-                                        <td>{{date('d M Y', strtotime(@$val->updated_at))}}</td>
-                                        <td class="text-center">
-                                            <div class="action-label">
-                                                <a class="btn btn-white btn-sm btn-rounded" >
-                                                    <i class="fa fa-dot-circle-o text-danger"></i>Active
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    @php $i++; @endphp
-                                    @endforeach
-                                    @elseif(!empty($second_war) && count($second_war) > 0)
-                                    @foreach($second_war as $val)
-                                    <tr>
-                                        <td>{{$i}}</td>
-                                        <td>Second</td>
-                                        <td>{{date('d M Y', strtotime(@$val->updated_at))}}</td>
-                                        <td class="text-center">
-                                            <div class="action-label">
-                                                <a class="btn btn-white btn-sm btn-rounded" >
-                                                    <i class="fa fa-dot-circle-o text-danger"></i>Active
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    @php $i++; @endphp
-                                    @endforeach
-                                    @elseif(!empty($first_war) && count($first_war) > 0)
-                                    @foreach($first_war as $val)
-                                    <tr>
-                                        <td>{{$i}}</td>
-                                        <td>First</td>
-                                        <td>{{date('d M Y', strtotime(@$val->updated_at))}}</td>
-                                        <td class="text-center">
-                                            <div class="action-label">
-                                                <a class="btn btn-white btn-sm btn-rounded" >
-                                                    <i class="fa fa-dot-circle-o text-danger"></i>Active
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    @php $i++; @endphp
-                                    @endforeach
-                                    @else
-                                    @endif
+
                                     <!--- termination --->
                                     @if(!empty($terminate_emp) && count($terminate_emp) > 0)
                                     @foreach($terminate_emp as $val)
