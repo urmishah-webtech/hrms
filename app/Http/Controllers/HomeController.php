@@ -78,7 +78,7 @@ class HomeController extends Controller
            $promotion = Promotion::orderBy('id', 'DESC')->limit(5)->get();
            $appraisal = Appraisal::orderBy('id', 'DESC')->limit(5)->get();
         }elseif(Auth::user()->role_id==2){
-            $emp = Employee::where('role_id','3')->where('man_id',Auth::user()->id)->orderBy('id', 'DESC')->limit(3)->get();
+            $emp = Employee::where('man_id',Auth::user()->id)->orderBy('id', 'DESC')->limit(5)->get();
 
             $res = Resignation::whereIn('employeeid', $manager_emp)->orwhere('employeeid', Auth::user()->id)->limit(5)->get();
             $promotion = Promotion::whereIn('employeeid', $manager_emp)->orwhere('employeeid', Auth::user()->id)->limit(5)->get();
@@ -121,6 +121,7 @@ class HomeController extends Controller
         $last_month_emp_count=Employee::whereMonth('created_at', '=', Carbon::now()->subMonth()->month)->where('role_id','!=',1)->get()->count();
         $current_month_emp_count=Employee::whereMonth('created_at', '=', Carbon::now()->month)->where('role_id','!=',1)->get()->count();
         $emp_per=(($current_month_emp_count-$last_month_emp_count)/$current_month_emp_count)*100;
+     
         $promotion_month = Promotion::whereMonth('date', '=', Carbon::now()->month)->get();
         $promotion_previousmonth = Promotion::whereMonth('date', '=', Carbon::now()->subMonth()->month)->get();
 
@@ -130,7 +131,7 @@ class HomeController extends Controller
 
         $last_month_ter_count=Termination::whereMonth('termination_date', '=', Carbon::now()->subMonth()->month)->get()->count();
         $current_month_ter_count=Termination::whereMonth('termination_date', '=', Carbon::now()->month)->get()->count();
-        $ter_per=(($current_month_ter_count-$last_month_ter_count)/$current_month_resi_count)*100;
+        if($current_month_resi_count!=0){$ter_per=(($current_month_ter_count-$last_month_ter_count)/$current_month_resi_count)*100;}else{$ter_per=0;}
 
         $currentyear = Carbon::now()->year;
         $lastsixyears = [$currentyear];
@@ -182,7 +183,7 @@ class HomeController extends Controller
 
         return view('index',compact('emp_total','per_status_complete','per_status_incomp','man_total', 'emp', 'res', 'promotion', 'appraisal','on_leave','on_leave_data','total_emp','progress_leave','plan_count','unplan_count','pending_persent','unplan_data','plan_data','pending_req', 'linechartdata',
         'last_month_emp_count','current_month_emp_count','emp_per','last_month_resi_count','current_month_resi_count','resi_per','promotion_month', 'promotion_previousmonth','excel_80100','excel_6079','excel_4059','excel_2039','excel_119','excel_total_entry','width_80100','width_6079','width_4059','width_2039','width_119','third_withdraw','third_war',
-        'second_withdraw','second_war','first_withdraw','first_war','terminate_emp','my_leaves','terminated_emp_under_me'));
+        'second_withdraw','second_war','first_withdraw','first_war','terminate_emp','my_leaves','terminated_emp_under_me','last_month_ter_count','current_month_ter_count','ter_per'));
 
     }
 
