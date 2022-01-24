@@ -72,7 +72,7 @@
 														@endphp
 														<input type="hidden" name="get_manager_id" value="{{ @$man_name->first_name }}">
 														@endisset 
-													<select class="form-control" name="man_id" id="edit_manager_id" required>
+													<select class="form-control" name="man_id" id="edit_manager_id" required @if(Auth::user()->role_id==2)disabled @endif>
 														<option value="">Select Manager</option>
 														@isset($manager_user)
 															@foreach ($manager_user as $item)

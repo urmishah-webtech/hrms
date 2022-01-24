@@ -49,7 +49,7 @@
                             <span class="d-block">Termination</span>
                         </div>
                         <div>
-                            <span class="text-danger">{{ @$ter_per }}%</span>
+                            <span class=" @if($ter_per>=0) text-danger @else text-success  @endif">{{ @$ter_per }}%</span>
                         </div>
                     </div>
                     <?php
@@ -59,6 +59,11 @@
                     <h3 class="mb-3">{{ @$current_month_ter_count }}</h3>
                     <div class="progress mb-2" style="height: 5px;">
                         <div class="progress-bar @if($resi_per<=0) bg-primary @else bg-danger @endif" role="progressbar" style="width: {{ round($per,2) }}%;" aria-valuenow="{{ @$ter_per }}" aria-valuemin="0" aria-valuemax="100"></div>
+                   <?php $per=$ter_per>=0?$ter_per:2;
+                    ?>
+                    <h3 class="mb-3">{{ @$current_month_ter_count }}</h3>
+                    <div class="progress mb-2" style="height: 5px;">
+                        <div class="progress-bar @if($ter_per<=0) bg-primary @else bg-danger @endif" role="progressbar" style="width: {{@$per}}%;" aria-valuenow="{{ @$ter_per }}" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                     <p class="mb-0">Previous Month <span class="text-muted">{{ @$last_month_ter_count }}</span></p>
                 </div>
