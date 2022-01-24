@@ -13,13 +13,13 @@
         <link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
 		
 		<!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="{{URL::asset('css/bootstrap.min.css')}}">
 		
 		<!-- Fontawesome CSS -->
-        <link rel="stylesheet" href="css/font-awesome.min.css">
+        <link rel="stylesheet" href="{{URL::asset('css/font-awesome.min.css')}}">
 		
 		<!-- Main CSS -->
-        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="{{URL::asset('css/style.css')}}">
 		
 		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!--[if lt IE 9]>
@@ -44,40 +44,10 @@
 					
 					<div class="account-box">
 						<div class="account-wrapper">
-							<h3 class="account-title">Forgot Password?</h3>
-							<p class="account-subtitle">Enter your email to get a password reset link</p>
+							<h3 class="account-title">Token has expired Please try again.</h3>
 							
-							<!-- Account Form -->
-							@if (session()->has('message'))
-							<div class="alert alert-danger" id="message">
-								{{session()->get('message')}}
-							</div>
-							@endif
-							@if (session()->has('msg'))
-							@if (session()->get('status') == 1)
-							<div class="alert alert-success">
-								{{session()->get('msg')}}
-							</div>
-							@else
-							<div class="alert alert-danger">
-								{{session()->get('msg')}}
-							</div>
-							@endif
-							@endif
-							<form action="" method="POST">
-								@csrf
-								<div class="form-group">
-									<label>Email Address</label>
-									<input class="form-control" type="text" name="email">
-								</div>
-								<div class="form-group text-center">
-									<button class="btn btn-primary account-btn" type="submit">Reset Password</button>
-								</div>
-								<div class="account-footer">
-									<p>Remember your password? <a href="login">Login</a></p>
-								</div>
-							</form>
-							<!-- /Account Form -->
+							<a href="/" style="float:right;"><i class="fa fa-arrow-circle-left"></i> 
+                                Go Back</a>
 							
 						</div>
 					</div>
@@ -87,11 +57,11 @@
 		<!-- /Main Wrapper -->
 		
 		<!-- jQuery -->
-        <script src="js/jquery-3.5.1.min.js"></script>
+        <script src="{{URL::asset('js/jquery-3.5.1.min.js')}}"></script>
 		
 		<!-- Bootstrap Core JS -->
-        <script src="js/popper.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
+        <script src="{{URL::asset('js/popper.min.js')}}"></script>
+        <script src="{{URL::asset('js/bootstrap.min.js')}}"></script>
 		
 		<!-- Custom JS -->
 		<script src="js/app.js"></script>

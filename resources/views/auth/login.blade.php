@@ -75,9 +75,9 @@
 										<div class="col">
 											<label>Password</label>
 										</div>
-										@if (Route::has('password.request'))
+										@if (Route::has('resetpassword'))
 										<div class="col-auto">
-											<a class="text-muted" href="{{ route('password.request') }}">
+											<a class="text-muted" href="{{ route('resetpassword') }}">
 												Forgot password?
 											</a>
 										</div>

@@ -651,14 +651,18 @@ Route::namespace('Auth')->group(function(){
     Route::post('/logout','LoginController@logout')->name('logout');
 
     //Forgot Password Routes
-    Route::get('/password/reset','ForgotPasswordController@showLinkRequestForm')->name('password.request');
-    Route::post('/password/email','ForgotPasswordController@sendResetLinkEmail')->name('password.email');
+    // Route::get('/password/reset','ForgotPasswordController@showLinkRequestForm')->name('password.request');
+    // Route::post('/password/email','ForgotPasswordController@sendResetLinkEmail')->name('password.email');
 
     //Reset Password Routes
-    Route::get('/password/reset/{token}','ResetPasswordController@showResetForm')->name('password.reset');
-    Route::post('/password/reset','ResetPasswordController@reset')->name('password.update');
+    // Route::get('/password/reset/{token}','ResetPasswordController@showResetForm')->name('password.reset');
+    // Route::post('/password/reset','ResetPasswordController@reset')->name('password.update');
 
 });
+Route::get('/resetpassword', 'PasswordResetController@forgotpassword')->name('resetpassword');
+Route::post('/resetpassword', 'PasswordResetController@sendmail');
+Route::get('/resetnewpassword/{id}/{token}', 'PasswordResetController@resetpassword');
+Route::post('/resetnewpassword/{id}/{token}', 'PasswordResetController@setnewpassword');
 Route::middleware([IfAdmin::class])->group(function () {
 Route::get('/departments','DepartmentController@departments')->name('departments');
 Route::post('add_deaprtment','DepartmentController@add_department')->name('add_department');

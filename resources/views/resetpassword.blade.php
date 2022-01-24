@@ -13,13 +13,13 @@
         <link rel="shortcut icon" type="image/x-icon" href="img/favicon.png">
 		
 		<!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="{{URL::asset('css/bootstrap.min.css')}}">
 		
 		<!-- Fontawesome CSS -->
-        <link rel="stylesheet" href="css/font-awesome.min.css">
+        <link rel="stylesheet" href="{{URL::asset('css/font-awesome.min.css')}}">
 		
 		<!-- Main CSS -->
-        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="{{URL::asset('css/style.css')}}">
 		
 		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!--[if lt IE 9]>
@@ -44,8 +44,7 @@
 					
 					<div class="account-box">
 						<div class="account-wrapper">
-							<h3 class="account-title">Forgot Password?</h3>
-							<p class="account-subtitle">Enter your email to get a password reset link</p>
+							<h3 class="account-title">Reset Password</h3>
 							
 							<!-- Account Form -->
 							@if (session()->has('message'))
@@ -66,12 +65,20 @@
 							@endif
 							<form action="" method="POST">
 								@csrf
+                                <input type="hidden" name="userid" value="{{$id}}">
+                                <input type="hidden" name="token" value="{{$token}}">
 								<div class="form-group">
-									<label>Email Address</label>
-									<input class="form-control" type="text" name="email">
-								</div>
+                                    <label>New Password :</label>
+                                    <input class="form-control" type="password" placeholder="New Password" id="newpass" name="newpass">
+                                </div>
+                                <div class="form-group">
+                                    <label>Confirm New Password :</label>
+                                    <input class="form-control" type="password" placeholder="Confirm New Password" id="confirmpass" name="confirmpass">
+                                    <span id="notmatched" style="color:red; display:none;">password not matched !!</span>
+                                    <span id="matched" style="color:green; display:none;">password matched !!</span>
+                                </div>
 								<div class="form-group text-center">
-									<button class="btn btn-primary account-btn" type="submit">Reset Password</button>
+									<button class="btn btn-primary account-btn" type="submit" id="changepassbtn">Reset Password</button>
 								</div>
 								<div class="account-footer">
 									<p>Remember your password? <a href="login">Login</a></p>
@@ -87,14 +94,31 @@
 		<!-- /Main Wrapper -->
 		
 		<!-- jQuery -->
-        <script src="js/jquery-3.5.1.min.js"></script>
+        <script src="{{URL::asset('js/jquery-3.5.1.min.js')}}"></script>
 		
 		<!-- Bootstrap Core JS -->
-        <script src="js/popper.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
+        <script src="{{URL::asset('js/popper.min.js')}}"></script>
+        <script src="{{URL::asset('js/bootstrap.min.js')}}"></script>
 		
 		<!-- Custom JS -->
 		<script src="js/app.js"></script>
-		
+		<script>
+            $(function(){
+                $("#changepassbtn").prop("disabled", true);
+                $("#confirmpass").keyup(function () {
+                    var newpass = $("#newpass").val();
+                    var confirmpass = $("#confirmpass").val();
+                    if (newpass === confirmpass) {
+                        $("#notmatched").hide();
+                        $("#matched").show();
+                        $("#changepassbtn").prop("disabled", false);
+                    } else {
+                        $("#matched").hide();
+                        $("#notmatched").show();
+                        $("#changepassbtn").prop("disabled", true);
+                    }
+                });
+            })
+        </script>
     </body>
 </html>
