@@ -172,6 +172,7 @@
                     </div>
                     @include('employee_dashboard.working_history_and_performance')
                     @include('employee_dashboard.leave')
+                   
                     @if(!empty($resignation) && count($resignation) > 0)
                     <div class="row">
                         <div class="col-md-12">
@@ -211,7 +212,11 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        
+ 
+                        </div> 
+ 
+                        
                     </div>
                     {{-- @else
                     <p>No Data Available</p> --}}
