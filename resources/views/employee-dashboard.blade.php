@@ -192,13 +192,16 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                                <?php $i = 1; ?>
                                                 @foreach ($resignation as $res)
                                                 <tr>
-                                                    <td>{{index+1}}</td>
+                                                    <td>{{$i}}</td>
                                                     <td>{{@$res->reason}}</td>
                                                     <td>{{@$res->noticedate}}</td>
                                                     <td>{{@$res->resignationdate}}</td>
+                                                    <td>{{@$res->status}}</td>
                                                 </tr>
+                                                <?php $i++ ?>
                                                 @endforeach
                                             </tbody>
                                         </table>

@@ -52,6 +52,7 @@ class HomeController extends Controller
     }
 	public function adminHome()
     {
+        $manager_emp = Employee::where('man_id',Auth::user()->id)->pluck('id')->toArray();
         if(Auth::user()->role_id==2){
         $emp_total= Employee::where('role_id','!=','1')->where('man_id',Auth::id())->get()->count();
         }
@@ -73,8 +74,15 @@ class HomeController extends Controller
         $man_total= Employee::where('role_id','2')->get()->count();
         if(Auth::user()->role_id==1){
            $emp = Employee::where('role_id','3')->orderBy('id', 'DESC')->limit(3)->get();
+           $res = Resignation::orderBy('id', 'DESC')->limit(3)->get();
+           $promotion = Promotion::orderBy('id', 'DESC')->limit(5)->get();
+           $appraisal = Appraisal::orderBy('id', 'DESC')->limit(5)->get();
         }elseif(Auth::user()->role_id==2){
             $emp = Employee::where('role_id','3')->where('man_id',Auth::user()->id)->orderBy('id', 'DESC')->limit(3)->get();
+
+            $res = Resignation::whereIn('employeeid', $manager_emp)->orwhere('employeeid', Auth::user()->id)->limit(5)->get();
+            $promotion = Promotion::whereIn('employeeid', $manager_emp)->orwhere('employeeid', Auth::user()->id)->limit(5)->get();
+            $appraisal = Appraisal::whereIn('employee_id', $manager_emp)->orwhere('employee_id', Auth::user()->id)->limit(5)->get();
         }
         $today_date=Carbon::today()->format('Y-m-d');
         $total_emp=Employee::where('role_id','!=',1)->count();
@@ -89,11 +97,6 @@ class HomeController extends Controller
         if($on_leave != 0){$unplan_count=$unplan_data*100/$on_leave;}else{$unplan_count=0;}
         $pending_req=EmployeeLeave::where('status', 1)->get()->count();
         $pending_persent = $pending_req/100;
-
-   //     $emp = Employee::where('role_id','3')->orderBy('id', 'DESC')->limit(3)->get();
-        $res = Resignation::orderBy('id', 'DESC')->limit(3)->get();
-        $promotion = Promotion::orderBy('id', 'DESC')->limit(5)->get();
-        $appraisal = Appraisal::orderBy('id', 'DESC')->limit(5)->get();
 
         $last_month_emp_count=Employee::whereMonth('created_at', '=', Carbon::now()->subMonth()->month)->where('role_id','!=',1)->get()->count();
         $current_month_emp_count=Employee::whereMonth('created_at', '=', Carbon::now()->month)->where('role_id','!=',1)->get()->count();
@@ -128,8 +131,16 @@ class HomeController extends Controller
         }
         $linechartdata = json_encode($final);
 
+        $third_withdraw = EmployeeThirdVerbalWarning::whereIn('emp_id',$manager_emp)->orwhere('emp_id', Auth::user()->id)->where('status',0)->get();
+        $third_war = EmployeeThirdVerbalWarning::whereIn('emp_id',$manager_emp)->orwhere('emp_id', Auth::user()->id)->where('status',1)->get();
+        $second_withdraw = EmployeeSecondVerbalWarning::whereIn('emp_id',$manager_emp)->orwhere('emp_id', Auth::user()->id)->where('status',0)->get();
+        $second_war = EmployeeSecondVerbalWarning::whereIn('emp_id',$manager_emp)->orwhere('emp_id', Auth::user()->id)->where('status',1)->get();
+        $first_withdraw = EmployeeFirstVerbalWarning::whereIn('emp_id',$manager_emp)->orwhere('emp_id', Auth::user()->id)->where('status',0)->get();
+        $first_war = EmployeeFirstVerbalWarning::whereIn('emp_id',$manager_emp)->orwhere('emp_id', Auth::user()->id)->where('status',1)->get();
+        $terminate_emp = Termination::where('employee_id', $manager_emp)->get();
+
         return view('index',compact('emp_total','per_status_complete','per_status_incomp','man_total', 'emp', 'res', 'promotion', 'appraisal','on_leave','on_leave_data','total_emp','progress_leave','plan_count','unplan_count','pending_persent','unplan_data','plan_data','pending_req', 'linechartdata',
-        'last_month_emp_count','current_month_emp_count','emp_per','last_month_resi_count','current_month_resi_count','resi_per','promotion_month', 'promotion_previousmonth'));
+        'last_month_emp_count','current_month_emp_count','emp_per','last_month_resi_count','current_month_resi_count','resi_per','promotion_month', 'promotion_previousmonth','third_withdraw','third_war','second_withdraw','second_war','first_withdraw','first_war','terminate_emp'));
     }
 
     public function editPromotion(){
