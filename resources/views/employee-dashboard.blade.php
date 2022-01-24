@@ -172,7 +172,7 @@
                     </div>
                     @include('employee_dashboard.working_history_and_performance')
                     @include('employee_dashboard.leave')
-                    <div class="row">
+                    {{-- <div class="row">
                     <div class="col-lg-8 col-md-8">
                         <section class="dash-section">
                             <h1 class="dash-sec-title">Today</h1>
@@ -250,7 +250,7 @@
                             </div>
                         </section>
  
-                    </div>
+                    </div> --}}
  
                 </div>
 
