@@ -103,7 +103,7 @@ class HomeController extends Controller
 
         $last_month_resi_count=Resignation::whereMonth('resignationdate', '=', Carbon::now()->subMonth()->month)->get()->count();
         $current_month_resi_count=Resignation::whereMonth('resignationdate', '=', Carbon::now()->month)->get()->count();
-        $resi_per=(($current_month_resi_count-$last_month_resi_count)/$current_month_resi_count)*100;
+        if($current_month_resi_count != 0){$resi_per=(($current_month_resi_count-$last_month_resi_count)/$current_month_resi_count)*100;}else{$resi_per = 0;}
 
         $currentyear = Carbon::now()->year;
         $lastsixyears = [$currentyear];
@@ -128,8 +128,21 @@ class HomeController extends Controller
         }
         $linechartdata = json_encode($final);
 
+        /// Personal Excellence
+        $excel_80100 = PersonalExcellence::where('total_percentage_manager','>=',80)->where('total_percentage_manager','<=',100)->get('total_percentage_manager')->count();
+        $excel_6079 = PersonalExcellence::where('total_percentage_manager','>=',60)->where('total_percentage_manager','<=',79)->get('total_percentage_manager')->count();
+        $excel_4059 = PersonalExcellence::where('total_percentage_manager','>=',40)->where('total_percentage_manager','<=',59)->get('total_percentage_manager')->count();
+        $excel_2039 = PersonalExcellence::where('total_percentage_manager','>=',20)->where('total_percentage_manager','<=',39)->get('total_percentage_manager')->count();
+        $excel_119 = PersonalExcellence::where('total_percentage_manager','>=',1)->where('total_percentage_manager','<=',19)->get('total_percentage_manager')->count();
+        $excel_total_entry = PersonalExcellence::get()->count();
+        if($excel_total_entry != 0){$width_80100 = ($excel_80100*100)/$excel_total_entry;} else{$width_80100 = 0;}
+        if($excel_total_entry != 0){$width_6079 = ($excel_6079*100)/$excel_total_entry;} else{$width_6079 = 0;}
+        if($excel_total_entry != 0){$width_4059 = ($excel_4059*100)/$excel_total_entry;} else{$width_4059 = 0;}
+        if($excel_total_entry != 0){$width_2039 = ($excel_2039*100)/$excel_total_entry;} else{$width_2039 = 0;}
+        if($excel_total_entry != 0){$width_119 = ($excel_119*100)/$excel_total_entry;} else{$width_119 = 0;}
+
         return view('index',compact('emp_total','per_status_complete','per_status_incomp','man_total', 'emp', 'res', 'promotion', 'appraisal','on_leave','on_leave_data','total_emp','progress_leave','plan_count','unplan_count','pending_persent','unplan_data','plan_data','pending_req', 'linechartdata',
-        'last_month_emp_count','current_month_emp_count','emp_per','last_month_resi_count','current_month_resi_count','resi_per','promotion_month', 'promotion_previousmonth'));
+        'last_month_emp_count','current_month_emp_count','emp_per','last_month_resi_count','current_month_resi_count','resi_per','promotion_month', 'promotion_previousmonth','excel_80100','excel_6079','excel_4059','excel_2039','excel_119','excel_total_entry','width_80100','width_6079','width_4059','width_2039','width_119'));
     }
 
     public function editPromotion(){
