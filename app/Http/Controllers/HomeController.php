@@ -91,7 +91,7 @@ class HomeController extends Controller
         $total_emp=Employee::where('role_id','!=',1)->count();
         $on_leave=EmployeeLeave::where([ ['from_date', '>=', $today_date], ['to_date', '<=', $today_date],])  ->orWhere([['from_date', '>=', $today_date],['to_date', '<=', $today_date],])->orWhere([['from_date', '<=', $today_date],['to_date', '>=', $today_date],])->get()->groupBy('employee_id')->count();
         $on_leave_data=EmployeeLeave::where([ ['from_date', '>=', $today_date], ['to_date', '<=', $today_date],]) ->orWhere([['from_date', '>=', $today_date],['to_date', '<=', $today_date],])->orWhere([['from_date', '<=', $today_date],['to_date', '>=', $today_date],])->limit(2)->get();
-        $progress_leave = $on_leave*100/$total_emp;
+        if($total_emp!=0){$progress_leave = $on_leave*100/$total_emp;}else{$progress_leave=0;}
         $planed_leave=DB::select("SELECT e2.* FROM `employee_leaves` e1 inner join `employee_leaves` e2 on date(e1.updated_at) < (e2.from_date) and e2.id=e1.id and e1.from_date <= (select current_date) and e1.to_date >= (select current_date);
         ");
         $plan_count = count($planed_leave);
@@ -105,7 +105,7 @@ class HomeController extends Controller
             $total_emp=Employee::where('role_id','!=',1)->where('man_id',Auth::id())->count();
             $on_leave=EmployeeLeave::where([ ['from_date', '>=', $today_date], ['to_date', '<=', $today_date],])->orWhere([['from_date', '>=', $today_date],['to_date', '<=', $today_date],])->orWhere([['from_date', '<=', $today_date],['to_date', '>=', $today_date],])->where('manager_id',Auth::id())->get()->groupBy('employee_id')->count();
             $on_leave_data=EmployeeLeave::where([ ['from_date', '>=', $today_date], ['to_date', '<=', $today_date],]) ->orWhere([['from_date', '>=', $today_date],['to_date', '<=', $today_date],])->orWhere([['from_date', '<=', $today_date],['to_date', '>=', $today_date],])->where('manager_id',Auth::id())->limit(2)->get();
-            $progress_leave = $on_leave*100/$total_emp;
+            if($total_emp!=0){$progress_leave = $on_leave*100/$total_emp;}else{$progress_leave=0;}
             $userd=Auth::id();
             $planed_leave=DB::select("SELECT e2.* FROM `employee_leaves` e1 inner join `employee_leaves` e2 on date(e1.updated_at) < (e2.from_date) and e2.id=e1.id and e1.from_date <= (select current_date) and e1.to_date >= (select current_date) and e1.manager_id = '$userd';
             ");
