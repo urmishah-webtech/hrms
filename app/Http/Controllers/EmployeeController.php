@@ -214,4 +214,46 @@ class EmployeeController extends Controller
         return view('employees',compact('dep','des','emps','modules','emp_permissions','permission_modules',
         'search_employee_id','search_name','search_designation','roles'));
     }
+
+    public function getOrganizationalChart()
+    {
+        $users = Employee::all(['id', 'man_id', 'first_name', 'last_name', 'role_id']);
+        $employees = [];
+        $admin = Employee::where('role_id', 1)->first();
+        $admindata = [
+                    'id' => $admin->id,
+                    'name' => $admin->first_name .' '.$admin->last_name
+                ];
+
+        $employees[] = $admindata;
+
+
+        foreach ($users as $user) {
+            $name = $user->first_name .' '.$user->last_name;
+
+            if($user->role_id !== 1) {
+               
+                if(!empty($user->man_id)) {
+                    $data = [
+                        'id' => $user->id,
+                        'pid' => $user->man_id,
+                        'name' => $name
+                    ];
+                } else if(empty($user->man_id)) {
+                    $data = [
+                        'id' => $user->id,
+                        'pid' => $admin->id,
+                        'name' => $name
+                    ];
+                }
+                $employees[] = $data;
+            }
+           
+
+             
+        }
+
+        return view('organizational-chart',compact('employees'));
+
+    }
 }

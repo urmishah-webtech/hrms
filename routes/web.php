@@ -250,6 +250,9 @@ Route::get('/users', function () {
 //     return view('settings');
 // });
 Route::get('settings','SettingController@settings')->name('settings');
+
+Route::get('organizational-chart', 'EmployeeController@getOrganizationalChart')->name('organizational-chart');
+
 Route::post('setting_update','SettingController@setting_update')->name('setting_update');
 Route::get('/localization', function () {
     return view('localization');
