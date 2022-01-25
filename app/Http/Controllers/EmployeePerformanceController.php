@@ -536,18 +536,18 @@ class EmployeePerformanceController extends Controller
         $id_arry = $request->getid_arry;
         $id = $request->getid;       
         $add_empid = $request->empid;
-         //dd($date);
+          
         foreach($name as $key => $input) 
         {
             if($name[$key] || $signature[$key] || $date[$key])
             { 
                 if(isset($id_arry[$key]) && !empty($id))
-                {
-                    $score= PerformanceIdentity::where('id',$id_arry[$key])->first();    
-                                        
+                {   
+                    $score= PerformanceIdentity::where('id',$id_arry[$key])->first();  //dd($score);
+                     
                     $score->name = $name[$key] ? $name[$key] : ''; 
                     $score->signature = $signature[$key] ? $signature[$key] : '';
-                    $score->date = Carbon::createFromFormat('d/m/Y', $date[$key])->format('Y-m-d');  
+                    $score->date = Carbon::createFromFormat('d/m/Y', $date[$key])->format('Y-m-d') ? Carbon::createFromFormat('d/m/Y', $date[$key])->format('Y-m-d') : '';  
                     $score->save();
                 }		
                 else 
