@@ -931,11 +931,12 @@
                     </div>
                 </section>-->
                 
-                <section class="review-section row" id="PerfomanceIdentitie">
+                <section class="review-section row" id="PerfomanceIdentitie" style="display:none">
                     <div class="col-md-12">
-                        <div class="table-responsive">
+                        <div class="">
                         <form action="{{ route('add_perfomanceIdentitie') }}" method="post">
                             @csrf
+                            <input type="hidden" name="empid" value="@if(isset($emps)){{ $emps->id}}@endif">
                             @php $i = 1; @endphp
                                @foreach($add_perfoIdent as $val)
                                <input type="hidden" class="form-control" name="getid[]" value="{{$val->id}}">
@@ -954,16 +955,16 @@
                                     <tr>
                                         <td>Employee</td>
                                         <input type="hidden" name="user_role[]" value="3">
-                                        <td><input type="text" class="form-control" name="name[]" value="@if(isset($add_perfoIdent[0])){{$add_perfoIdent[0]['name']}} @endif"></td>
-                                        <td><input type="text" class="form-control" name="signature[]" value="@if(isset($add_perfoIdent[0])){{$add_perfoIdent[0]['signature']}} @endif"></td>
-                                        <td><div class="cal-icon"><input type="text" class="form-control datetimepicker" name="date[]" value="@if(isset($add_perfoIdent[0])){{$add_perfoIdent[0]['date']}} @endif"></div></td>
+                                        <td><input type="text" class="form-control" name="name[]" value="@if(isset($add_perfoIdent_employ[0])){{$add_perfoIdent_employ[0]['name']}} @endif"></td>
+                                        <td><input type="text" class="form-control" name="signature[]" value="@if(isset($add_perfoIdent_employ[0])){{$add_perfoIdent_employ[0]['signature']}} @endif"></td>
+                                        <td><div class="cal-icon"><input type="text" class="form-control datetimepicker" name="date[]" value="@if(isset($add_perfoIdent_employ[0])){{$add_perfoIdent_employ[0]['date']}} @endif"></div></td>
                                     </tr>
                                     <tr>
                                         <td>Manager</td>
                                         <input type="hidden" name="user_role[]" value="2">
-                                        <td><input type="text" class="form-control" name="name[]" value="@if(isset($add_perfoIdent[1])){{$add_perfoIdent[1]['name']}} @endif" @if (Auth::user()->role_id == 3)readonly @endif></td>
-                                        <td><input type="text" class="form-control" name="signature[]" value="@if(isset($add_perfoIdent[1])){{$add_perfoIdent[1]['signature']}} @endif" @if (Auth::user()->role_id == 3)readonly @endif></td>
-                                        <td><div class="cal-icon"><input type="text" class="form-control datetimepicker" name="date[]" value="@if(isset($add_perfoIdent[1])){{$add_perfoIdent[1]['date']}} @endif" @if (Auth::user()->role_id == 3)readonly @endif></div></td>
+                                        <td><input type="text" class="form-control" name="name[]" value="@if(isset($add_perfoIdent_man[1])){{$add_perfoIdent_man[1]['name']}} @endif" @if (Auth::user()->role_id == 3)readonly @endif></td>
+                                        <td><input type="text" class="form-control" name="signature[]" value="@if(isset($add_perfoIdent_man[1])){{$add_perfoIdent_man[1]['signature']}} @endif" @if (Auth::user()->role_id == 3)readonly @endif></td>
+                                        <td><div class="cal-icon"><input type="text" class="form-control datetimepicker" name="date[]" value="@if(isset($add_perfoIdent_man[1])){{$add_perfoIdent_man[1]['date']}} @endif" @if (Auth::user()->role_id == 3)readonly @endif></div></td>
                                     </tr>
                                      
                                 </tbody>
