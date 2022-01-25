@@ -217,11 +217,11 @@
                             <div class="progress-bar bg-info" role="progressbar" style="width: {{round($man_width_119, 2)}}%" aria-valuenow="{{round($man_width_119, 2)}}" aria-valuemin="0" aria-valuemax="100">{{round($man_width_119, 2)}}%</div>
                         </div>
                         <div>
-                            <p><i class="fa fa-dot-circle-o text-purple mr-2"></i>100 - 80 %<span class="float-right">{{$man_excel_80100}}</span></p>
-                            <p><i class="fa fa-dot-circle-o text-warning mr-2"></i>80 - 60 %<span class="float-right">{{$man_excel_6079}}</span></p>
-                            <p><i class="fa fa-dot-circle-o text-success mr-2"></i>60 - 40 %<span class="float-right">{{$man_excel_4059}}</span></p>
-                            <p><i class="fa fa-dot-circle-o text-danger mr-2"></i>40 - 20 %<span class="float-right">{{$man_excel_2039}}</span></p>
-                            <p class="mb-0"><i class="fa fa-dot-circle-o text-info mr-2"></i>20 - 1 %<span class="float-right">{{$man_excel_119}}</span></p>
+                            <p><i class="fa fa-dot-circle-o text-purple mr-2"></i>80 -100 %<span class="float-right">{{$man_excel_80100}}</span></p>
+                            <p><i class="fa fa-dot-circle-o text-warning mr-2"></i>60 - 80 %<span class="float-right">{{$man_excel_6079}}</span></p>
+                            <p><i class="fa fa-dot-circle-o text-success mr-2"></i>40 - 60 %<span class="float-right">{{$man_excel_4059}}</span></p>
+                            <p><i class="fa fa-dot-circle-o text-danger mr-2"></i>20 - 40 %<span class="float-right">{{$man_excel_2039}}</span></p>
+                            <p class="mb-0"><i class="fa fa-dot-circle-o text-info mr-2"></i>1 - 20 %<span class="float-right">{{$man_excel_119}}</span></p>
                         </div>
                         @else
                         <div class="progress mb-4">
@@ -232,11 +232,11 @@
                             <div class="progress-bar bg-info" role="progressbar" style="width: {{round($width_119, 2)}}%" aria-valuenow="{{round($width_119, 2)}}" aria-valuemin="0" aria-valuemax="100">{{round($width_119, 2)}}%</div>
                         </div>
                         <div>
-                            <p><i class="fa fa-dot-circle-o text-purple mr-2"></i>100 - 80 %<span class="float-right">{{$excel_80100}}</span></p>
-                            <p><i class="fa fa-dot-circle-o text-warning mr-2"></i>80 - 60 %<span class="float-right">{{$excel_6079}}</span></p>
-                            <p><i class="fa fa-dot-circle-o text-success mr-2"></i>60 - 40 %<span class="float-right">{{$excel_4059}}</span></p>
-                            <p><i class="fa fa-dot-circle-o text-danger mr-2"></i>40 - 20 %<span class="float-right">{{$excel_2039}}</span></p>
-                            <p class="mb-0"><i class="fa fa-dot-circle-o text-info mr-2"></i>20 - 1 %<span class="float-right">{{$excel_119}}</span></p>
+                            <p><i class="fa fa-dot-circle-o text-purple mr-2"></i>80 -100 %<span class="float-right">{{$excel_80100}}</span></p>
+                            <p><i class="fa fa-dot-circle-o text-warning mr-2"></i>60 - 80 %<span class="float-right">{{$excel_6079}}</span></p>
+                            <p><i class="fa fa-dot-circle-o text-success mr-2"></i>40 - 60 %<span class="float-right">{{$excel_4059}}</span></p>
+                            <p><i class="fa fa-dot-circle-o text-danger mr-2"></i>20 - 40 %<span class="float-right">{{$excel_2039}}</span></p>
+                            <p class="mb-0"><i class="fa fa-dot-circle-o text-info mr-2"></i>1 - 20 %<span class="float-right">{{$excel_119}}</span></p>
                         </div>
                         @endif
                     </div>

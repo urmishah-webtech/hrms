@@ -104,7 +104,7 @@
                                         <a href="activities">
                                             <div class="media">
                                                 <span class="avatar">
-                                                    <img alt="" src="img/profiles/avatar-02.jpg">
+                                                    <img alt="" src="{{ url('/').'/img/profiles/avatar-02.jpg'}}">
                                                 </span>
                                                 <div class="media-body">
                                                     <p class="noti-details"><span class="noti-title">{{$item->message}}</span> </p>
@@ -119,7 +119,7 @@
                                     <a href="activities">
                                         <div class="media">
                                             <span class="avatar">
-                                                <img alt="" src="img/profiles/avatar-03.jpg">
+                                                <img alt="" src="{{ url('/').'/img/profiles/avatar-03.jpg'}}">
                                             </span>
                                             <div class="media-body">
                                                 <p class="noti-details"><span class="noti-title">Tarah Shropshire</span> changed the task name <span class="noti-title">Appointment booking with payment gateway</span></p>
@@ -149,91 +149,7 @@
                         </div>
                         <div class="noti-content">
                             <ul class="notification-list">
-                                <li class="notification-message">
-                                    <a href="chat">
-                                        <div class="list-item">
-                                            <div class="list-left">
-                                                <span class="avatar">
-                                                    <img alt="" src="img/profiles/avatar-09.jpg">
-                                                </span>
-                                            </div>
-                                            <div class="list-body">
-                                                <span class="message-author">Richard Miles </span>
-                                                <span class="message-time">12:28 AM</span>
-                                                <div class="clearfix"></div>
-                                                <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="notification-message">
-                                    <a href="chat">
-                                        <div class="list-item">
-                                            <div class="list-left">
-                                                <span class="avatar">
-                                                    <img alt="" src="img/profiles/avatar-02.jpg">
-                                                </span>
-                                            </div>
-                                            <div class="list-body">
-                                                <span class="message-author">John Doe</span>
-                                                <span class="message-time">6 Mar</span>
-                                                <div class="clearfix"></div>
-                                                <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="notification-message">
-                                    <a href="chat">
-                                        <div class="list-item">
-                                            <div class="list-left">
-                                                <span class="avatar">
-                                                    <img alt="" src="img/profiles/avatar-03.jpg">
-                                                </span>
-                                            </div>
-                                            <div class="list-body">
-                                                <span class="message-author"> Tarah Shropshire </span>
-                                                <span class="message-time">5 Mar</span>
-                                                <div class="clearfix"></div>
-                                                <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="notification-message">
-                                    <a href="chat">
-                                        <div class="list-item">
-                                            <div class="list-left">
-                                                <span class="avatar">
-                                                    <img alt="" src="img/profiles/avatar-05.jpg">
-                                                </span>
-                                            </div>
-                                            <div class="list-body">
-                                                <span class="message-author">Mike Litorus</span>
-                                                <span class="message-time">3 Mar</span>
-                                                <div class="clearfix"></div>
-                                                <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li class="notification-message">
-                                    <a href="chat">
-                                        <div class="list-item">
-                                            <div class="list-left">
-                                                <span class="avatar">
-                                                    <img alt="" src="img/profiles/avatar-08.jpg">
-                                                </span>
-                                            </div>
-                                            <div class="list-body">
-                                                <span class="message-author"> Catherine Manseau </span>
-                                                <span class="message-time">27 Feb</span>
-                                                <div class="clearfix"></div>
-                                                <span class="message-content">Lorem ipsum dolor sit amet, consectetur adipiscing</span>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </li>
+                                
                             </ul>
                         </div>
                         <div class="topnav-dropdown-footer">
@@ -247,7 +163,7 @@
                 ?>
                 <li class="nav-item dropdown has-arrow main-drop">
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                        <span class="user-img"><img src="img/profiles/avatar-21.jpg" alt="">
+                        <span class="user-img"><img src="{{ url('/').'/img/profiles/avatar-21.jpg'}}" alt="">
                         <span class="status online"></span></span>
                         <span>{{ Auth::user()->first_name }}</span>
                     </a>

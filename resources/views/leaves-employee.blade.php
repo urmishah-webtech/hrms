@@ -169,10 +169,11 @@
         </div>
         <!-- /Page Wrapper -->
 
-@endsection
+
 <script src="{{ URL::asset('js/jquery-3.5.1.min.js') }}"></script>
 <script>
     $(document).on("click",".delBtn",function() {
         $(".continue-btn").attr('href', '{{ url("delete_emp_leave") }}'+'/'+$(this).data('id'));
     });
 </script>
+@endsection
