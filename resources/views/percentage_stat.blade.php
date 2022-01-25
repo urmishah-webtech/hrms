@@ -31,12 +31,16 @@
                             <span class="d-block">Promotions</span>
                         </div>
                         <div>
-                            <span class="text-success">{{$pro_per}}%</span>
+                            <span class="@if($pro_per<=0) text-danger @else text-success  @endif">{{$pro_per}}%</span>
                         </div>
                     </div>
+                    <?php
+                    $per=$pro_per<0?$pro_per:2;
+
+                    ?>
                     <h3 class="mb-3">{{$promotion_month}}</h3>
                     <div class="progress mb-2" style="height: 5px;">
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: {{$pro_per}}%;" aria-valuenow="{{$pro_per}}" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar @if($pro_per>=0) bg-primary @else bg-danger @endif" role="progressbar" style="width: {{$per}}%;" aria-valuenow="{{$pro_per}}" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
                     <p class="mb-0">Previous Month <span class="text-muted">{{$promotion_previousmonth}}</span></p>
                 </div>
@@ -68,7 +72,7 @@
                     <p class="mb-0">Previous Month <span class="text-muted">{{ @$last_month_ter_count }}</span></p>
                 </div>
             </div>
-
+            </div>
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between mb-3">
