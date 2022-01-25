@@ -996,9 +996,9 @@
                                     <tr>
                                         <td>Manager</td>
                                         <input type="hidden" name="user_role[]" value="2">
-                                        <td><input type="text" class="form-control" name="name[]" value="@if(isset($add_perfoIdent_man[1])){{$add_perfoIdent_man[1]['name']}} @endif"></td>
-                                        <td><input type="text" class="form-control" name="signature[]" value="@if(isset($add_perfoIdent_man[1])){{$add_perfoIdent_man[1]['signature']}} @endif"></td>
-                                        <td><div class="cal-icon"><input type="text" class="form-control datetimepicker" name="date[]" value="@if(isset($add_perfoIdent_man[1])){{$add_perfoIdent_man[1]['date']}} @endif"></div></td>
+                                        <td><input type="text" class="form-control" name="name[]" value="@if(isset($add_perfoIdent_man[0])){{$add_perfoIdent_man[0]['name']}} @endif"></td>
+                                        <td><input type="text" class="form-control" name="signature[]" value="@if(isset($add_perfoIdent_man[0])){{$add_perfoIdent_man[0]['signature']}} @endif"></td>
+                                        <td><div class="cal-icon"><input type="text" class="form-control datetimepicker" name="date[]" value="@if(isset($add_perfoIdent_man[0])){{$add_perfoIdent_man[0]['date']}} @endif"></div></td>
                                     </tr>
                                      
                                 </tbody>
