@@ -126,27 +126,58 @@
 						</div>
 					</li> --}}
 					<!-- /Flag -->
-				
+					@php
+                	$notifications = getnotifications(auth()->user()->id);
+            		@endphp
 					<!-- Notifications -->
 					<li class="nav-item dropdown">
-						<a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-							<i class="fa fa-bell-o"></i> <span class="badge badge-pill">0</span>
-						</a>
-						<div class="dropdown-menu notifications">
-							<div class="topnav-dropdown-header">
-								<span class="notification-title">Notifications</span>
-								<a href="javascript:void(0)" class="clear-noti"> Clear All </a>
-							</div>
-							<div class="noti-content">
-								<ul class="notification-list">
-									 
-								</ul>
-							</div>
-							<div class="topnav-dropdown-footer">
-								<a href="activities">View all Notifications</a>
-							</div>
-						</div>
-					</li>
+                    <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
+                        <i class="fa fa-bell-o"></i> <span class="badge badge-pill" id="noti-badge">{{count($notifications)}}</span>
+                    </a>
+                    <div class="dropdown-menu notifications">
+                        <div class="topnav-dropdown-header">
+                            <span class="notification-title">Notifications</span>
+                            <a href="javascript:void(0)" class="clear-noti"> Clear All </a>
+                        </div>
+                        <div class="noti-content">
+                            <ul class="notification-list">
+                                @if (!empty($notifications))
+                                    @foreach ($notifications as $item)
+                                    <li class="notification-message">
+                                        <a href="activities">
+                                            <div class="media">
+                                                <span class="avatar">
+                                                    <img alt="" src="{{ url('/').'/img/profiles/avatar-02.jpg'}}">
+                                                </span>
+                                                <div class="media-body">
+                                                    <p class="noti-details"><span class="noti-title">{{$item->message}}</span> </p>
+                                                    <p class="noti-time"><span class="notification-time">{{date('d-m-Y H:i', strtotime($item->created_at))}}</span></p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    @endforeach
+                                @endif
+                                {{-- <li class="notification-message">
+                                    <a href="activities">
+                                        <div class="media">
+                                            <span class="avatar">
+                                                <img alt="" src="{{ url('/').'/img/profiles/avatar-03.jpg'}}">
+                                            </span>
+                                            <div class="media-body">
+                                                <p class="noti-details"><span class="noti-title">Tarah Shropshire</span> changed the task name <span class="noti-title">Appointment booking with payment gateway</span></p>
+                                                <p class="noti-time"><span class="notification-time">6 mins ago</span></p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li> --}}
+                            </ul>
+                        </div>
+                        <div class="topnav-dropdown-footer">
+                            <a href="activities">View all Notifications</a>
+                        </div>
+                    </div>
+                </li> 
 					<!-- /Notifications -->
 					
 					<!-- Message Notifications -->
