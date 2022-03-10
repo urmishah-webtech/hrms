@@ -225,7 +225,9 @@ class EmployeeController extends Controller
         $admin = Employee::where('role_id', 1)->first();
         $admindata = [
                     'id' => $admin->id,
-                    'name' => $admin->first_name .' '.$admin->last_name
+                    'name' => $admin->first_name .' '.$admin->last_name,
+                    'pid' => 0,
+                    'isCollapsed' => true
                 ];
 
         $employees[] = $admindata;
@@ -252,10 +254,10 @@ class EmployeeController extends Controller
                 $employees[] = $data;
             }
            
-
+            
              
         }
-
+        $employees = json_encode($employees);
         return view('organizational-chart',compact('employees'));
 
     }

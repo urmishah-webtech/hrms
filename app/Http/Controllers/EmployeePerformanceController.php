@@ -26,6 +26,7 @@ use App\User;
 use Auth;
 use App\Notification;
 use App\Events\EmployeePerfomanceStatus;
+use Illuminate\Support\Carbon;
 
 class EmployeePerformanceController extends Controller
 {
@@ -59,11 +60,13 @@ class EmployeePerformanceController extends Controller
         $general_comment=OtherGeneralComment::where('emp_id', $id)->get();
         $perfomancemanageruse=PerfomanceManagerUse::where('emp_id', $id)->get();
         $add_perfoIdent=PerformanceIdentity::where('emp_id', $id)->get(); 
+        $add_perfoIdent_man=PerformanceIdentity::where('emp_id', $id)->where('user_role','2')->get(); 
+        $add_perfoIdent_employ=PerformanceIdentity::where('emp_id', $id)->where('user_role','3')->get(); 
 		$manager_user = Employee::where('role_id',2)->get();
         $prof_excel=KeyprofessionalExcellences::where('emp_id', $id)->first();
 		 
 		 
-		return view('/edit-performance',compact('emp_id','professional','emps','personal','specialInitiatives','comments_role','add_comments','add_comments_id','add_appraiseest','add_appraiseest_id','add_personalgoal','add_personalgoal_id','professional_achived','professional_forthcoming','training_requirements','general_comment','perfomancemanageruse','add_perfoIdent','manager_user','prof_excel'));
+		return view('/edit-performance',compact('emp_id','professional','emps','personal','specialInitiatives','comments_role','add_comments','add_comments_id','add_appraiseest','add_appraiseest_id','add_personalgoal','add_personalgoal_id','professional_achived','professional_forthcoming','training_requirements','general_comment','perfomancemanageruse','add_perfoIdent','manager_user','prof_excel','add_perfoIdent_man','add_perfoIdent_employ'));
 	}
 	public function add_managerid_EmployeeBasicInfo(Request $request)
 	{	$id = $request->id;
@@ -529,31 +532,34 @@ class EmployeePerformanceController extends Controller
         $user_role = $request->user_role;     
         $name = $request->name;
         $signature = $request->signature;
-        $date = $request->date;
+        $date =  $request->date;
         $id_arry = $request->getid_arry;
         $id = $request->getid;       
         $add_empid = $request->empid;
-         
+          
         foreach($name as $key => $input) 
         {
             if($name[$key] || $signature[$key] || $date[$key])
             { 
                 if(isset($id_arry[$key]) && !empty($id))
-                {
-                    $score= PerformanceIdentity::where('id',$id_arry[$key])->first();                        
+                {   
+                    $score= PerformanceIdentity::where('id',$id_arry[$key])->first();  //dd($score);
+                     
                     $score->name = $name[$key] ? $name[$key] : ''; 
                     $score->signature = $signature[$key] ? $signature[$key] : '';
-                    $score->date = $date[$key] ? $date[$key] : ''; 
+                    $score->date = Carbon::createFromFormat('d/m/Y', $date[$key])->format('Y-m-d') ? Carbon::createFromFormat('d/m/Y', $date[$key])->format('Y-m-d') : '';  
                     $score->save();
                 }		
                 else 
-                { 
+                {  
                     $scores = new PerformanceIdentity();
                     $scores->emp_id = $add_empid;
+                    $scores->user_id = $userd;
                     $scores->user_role = $user_role[$key] ? $user_role[$key] : '';  
                     $scores->name = $name[$key] ? $name[$key] : '';
                     $scores->signature = $signature[$key] ? $signature[$key] : '';
-                    $scores->date = $date[$key] ? $date[$key] : ''; 
+                    $scores->date = Carbon::createFromFormat('d/m/Y', $date[$key])->format('Y-m-d') ? Carbon::createFromFormat('d/m/Y', $date[$key])->format('Y-m-d') : ''; 
+                    
                     $scores->save();         	  
                 }
             }
