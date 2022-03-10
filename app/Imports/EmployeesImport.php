@@ -8,7 +8,7 @@ use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithValidation;
 use App\Designation;
 use App\Department;
-use App\role;
+use App\Role;
 use Carbon\Carbon;
 use App\ProfilePersonalInformations;
 class EmployeesImport implements ToModel,WithHeadingRow,WithValidation
