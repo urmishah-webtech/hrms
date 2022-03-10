@@ -19,6 +19,9 @@ use Illuminate\Support\Str;
 use App\User;
 use Hash;
 use Auth;
+use App\Imports\EmployeesImport;
+use Maatwebsite\Excel\Facades\Excel;
+use File;
 class EmployeeController extends Controller
 {
     public function employees(){
@@ -255,5 +258,25 @@ class EmployeeController extends Controller
 
         return view('organizational-chart',compact('employees'));
 
+    }
+    public function import_employees(Request $request)
+    {
+        if($request->hasFile('file'))
+        {
+           $extension = File::extension($request->file->getClientOriginalName());
+           if ($extension == "xlsx" || $extension == "xls" ) {
+            try{
+                Excel::import(new EmployeesImport,request()->file('file'));
+                }
+                catch(\Exception $e){
+                    return back()->withErrors($e->getMessage());
+                }
+                return back();
+           }else {
+             return back()->withErrors('Please upload a valid xls/xlsx file..!!');
+
+           }
+        }
+     
     }
 }

@@ -30,7 +30,20 @@
                     </div>
                 </div>
                 <!-- /Page Header -->
-                
+                <form action="{{ route('import_employees') }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="file" name="file" class="form-control">
+                        </div>
+                        <div class="col-md-6">
+                            <button class="btn btn-success">Import</button>
+                        </div>
+                    </div>
+                    <br>
+                   
+                   
+                </form>
                 <!-- Search Filter -->
                 <form action="{{ route('search_employee') }}" method="get">
                     @csrf

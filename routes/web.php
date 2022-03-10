@@ -23,7 +23,7 @@ use App\Http\Middleware\IsAdmin;
 */
 Route::get('/index_2', 'HomeController@test')->name('index_2');
 Route::get('/home', 'HomeController@HomepageUrl')->name('home');
-
+Route::post('/import_employees', 'EmployeeController@import_employees')->name('import_employees');
 Route::get('/index', 'HomeController@adminHome')->name('index');
 Route::get('/', function () {
          return redirect('index');

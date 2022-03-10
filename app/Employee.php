@@ -12,7 +12,8 @@ class Employee extends Authenticatable
     use HasRoles, Notifiable;
   
     protected $fillable = [
-        'name', 'email', 'role_id', 'gender',
+        'first_name','last_name', 'email', 'role_id', 'gender','user_name','password','employee_id','joing_date',
+        'phone_no','department_id','designation_id','perfomance_status','gender','man_id'
     ];
     protected $hidden = [
         'password', 'remember_token',
