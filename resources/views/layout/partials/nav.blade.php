@@ -24,7 +24,7 @@
 					<li class="submenu">
 						<a href="#" class="noti-dot"><i class="la la-user"></i> <span> Employees</span> <span class="menu-arrow"></span></a>
 						<ul style="display: none;">
-							@if (Auth::user()->role_id == 1 || Auth::user()->role_id==2)
+							@if (Auth::user()->role_id == 1 || Auth::user()->role_id==2 || Auth::user()->role_id == 5)
 							<li>
 								<a class="{{ Request::is('employees') ? 'active' : '' }}" href="{{ url('employees') }}">All Employees</a>
 							</li>		
@@ -99,9 +99,9 @@
 						<a class="{{ Request::is('leave-calender') ? 'active' : '' }}" href="{{ url('leave-calender') }}"><i class="la la-cube"></i><span>Leave Calender</span></a></li>								
 					<li>
 					@endif
-					<li>
+					<!--<li>
 						<a class="{{ Request::is('holidays') ? 'active' : '' }}" href="{{ url('holidays') }}"><i class="la la-bullhorn"></i><span>Holidays</span></a>
-					</li>
+					</li>-->
 					@if (Auth::user()->role_id == 1)
 					<li class="menu-title"> 
 						<span>Administration</span>
