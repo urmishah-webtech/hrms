@@ -242,7 +242,7 @@
 		<div class="sidebar-menu">
 			<ul>
 				<li class="{{ Request::is('index') ? 'active' : '' }}">
-					@if (Auth::user()->role_id == 1)
+					@if (Auth::user()->role_id == 1 || Auth::user()->role_id == 5)
 					<a  href="{{ url('index') }}"><i class="la la-home"></i><span>Back to Home</span></a>
 					@elseif (Auth::user()->role_id == 2)
 					<a href="{{ url('index') }}"><i class="la la-home"></i><span>Back to Home</span></a>

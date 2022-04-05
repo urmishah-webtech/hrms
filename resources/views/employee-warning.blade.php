@@ -17,7 +17,7 @@
                                 <li class="breadcrumb-item active">Employees Warning</li>
                             </ul>
                         </div>
-                        @if(Auth::user()->role_id == 1)
+                        @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 5)
                         <div class="col-auto float-right ml-auto">
                             <a href="#" class="btn add-btn" data-toggle="modal" data-target="#add_indicator"><i class="fa fa-plus"></i> Add New</a>
                         </div>

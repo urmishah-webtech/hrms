@@ -197,7 +197,7 @@
                                             <label class="col-form-label">Employee</label>
                                             <select class="form-control" name="employee" >
                                                 <option value="">Select Employee</option>
-                                                @if(Auth::user()->role_id == 1)
+                                                @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 5)
                                                 @isset($admin_emp)
                                                     @foreach ($admin_emp as $item)
                                                     <option value="{{ $item->id }}">{{ $item->first_name }}</option> 
@@ -412,7 +412,7 @@
                                             <label class="col-form-label">Employee</label>
                                             <select class="form-control" id="employee" name="employee">
                                                 <option value="">Select Employee</option>
-                                                @if(Auth::user()->role_id == 1)
+                                                @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 5)
                                                     @isset($admin_emp)
                                                         @foreach ($admin_emp as $item)
                                                         <option value="{{ $item->id }}">{{ $item->first_name }}</option> 

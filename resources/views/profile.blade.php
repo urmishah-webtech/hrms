@@ -220,7 +220,7 @@
                                     </div>
                                 </div>
                             </div>
-                            @if(Auth::user()->role_id != 1)
+                            @if(Auth::user()->role_id != 1 || Auth::user()->role_id != 5)
                             <div class="col-md-6 d-flex">
                                 <div class="card profile-box flex-fill">
                                     <div class="card-body">

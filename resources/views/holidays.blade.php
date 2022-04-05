@@ -17,7 +17,7 @@
                             </ul>
                         </div>
                         <div class="col cal-icon calendar-view"></div>
-                        @if(Auth::user()->role_id==1)
+                        @if(Auth::user()->role_id==1 || Auth::user()->role_id == 5)
                         <div class="col-auto float-right ml-auto">
                             <a href="#" class="btn add-btn" data-toggle="modal" data-target="#add_holiday"><i class="fa fa-plus"></i> Add Holiday</a>
                         </div>
@@ -52,7 +52,7 @@
                                                         <th>Title </th>
                                                         <th>Holiday Date</th>
                                                         <th>Day</th>
-                                                        @if(Auth::user()->role_id==1)
+                                                        @if(Auth::user()->role_id==1 || Auth::user()->role_id == 5)
                                                         <th class="text-right">Action</th>
                                                         @endif
                                                     </tr>
@@ -64,7 +64,7 @@
                                                         <td>{{$day['name']}}</td>
                                                         <td>{{ date('d M Y', strtotime($day['date'])) }}</td>
                                                         <td>{{ date('l', strtotime($day['date'])) }}</td>
-                                                        @if(Auth::user()->role_id==1)
+                                                        @if(Auth::user()->role_id==1 || Auth::user()->role_id == 5)
                                                         <td>
                                                             @if($day['date'] > now())
                                                             <div class="dropdown dropdown-action">

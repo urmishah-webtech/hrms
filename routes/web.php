@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfessionalExcellenceController;
 use App\Http\Middleware\AuthCheck;
 use App\Http\Middleware\IsAdmin;
-
+use App\Http\Middleware\IfTermination;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,7 +29,8 @@ Route::get('/', function () {
          return redirect('index');
         //return view('auth/login');
     });
-
+	 
+  
 Route::middleware([AuthCheck::class])->group(function () {
 
 // Route::get('/index', function () {
@@ -655,7 +656,9 @@ Route::namespace('Auth')->group(function(){
 
     //Login Routes
     Route::get('/login','LoginController@showLoginForm')->name('login');
+	 
     Route::post('/login','LoginController@login');
+	 
     Route::post('/logout','LoginController@logout')->name('logout');
 
     //Forgot Password Routes
