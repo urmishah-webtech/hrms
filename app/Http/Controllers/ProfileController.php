@@ -18,7 +18,7 @@ use Illuminate\Support\Carbon;
 use Validator;
 use Redirect;
 use DB;
- 
+use App\EmployeeDocument; 
 class ProfileController extends Controller
 {
     public function Profile_employees($id)
@@ -33,7 +33,8 @@ class ProfileController extends Controller
 		$first_war = EmployeeFirstVerbalWarning::where('emp_id',$userd)->first();  
 		$second_war = EmployeeSecondVerbalWarning::where('emp_id',$userd)->first();
 		$third_war = EmployeeThirdVerbalWarning::where('emp_id',$userd)->first();
-        return view('profile',compact('emp_profile','per_info','contact', 'promotiondata', 'id', 'terminate_emp','first_war','second_war','third_war'));
+		$documents = EmployeeDocument::where('employee_id',$id)->get();
+        return view('profile',compact('emp_profile','documents','per_info','contact', 'promotiondata', 'id','userd', 'terminate_emp','first_war','second_war','third_war'));
     }
 	 
 	public function add_profile_personal_informations(Request $request){
@@ -76,6 +77,28 @@ class ProfileController extends Controller
 		}
         return back();
     }
+
+	public function employee_document(Request $request){
+		$validator = Validator::make($request->all(), [
+            'title' => 'required',
+            'file' => 'required|mimes:jpeg,png,pdf,doc,docs' 
+        ]);
+        if($validator->fails()){
+            return Redirect::back()->withErrors($validator);
+        }
+		$fileName= NULL;
+		if(isset($request->file)){
+			$fileName = time().'.'.$request->file->extension();  
+			$request->file->move(public_path('employee_documents'), $fileName);
+		}
+		$empDoc = new EmployeeDocument();
+		$empDoc->title = $request->title;
+		$empDoc->path = $fileName;
+		$empDoc->employee_id = $request->id;
+		$empDoc->save();
+		return Redirect::back()->with("success","Uploaded Successfully");
+	}
+
 	public function add_profile_emergency_contact(Request $request){
 		$userd = Auth::user()->id;
         $validator = Validator::make($request->all(), [
@@ -116,4 +139,13 @@ class ProfileController extends Controller
 		}
         return back();
     } 
+	public function employee_document_delete($id){
+		$del= EmployeeDocument::where('id',$id)->delete();
+		if($del){
+			return Redirect::back()->with("success","Deleted Successfully");
+		}
+		else{
+			return Redirect::back()->with("error","Error while Deleting");
+		}
+	}
 }

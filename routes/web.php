@@ -22,7 +22,7 @@ use App\Http\Middleware\IsAdmin;
 |
 */
 Route::get('/index_2', 'HomeController@test')->name('index_2');
-Route::get('/home', 'HomeController@HomepageUrl')->name('home');
+Route::get('/home', 'HomeController@HomepageUrl')->name('home')->middleware('isTerminated');
 Route::post('/import_employees', 'EmployeeController@import_employees')->name('import_employees');
 Route::get('/index', 'HomeController@adminHome')->name('index');
 Route::get('/', function () {
@@ -557,32 +557,23 @@ Route::get('/sub-category', function () {
 
 Route::get('email-settings','EmailsettingsController@Emailsettings')->name('emailsettings');
 Route::post('email_setting_update','EmailsettingsController@Emailsetting_update')->name('emailsetting_update');
-
 Route::get('/performance-indicator','IndicatorController@indicators')->name('indicators');
 Route::post('add_indicator','IndicatorController@add_indicator')->name('add_indicators');
 Route::post('edit_indicator','IndicatorController@edit_indicator')->name('edit_indicators');
 Route::post('delete_indicator','IndicatorController@delete_indicator')->name('delete_indicator');
 Route::get('changestatusDropdown/{type}/{id}','IndicatorController@changestatusDropdown')->name('changestatusDropdown');
-
 Route::get('/performance-appraisal','AppraisalController@appraisal')->name('appraisal');
 Route::post('add_appraisal','AppraisalController@add_appraisal')->name('add_appraisal');
 Route::post('edit_appraisal','AppraisalController@edit_appraisal')->name('edit_appraisal');
 Route::post('delete_appraisal','AppraisalController@delete_appraisal')->name('delete_appraisal');
 Route::get('change_appraisal_status/{type}/{id}','AppraisalController@change_appraisal_status')->name('change_appraisal_status');
-
 Route::get('/notifications-settings','NotificationsettController@notificationsetting');
 Route::post('changeNotificationAccess','NotificationsettController@changeNotificationAccess')->name('chg_Notifi');
-
 Route::get('/performance','PerfomanceController@Perfomance_emp')->name('perfomanceemp');
-
-Route::get('/employee-dashboard','HomeController@index')->name('emp.home');
-
-
+Route::get('/employee-dashboard','HomeController@index')->name('emp.home')->middleware('isTerminated');
 Route::get('/performance','ProfessionalExcellenceController@ProfessionalExcellence')->name('professionals');
 Route::post('add_professionalexcel','ProfessionalExcellenceController@add_ProfessionalExcellence')->name('add_professionalexcel');
-
 Route::post('add_personalexcel','PersonalExcellencesController@add_PersonalExcellence')->name('add_personalexcel');
-
 Route::post('add_specialInitiatives','SpecialInitiativesController@store_SpecialInitiatives')->name('add_specialInitiatives');
 Route::post('add_commentsRole','CommentsRolesController@store_CommentsRole')->name('add_commentsRole');
 Route::post('add_additioncommentRole','AdditionCommentRoleController@store_AdditionCommentRole')->name('add_additioncommentRole');
@@ -594,18 +585,10 @@ Route::post('add_training_requirements','TrainingRequirementsController@store_Tr
 Route::post('add_general_comment','OtherGeneralCommentController@store_OtherGeneralComment')->name('add_general_comment');
 Route::post('add_perfomancemanageruse','PerfomanceManagerUseController@store_PerfomanceManagerUse')->name('add_perfomancemanageruse');
 Route::post('add_perfomanceIdentitie','PerformanceIdentitiesController@store_PerformanceIdentity')->name('add_perfomanceIdentitie');
-
-
 Route::get('/employees-performance','EmployeePerformanceController@get_employees')->name('employees_perfomance')->middleware('isemployeepermission');
 Route::get('/edit-performance/{id}','EmployeePerformanceController@edit_employees')->name('employees_per')->middleware('isemployeepermission');
-
-
-
-
-
 Route::get('/employees-performance','EmployeePerformanceController@get_employees')->name('employees_perfomance')->middleware('isemployeepermission');
 Route::get('edit-performance/{id}','EmployeePerformanceController@edit_employees')->name('employees_per')->middleware('isemployeepermission');
-
 Route::post('/edit_man_professionalExcellence','EmployeePerformanceController@add_manager_ProfessionalExcellence')->name('edit_man_professionalExcellence');
 Route::post('/edit_man_PersonalExcellence','EmployeePerformanceController@add_manager_PersonalExcellence')->name('edit_man_PersonalExcellence');
 Route::post('/edit_man_SpecialInitiatives','EmployeePerformanceController@add_manager_SpecialInitiatives')->name('edit_man_SpecialInitiatives');
@@ -625,31 +608,25 @@ Route::get('profile/{id}','ProfileController@Profile_employees')->name('profile_
 Route::post('add_personal_info','ProfileController@add_profile_personal_informations')->name('add_personal_info');
 Route::post('add_emergency_contact','ProfileController@add_profile_emergency_contact')->name('add_emergency_contact');
 Route::get('/profile-employee-warning/{id}','EmployeeVerbalWarningController@Profile_EmployeeVerbalWarning_list')->name('Edit_Profile_Warning');
-
-
-
+Route::post('employee_document','ProfileController@employee_document')->name('employee_document');
+Route::get('employee_documents_delete/{id}','ProfileController@employee_document_delete')->name('employee_document_delete');
 Route::post('add_Perfomance_status','EmployeePerformanceController@add_Perfomance_status_user')->name('add_Perfomance_status');
 Route::post('add_KeyprofessionalExcellences',[ProfessionalExcellenceController::class,'store_KeyprofessionalExcellences'])->name('add_KeyprofessionalExcellences');
-
 Route::get('employee-warning','EmployeeVerbalWarningController@EmployeeFirstVerbalWarning_list')->name('employee-warning');
 Route::post('add_EmployeeFirstVerbalWarning','EmployeeVerbalWarningController@store_EmployeeFirstVerbalWarning')->name('add_EmployeeFirstVerbalWarning');
 Route::post('update_EmployeeFirstVerbal','EmployeeVerbalWarningController@update_EmployeeFirstVerbalWarning')->name('update_EmployeeFirstVerbalWarning');
 Route::post('delete_EmpVerbalWarning','EmployeeVerbalWarningController@delete_EmployeeVerbalWarning')->name('delete_EmpVerbalWarning');
 Route::get('changeFirstWarningstatus/{type}/{id}','EmployeeVerbalWarningController@changeFirstWarningstatus')->name('changeFirstWarningstatus');
-
 Route::post('add_EmployeeSecondVerbalWarning','EmployeeVerbalWarningController@store_EmployeeSecondVerbalWarning')->name('add_EmployeeSecondVerbalWarning');
 Route::post('update_EmpSecondVerbalWarning','EmployeeVerbalWarningController@update_EmployeeSecondVerbalWarning')->name('update_EmployeeSecondVerbalWarning');
 Route::post('delete_secondEmpVerbalWarning','EmployeeVerbalWarningController@delete_EmployeeSecondVerbalWarning')->name('delete_secondEmpVerbalWarning');
 Route::get('changeSecondWarningstatus/{type}/{id}','EmployeeVerbalWarningController@changeSecondWarningstatus')->name('changeSecondWarningstatus');
-
 Route::post('add_EmployeeThirdVerbalWarning','EmployeeVerbalWarningController@store_EmployeeThirdVerbalWarning')->name('add_EmployeeThirdVerbalWarning');
 Route::post('update_EmpThirdVerbalWarning','EmployeeVerbalWarningController@update_EmployeeThirdVerbalWarning')->name('update_EmployeeThirdVerbalWarning');
 Route::post('delete_EmpThirdVerbalWarning','EmployeeVerbalWarningController@delete_EmployeeThirdVerbalWarning')->name('delete_EmployeeThirdVerbalWarning');
 Route::get('changeThirdWarningstatus/{type}/{id}','EmployeeVerbalWarningController@changeThirdWarningstatus')->name('changeThirdWarningstatus'); 
-
-
-
 });
+
 Route::namespace('Auth')->group(function(){
 
     //Login Routes
