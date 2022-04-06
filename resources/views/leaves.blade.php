@@ -137,6 +137,7 @@
                                         <th>No of Days</th>
                                         <th>Reason</th>
                                         <th class="text-center">Status</th>
+										 <th>Manager Comment</th>
                                         {{-- <th class="text-right">Actions</th> --}}
                                     </tr>
                                 </thead>
@@ -196,10 +197,16 @@
                                                             <div class="dropdown-menu dropdown-menu-right">
                                                                 <a class="dropdown-item" href="{{ url('change_leave_status').'/1'.'/'.@$val->id }}"><i class="fa fa-dot-circle-o text-info"></i> Pending</a>
                                                                 <a class="dropdown-item" href="{{ url('change_leave_status').'/2'.'/'.@$val->id  }}"><i class="fa fa-dot-circle-o text-success"></i> Approved</a>
-                                                                <a class="dropdown-item" href="{{ url('change_leave_status').'/3'.'/'.@$val->id  }}"><i class="fa fa-dot-circle-o text-danger"></i> Disapproved</a>
+                                                                <a class="dropdown-item disapproved"  data-id="{{@$val->id}}" data-comment="{{@$val->manager_comment}}"><i class="fa fa-dot-circle-o text-danger"></i> Disapproved</a>
+                                                                <!--<a class="dropdown-item disapproved" href="{{ url('change_leave_status').'/3'.'/'.@$val->id  }}"><i class="fa fa-dot-circle-o text-danger"></i> Disapproved</a>-->
                                                             </div>
                                                         </div>
                                                     </td>
+													@if(@$val->status == 3)
+													<td><a href="">{{@$val->manager_comment}}</a>
+													<a href="#" id="man_comment_edit" class="edit-icon edit_personal_info" data-toggle="modal" data-target="#personal_info_modal" data-id="{{@$val->id}}" data-comment="{{@$val->manager_comment}}"><i class="fa fa-pencil"></i></a>
+													</td>
+													@endif
                                                 </tr>
                                             @endforeach
                                         @endif
@@ -383,15 +390,61 @@
             
         </div>
         <!-- /Page Wrapper -->
-      
+      <div id="personal_info_modal" class="modal custom-modal fade" role="dialog">
+                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Manager Comment</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{ route('add_manager_comment') }}" method="post">
+							@csrf
+								 
+								<input type="hidden" name="id" value="" id="hidden_id">
+								 
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label>Reason</label>
+											<textarea name="manager_comment" class="form-control" id="man_comment_text"></textarea> 
+                                        </div>
+                                    </div> 
+                                </div>
+                                <div class="submit-section">
+                                    <button class="btn btn-primary submit-btn">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
  
 <script src="{{ URL::asset('js/jquery-3.5.1.min.js') }}"></script> 
 <script type="text/javascript">
-        $(document).ready(function () {
-            $('.datetimepicker').datetimepicker({
-                format: 'YYYY-MM-DD',
-                locale: 'en'
-            });
-        });
+$(document).ready(function () {
+	$('.datetimepicker').datetimepicker({
+		format: 'YYYY-MM-DD',
+		locale: 'en'
+	});
+});
+$(document).on("click","#man_comment_edit",function() {
+	var id= $(this).data('id');
+	var comment=$(this).data('comment');
+	$('#hidden_id').val(id);
+	$('#man_comment_text').val(comment);
+});
+$(document).on("click",".disapproved",function() {
+	$("#personal_info_modal").addClass("show");
+	$("#personal_info_modal").css("display","block");
+	$("#personal_info_modal").css("padding-right","17px");
+	var id= $(this).data('id');
+	var comment=$(this).data('comment');
+	$('#hidden_id').val(id);
+	$('#man_comment_text').val(comment);
+});
+
 </script>
 @endsection    

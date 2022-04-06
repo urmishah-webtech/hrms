@@ -53,7 +53,8 @@ class Kernel extends HttpKernel
      *
      * @var array
      */
-    protected $routeMiddleware = [		 
+    protected $routeMiddleware = [	
+		'iftermination' => \App\Http\Middleware\IfTermination::class,
         'alreadyLoggedIn' => \App\Http\Middleware\AlreadyLoggedIn::class,
 		'isLoggedIn' => \App\Http\Middleware\AuthCheck::class,
         'is_admin' => \App\Http\Middleware\IsAdmin::class,

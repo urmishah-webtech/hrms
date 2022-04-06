@@ -160,7 +160,7 @@
 														<td>1</td>
 														<td><input type="text" class="form-control" name="employee_comments[]"  @if(Auth::user()->role_id != 3) readonly @endif ></td>
 														<td><input type="text" class="form-control" name="managers_comments[]" @if(Auth::user()->role_id != 2)readonly @endif></td>
-														<td><input type="text" class="form-control" name="admin_comments[]" @if(Auth::user()->role_id != 1)readonly @endif></td>
+														<td><input type="text" class="form-control" name="admin_comments[]" @if(Auth::user()->role_id != 1 || Auth::user()->role_id != 5)readonly @endif></td>
 														<td><input type="text" class="form-control" name="areas_for_improvement[]" @if(Auth::user()->role_id == 3)readonly @endif></td>
 														<td></td>
 													</tr>
@@ -202,7 +202,7 @@
 														<td>1</td>
 														<td><input type="text" class="form-control" name="employee_comments[]"  @if(Auth::user()->role_id != 3) readonly @endif ></td>
 														<td><input type="text" class="form-control" name="managers_comments[]" @if(Auth::user()->role_id != 2)readonly @endif></td>
-														<td><input type="text" class="form-control" name="admin_comments[]" @if(Auth::user()->role_id != 1)readonly @endif></td>
+														<td><input type="text" class="form-control" name="admin_comments[]" @if(Auth::user()->role_id != 1 || Auth::user()->role_id != 5)readonly @endif></td>
 														<td><input type="text" class="form-control" name="areas_for_improvement[]" @if(Auth::user()->role_id == 3)readonly @endif></td>
 														<td></td>
 													</tr>
@@ -243,7 +243,7 @@
 														<td>1</td>
 														<td><input type="text" class="form-control" name="employee_comments[]"  @if(Auth::user()->role_id != 3) readonly @endif ></td>
 														<td><input type="text" class="form-control" name="managers_comments[]" @if(Auth::user()->role_id != 2)readonly @endif></td>
-														<td><input type="text" class="form-control" name="admin_comments[]" @if(Auth::user()->role_id != 1)readonly @endif></td>
+														<td><input type="text" class="form-control" name="admin_comments[]" @if(Auth::user()->role_id != 1 || Auth::user()->role_id != 5)readonly @endif></td>
 														<td></td>
 													</tr>
 													  
@@ -313,7 +313,7 @@
 														<td id="indexid"></td>
 														@if(Auth::user()->role_id != 2)<td><input type="text" class="form-control" name="employee_comments" id="employee_comments" @if(Auth::user()->role_id != 3) readonly @endif></td>@endif
 														<td><input type="text" class="form-control" name="managers_comments" id="managers_comments" @if(Auth::user()->role_id != 2)readonly @endif ></td>
-														<td><input type="text" class="form-control" name="admin_comments" id="admin_comments" @if(Auth::user()->role_id != 1)readonly @endif></td>
+														<td><input type="text" class="form-control" name="admin_comments" id="admin_comments" @if(Auth::user()->role_id != 1 || Auth::user()->role_id != 5)readonly @endif></td>
 														<td><input type="text" class="form-control" name="areas_for_improvement" id="areas_for_improvement" @if(Auth::user()->role_id == 3)readonly @endif></td>
                                                         <input type="hidden" class="form-control" name="getid" value="" id="getidjq">
 													</tr>
@@ -367,7 +367,7 @@
 														<td id="indexid2"></td>
 														@if(Auth::user()->role_id != 2)<td><input type="text" class="form-control" name="employee_comments" id="employee_comments2" @if(Auth::user()->role_id != 3) readonly @endif></td>@endif
 														<td><input type="text" class="form-control" name="managers_comments" id="managers_comments2" @if(Auth::user()->role_id != 2)readonly @endif ></td>
-														<td><input type="text" class="form-control" name="admin_comments" id="admin_comments2" @if(Auth::user()->role_id != 1)readonly @endif></td>
+														<td><input type="text" class="form-control" name="admin_comments" id="admin_comments2" @if(Auth::user()->role_id != 1 || Auth::user()->role_id != 5)readonly @endif></td>
 														<td><input type="text" class="form-control" name="areas_for_improvement" id="areas_for_improvement2" @if(Auth::user()->role_id == 3)readonly @endif></td>
                                                         <input type="hidden" class="form-control" name="getid" value="" id="getidjq2">
 													</tr>
@@ -420,7 +420,7 @@
 														<td id="indexid3"></td>
 														@if(Auth::user()->role_id != 2)<td><input type="text" class="form-control" name="employee_comments" id="employee_comments3" @if(Auth::user()->role_id != 3) readonly @endif></td>@endif
 														<td><input type="text" class="form-control" name="managers_comments" id="managers_comments3" @if(Auth::user()->role_id != 2)readonly @endif ></td>
-														<td><input type="text" class="form-control" name="admin_comments" id="admin_comments3" @if(Auth::user()->role_id != 1)readonly @endif></td>
+														<td><input type="text" class="form-control" name="admin_comments" id="admin_comments3" @if(Auth::user()->role_id != 1 || Auth::user()->role_id != 5)readonly @endif></td>
                                                         <input type="hidden" class="form-control" name="getid" value="" id="getidjq3">
 													</tr>
 												</tbody>

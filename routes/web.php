@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfessionalExcellenceController;
 use App\Http\Middleware\AuthCheck;
 use App\Http\Middleware\IsAdmin;
-
+use App\Http\Middleware\IfTermination;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,7 +29,8 @@ Route::get('/', function () {
          return redirect('index');
         //return view('auth/login');
     });
-
+	 
+  
 Route::middleware([AuthCheck::class])->group(function () {
 
 // Route::get('/index', function () {
@@ -91,6 +92,7 @@ Route::get('/leave-calender','AdminLeaveController@leave_calender')->name('leave
 Route::get('/leave_render','AdminLeaveController@leave_render')->name('leave_render');
 Route::get('/change_leave_status/{type}/{id}','AdminLeaveController@change_leave_status')->name('change_leave_status');
 Route::post('search_leave_employees','AdminLeaveController@search_leave_employee')->name('search_leave_employees');
+Route::post('/add_manager_comment','AdminLeaveController@add_manager_comment')->name('add_manager_comment');
 //leave routes end
 
 
@@ -631,7 +633,9 @@ Route::namespace('Auth')->group(function(){
 
     //Login Routes
     Route::get('/login','LoginController@showLoginForm')->name('login');
+	 
     Route::post('/login','LoginController@login');
+	 
     Route::post('/logout','LoginController@logout')->name('logout');
 
     //Forgot Password Routes

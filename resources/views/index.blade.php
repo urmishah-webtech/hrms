@@ -41,7 +41,7 @@
                     </div>
                 </div>
             </div>
-            @if(Auth::user()->role_id==1)
+            @if(Auth::user()->role_id==1 || Auth::user()->role_id == 5)
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                 <div class="card dash-widget">
                     <div class="card-body">
@@ -78,7 +78,7 @@
                 </div>
             </div>
         </div>
-        @if(Auth::user()->role_id==1)
+        @if(Auth::user()->role_id==1 || Auth::user()->role_id == 5)
         @include('percentage_stat')
         @endif
 
@@ -100,7 +100,7 @@
                 </div>
             </div>
 
-            @if(Auth::user()->role_id==1)
+            @if(Auth::user()->role_id==1 || Auth::user()->role_id == 5)
 
 			<div class="col-md-6 text-center">
 				<div class="card">

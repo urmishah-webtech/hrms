@@ -17,6 +17,9 @@ class AdminLeaveController extends Controller
 {
     public function index()
     {
+		 
+		$man_comment=EmployeeLeave::where('manager_id',Auth::user()->id)->pluck('id')->toArray();  
+		 		
         if(Auth::user()->role_id==2){
             $view =$this->manger_leave_list();
             return $view;
@@ -51,7 +54,7 @@ class AdminLeaveController extends Controller
         $employee_tb = Employee::where('role_id','!=',1)->get();
 
         $search_leave_type='';
-        return view('leaves',\compact('data','employee_tb','total_emp','present_emp','plan_count','unplan_count','pending_req'));
+        return view('leaves',\compact('data','employee_tb','total_emp','present_emp','plan_count','unplan_count','pending_req','man_comment'));
         }
     }
     public function change_leave_status($type,$id){
@@ -61,6 +64,7 @@ class AdminLeaveController extends Controller
         $leave_date=Carbon::createFromFormat('Y-m-d',$data->from_date);
         $today_date=Carbon::today()->format('Y-m-d');
         $result = $leave_date->lt($today_date);
+		 
         if($result==true){
             return back()->with('error','Timelimit for Changing Status is over ! you cant change now');
         }
@@ -222,4 +226,13 @@ class AdminLeaveController extends Controller
 
         return json_encode($result);
     }
+	
+	public function add_manager_comment(Request $request){
+		 
+		$man_comment = EmployeeLeave::where('id',$request->id)->first();
+		$man_comment->manager_comment=$request->manager_comment;
+		$man_comment->status=3;
+		$man_comment->save();
+		return back(); 
+	}
 }

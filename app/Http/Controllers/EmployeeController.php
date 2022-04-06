@@ -22,9 +22,13 @@ use Auth;
 use App\Imports\EmployeesImport;
 use Maatwebsite\Excel\Facades\Excel;
 use File;
+use App\Termination;
+
 class EmployeeController extends Controller
 {
     public function employees(){
+	//$termination = Termination::where('employee_id',Auth::user()->id)->pluck('employee_id')->toArray();     
+	     
         $dep=Department::get();
         $des=Designation::get();
         if(Auth::user()->role_id==2){
@@ -236,7 +240,7 @@ class EmployeeController extends Controller
         foreach ($users as $user) {
             $name = $user->first_name .' '.$user->last_name;
 
-            if($user->role_id !== 1) {
+            if($user->role_id !== 1  || $user->role_id !== 5 ) {
                
                 if(!empty($user->man_id)) {
                     $data = [
