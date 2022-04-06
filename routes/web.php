@@ -8,7 +8,7 @@ use App\Http\Controllers\UserRegister_Controller;
 use App\Http\Controllers\Auth\RegisterController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfessionalExcellenceController;
-use App\Http\Middleware\AuthCheck;
+// use App\Http\Middleware\AuthCheck;
 use App\Http\Middleware\IsAdmin;
 use App\Http\Middleware\IfTermination;
 /*
@@ -24,14 +24,14 @@ use App\Http\Middleware\IfTermination;
 Route::get('/index_2', 'HomeController@test')->name('index_2');
 Route::get('/home', 'HomeController@HomepageUrl')->name('home')->middleware('isTerminated');
 Route::post('/import_employees', 'EmployeeController@import_employees')->name('import_employees');
-Route::get('/index', 'HomeController@adminHome')->name('index');
+Route::get('/index', 'HomeController@adminHome')->name('index')->middleware('isTerminated');;
 Route::get('/', function () {
          return redirect('index');
         //return view('auth/login');
     });
 	 
   
-Route::middleware([AuthCheck::class])->group(function () {
+Route::middleware(['App\Http\Middleware\AuthCheck','isTerminated'])->group(function () {
 
 // Route::get('/index', function () {
 //     return view('index');

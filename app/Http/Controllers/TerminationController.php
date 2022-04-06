@@ -89,7 +89,7 @@ class TerminationController extends Controller
        $user = auth()->user();
         if (!empty($user)) {
             $role = $user->role_id;
-            if ($role == 1) {
+            if ($role == 1 || $role==5) {
                 $terminations = Termination::with(['employee' => function($q) {
                     return $q->with('department');
                 }])->get();
@@ -113,7 +113,7 @@ class TerminationController extends Controller
                 }])->where('employee_id', $user->id)->get();
             }
         } 
-
+      
 		$types = TerminationType::where('status', 'Active')->get()->pluck(['type']);
 		$employees = Employee::where('id', '!=', Auth::user()->id)->get();
     	return view('termination')->with(['terminations'=>$terminations, 'types' => $types, 'employees' => $employees, 'resignation' => $resignation, 'user' => $user]);

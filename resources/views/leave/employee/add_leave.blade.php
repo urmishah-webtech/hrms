@@ -16,7 +16,9 @@
                             <option value="">Select Leave Type</option>
                             @if(@$remaining_leaves>0)
                                 <option value="0">Casual Leave</option>
-                                <option value="1">Sick Leave</option>
+                                @if($total_sick_taken<$sick_days)
+                                    <option value="1">Sick Leave</option>
+                                @endif
                                 <option value="2">Hospitalisation leave</option>
                                 @if(Auth::user()->gender==1)
                                 <option value="3">Maternity leave</option>

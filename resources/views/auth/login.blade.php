@@ -57,7 +57,13 @@
 						<div class="account-wrapper">
 							<h3 class="account-title">Login</h3>
 							<p class="account-subtitle">Access to our dashboard</p>
-							
+							  
+							@if ($message = Session::get('error'))
+							<div class="alert alert-danger alert-block">
+								<button type="button" class="close" data-dismiss="alert">×</button>    
+								<strong>{{ $message }}</strong>
+							</div>
+							@endif
 							<!-- Account Form -->
 							<form action="{{ route('login') }}" method="post">					 
 							@csrf
