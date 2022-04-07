@@ -157,7 +157,7 @@
 			function GetDynamicTextBox(table_id) {
 				$('#comments_remove').remove();
 				var rowsLength = document.getElementById(table_id).getElementsByTagName("tbody")[0].getElementsByTagName("tr").length+1;
-				return '<td>'+rowsLength+'</td>' + '@if(Auth::user()->role_id != 3)<td><select class="form-control" name="emp_id[]" ><option>Select Employee</option>@isset($emp_name) @foreach($emp_name as $val)<option value="{{ $val->id }}">{{ $val->first_name }}</option>@endforeach @endisset</select></td>@endif' + '<td><input type="text" name = "employee_comments[]" class="form-control" @if(Auth::user()->role_id != 3) readonly @endif></td>'+ '<td><input type="text" name = "managers_comments[]" class="form-control" @if(Auth::user()->role_id != 2)readonly @endif></td>' + '<td><input type="text" name = "admin_comments[]" class="form-control" @if(Auth::user()->role_id != 1)readonly @endif></td>' + '<td><input type="text" name = "areas_for_improvement[]" class="form-control" @if(Auth::user()->role_id == 3)readonly @endif></td>' + '<td><button type="button" class="btn btn-danger" id="comments_remove"><i class="fa fa-trash-o"></i></button></td>'
+				return '<td>'+rowsLength+'</td>' + '@if(Auth::user()->role_id != 3)<td><select class="form-control" name="emp_id[]" ><option>Select Employee</option>@isset($emp_name) @foreach($emp_name as $val)<option value="{{ $val->id }}">{{ $val->first_name }}</option>@endforeach @endisset</select></td>@endif' + '<td><input type="text" name = "employee_comments[]" class="form-control" @if(Auth::user()->role_id != 3) readonly @endif></td>'+ '<td><input type="text" name = "managers_comments[]" class="form-control" @if(Auth::user()->role_id != 2)readonly @endif></td>' + '<td><input type="text" name = "admin_comments[]" class="form-control" @if(Auth::user()->role_id != 1)readonly @endif></td>' + '<td><input type="text" name = "areas_for_improvement[]" class="form-control" @if(Auth::user()->role_id == 3)readonly @endif></td>' + '<td><input type="file" name = "fileadd[]" class="form-control" @if(Auth::user()->role_id == 3)readonly @endif></td>' + '<td><button type="button" class="btn btn-danger" id="comments_remove"><i class="fa fa-trash-o"></i></button></td>'
 			}
 		});
 		/// Second Warning
@@ -677,6 +677,10 @@
 				$("#managers_comments").val($(this).data('managers_comments'));
 				$("#admin_comments").val($(this).data('admin_comments'));
 				$("#areas_for_improvement").val($(this).data('areas_for_improvement'));
+				var uurl= $(this).data('employee_documents'); 
+				var image_url="/employee_documents/"+uurl; alert(image_url);
+				var logo=`<img src="`+image_url+`" style="height:50px; width:50px;">`; 
+				$("#employee_documents").html(logo);
 
 				var seelct_emp2=$(this).data('emp_id2');
 				$("#select_emp_id_edit2 option[value='"+seelct_emp2+"']").prop('selected',true);

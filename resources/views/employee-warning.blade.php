@@ -45,7 +45,8 @@
                                         <th>Manager's Comments</th>
                                         <th>Admin Comments</th>
                                         <th>Areas for Improvement</th>
-                                        <th>Status</th>
+										<th>Employee Documents</th>
+                                        <th>Status</th>                                        
                                         <th class="text-right">Action</th>
                                     </tr>
                                 </thead>
@@ -60,7 +61,8 @@
                                         <td class="tdindicator">{{ @$val->employee_comments }}</td>                                        
                                         <td>{{ @$val->managers_comments}}</td>                                        
                                         <td>{{ @$val->admin_comments}}</td>
-                                        <td>{{ @$val->areas_for_improvement }}</td>  
+                                        <td>{{ @$val->areas_for_improvement }}</td> 
+										<td><a href="{{url('employee_documents').'/'.@$val->path}}" download="{{@$val->path}}"><i class="fa fa-download"></i></a></td>
                                         <td>
                                             <div class="dropdown action-label">
                                                 <a class="btn btn-white btn-sm btn-rounded" href="#" data-toggle="dropdown" aria-expanded="false">
@@ -122,6 +124,8 @@
                                         <td>{{ @$val->managers_comments}}</td>                                        
                                         <td>{{ @$val->admin_comments}}</td>
                                         <td>{{ @$val->areas_for_improvement }}</td>
+										<td><a href="{{url('employee_documents').'/'.@$val->employee_documents}}" download="{{@$val->employee_documents}}"><i class="fa fa-download"></i> Download</a></td>
+                                        <td>
                                         <td>
                                             <div class="dropdown action-label">
                                                 <a class="btn btn-white btn-sm btn-rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
@@ -137,7 +141,7 @@
                                             <div class="dropdown dropdown-action">
                                                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item editwarningbtn edslpoin1" href="#" data-id="{{ @$val->id }}" data-emp_id="{{ @$val->emp_id }}" data-employee_comments="{{ @$val->employee_comments }}" data-managers_comments="{{ @$val->managers_comments }}" data-admin_comments="{{ @$val->admin_comments }}" data-areas_for_improvement="{{ @$val->areas_for_improvement }}" data-toggle="modal" data-target="#edit_warningemployee"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                                    <a class="dropdown-item editwarningbtn edslpoin1" href="#" data-id="{{ @$val->id }}" data-emp_id="{{ @$val->emp_id }}" data-employee_comments="{{ @$val->employee_comments }}" data-managers_comments="{{ @$val->managers_comments }}" data-admin_comments="{{ @$val->admin_comments }}" data-areas_for_improvement="{{ @$val->areas_for_improvement }}" data-employee_documents="{{ @$val->employee_documents }}" data-toggle="modal" data-target="#edit_warningemployee"><i class="fa fa-pencil m-r-5"></i> Edit</a>
                                                     <a class="dropdown-item deleteWarningbtn" href="#" data-id="{{ @$val->id }}" data-toggle="modal" data-target="#delete_EmpVerbalWarning"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                                                 </div>
                                             </div>
@@ -368,7 +372,7 @@
 								<div class="row">
 									<div class="col-md-12">
 										<div class="table-responsive">
-										<form action="{{ route('add_EmployeeFirstVerbalWarning') }}" method="post">
+										<form action="{{ route('add_EmployeeFirstVerbalWarning') }}" method="post" enctype="multipart/form-data">
 										 @csrf
                                          <input type="hidden" class="form-control" name="getid[]" value="" id="getidjq">
 											<table class="table table-bordered table-review review-table mb-0" id="table_goals">
@@ -380,6 +384,7 @@
 														<th>Manager's Comment</th>
 														<th>Admin Comment</th>
 														<th>Area's for Improvement</th>
+														<th>Documents</th>
 														<th style="width: 64px;"><button type="button" class="btn btn-primary btn-add-row-warning"><i class="fa fa-plus"></i></button></th>
 													</tr>
 												</thead>
@@ -414,6 +419,7 @@
 														<td><input type="text" class="form-control" name="managers_comments[]" @if(Auth::user()->role_id != 2)readonly @endif></td>
 														<td><input type="text" class="form-control" name="admin_comments[]" @if(Auth::user()->role_id != 1)readonly @endif></td>
 														<td><input type="text" class="form-control" name="areas_for_improvement[]" @if(Auth::user()->role_id == 3)readonly @endif></td>
+														<td><input type="file" class="form-control" name="fileadd[]" @if(Auth::user()->role_id == 3)readonly @endif></td>
 														<td></td>
 													</tr>
 													  
@@ -582,7 +588,7 @@
                 <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title">dd Edit Employees Warning</h5>
+                            <h5 class="modal-title">Edit Employees Warning</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -606,6 +612,7 @@
 														<th>Manager's Comment</th>
 														<th>Admin Comment</th>
 														<th>Area's for Improvement</th>
+														<th>Documents</th> 
 														<th style="width: 64px;"><button type="button" class="btn btn-primary btn-add-row-warning"><i class="fa fa-plus"></i></button></th>
 													</tr>
 												</thead>
@@ -640,6 +647,9 @@
 														<td><input type="text" class="form-control" name="managers_comments[]" id="managers_comments" @if(Auth::user()->role_id != 2)readonly @endif></td>
 														<td><input type="text" class="form-control" name="admin_comments[]" id="admin_comments" @if(Auth::user()->role_id != 1)readonly @endif></td>
 														<td><input type="text" class="form-control" name="areas_for_improvement[]" id="areas_for_improvement" @if(Auth::user()->role_id == 3)readonly @endif></td>
+														<td><input type="file" class="form-control" name="file" id="" @if(Auth::user()->role_id == 3)readonly @endif>
+														<div id="employee_documents"></div></td>
+														 
                                                         <input type="hidden" class="form-control" name="getid[]" value="" id="getidjq">
 														<td></td>
 													</tr>
