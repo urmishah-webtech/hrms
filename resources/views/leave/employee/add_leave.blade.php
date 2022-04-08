@@ -19,11 +19,13 @@
                                 @if($total_sick_taken<$sick_days)
                                     <option value="1">Sick Leave</option>
                                 @endif
-                                <option value="2">Hospitalisation leave</option>
-                                @if(Auth::user()->gender==1)
+                                @if($total_hospitalisation_taken<$hospitalisation_days)
+                                    <option value="2">Hospitalisation leave</option>
+                                @endif
+                                @if(Auth::user()->gender==1 && $total_maternity_taken<$maternity_days)
                                 <option value="3">Maternity leave</option>
                                 @endif
-                                @if(Auth::user()->gender==0)
+                                @if(Auth::user()->gender==0 && $total_paternity_taken<$paternity_days)
                                 <option value="4">paternity leave</option>
                                 @endif
                             @endif
