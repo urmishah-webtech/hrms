@@ -42,12 +42,18 @@ class EmployeeVerbalWarningController extends Controller
         $admin_comments = $request->admin_comments;
         $areas_for_improvement = $request->areas_for_improvement;        
        
-		$fileName= NULL;
-		if(isset($request->fileadd)){
-			$fileName = time().'.'.$request->fileadd->extension();  
-			$request->fileadd->move(public_path('employee_documents'), $fileName);
+	
+        $fileName= NULL;	
+        $file_arr=array();
+		if(isset($request->fileadd) && !empty($request->fileadd)){	
+            foreach ($request->fileadd as $key => $file) {	
+                $fileName = time().'.'.$file->extension();  	
+                $file->move(public_path('employee_documents'), $fileName);	
+                array_push($file_arr,$fileName);
+            }	
+				
 		}
-	   
+        $i=0;
         foreach($employee_comments as $key => $input) 
         {
             if($employee_comments[$key] || $employee_nameid[$key] || $managers_comments[$key] || $admin_comments[$key] || $areas_for_improvement[$key])
@@ -60,11 +66,15 @@ class EmployeeVerbalWarningController extends Controller
                 $scores->areas_for_improvement = $areas_for_improvement[$key] ? $areas_for_improvement[$key] : '';
                 $scores->warning_by = $emp_id;
                 $scores->status = 1;
-				$scores->employee_documents = $fileName[$key] ? $fileName[$key] : '';  
+				$scores->document = $file_arr[0] ? $file_arr[0] : '';  
                 
                 $scores->save();                
             }
+           
+            $i++;
+
         }
+       
         return back();       
     }
     public function update_EmployeeFirstVerbalWarning(Request $request)
@@ -94,12 +104,18 @@ class EmployeeVerbalWarningController extends Controller
                     $scores->admin_comments = $admin_comments[$key] ? $admin_comments[$key] : '';
                     $scores->areas_for_improvement = $areas_for_improvement[$key] ? $areas_for_improvement[$key] : '';
                     $scores->warning_by = $emp_id;
-					$fileName= NULL;
-					if(isset($request->fileadd)){
-						$fileName = time().'.'.$request->fileadd->extension();  
-						$request->fileadd->move(public_path('employee_documents'), $fileName);
-					}  
-					$scores->employee_documents=is_null($fileName)?$scores->employee_documents:$fileName;  
+					$fileName= $scores->document;	
+                    $file_arr=array();
+                    if(isset($request->fileadd) && !empty($request->fileadd)){	
+                 
+                        foreach ($request->fileadd as $key => $file) {	
+                            $fileName = time().'.'.$file->extension();  	
+                            $file->move(public_path('employee_documents'), $fileName);	
+                            array_push($file_arr,$fileName);
+                        }	
+                            
+                    }
+					$scores->document=is_null($fileName)?$scores->document:$fileName;  
                     $scores->save();  
                 }
                 else
@@ -111,6 +127,17 @@ class EmployeeVerbalWarningController extends Controller
                     $scores->admin_comments = $admin_comments[$key] ? $admin_comments[$key] : '';
                     $scores->areas_for_improvement = $areas_for_improvement[$key] ? $areas_for_improvement[$key] : '';
                     $scores->warning_by = $emp_id;
+                    $fileName= NULL;	
+                    $file_arr=array();
+                    if(isset($request->fileadd) && !empty($request->fileadd)){	
+                        foreach ($request->fileadd as $key => $file) {	
+                            $fileName = time().'.'.$file->extension();  	
+                            $file->move(public_path('employee_documents'), $fileName);	
+                            array_push($file_arr,$fileName);
+                        }	
+                            
+                    }
+                    $scores->document=$fileName;
                     $scores->save();
                 }              
             }

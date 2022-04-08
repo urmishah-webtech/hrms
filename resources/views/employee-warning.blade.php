@@ -40,7 +40,7 @@
                                     <tr>
                                         <th style="width: 30px;">#</th>
                                         <th>Warning</th>
-                                        @if(Auth::user()->role_id != 3)<th>Employees</th>@endif 
+                                        @if(Auth::user()->role_id != 3)<th>Employees</th>@else<th></th>@endif 
                                         <th>Employee Comments</th>
                                         <th>Manager's Comments</th>
                                         <th>Admin Comments</th>
@@ -74,7 +74,7 @@
                                             <div class="dropdown dropdown-action">
                                                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item editwarningbtn edslpoin1" href="#" data-id="{{ @$val->id }}" data-emp_id="{{ @$val->emp_id }}"  data-employee_comments="{{ @$val->employee_comments }}" data-managers_comments="{{ @$val->managers_comments }}" data-admin_comments="{{ @$val->admin_comments }}" data-areas_for_improvement="{{ @$val->areas_for_improvement }}" data-toggle="modal" data-target="#edit_warningemployee"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                                    <a class="dropdown-item editwarningbtn edslpoin1" href="#" data-document="{{@$val->document}}" data-id="{{ @$val->id }}" data-emp_id="{{ @$val->emp_id }}"  data-document="{{@$val->document}}" data-employee_comments="{{ @$val->employee_comments }}" data-managers_comments="{{ @$val->managers_comments }}" data-admin_comments="{{ @$val->admin_comments }}" data-areas_for_improvement="{{ @$val->areas_for_improvement }}" data-toggle="modal" data-target="#edit_warningemployee"><i class="fa fa-pencil m-r-5"></i> Edit</a>
                                                 </div>
                                             </div>
                                         </td>
@@ -93,6 +93,7 @@
                                         <td>{{ @$val->managers_comments}}</td>                                        
                                         <td>{{ @$val->admin_comments}}</td>
                                         <td>{{ @$val->areas_for_improvement }}</td>
+                                        <td><a href="{{url('employee_documents').'/'.@$val->path}}" download="{{@$val->path}}"><i class="fa fa-download"></i></a></td>
                                         <td>
                                             <div class="dropdown action-label">
                                                 <a class="btn btn-white btn-sm btn-rounded" href="#" data-toggle="dropdown" aria-expanded="false">
@@ -104,7 +105,7 @@
                                             <div class="dropdown dropdown-action">
                                                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item editwarningbtn edslpoin1" href="#" data-id="{{ @$val->id }}" data-emp_id="{{ @$val->emp_id }}" data-employee_comments="{{ @$val->employee_comments }}" data-managers_comments="{{ @$val->managers_comments }}" data-admin_comments="{{ @$val->admin_comments }}" data-areas_for_improvement="{{ @$val->areas_for_improvement }}" data-toggle="modal" data-target="#edit_warningemployee"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                                    <a class="dropdown-item editwarningbtn edslpoin1" href="#" data-document="{{@$val->document}}" data-id="{{ @$val->id }}" data-emp_id="{{ @$val->emp_id }}" data-employee_comments="{{ @$val->employee_comments }}" data-managers_comments="{{ @$val->managers_comments }}" data-admin_comments="{{ @$val->admin_comments }}" data-areas_for_improvement="{{ @$val->areas_for_improvement }}" data-toggle="modal" data-target="#edit_warningemployee"><i class="fa fa-pencil m-r-5"></i> Edit</a>
                                                     <!--<a class="dropdown-item deleteWarningbtn" href="#" data-id="{{ @$val->id }}" data-toggle="modal" data-target="#delete_EmpVerbalWarning"><i class="fa fa-trash-o m-r-5"></i> Delete</a>-->
                                                 </div>
                                             </div>
@@ -115,6 +116,7 @@
                                     @else 
                                     @isset($first_warning_dt)
                                     @foreach($first_warning_dt as $val)
+                                  
                                     <tr class="trindicator">
                                         <input type="hidden" name="editid" value="{{ @$val->id }}">
                                         <td>{{ @$val->id }}</td>
@@ -124,8 +126,7 @@
                                         <td>{{ @$val->managers_comments}}</td>                                        
                                         <td>{{ @$val->admin_comments}}</td>
                                         <td>{{ @$val->areas_for_improvement }}</td>
-										<td><a href="{{url('employee_documents').'/'.@$val->employee_documents}}" download="{{@$val->employee_documents}}"><i class="fa fa-download"></i> Download</a></td>
-                                        <td>
+										<td><a href="{{url('employee_documents').'/'.@$val->document}}" data-document="{{@$val->document}}" download="{{@$val->document}}"><i class="fa fa-download"></i> Download</a></td>
                                         <td>
                                             <div class="dropdown action-label">
                                                 <a class="btn btn-white btn-sm btn-rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
@@ -141,7 +142,7 @@
                                             <div class="dropdown dropdown-action">
                                                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item editwarningbtn edslpoin1" href="#" data-id="{{ @$val->id }}" data-emp_id="{{ @$val->emp_id }}" data-employee_comments="{{ @$val->employee_comments }}" data-managers_comments="{{ @$val->managers_comments }}" data-admin_comments="{{ @$val->admin_comments }}" data-areas_for_improvement="{{ @$val->areas_for_improvement }}" data-employee_documents="{{ @$val->employee_documents }}" data-toggle="modal" data-target="#edit_warningemployee"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                                    <a class="dropdown-item editwarningbtn edslpoin1" href="#" data-id="{{ @$val->id }}" data-emp_id="{{ @$val->emp_id }}" data-employee_comments="{{ @$val->employee_comments }}" data-managers_comments="{{ @$val->managers_comments }}" data-admin_comments="{{ @$val->admin_comments }}" data-areas_for_improvement="{{ @$val->areas_for_improvement }}" data-document="{{ @$val->document }}" data-toggle="modal" data-target="#edit_warningemployee"><i class="fa fa-pencil m-r-5"></i> Edit</a>
                                                     <a class="dropdown-item deleteWarningbtn" href="#" data-id="{{ @$val->id }}" data-toggle="modal" data-target="#delete_EmpVerbalWarning"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                                                 </div>
                                             </div>
@@ -163,6 +164,7 @@
                                         <td>{{ @$val->managers_comments}}</td>                                        
                                         <td>{{ @$val->admin_comments}}</td>
                                         <td>{{ @$val->areas_for_improvement }}</td>
+                                        <td><a href="{{url('employee_documents').'/'.@$val->document}}" data-document="{{@$val->document}}" download="{{@$val->document}}"><i class="fa fa-download"></i> Download</a></td>
                                         <td>
                                             <div class="dropdown action-label">
                                                 <a class="btn btn-white btn-sm btn-rounded" href="#" data-toggle="dropdown" aria-expanded="false">
@@ -174,7 +176,7 @@
                                             <div class="dropdown dropdown-action">
                                                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item editwarningbtn edslpoin2" href="#" data-id2="{{ @$val->id }}" data-emp_id2="{{ @$val->emp_id }}"  data-employee_comments2="{{ @$val->employee_comments }}" data-managers_comments2="{{ @$val->managers_comments }}" data-admin_comments2="{{ @$val->admin_comments }}" data-areas_for_improvement2="{{ @$val->areas_for_improvement }}" data-toggle="modal" data-target="#edit_warningemployee"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                                    <a class="dropdown-item editwarningbtn edslpoin2" href="#" data-document="{{@$val->document}}" data-id2="{{ @$val->id }}" data-emp_id2="{{ @$val->emp_id }}"  data-employee_comments2="{{ @$val->employee_comments }}" data-managers_comments2="{{ @$val->managers_comments }}" data-admin_comments2="{{ @$val->admin_comments }}" data-areas_for_improvement2="{{ @$val->areas_for_improvement }}" data-toggle="modal" data-target="#edit_warningemployee"><i class="fa fa-pencil m-r-5"></i> Edit</a>
                                                      
                                                 </div>
                                             </div>
@@ -194,6 +196,8 @@
                                         <td>{{ @$val->managers_comments}}</td>                                        
                                         <td>{{ @$val->admin_comments}}</td>
                                         <td>{{ @$val->areas_for_improvement }}</td>
+                                        <td><a href="{{url('employee_documents').'/'.@$val->document}}" data-document="{{@$val->document}}" download="{{@$val->document}}"><i class="fa fa-download"></i> Download</a></td>
+
                                         <td>
                                             <div class="dropdown action-label">
                                                 <a class="btn btn-white btn-sm btn-rounded" href="#" data-toggle="dropdown" aria-expanded="false">
@@ -224,6 +228,8 @@
                                         <td>{{ @$val->managers_comments}}</td>                                        
                                         <td>{{ @$val->admin_comments}}</td>
                                         <td>{{ @$val->areas_for_improvement }}</td>
+                                        <td><a href="{{url('employee_documents').'/'.@$val->document}}" data-document="{{@$val->document}}" download="{{@$val->document}}"><i class="fa fa-download"></i> Download</a></td>
+
                                         <td>
                                             <div class="dropdown action-label">
                                                 <a class="btn btn-white btn-sm btn-rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
@@ -239,7 +245,7 @@
                                             <div class="dropdown dropdown-action">
                                                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item editwarningbtn edslpoin2" href="#" data-id2="{{ @$val->id }}" data-emp_id2="{{ @$val->emp_id }}"  data-employee_comments2="{{ @$val->employee_comments }}" data-managers_comments2="{{ @$val->managers_comments }}" data-admin_comments2="{{ @$val->admin_comments }}" data-areas_for_improvement2="{{ @$val->areas_for_improvement }}" data-toggle="modal" data-target="#edit_warningemployee"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                                    <a class="dropdown-item editwarningbtn edslpoin2" data-document="{{@$val->document}}" href="#" data-id2="{{ @$val->id }}" data-emp_id2="{{ @$val->emp_id }}"  data-employee_comments2="{{ @$val->employee_comments }}" data-managers_comments2="{{ @$val->managers_comments }}" data-admin_comments2="{{ @$val->admin_comments }}" data-areas_for_improvement2="{{ @$val->areas_for_improvement }}" data-toggle="modal" data-target="#edit_warningemployee"><i class="fa fa-pencil m-r-5"></i> Edit</a>
                                                     <a class="dropdown-item seconddeleteWarningbtn" href="#" data-id="{{ @$val->id }}" data-toggle="modal" data-target="#delete_EmpVerbalWarning"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                                                 </div>
                                             </div>
@@ -260,6 +266,8 @@
                                         <td>{{ @$val->managers_comments}}</td>                                        
                                         <td>{{ @$val->admin_comments}}</td>
                                         <td></td>
+                                        <td><a href="{{url('employee_documents').'/'.@$val->document}}" download="{{@$val->document}}"><i class="fa fa-download"></i> Download</a></td>
+
                                         <td>
                                             <div class="dropdown action-label">
                                                 <a class="btn btn-white btn-sm btn-rounded" href="#" data-toggle="dropdown" aria-expanded="false">
@@ -271,7 +279,7 @@
                                             <div class="dropdown dropdown-action">
                                                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item editwarningbtn edslpoin3" href="#" data-id3="{{ @$val->id }}" data-emp_id3="{{ @$val->emp_id }}"  data-employee_comments3="{{ @$val->employee_comments }}" data-managers_comments3="{{ @$val->managers_comments }}" data-admin_comments3="{{ @$val->admin_comments }}" data-toggle="modal" data-target="#edit_warningemployee"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                                    <a class="dropdown-item editwarningbtn edslpoin3" data-document="{{@$val->document}}" href="#" data-id3="{{ @$val->id }}" data-emp_id3="{{ @$val->emp_id }}"  data-employee_comments3="{{ @$val->employee_comments }}" data-managers_comments3="{{ @$val->managers_comments }}" data-admin_comments3="{{ @$val->admin_comments }}" data-toggle="modal" data-target="#edit_warningemployee"><i class="fa fa-pencil m-r-5"></i> Edit</a>
                                                      
                                                 </div>
                                             </div>
@@ -291,6 +299,8 @@
                                         <td>{{ @$val->managers_comments}}</td>                                        
                                         <td>{{ @$val->admin_comments}}</td>
                                         <td></td>
+                                        <td><a href="{{url('employee_documents').'/'.@$val->document}}" download="{{@$val->document}}"><i class="fa fa-download"></i> Download</a></td>
+
                                         <td>
                                             <div class="dropdown action-label">
                                                 <a class="btn btn-white btn-sm btn-rounded" href="#" data-toggle="dropdown" aria-expanded="false">
@@ -302,7 +312,7 @@
                                             <div class="dropdown dropdown-action">
                                                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item editwarningbtn edslpoin3" href="#" data-id3="{{ @$val->id }}" data-emp_id3="{{ @$val->emp_id }}"   data-employee_comments3="{{ @$val->employee_comments }}" data-managers_comments3="{{ @$val->managers_comments }}" data-admin_comments3="{{ @$val->admin_comments }}" data-toggle="modal" data-target="#edit_warningemployee"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                                    <a class="dropdown-item editwarningbtn edslpoin3" data-document="{{@$val->document}}" href="#" data-id3="{{ @$val->id }}" data-emp_id3="{{ @$val->emp_id }}"   data-employee_comments3="{{ @$val->employee_comments }}" data-managers_comments3="{{ @$val->managers_comments }}" data-admin_comments3="{{ @$val->admin_comments }}" data-toggle="modal" data-target="#edit_warningemployee"><i class="fa fa-pencil m-r-5"></i> Edit</a>
                                                     
                                                 </div>
                                             </div>
@@ -322,6 +332,7 @@
                                         <td>{{ @$val->managers_comments}}</td>                                        
                                         <td>{{ @$val->admin_comments}}</td>
                                         <td></td>
+                                        <td><a href="{{url('employee_documents').'/'.@$val->document}}" download="{{@$val->document}}"><i class="fa fa-download"></i> Download</a></td>
                                         <td>
                                             <div class="dropdown action-label">
                                                 <a class="btn btn-white btn-sm btn-rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
@@ -337,7 +348,7 @@
                                             <div class="dropdown dropdown-action">
                                                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item editwarningbtn edslpoin3" href="#" data-id3="{{ @$val->id }}" data-emp_id3="{{ @$val->emp_id }}"   data-employee_comments3="{{ @$val->employee_comments }}" data-managers_comments3="{{ @$val->managers_comments }}" data-admin_comments3="{{ @$val->admin_comments }}" data-toggle="modal" data-target="#edit_warningemployee"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                                    <a class="dropdown-item editwarningbtn edslpoin3" href="#" data-document="{{@$val->document}}" data-id3="{{ @$val->id }}" data-emp_id3="{{ @$val->emp_id }}"   data-employee_comments3="{{ @$val->employee_comments }}" data-managers_comments3="{{ @$val->managers_comments }}" data-admin_comments3="{{ @$val->admin_comments }}" data-toggle="modal" data-target="#edit_warningemployee"><i class="fa fa-pencil m-r-5"></i> Edit</a>
                                                     <a class="dropdown-item thirddeleteWarningbtn" href="#" data-id="{{ @$val->id }}" data-toggle="modal" data-target="#delete_EmpVerbalWarning"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                                                 </div>
                                             </div>
@@ -601,7 +612,7 @@
 								<div class="row">
 									<div class="col-md-12">
 										<div class="table-responsive">
-										<form action="{{ route('update_EmployeeFirstVerbalWarning') }}" method="post">
+										<form action="{{ route('update_EmployeeFirstVerbalWarning') }}" method="post" enctype="multipart/form-data">
 										 @csrf
 											<table class="table table-bordered table-review review-table mb-0" id="table_goals_firstw">
 												<thead>
@@ -647,8 +658,9 @@
 														<td><input type="text" class="form-control" name="managers_comments[]" id="managers_comments" @if(Auth::user()->role_id != 2)readonly @endif></td>
 														<td><input type="text" class="form-control" name="admin_comments[]" id="admin_comments" @if(Auth::user()->role_id != 1)readonly @endif></td>
 														<td><input type="text" class="form-control" name="areas_for_improvement[]" id="areas_for_improvement" @if(Auth::user()->role_id == 3)readonly @endif></td>
-														<td><input type="file" class="form-control" name="file" id="" @if(Auth::user()->role_id == 3)readonly @endif>
-														<div id="employee_documents"></div></td>
+														<td><input type="file" class="form-control" name="fileadd[]" id="" @if(Auth::user()->role_id == 3)readonly @endif>
+														<div id="employee_documents"></div>
+                                                        </td>
 														 
                                                         <input type="hidden" class="form-control" name="getid[]" value="" id="getidjq">
 														<td></td>

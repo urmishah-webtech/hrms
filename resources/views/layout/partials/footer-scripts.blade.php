@@ -665,7 +665,7 @@
 					$('#deleteproid').val(proid);
 				})
 			})
-
+			var base_url=window.location.origin+'/employee_documents'+'/';
 			$(document).on("click",".editwarningbtn",function() {
 				var id=$(this).data('id');
 				var seelct_emp=$(this).data('emp_id');
@@ -677,10 +677,11 @@
 				$("#managers_comments").val($(this).data('managers_comments'));
 				$("#admin_comments").val($(this).data('admin_comments'));
 				$("#areas_for_improvement").val($(this).data('areas_for_improvement'));
-				var uurl= $(this).data('employee_documents'); 
-				var image_url="/employee_documents/"+uurl; alert(image_url);
-				var logo=`<img src="`+image_url+`" style="height:50px; width:50px;">`; 
-				$("#employee_documents").html(logo);
+				var uurl= $(this).data('document'); 
+				var text_download=`<a href="`+base_url+uurl+`" download=`+base_url+uurl+` >download</a>`
+				//var image_url="/employee_documents/"+uurl; alert(image_url);
+				alert(text_download)
+				$("#employee_documents").html(text_download);
 
 				var seelct_emp2=$(this).data('emp_id2');
 				$("#select_emp_id_edit2 option[value='"+seelct_emp2+"']").prop('selected',true);

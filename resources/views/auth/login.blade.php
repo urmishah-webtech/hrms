@@ -23,13 +23,13 @@
 		@endif
 		
 		<!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="css/bootstrap.min.css">
+        <link rel="stylesheet" href="{{url('css/bootstrap.min.css')}}">
 		
 		<!-- Fontawesome CSS -->
-        <link rel="stylesheet" href="css/font-awesome.min.css">
+        <link rel="stylesheet" href="{{url('css/font-awesome.min.css')}}">
 		
 		<!-- Main CSS -->
-        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="{{url('css/style.css')}}">
 		
 		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!--[if lt IE 9]>
@@ -114,14 +114,14 @@
 	
 
 
-<script src="js/jquery-3.5.1.min.js"></script>
+<script src="{{url('js/jquery-3.5.1.min.js')}}"></script>
 		
 		<!-- Bootstrap Core JS -->
-        <script src="js/popper.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
+        <script src="{{url('js/popper.min.js')}}"></script>
+        <script src="{{url('js/bootstrap.min.js')}}"></script>
 		
 		<!-- Custom JS -->
-		<script src="js/app.js"></script>
+		<script src="{{url('js/app.js')}}"></script>
 		
     </body>
 </html>
