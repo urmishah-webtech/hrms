@@ -81,7 +81,12 @@ class EmployeeController extends Controller
         $usert->role_id=Str::lower($request->role_id);
 		$usert->gender=$request->gender;
         $usert->save();*/
-		
+		$fileName= NULL;
+		if(isset($request->document_add)){
+			$fileName = time().'.'.$request->document_add->extension();  
+			$request->document_add->move(public_path('employee_documents'), $fileName);
+		}
+		 
         $emp=new Employee();
 		//$emp->user_id = $usert->id;
         $emp->first_name=$request->first_name;
@@ -97,7 +102,8 @@ class EmployeeController extends Controller
         $emp->phone_no=$request->phone_no;
         $emp->company_id=$request->company_id;
         $emp->department_id=$request->department_id;
-        $emp->designation_id=$request->designation_id;
+        $emp->designation_id=$request->designation_id; 
+		$emp->employee_documents = $fileName;  
         $emp->save();
 
         $expl=array();
@@ -147,6 +153,11 @@ class EmployeeController extends Controller
            
             return Redirect::back()->withErrors($validator);
         }
+		$fileName= NULL;
+		if(isset($request->document_add)){
+			$fileName = time().'.'.$request->document_add->extension();  
+			$request->document_add->move(public_path('employee_documents'), $fileName);
+		}
         $emp=Employee::where('id',$request->id)->first();
         $emp->first_name=is_null($request->first_name)?$emp->first_name:$request->first_name;
         $emp->last_name=is_null($request->last_name)?$emp->last_name:$request->last_name;
@@ -163,7 +174,7 @@ class EmployeeController extends Controller
         $emp->company_id=is_null($request->company_id)?$emp->company_id:$request->company_id;
         $emp->department_id=is_null($request->department_id)?$emp->department_id:$request->department_id;
         $emp->designation_id=is_null($request->designation_id)?$emp->designation_id:$request->designation_id;
-
+		$emp->employee_documents=is_null($fileName)?$emp->employee_documents:$fileName;
         $emp->save();
 
         $expl=array();

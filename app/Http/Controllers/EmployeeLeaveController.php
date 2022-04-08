@@ -40,7 +40,8 @@ class EmployeeLeaveController extends Controller
         return view('leaves-employee',compact('total_sick_taken','sick_days','lt','data','total_leaves','taken_leaves','remaining_leaves','my_manager_name'));
     } 
     public function save_leave(Request $request){
-
+	
+		
         $el=new EmployeeLeave();
         $el->remaining_leave=$request->remaining_leaves;
         $fdate = strtotime($request->start_date);
@@ -52,6 +53,14 @@ class EmployeeLeaveController extends Controller
         $el->leave_type_id=$request->leave_type_id;
         $el->employee_id=Auth::id();
         $el->manager_id=Auth::user()->man_id;
+		$fileName= NULL;
+		if(isset($request->document_add)){
+			$fileName = time().'.'.$request->document_add->extension();  
+			$request->document_add->move(public_path('employee_documents'), $fileName);
+		}
+		 
+		$el->employee_documents = $fileName;   
+		 
         $el->save();
         $admin_ids=array();
         $admins=Employee::where('role_id',1)->get();
@@ -109,6 +118,8 @@ class EmployeeLeaveController extends Controller
         return view('edit_emp_leave',compact('data','total_leaves','remaining_leaves'));
     }
     public function update_leave(Request $request){
+		
+				
         $data=EmployeeLeave::where('id',$request->id)->first();   
         if($data){
 
@@ -131,6 +142,12 @@ class EmployeeLeaveController extends Controller
                 $data->leave_reason=$request->leave_reason;
                 $data->leave_type_id=$request->leave_type_id;
                 $data->employee_id=Auth::id();
+				$fileName= NULL;
+				if(isset($request->document_add)){
+					$fileName = time().'.'.$request->document_add->extension();  
+					$request->document_add->move(public_path('employee_documents'), $fileName);
+				}
+				$data->employee_documents=is_null($fileName)?$data->employee_documents:$fileName;
                 $data->save();
             }
             
