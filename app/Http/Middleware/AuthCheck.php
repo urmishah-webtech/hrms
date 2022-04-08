@@ -21,7 +21,7 @@ class AuthCheck
     {   
 	
 		  if(Auth::check()){		   
-			if (auth()->user()->role_id == 1 || auth()->user()->role_id == 2)
+			if (auth()->user()->role_id == 1 || auth()->user()->role_id == 2 || Auth::user()->role_id == 5)
 			{	 
 				return $next($request);		 
 			}

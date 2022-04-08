@@ -42,6 +42,12 @@ class EmployeeVerbalWarningController extends Controller
         $admin_comments = $request->admin_comments;
         $areas_for_improvement = $request->areas_for_improvement;        
        
+		$fileName= NULL;
+		if(isset($request->fileadd)){
+			$fileName = time().'.'.$request->fileadd->extension();  
+			$request->fileadd->move(public_path('employee_documents'), $fileName);
+		}
+	   
         foreach($employee_comments as $key => $input) 
         {
             if($employee_comments[$key] || $employee_nameid[$key] || $managers_comments[$key] || $admin_comments[$key] || $areas_for_improvement[$key])
@@ -54,6 +60,8 @@ class EmployeeVerbalWarningController extends Controller
                 $scores->areas_for_improvement = $areas_for_improvement[$key] ? $areas_for_improvement[$key] : '';
                 $scores->warning_by = $emp_id;
                 $scores->status = 1;
+				$scores->employee_documents = $fileName[$key] ? $fileName[$key] : '';  
+                
                 $scores->save();                
             }
         }
@@ -71,6 +79,8 @@ class EmployeeVerbalWarningController extends Controller
         $admin_comments = $request->admin_comments;
         $areas_for_improvement = $request->areas_for_improvement;        
         $id = $request->getid;
+		 
+		 
         foreach($employee_comments as $key => $input) 
         {
             if($employee_comments[$key] || $employee_nameid[$key] || $managers_comments[$key] || $admin_comments[$key] || $areas_for_improvement[$key])
@@ -84,6 +94,12 @@ class EmployeeVerbalWarningController extends Controller
                     $scores->admin_comments = $admin_comments[$key] ? $admin_comments[$key] : '';
                     $scores->areas_for_improvement = $areas_for_improvement[$key] ? $areas_for_improvement[$key] : '';
                     $scores->warning_by = $emp_id;
+					$fileName= NULL;
+					if(isset($request->fileadd)){
+						$fileName = time().'.'.$request->fileadd->extension();  
+						$request->fileadd->move(public_path('employee_documents'), $fileName);
+					}  
+					$scores->employee_documents=is_null($fileName)?$scores->employee_documents:$fileName;  
                     $scores->save();  
                 }
                 else

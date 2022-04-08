@@ -42,6 +42,7 @@ class EmployeePerformanceController extends Controller
     public function edit_employees($id)
 	{   
 		$emp_id = Employee::where('id',$id)->first();
+		$emp_hrcomp = Employee::where('id',$id)->pluck('id')->first();		
         $userd = Auth::user()->id; 	
         $emps=Employee::where('id',$id)->first();        
         $professional=ProfessionalExcellence::where('emp_id', $id)->first();          
@@ -66,7 +67,7 @@ class EmployeePerformanceController extends Controller
         $prof_excel=KeyprofessionalExcellences::where('emp_id', $id)->first();
 		 
 		 
-		return view('/edit-performance',compact('emp_id','professional','emps','personal','specialInitiatives','comments_role','add_comments','add_comments_id','add_appraiseest','add_appraiseest_id','add_personalgoal','add_personalgoal_id','professional_achived','professional_forthcoming','training_requirements','general_comment','perfomancemanageruse','add_perfoIdent','manager_user','prof_excel','add_perfoIdent_man','add_perfoIdent_employ'));
+		return view('/edit-performance',compact('emp_id','professional','emps','personal','specialInitiatives','comments_role','add_comments','add_comments_id','add_appraiseest','add_appraiseest_id','add_personalgoal','add_personalgoal_id','professional_achived','professional_forthcoming','training_requirements','general_comment','perfomancemanageruse','add_perfoIdent','manager_user','prof_excel','add_perfoIdent_man','add_perfoIdent_employ','emp_hrcomp'));
 	}
 	public function add_managerid_EmployeeBasicInfo(Request $request)
 	{	$id = $request->id;
@@ -592,9 +593,11 @@ class EmployeePerformanceController extends Controller
     }
     public function add_Perfomance_status_user(Request $request)
     {   
-        $userd = Auth::user()->id;       
+        $userd = Auth::user()->id; 
+		 
         $status=Employee::where('id',$request->empid)->first();             
         $status->perfomance_status=$request->perfomance_status;
+        $status->performance_completed_by=$request->user_id;
         $status->save();
 
         $message='Hi, Your Employee Performance Status has been Complete';
