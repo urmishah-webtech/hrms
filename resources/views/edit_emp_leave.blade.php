@@ -40,8 +40,9 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form id="edit_leave_form">
+                            <form id="edit_leave_form" enctype="multipart/form-data">
                                 @csrf
+								{{ csrf_field() }} 
                                 <div class="form-group">
                                     <label>Leave Type <span class="text-danger">*</span></label>
                                     <select class="select" name="leave_type_id" required>
@@ -90,6 +91,12 @@
                                     <label>Leave Reason <span class="text-danger">*</span></label>
                                     <textarea rows="4"  name="leave_reason" class="form-control" required >{{ @$data->leave_reason }}</textarea>
                                 </div>
+								<div class="form-group">
+									<label>Documents <span class="text-danger">*</span></label>
+									<input type="file" class="form-control" name="document_add" id="employee_documents" required> 
+									<h4 class="edit_leave_download"><a href="{{url('employee_documents').'/'.@$data->employee_documents}}" download="{{@$data->employee_documents}}"><i class="fa fa-download"></i> Download</a></h4>
+									<h4>Name : {{@$data->employee_documents}}</h4>
+								</div>
                                 <div class="submit-section">
                                     <button class="btn btn-primary submit-btn">Save</button>
                                 </div>
@@ -103,7 +110,7 @@
         </div>
         <!-- /Page Wrapper -->
 
-@endsection
+
 <link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
 <script src="{{ URL::asset('js/jquery-3.5.1.min.js') }}"></script>
 <script src="{{ URL::asset('js/jquery-ui.min.js') }}"></script>
@@ -181,14 +188,19 @@
         if(nd<=0){
             return false;
         }
+		 var formData = new FormData(this);
         $.ajax({
           url: "{{ url('update_leave') }}",
           type:"POST",
-          data:$(this).serialize(),
+           data : formData,
+		   
+			 contentType: false,
+            processData: false,
           success:function(response){
             if(response.status==0){
                 $(".error").show();
-                $("#errorMessage").html(response.message)
+                $("#errorMessage").html(response.message);
+				location.reload();
             }else{
                 location.reload();
             }
@@ -198,3 +210,8 @@
 
 })
 </script>
+<style>
+h4.edit_leave_download{margin-top: 14px;}
+</style>
+
+@endsection

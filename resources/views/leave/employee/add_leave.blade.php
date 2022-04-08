@@ -8,8 +8,10 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form id="add_leave_form">
+                <form id="add_leave_form" enctype="multipart/form-data">
                     @csrf
+					{{ csrf_field() }} 
+					 
                     <div class="form-group">
                         <label>Leave Type <span class="text-danger">*</span></label>
                         <select class="select" name="leave_type_id" required>
@@ -62,6 +64,11 @@
                     <div class="form-group">
                         <label>Leave Reason <span class="text-danger">*</span></label>
                         <textarea rows="4" name="leave_reason" class="form-control" required></textarea>
+                    </div>
+					
+					<div class="form-group">
+                        <label>Documents <span class="text-danger">*</span></label>
+                        <input type="file" class="form-control" name="document_add" id="employee_documents" required>
                     </div>
                     <div class="submit-section">
                         <button class="btn btn-primary submit-btn">Submit</button>
@@ -124,10 +131,15 @@
         if(nd==0){
             return false;
         }
+		 var formData = new FormData(this);
+		 
         $.ajax({
           url: "{{ url('save_leave') }}",
-          type:"POST",
-          data:$(this).serialize(),
+          type:"POST", 
+			 data : formData,
+            dataType : 'json',
+			 contentType: false,
+            processData: false,
           success:function(response){
               if(response==0){
                 $("#add_leave_form")[0].reset();

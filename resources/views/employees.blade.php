@@ -128,7 +128,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form action="{{ route('add_employee') }}" method="post">
+                            <form action="{{ route('add_employee') }}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
                                     <div class="col-sm-6">
@@ -242,6 +242,12 @@
                                             </select>
                                         </div>
                                     </div>
+									<div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Documents </label>
+                                            <input class="form-control" type="file" name="document_add"  >
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="table-responsive m-t-15">
                                     <table class="table table-striped custom-table">
@@ -302,7 +308,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form action="{{ route('update_employee') }}" method="post">
+                            <form action="{{ route('update_employee') }}" method="post" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row">
                                     <div class="col-sm-6">
@@ -470,6 +476,14 @@
                                                 <option value="">Select Designation</option>
                                             </select>
                                             @endif  
+                                        </div>
+                                    </div>
+									<div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Documents </label>
+                                            <input class="form-control" type="file" name="document_add" >
+											<div  id="employee_document_edit"></div>
+											<div  id="employee_document_edit1"></div>
                                         </div>
                                     </div>
                                 </div>
