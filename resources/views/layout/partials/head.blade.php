@@ -24,44 +24,44 @@
 		<!-- Favicon -->
         @if($theme_setting)
 			@if($theme_setting->favicon!=null)
-			<link rel="shortcut icon" type="image/x-icon" href="{{ url('/').'/setting_images/'.@$theme_setting->favicon }}">
+			<link rel="shortcut icon" type="image/x-icon" href="{{ asset('/').'/setting_images/'.@$theme_setting->favicon }}">
 			@else
-			<link rel="shortcut icon" type="image/x-icon" href="{{ url('/').'img/favicon.png'}}">
+			<link rel="shortcut icon" type="image/x-icon" href="{{ asset('/').'img/favicon.png'}}">
 			@endif
 		@else
-			<link rel="shortcut icon" type="image/x-icon" href="{{ url('/').'img/favicon.png'}}">
+			<link rel="shortcut icon" type="image/x-icon" href="{{ asset('/').'img/favicon.png'}}">
 		@endif
 		<!-- Bootstrap CSS -->
-        <link rel="stylesheet" href="{{ url('/').'css/bootstrap.min.css'}}">
+        <link rel="stylesheet" href="{{ asset('/').'css/bootstrap.min.css'}}">
 		
 		<!-- Fontawesome CSS -->
-        <link rel="stylesheet" href="{{ url('/').'css/font-awesome.min.css'}}">
+        <link rel="stylesheet" href="{{ asset('/').'css/font-awesome.min.css'}}">
 		
 		<!-- Lineawesome CSS -->
-        <link rel="stylesheet" href="{{ url('/').'css/line-awesome.min.css'}}">
+        <link rel="stylesheet" href="{{ asset('/').'css/line-awesome.min.css'}}">
 		
         	<!-- Select2 CSS -->
-		<link rel="stylesheet" href="{{ url('/').'css/select2.min.css'}}">
+		<link rel="stylesheet" href="{{ asset('/').'css/select2.min.css'}}">
 		
 		<!-- Datetimepicker CSS -->
-		<link rel="stylesheet" href="{{ url('/').'css/bootstrap-datetimepicker.min.css'}}">
+		<link rel="stylesheet" href="{{ asset('/').'css/bootstrap-datetimepicker.min.css'}}">
 		
 		<!-- Calendar CSS -->
-		<link rel="stylesheet" href="{{ url('/').'css/fullcalendar.min.css'}}">
+		<link rel="stylesheet" href="{{ asset('/').'css/fullcalendar.min.css'}}">
 
         <!-- Tagsinput CSS -->
-		<link rel="stylesheet" href="{{URL::url('plugins/bootstrap-tagsinput/bootstrap-tagsinput.css')}}">
+		<link rel="stylesheet" href="{{URL::asset('plugins/bootstrap-tagsinput/bootstrap-tagsinput.css')}}">
 
 		<!-- Datatable CSS -->
-		<link rel="stylesheet" href="{{ url('/').'css/dataTables.bootstrap4.min.css'}}">
+		<link rel="stylesheet" href="{{ asset('/').'css/dataTables.bootstrap4.min.css'}}">
         
 		<!-- Chart CSS -->
-		<link rel="stylesheet" href="{{ url('/').'plugins/morris/morris.css'}}">
+		<link rel="stylesheet" href="{{ asset('/').'plugins/morris/morris.css'}}">
 
 		<!-- Summernote CSS -->
-		<link rel="stylesheet" href="{{ url('/').'plugins/summernote/dist/summernote-bs4.css'}}">
+		<link rel="stylesheet" href="{{ asset('/').'plugins/summernote/dist/summernote-bs4.css'}}">
 		
 		<!-- Main CSS -->
-        <link rel="stylesheet" href="{{ url('/').'css/style.css'}}">
+        <link rel="stylesheet" href="{{ asset('/').'css/style.css'}}">
 
     </head>
