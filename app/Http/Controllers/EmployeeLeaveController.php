@@ -17,17 +17,26 @@ class EmployeeLeaveController extends Controller
     {
         $lt=LeaveType::first();
         $total_leaves=0;
+        $sick_days=0;
+        $hospitalisation_days=0;
+        $maternity_days=0;
+        $paternity_days=0;
         if($lt){
         $total_leaves+=is_null($lt->annual_days)?0:$lt->annual_days;
         $total_leaves+=is_null($lt->sick_days)?0:$lt->sick_days;
         $total_leaves+=is_null($lt->hospitalisation_days)?0:$lt->hospitalisation_days;
+
         $sick_days=is_null($lt->sick_days)?0:$lt->sick_days;
+        $hospitalisation_days+=is_null($lt->hospitalisation_days)?0:$lt->hospitalisation_days;
         }
         $data=EmployeeLeave::where('employee_id',Auth::id())->orderBy('id','desc')->get();
         $my_manager_name=Employee::where('id',Auth::user()->man_id)->first();
         
         $total_sick_taken = EmployeeLeave::where('employee_id',Auth::id())->where('leave_type_id',1)->count();
-
+        $total_hospitalisation_taken = EmployeeLeave::where('employee_id',Auth::id())->where('leave_type_id',2)->count();
+        $total_maternity_taken = EmployeeLeave::where('employee_id',Auth::id())->where('leave_type_id',3)->count();
+        $total_paternity_taken = EmployeeLeave::where('employee_id',Auth::id())->where('leave_type_id',4)->count();
+       
         $taken_leaves=0;
         if(!empty($data)){
             foreach($data as $val)
@@ -37,7 +46,8 @@ class EmployeeLeaveController extends Controller
         }
         $remaining_leaves=$total_leaves-$taken_leaves;
       
-        return view('leaves-employee',compact('total_sick_taken','sick_days','lt','data','total_leaves','taken_leaves','remaining_leaves','my_manager_name'));
+        return view('leaves-employee',compact('total_maternity_taken','total_paternity_taken',
+        'maternity_days','paternity_days','total_hospitalisation_taken','hospitalisation_days','total_sick_taken','sick_days','lt','data','total_leaves','taken_leaves','remaining_leaves','my_manager_name'));
     } 
     public function save_leave(Request $request){
 	
