@@ -1,5 +1,6 @@
 <?php
 
+
 namespace App\Imports;
 
 use App\Employee;
@@ -12,8 +13,8 @@ use App\Role;
 use Carbon\Carbon;
 use App\ProfilePersonalInformations;
 
-class EmployeesImport implements ToModel,WithHeadingRow,WithValidation
-{
+
+class SecondSheetImport implements ToModel,WithHeadingRow,WithValidation{
     /**
     * @param array $row
     *
@@ -26,8 +27,7 @@ class EmployeesImport implements ToModel,WithHeadingRow,WithValidation
          //   'last_name' => 'required',
             'user_name' => 'required',
             'password' => 'required',
-
-          //  'email' => 'required|unique:employees',
+             'email' => 'required|unique:employees',
            // 'employee_code' => 'required',
        //     'joining_date' => 'required',
         //    'phone_no' => 'required',

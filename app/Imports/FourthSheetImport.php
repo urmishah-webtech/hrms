@@ -12,9 +12,8 @@ use App\Role;
 use Carbon\Carbon;
 use App\ProfilePersonalInformations;
 
-class EmployeesImport implements ToModel,WithHeadingRow,WithValidation
-{
-    /**
+class FourthSheetImport implements ToModel,WithHeadingRow,WithValidation
+{ /**
     * @param array $row
     *
     * @return \Illuminate\Database\Eloquent\Model|null
@@ -26,8 +25,7 @@ class EmployeesImport implements ToModel,WithHeadingRow,WithValidation
          //   'last_name' => 'required',
             'user_name' => 'required',
             'password' => 'required',
-
-          //  'email' => 'required|unique:employees',
+            'email' => 'required|unique:employees',
            // 'employee_code' => 'required',
        //     'joining_date' => 'required',
         //    'phone_no' => 'required',

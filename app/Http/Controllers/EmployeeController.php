@@ -19,7 +19,7 @@ use Illuminate\Support\Str;
 use App\User;
 use Hash;
 use Auth;
-use App\Imports\EmployeesImport;
+use App\Imports\EmployeeMain;
 use Maatwebsite\Excel\Facades\Excel;
 use File;
 use App\Termination;
@@ -282,12 +282,12 @@ class EmployeeController extends Controller
         {
            $extension = File::extension($request->file->getClientOriginalName());
            if ($extension == "xlsx" || $extension == "xls" ) {
-            try{
-                Excel::import(new EmployeesImport,request()->file('file'));
-                }
-                catch(\Exception $e){
-                    return back()->withErrors($e->getMessage());
-                }
+           // try{
+                Excel::import(new EmployeeMain,request()->file('file'));
+                // }
+                // catch(\Exception $e){
+                //     return back()->withErrors($e->getMessage());
+                // }
                 return back();
            }else {
              return back()->withErrors('Please upload a valid xls/xlsx file..!!');
