@@ -67,8 +67,8 @@
                     </div>
 					
 					<div class="form-group">
-                        <label>Documents <span class="text-danger">*</span></label>
-                        <input type="file" class="form-control" name="document_add" id="employee_documents" required>
+                        <label>Documents <span class="text-danger"></span></label>
+                        <input type="file" class="form-control" name="document_add" id="employee_documents">
                     </div>
                     <div class="submit-section">
                         <button class="btn btn-primary submit-btn">Submit</button>

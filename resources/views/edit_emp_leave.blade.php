@@ -92,10 +92,12 @@
                                     <textarea rows="4"  name="leave_reason" class="form-control" required >{{ @$data->leave_reason }}</textarea>
                                 </div>
 								<div class="form-group">
-									<label>Documents <span class="text-danger">*</span></label>
-									<input type="file" class="form-control" name="document_add" id="employee_documents" required> 
+									<label>Documents <span class="text-danger"></span></label>
+									<input type="file" class="form-control" name="document_add" id="employee_documents">
+                                    @if($data->employee_documents!='') 
 									<h4 class="edit_leave_download"><a href="{{url('employee_documents').'/'.@$data->employee_documents}}" download="{{@$data->employee_documents}}"><i class="fa fa-download"></i> Download</a></h4>
 									<h4>Name : {{@$data->employee_documents}}</h4>
+                                    @endif
 								</div>
                                 <div class="submit-section">
                                     <button class="btn btn-primary submit-btn">Save</button>
@@ -200,7 +202,7 @@
             if(response.status==0){
                 $(".error").show();
                 $("#errorMessage").html(response.message);
-				location.reload();
+			//	location.reload();
             }else{
                 location.reload();
             }

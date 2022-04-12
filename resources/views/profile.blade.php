@@ -20,6 +20,9 @@
                         </div>
                     </div>
                 </div>
+        @if(!$emp_profile)
+        <h4>Employee is Removed</h4>
+        @else  
                 <!-- /Page Header -->
                 @if ($errors->any())
                 <div class="alert alert-danger alert-block">
@@ -303,6 +306,7 @@
                         
                 </div>
             </div>
+      
             @include('change_emp_info')
             <!-- Personal Info Modal -->
             <div id="personal_info_modal" class="modal custom-modal fade" role="dialog">
@@ -702,7 +706,7 @@
                 </div>
             </div>
             <!-- /Experience Modal -->
-            
+            @endif
         </div>
         <!-- /Page Wrapper -->
 @endsection

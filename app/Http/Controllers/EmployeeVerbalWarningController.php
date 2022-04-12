@@ -132,9 +132,25 @@ class EmployeeVerbalWarningController extends Controller
                     $scores->admin_comments = $admin_comments[$key] ? $admin_comments[$key] : '';
                     $scores->areas_for_improvement = $areas_for_improvement[$key] ? $areas_for_improvement[$key] : '';
                     $scores->warning_by = $emp_id;
+<<<<<<< HEAD
 				//	$files = $request->fileadd;
 
 					$scores->document= $file_arr[$key] ? $file_arr[$key] : ''; 
+=======
+					$files = $request->file('fileadd');
+					$file_arr=array();
+					$fileName=NULL;
+					
+                    if(isset($request->fileadd) && !empty($request->fileadd)){
+                        foreach ($files as $file) {	
+                            $fileName = time().'.'.$file->getClientOriginalName();
+							
+                            $file->move(public_path('employee_documents'), $fileName);	
+                            //array_push($file_arr,$fileName);
+                        }
+					}
+					$scores->document=$fileName[$key]; 
+>>>>>>> 93a32cfb539a05f5c4149157f5641d623ff1004e
                     $scores->save();
                 }              
             }

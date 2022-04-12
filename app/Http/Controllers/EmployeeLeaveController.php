@@ -32,11 +32,30 @@ class EmployeeLeaveController extends Controller
         $data=EmployeeLeave::where('employee_id',Auth::id())->orderBy('id','desc')->get();
         $my_manager_name=Employee::where('id',Auth::user()->man_id)->first();
         
-        $total_sick_taken = EmployeeLeave::where('employee_id',Auth::id())->where('leave_type_id',1)->count();
-        $total_hospitalisation_taken = EmployeeLeave::where('employee_id',Auth::id())->where('leave_type_id',2)->count();
-        $total_maternity_taken = EmployeeLeave::where('employee_id',Auth::id())->where('leave_type_id',3)->count();
-        $total_paternity_taken = EmployeeLeave::where('employee_id',Auth::id())->where('leave_type_id',4)->count();
+        $total_sicks = EmployeeLeave::where('employee_id',Auth::id())->where('leave_type_id',1)->where('status',2)->get();
+        $total_sick_taken =0;
+        foreach($total_sicks as $val){
+            $total_sick_taken+=$val->number_of_days;
+        }
        
+        $total_hospitalisations= EmployeeLeave::where('employee_id',Auth::id())->where('leave_type_id',2)->where('status',2)->get();
+        $total_hospitalisation_taken=0;
+        foreach($total_hospitalisations as $val){
+            $total_hospitalisation_taken+=$val->number_of_days;
+        }
+
+        $total_maternities = EmployeeLeave::where('employee_id',Auth::id())->where('leave_type_id',3)->where('status',2)->get();
+        $total_maternity_taken = 0;
+        foreach($total_maternities as $val){
+            $total_maternity_taken+=$val->number_of_days;
+        }
+
+        $total_paternity_taken = 0;
+        $total_paternities= EmployeeLeave::where('employee_id',Auth::id())->where('leave_type_id',4)->where('status',2)->get();
+        foreach($total_paternities as $val){
+            $total_paternity_taken+=$val->number_of_days;
+        }
+
         $taken_leaves=0;
         if(!empty($data)){
             foreach($data as $val)

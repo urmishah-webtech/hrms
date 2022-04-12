@@ -11,10 +11,9 @@ use App\Department;
 use App\Role;
 use Carbon\Carbon;
 use App\ProfilePersonalInformations;
-
-class EmployeesImport implements ToModel,WithHeadingRow,WithValidation
-{
-    /**
+use Illuminate\Support\Facades\Hash;
+class FourthSheetImport implements ToModel,WithHeadingRow,WithValidation
+{ /**
     * @param array $row
     *
     * @return \Illuminate\Database\Eloquent\Model|null
@@ -26,8 +25,7 @@ class EmployeesImport implements ToModel,WithHeadingRow,WithValidation
          //   'last_name' => 'required',
             'user_name' => 'required',
             'password' => 'required',
-
-          //  'email' => 'required|unique:employees',
+            'email' => 'required|unique:employees',
            // 'employee_code' => 'required',
        //     'joining_date' => 'required',
         //    'phone_no' => 'required',
@@ -94,7 +92,7 @@ class EmployeesImport implements ToModel,WithHeadingRow,WithValidation
             'last_name'    => $row['last_name'], 
             'user_name' => $row['user_name'],
             'email' => $row['email'],
-            'password'=>$row['password'],
+            'password'=>Hash::make($row['password']),
             'employee_id'=> 'emp_'.rand(1000000,100),
             'joing_date'=>is_null($row['joining_date'])?NULL:$this->transformDate($row['joining_date']),
             'phone_no'=>$row['phone_no'],
