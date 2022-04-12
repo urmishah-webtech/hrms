@@ -74,7 +74,7 @@
                                                     <a id="deleteForm" class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_termination" data-id="{{$termination->id}}"><i class="fa fa-trash-o m-r-5"></i> Delete
                                                     </a>
                                                     @endif
-                                                    <a id="viewForm" class="dropdown-item" href="#" data-toggle="modal" data-target="#view_termination" data-id="{{$termination->id}}" data-employee_id="{{$termination->employee->first_name .' '.$termination->employee->last_name}}" data-type="{{$termination->type}}" data-termination_date="{{$termination->termination_date}}" data-reason="{{$termination->reason}}" data-notice_date="{{$termination->notice_date}}" >
+                                                    <a id="viewForm" class="dropdown-item" href="#" data-toggle="modal" data-target="#view_termination" data-id="{{$termination->id}}" data-employee_id="{{@$termination->employee->first_name .' '.@$termination->employee->last_name}}" data-type="{{$termination->type}}" data-termination_date="{{$termination->termination_date}}" data-reason="{{$termination->reason}}" data-notice_date="{{$termination->notice_date}}" >
                                                         <i class="fa fa-eye m-r-5"></i> View
                                                     </a>
                                                 </div>
