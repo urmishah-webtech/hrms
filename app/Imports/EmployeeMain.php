@@ -14,11 +14,10 @@ class EmployeeMain implements ToCollection,WithMultipleSheets
 {
     public function sheets(): array
     {
+        
         return [
             0 => new FirstSheetImport(),
-            1 => new SecondSheetImport(),
-            2 => new ThirdSheetImport(),
-            3 => new FourthSheetImport(),
+           
         ];
     }
     /**
