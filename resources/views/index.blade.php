@@ -301,9 +301,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @if($emp->isEmpty())
                                     @foreach ($emp as $employee)
                                     <tr>
-                                        <td><a href="{{route('profile_details', $employee->id)}}">{{$employee->employee_id}}</a></td>
+                                        <td><a href="{{route('profile_details', @$employee->id)}}">{{$employee->employee_id}}</a></td>
                                         <td>
                                             <h2><a href="{{route('profile_details', $employee->id)}}">{{$employee->first_name}}</a></h2>
                                         </td>
@@ -317,6 +318,7 @@
                                         </td>
                                     </tr>
                                     @endforeach
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
@@ -343,14 +345,16 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @if($res->isEmpty())
                                     @foreach ($res as $resemp)
                                     <tr>
-                                        <td><a href="{{route('profile_details', $resemp->employee->id)}}">{{$resemp->employee->first_name}}</a></td>
+                                        <td><a href="{{route('profile_details', @$resemp->employee->id)}}">{{@$resemp->employee->first_name}}</a></td>
                                         <td>{{date('d-m-Y', strtotime($resemp->noticedate))}}</td>
                                         <td>{{date('d-m-Y', strtotime($resemp->resignationdate))}}</td>
                                         <td><span class="badge bg-inverse-warning">{{$resemp->status}}</span></td>
                                     </tr>
                                     @endforeach
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
@@ -380,6 +384,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @if($promotion->isEmpty())
                                     @foreach ($promotion as $item)
                                        <tr>
                                         <td>
@@ -401,7 +406,7 @@
                                         </td>
                                     </tr>
                                     @endforeach
-
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
@@ -429,10 +434,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @if($appraisal->isEmpty())
                                     @foreach ($appraisal as $item)
                                     <tr>
                                         <td>
-                                            <h2><a href="{{route('profile_details', $item->employee->id)}}">{{ @$item->employee->first_name }}</a></h2>
+                                            <h2><a href="{{route('profile_details', @$item->employee->id)}}">{{ @$item->employee->first_name }}</a></h2>
                                         </td>
                                         <td>{{@$item->employee->designation->name}}</td>
                                         <td>{{@$item->employee->department->name}}</td>
@@ -457,7 +463,7 @@
                                         <td>{{date('d-m-Y', strtotime($item->appraisal_date))}}</td>
                                     </tr>
                                     @endforeach
-
+                                    @endif
                                 </tbody>
                             </table>
                         </div>
