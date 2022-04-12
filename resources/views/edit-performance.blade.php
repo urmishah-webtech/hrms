@@ -75,7 +75,7 @@
 														<option value="">Select Manager</option>
 														@isset($manager_user)
 															@foreach ($manager_user as $item)
-															<option @if($item->first_name == @$man_name->first_name)selected @endif value="{{ $item->id }}">{{ $item->first_name }}</option> 
+															<option @if($item->first_name == @$man_name->first_name)selected @endif value="{{ $item->id }}">{{ $item->first_name.' '.$item->last_name }}</option> 
 															@endforeach							
 														@endisset
 													</select>										 
@@ -1032,18 +1032,26 @@
         </div>
         <!-- /Page Wrapper -->
     
-	 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+	
+@endsection
+<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 	<script type="text/javascript">
 		jQuery(document).ready(function() {
-		 <?php  
-		 $hr_id = Employee::where('role_id',5)->pluck('id')->first();
-		$compl= Employee::where('performance_completed_by',$hr_id)->pluck('id')->toArray();   foreach($compl as $val){
-		if($emp_hrcomp == $val){?>
+		<?php  
+		$hr_id = Employee::where('role_id',5)->get();
+    
+        foreach($hr_id as $hr_id)
+        {
+		    $compl= Employee::where('performance_completed_by',$hr_id->id)->where('id',$emp_hrcomp)->where('perfomance_status',1)->first();  
+           
+        
+       
+		if($compl){?>
 		jQuery("input").attr('disabled','disabled');
 		jQuery("select").attr('disabled','disabled');
 		jQuery(".btn-add-row").css('pointer-events','none');
 		});
 		<?php }
-		} ?>
+        }
+		 ?>
 		</script>	 
-       @endsection

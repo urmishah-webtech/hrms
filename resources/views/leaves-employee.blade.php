@@ -49,6 +49,7 @@
                                         <th>Reason</th>
                                         <th class="text-center">Status</th>
                                         <th>Approved by</th>
+                                        <th>Manager Comments</th>
                                         <th class="text-right">Actions</th>
                                     </tr>
                                 </thead>
@@ -109,6 +110,7 @@
                                                     @endempty
                                                 </h2>
                                             </td>
+                                            <td>{{@$val->manager_comment}}</td>
                                             <td class="text-right">
                                                 <div class="dropdown dropdown-action">
                                                     <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>

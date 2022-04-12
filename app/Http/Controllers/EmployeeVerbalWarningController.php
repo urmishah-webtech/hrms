@@ -136,7 +136,7 @@ class EmployeeVerbalWarningController extends Controller
                         foreach ($files as $file) {	
                             $fileName = time().'.'.$file->getClientOriginalName();
 							
-                            $file->move('storage/employee_documents', $fileName);	
+                            $file->move(public_path('employee_documents'), $fileName);	
                             //array_push($file_arr,$fileName);
                         }
 					}
