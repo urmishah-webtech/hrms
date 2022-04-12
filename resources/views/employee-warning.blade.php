@@ -451,7 +451,7 @@
 								<div class="row">
 									<div class="col-md-12">
 										<div class="table-responsive">
-										<form action="{{ route('add_EmployeeSecondVerbalWarning') }}" method="post">
+										<form action="{{ route('add_EmployeeSecondVerbalWarning') }}" method="post" enctype="multipart/form-data">
 										 @csrf
 											<table class="table table-bordered table-review2 review-table mb-0" id="table_secondwarning">
 												<thead>
@@ -462,6 +462,7 @@
 														<th>Manager's Comment</th>
 														<th>Admin Comment</th>
 														<th>Area's for Improvement</th>
+                                                        <th>Documents</th>
 														<th style="width: 64px;"><button type="button" class="btn btn-primary btn-second-warning2"><i class="fa fa-plus"></i></button></th>
 													</tr>
 												</thead>
@@ -495,6 +496,7 @@
 														<td><input type="text" class="form-control" name="managers_comments[]" @if(Auth::user()->role_id != 2)readonly @endif></td>
 														<td><input type="text" class="form-control" name="admin_comments[]"  @if(Auth::user()->role_id != 1)readonly @endif></td>
 														<td><input type="text" class="form-control" name="areas_for_improvement[]" @if(Auth::user()->role_id == 3)readonly @endif></td>
+                                                        <td><input type="file" class="form-control" name="fileadd[]" @if(Auth::user()->role_id == 3)readonly @endif></td>
 														<input type="hidden" class="form-control" name="getid[]" value="" >
                                                         <td></td>
 													</tr>
@@ -516,7 +518,7 @@
 								<div class="row">
 									<div class="col-md-12">
 										<div class="table-responsive">
-										<form action="{{ route('add_EmployeeThirdVerbalWarning') }}" method="post">
+										<form action="{{ route('add_EmployeeThirdVerbalWarning') }}" method="post" enctype="multipart/form-data">
 										 @csrf
                                          <input type="hidden" class="form-control" name="getid[]" value="" id="getidjq">
 											<table class="table table-bordered table-review3 review-table mb-0" id="table_thirdwarning">
@@ -527,6 +529,7 @@
 														<th>Employee Comment</th>
 														<th>Manager's Comment</th>
 														<th>Admin Comment</th>
+                                                        <th>Documents</th>
 														<th style="width: 64px;"><button type="button" class="btn btn-primary btn-third-warning3"><i class="fa fa-plus"></i></button></th>
 													</tr>
 												</thead>
@@ -560,6 +563,7 @@
 														<td><input type="text" class="form-control" name="employee_comments[]"  @if(Auth::user()->role_id != 3) readonly @endif ></td>
 														<td><input type="text" class="form-control" name="managers_comments[]" @if(Auth::user()->role_id != 2)readonly @endif></td>
 														<td><input type="text" class="form-control" name="admin_comments[]" @if(Auth::user()->role_id != 1)readonly @endif></td>
+                                                        <td><input type="file" class="form-control" name="fileadd[]" @if(Auth::user()->role_id == 3)readonly @endif></td>
 														<td></td>
 													</tr>
 													  
@@ -683,7 +687,7 @@
 								<div class="row">
 									<div class="col-md-12">
 										<div class="table-responsive">
-										<form action="{{ route('update_EmployeeSecondVerbalWarning') }}" method="post">
+										<form action="{{ route('update_EmployeeSecondVerbalWarning') }}" method="post" enctype="multipart/form-data">
 										 @csrf
                                          
 											<table class="table table-bordered table-review2 review-table mb-0" id="table_secondwarning2">
@@ -695,6 +699,7 @@
 														<th>Manager's Comment</th>
 														<th>Admin Comment</th>
 														<th>Area's for Improvement</th>
+                                                        <th>Documents</th>
 														<th style="width: 64px;"><button type="button" class="btn btn-primary btn-second-warning2"><i class="fa fa-plus"></i></button></th>
 													</tr>
 												</thead>
@@ -729,6 +734,7 @@
 														<td><input type="text" id="managers_comments2"  class="form-control" name="managers_comments[]" @if(Auth::user()->role_id != 2)readonly @endif></td>
 														<td><input type="text" id="admin_comments2" class="form-control" name="admin_comments[]" @if(Auth::user()->role_id != 1)readonly @endif></td>
 														<td><input type="text" id="areas_for_improvement2" class="form-control" name="areas_for_improvement[]" @if(Auth::user()->role_id == 3)readonly @endif></td>
+                                                        <td><input type="file" class="form-control" name="fileadd[]" id="" @if(Auth::user()->role_id == 3)readonly @endif>
 														<input type="hidden" class="form-control" name="getid[]" value="" id="getidjq2">
                                                         <td></td>
 													</tr>
@@ -750,7 +756,7 @@
 								<div class="row">
 									<div class="col-md-12">
 										<div class="table-responsive">
-										<form action="{{ route('update_EmployeeThirdVerbalWarning') }}" method="post">
+										<form action="{{ route('update_EmployeeThirdVerbalWarning') }}" method="post" enctype="multipart/form-data">
 										 @csrf
                                           
 											<table class="table table-bordered table-review3 review-table mb-0" id="table_thirdwarning3">
@@ -761,6 +767,7 @@
 														<th>Employee Comment</th>
 														<th>Manager's Comment</th>
 														<th>Admin Comment</th>
+                                                        <th>Documents</th>
 														<th style="width: 64px;"><button type="button" class="btn btn-primary btn-third-warning3"><i class="fa fa-plus"></i></button></th>
 													</tr>
 												</thead>
@@ -794,6 +801,7 @@
 														<td><input type="text" class="form-control" name="employee_comments[]" id="employee_comments3" @if(Auth::user()->role_id != 3) readonly @endif ></td>
 														<td><input type="text" id="managers_comments3" class="form-control" name="managers_comments[]" @if(Auth::user()->role_id != 2)readonly @endif></td>
 														<td><input type="text" id="admin_comments3" class="form-control" name="admin_comments[]" @if(Auth::user()->role_id != 1)readonly @endif></td>
+                                                        <td><input type="file" class="form-control" name="fileadd[]" id="" @if(Auth::user()->role_id == 3)readonly @endif>
                                                         <input type="hidden" class="form-control" name="getid[]" value="" id="getidjq3">
 														<td></td>
 													</tr>
@@ -863,7 +871,7 @@
 								<div class="row">
 									<div class="col-md-12">
 										<div class="table-responsive">
-										<form action="{{ route('update_EmployeeThirdVerbalWarning') }}" method="post">
+										<form action="{{ route('update_EmployeeThirdVerbalWarning') }}" method="post" enctype="multipart/form-data">
 										 @csrf
 											<table class="table table-bordered table-review3 review-table mb-0" id="table_goals_thir">
 												<thead>
@@ -873,6 +881,7 @@
 														<th>Employee Comment</th>
 														<th>Manager's Comment</th>
 														<th>Admin Comment</th> 
+                                                        <th>Documents</th> 
                                                         @if(Auth::user()->role_id != 3)<th style="width: 64px;"><button type="button" class="btn btn-primary btn-third-warning3"><i class="fa fa-plus"></i></button></th>@endif
 													</tr>
 												</thead>
@@ -897,6 +906,7 @@
 														<td><input type="text" class="form-control" name="employee_comments[]" id="employee_comments3" @if(Auth::user()->role_id != 3) readonly @endif></td>
 														<td><input type="text" class="form-control" name="managers_comments[]" id="managers_comments3" @if(Auth::user()->role_id != 2)readonly @endif ></td>
 														<td><input type="text" class="form-control" name="admin_comments[]" id="admin_comments3" @if(Auth::user()->role_id != 1)readonly @endif></td>
+                                                        <td><input type="file" class="form-control" name="fileadd[]" id="" @if(Auth::user()->role_id == 3)readonly @endif>
                                                         <input type="hidden" class="form-control" name="getid[]" value="" id="getidjq3">
 													</tr>
 												</tbody>
