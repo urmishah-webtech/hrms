@@ -13,7 +13,7 @@ class Employee extends Authenticatable
   
     protected $fillable = [
         'first_name','last_name', 'email', 'role_id', 'gender','user_name','password','employee_id','joing_date',
-        'phone_no','department_id','designation_id','perfomance_status','gender','man_id'
+        'phone_no','department_id','designation_id','perfomance_status','gender','man_id','location_id'
     ];
     protected $hidden = [
         'password', 'remember_token',
@@ -30,6 +30,10 @@ class Employee extends Authenticatable
     public function role()
     {
         return $this->belongsTo('App\Role');
+    }
+    public function location()
+    {
+        return $this->belongsTo('App\Location');
     }
     public function getcompany()
     {

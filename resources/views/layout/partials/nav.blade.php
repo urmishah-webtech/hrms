@@ -39,6 +39,11 @@
 								<a class="{{ Request::is('designations') ? 'active' : '' }}" href="{{ url('designations') }}">Designations</a>
 							</li>
 							@endif
+							@if (Auth::user()->role_id == 1 || Auth::user()->role_id == 5)
+							<li>
+								<a class="{{ Request::is('locations') ? 'active' : '' }}" href="{{ url('locations') }}">Locations</a>
+							</li>
+							@endif
 							
 						</ul>
 					</li>

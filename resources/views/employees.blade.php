@@ -248,6 +248,19 @@
                                             <input class="form-control" type="file" name="document_add"  >
                                         </div>
                                     </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Location <span class="text-danger">*</span></label>
+                                            <select class="select" id="locList" name="location_id" required>
+                                                <option>Select Location</option>
+                                                @isset($location)
+                                                    @foreach($location as $val)
+                                                        <option value="{{ $val->id }}">{{ $val->name }}</option>
+                                                    @endforeach
+                                                @endisset
+                                            </select>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="table-responsive m-t-15">
                                     <table class="table table-striped custom-table">
@@ -484,6 +497,19 @@
                                             <input class="form-control" type="file" name="document_add" >
 											<div  id="employee_document_edit"></div>
 											<div  id="employee_document_edit1"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Location <span class="text-danger">*</span></label>
+                                            <select class="form-control" id="edit_locList" name="location_id" required>
+                                                <option>Select Location</option>
+                                                @isset($location)
+                                                    @foreach($location as $val)
+                                                        <option value="{{ $val->id }}">{{ $val->name }}</option>
+                                                    @endforeach
+                                                @endisset
+                                            </select>
                                         </div>
                                     </div>
                                 </div>

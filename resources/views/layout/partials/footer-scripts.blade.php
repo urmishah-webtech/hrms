@@ -208,12 +208,16 @@
 
 		$(document).ready(function(){
 			$(".departmentError").hide();
+			$('.locationError').hide();
 			var deptname=''
 			$(document).on("click",".delDepBtn",function() {
 
 				$(".deleteDepCont").attr('data-id', $(this).data('id'));
 			});
-		  $(document).on("click",".editBtn",function() {
+			$(document).on("click",".delLocBtn",function() {
+				$(".deleteLocCont").attr('data-id', $(this).data('id'));
+			});
+		  	$(document).on("click",".editBtn",function() {
 
 				deptname = $(this).closest('.trTag').find('.tdTag').html();
 				$("#editDeptText").val(deptname)
@@ -235,6 +239,23 @@
 						{
 							$('#delete_department').modal('toggle');
 							$(".employeeError").show();
+						}
+						else{
+							location.reload();
+						}
+					}
+				});
+			});
+			$(document).on("click",".deleteLocCont",function() {
+				var id= $(this).data('id');
+				$.ajax({
+					type:'POST',
+					url:"{{ route('delete_location') }}",
+					data:{"id":id,"_token": "{{ csrf_token() }}"},
+					success:function(data){
+						if(data.error=='3'){
+							$('#delete_location').modal('toggle');
+							$(".locationError").show();
 						}
 						else{
 							location.reload();
@@ -293,6 +314,7 @@
 						$("#emp_joing_date").val(dd+'/'+mm+'/'+yyyy)
 						$("#emp_id").val(data.emp[0].id)
 						$("#edit_depList option[value='"+data.emp[0].department_id+"']").prop('selected',true);
+						$("#edit_locList option[value='"+data.emp[0].location_id+"']").prop('selected',true);
 						$("#gender option[value='"+data.emp[0].gender+"']").prop('selected',true);
 						$("#edit_role_id option[value='"+roleid+"']").prop('selected',true);
 						change_designation(data.emp[0].department_id)

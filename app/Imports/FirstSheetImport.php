@@ -9,6 +9,7 @@ use Maatwebsite\Excel\Concerns\WithValidation;
 use App\Designation;
 use App\Department;
 use App\Role;
+use App\Location;
 use Carbon\Carbon;
 use App\ProfilePersonalInformations;
 use Illuminate\Support\Facades\Hash;
@@ -23,9 +24,9 @@ class FirstSheetImport implements ToModel,WithHeadingRow,WithValidation
         return [
          //   'first_name' => 'required',
          //   'last_name' => 'required',
-            'user_name' => 'required',
-            'password' => 'required',
-            'email' => 'required|unique:employees',
+         //   'user_name' => 'required',
+         //   'password' => 'required',
+         //   'email' => 'required|unique:employees',
            // 'employee_code' => 'required',
        //     'joining_date' => 'required',
         //    'phone_no' => 'required',
@@ -51,27 +52,39 @@ class FirstSheetImport implements ToModel,WithHeadingRow,WithValidation
         $row['department'] = Department::where("name", "like", "%".$row['department']."%")->first();
         $row['manager']         = Employee::where("first_name", "like", "%".$row['manager']."%")->first();
         $row['designation'] = Designation::where("name", "like", "%".$row['designation']."%")->first();
+        $row['location'] = Location::where("name", "like", "%".$row['location']."%")->first();
+    
         $row['role'] = Role::where("name", "like", "%".$row['role']."%")->first();
+        $dummy_email='test_'.rand(1000000,10000).'@gmail.com';
+
+        if($row['email']!='' || preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/i")){
+            $row['email'] = $dummy_email;
+        }
+
         if($row['department']){
             $row['department']=$row['department']->id;
         }else{
             $row['department']=null;
         }
+
         if($row['manager']){
             $row['manager']=$row['manager']->id;
         }else{
             $row['manager']=null;
         }
+
         if($row['designation']){
             $row['designation']=$row['designation']->id;
         }else{
             $row['designation']=null;
         }
+
         if($row['role']){
             $row['role']=$row['role']->id;
         }else{
             $row['role']=null;
         }
+
         if(preg_match('/'.$row['gender'].'/','male'))
         {
             $gender=0;
@@ -87,21 +100,29 @@ class FirstSheetImport implements ToModel,WithHeadingRow,WithValidation
         else{
             $gender=0;
         }
+
+        if($row['location']){
+            $row['location']=$row['location']->id;
+        }else{
+            $row['location']=null;
+        }
+
         $employee=Employee::create([
             'first_name'     => $row['first_name'],
             'last_name'    => $row['last_name'], 
-            'user_name' => $row['user_name'],
+            'user_name' => 'user'.rand(1000000,1000),
             'email' => $row['email'],
-            'password'=>Hash::make($row['password']),
+            'password'=>Hash::make('1234'),
             'employee_id'=> 'emp_'.rand(1000000,100),
             'joing_date'=>is_null($row['joining_date'])?NULL:$this->transformDate($row['joining_date']),
             'phone_no'=>$row['phone_no'],
             'department_id'=>$row['department'],
             'designation_id'=>$row['designation'],
             'role_id'=>$row['role'],
-            'perfomance_status'=>1,
+            'perfomance_status'=>0,
             'gender'=>$gender,
-            'man_id'=>$row['manager']
+            'man_id'=>$row['manager'],
+            'location_id'=>$row['location']
         ]);
         $pi= new ProfilePersonalInformations();
         $pi->passport_no=$row['passport'];
