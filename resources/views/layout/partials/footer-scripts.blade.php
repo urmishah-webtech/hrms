@@ -708,7 +708,7 @@
 				var uurl= $(this).data('document'); 
 				var text_download=`<a href="`+base_url+uurl+`" download=`+base_url+uurl+` >download</a>`
 				//var image_url="/employee_documents/"+uurl; alert(image_url);
-				alert(text_download)
+				 
 				$("#employee_documents").html(text_download);
 
 				var seelct_emp2=$(this).data('emp_id2');

@@ -50,8 +50,9 @@ class FirstSheetImport implements ToModel,WithHeadingRow,WithValidation
     {
        
         $row['department'] = Department::where("name", "like", "%".$row['department']."%")->first();
+		 
         $row['manager']         = Employee::where("first_name", "like", "%".$row['manager']."%")->first();
-        $row['designation'] = Designation::where("name", "like", "%".$row['designation']."%")->first();
+        $row['designation'] = Designation::where("name", "like", "%".$row['designation']."%")->where("department_id",$row['department']['id'])->first();
         $row['location'] = Location::where("name", "like", "%".$row['location']."%")->first();
     
         $row['role'] = Role::where("name", "like", "%".$row['role']."%")->first();
@@ -134,8 +135,9 @@ class FirstSheetImport implements ToModel,WithHeadingRow,WithValidation
         $pi->employment_of_spouse=$row['employment_of_spouse'];
         $pi->emp_id=$employee->id;
         $pi->save();
+		 
         return $employee;
-
+		
     }
     public function transformDate($value, $format = 'Y-m-d')
     {
