@@ -46,19 +46,21 @@ class EmployeeVerbalWarningController extends Controller
         $fileName= NULL;	
         $file_arr=array();
         //dd($request->file('fileadd'));
-		if(isset($request->fileadd) && !empty($request->fileadd)){	
-            foreach ($request->fileadd as $key => $file) {	
-                $fileName = time().'.'.$file->extension();  	
-                $file->move(public_path('employee_documents'), $fileName);	
-                array_push($file_arr,$fileName);
-            }	
-				
-		}
         $i=0;
         foreach($employee_comments as $key => $input) 
         {
             if($employee_comments[$key] || $employee_nameid[$key] || $managers_comments[$key] || $admin_comments[$key] || $areas_for_improvement[$key])
-            {                
+            {  
+
+                $fileName= NULL;    
+                if(isset($request->fileadd[$key]) && !empty($request->fileadd[$key])){
+                        $fileName = time().'.'.$request->fileadd[$key]->extension();      
+                        $request->fileadd[$key]->move(public_path('employee_documents'), $fileName);  
+         
+                         $imagesave = $fileName;   
+                }else{
+                    $imagesave = 'NULL' ;   
+                }             
                 $scores = new EmployeeFirstVerbalWarning();                
                 $scores->emp_id = $employee_nameid[$key] ? $employee_nameid[$key] : '';
                 $scores->employee_comments = $employee_comments[$key] ? $employee_comments[$key] : '';  
@@ -67,7 +69,7 @@ class EmployeeVerbalWarningController extends Controller
                 $scores->areas_for_improvement = $areas_for_improvement[$key] ? $areas_for_improvement[$key] : '';
                 $scores->warning_by = $emp_id;
                 $scores->status = 1;
-				$scores->document = $file_arr[$key] ? $file_arr[$key] : '';
+				$scores->document = $imagesave;
                 $scores->save();                
             }
            
@@ -173,23 +175,22 @@ class EmployeeVerbalWarningController extends Controller
         $admin_comments = $request->admin_comments;
         $areas_for_improvement = $request->areas_for_improvement;   
 
-        $fileName= NULL;   
-        $file_arr=array();
-        if(isset($request->fileadd) && !empty($request->fileadd)){  
-
-            foreach ($request->fileadd as $key => $file) { 
-            
-                $fileName = time().'.'.$file->extension();      
-                $file->move(public_path('employee_documents'), $fileName);  
-                array_push($file_arr,$fileName);
-            }   
-                
-        }     
         $i=0;
         foreach($employee_comments as $key => $input) 
         {
             if($employee_comments[$key] || $employee_nameid[$key] || $managers_comments[$key] || $admin_comments[$key] || $areas_for_improvement[$key])
-            {                
+            {    
+
+                $fileName= NULL;    
+                if(isset($request->fileadd[$key]) && !empty($request->fileadd[$key])){
+                        $fileName = time().'.'.$request->fileadd[$key]->extension();      
+                        $request->fileadd[$key]->move(public_path('employee_documents'), $fileName);  
+         
+                         $imagesave = $fileName;   
+                }else{
+                    $imagesave = 'NULL' ;   
+                }
+
                 $scores = new EmployeeSecondVerbalWarning();                
                 $scores->emp_id = $employee_nameid[$key] ? $employee_nameid[$key] : '';
                 $scores->employee_comments = $employee_comments[$key] ? $employee_comments[$key] : '';  
@@ -197,7 +198,7 @@ class EmployeeVerbalWarningController extends Controller
                 $scores->admin_comments = $admin_comments[$key] ? $admin_comments[$key] : '';
                 $scores->areas_for_improvement = $areas_for_improvement[$key] ? $areas_for_improvement[$key] : '';
                 $scores->warning_by = $emp_id;
-                $scores->document = $file_arr[$key] ? $file_arr[$key] : '';
+                $scores->document = $imagesave;
                 $scores->status = 1;
                 $scores->save();                
             }
@@ -300,30 +301,30 @@ class EmployeeVerbalWarningController extends Controller
         $employee_comments = $request->employee_comments;
         $managers_comments = $request->managers_comments;
         $admin_comments = $request->admin_comments;       
-       $employee_nameid = $request->emp_id;  
+        $employee_nameid = $request->emp_id;  
 
-       $fileName= NULL;   
-        $file_arr=array();
-        if(isset($request->fileadd) && !empty($request->fileadd)){  
-            foreach ($request->fileadd as $key => $file) {  
-                $fileName = time().'.'.$file->extension();      
-                $file->move(public_path('employee_documents'), $fileName);  
-                array_push($file_arr,$fileName);
-            }   
-                
-        }     
         $i=0;
 
         foreach($employee_comments as $key => $input) 
         {
             if($employee_comments[$key] || $employee_nameid[$key] || $managers_comments[$key] || $admin_comments[$key])
-            {                
+            {         
+
+                $fileName= NULL;    
+                if(isset($request->fileadd[$key]) && !empty($request->fileadd[$key])){
+                        $fileName = time().'.'.$request->fileadd[$key]->extension();      
+                        $request->fileadd[$key]->move(public_path('employee_documents'), $fileName);  
+         
+                         $imagesave = $fileName;   
+                }else{
+                    $imagesave = 'NULL' ;   
+                }       
                 $scores = new EmployeeThirdVerbalWarning();                
                 $scores->emp_id = $employee_nameid[$key] ? $employee_nameid[$key] : '';
                 $scores->employee_comments = $employee_comments[$key] ? $employee_comments[$key] : '';  
                 $scores->managers_comments = $managers_comments[$key] ? $managers_comments[$key] : '';  
                 $scores->admin_comments = $admin_comments[$key] ? $admin_comments[$key] : '';
-                $scores->document = $file_arr[$key] ? $file_arr[$key] : '';
+                $scores->document = $imagesave;
                 $scores->warning_by = $emp_id;
                 $scores->status = 1;
                 $scores->save();                
