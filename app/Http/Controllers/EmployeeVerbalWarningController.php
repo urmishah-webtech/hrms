@@ -370,7 +370,7 @@ class EmployeeVerbalWarningController extends Controller
                     $scores->managers_comments = $managers_comments[$key] ? $managers_comments[$key] : '';  
                     $scores->admin_comments = $admin_comments[$key] ? $admin_comments[$key] : '';
                     $scores->document=(!$file_arr)?$scores->document:$file_arr[$key];
-                    $scores->warning_by = $emp_id;
+                    $scores->warning_by = $emp_id; 
                     $scores->save();
                 }
                 else
