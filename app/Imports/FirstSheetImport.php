@@ -48,17 +48,78 @@ class FirstSheetImport implements ToModel,WithHeadingRow,WithValidation
     }
     public function model(array $row)
     {
-       
-        $row['department'] = Department::where("name", "like", "%".$row['department']."%")->first();
-		 
-        $row['manager']         = Employee::where("first_name", "like", "%".$row['manager']."%")->first();
-        $row['designation'] = Designation::where("name", "like", "%".$row['designation']."%")->where("department_id",$row['department']['id'])->first();
-        $row['location'] = Location::where("name", "like", "%".$row['location']."%")->first();
+        // echo "<pre>";
+        // print_r($row);
+        $searchValues = preg_split('/\s+/',$row['department'], -1, PREG_SPLIT_NO_EMPTY); 
+        $row['department'] = Department::where(function ($q) use ($searchValues) {
+            foreach ($searchValues as $value) {
+              $q->where("name", "like",'%'.$value.'%');
+            }
+        })->orderByRaw('name like ? desc', $row['department'])
+          ->orderByRaw('instr(name,?) asc', $row['department'])
+          ->orderBy('name')->first();
+        // $row['department'] = Department::where("name", "like",'%'.$row['department'].'%')
+        // ->orderByRaw('name like ? desc', $row['department'])
+        // ->orderByRaw('instr(name,?) asc', $row['department'])
+        // ->orderBy('name')->first();
+        $searchValues = preg_split('/\s+/',$row['manager'], -1, PREG_SPLIT_NO_EMPTY); 
+        $row['manager']  = Employee::where(function ($q) use ($searchValues) {
+            foreach ($searchValues as $value) {
+              $q->where("first_name", "like",'%'.$value.'%');
+            }
+        })->orderByRaw('first_name like ? desc', $row['manager'])
+          ->orderByRaw('instr(first_name,?) asc', $row['manager'])
+          ->orderBy('first_name')->first();
+          //Employee::where("first_name", "LIKE", "%{$row['manager']}%")->first();
+
+        if($row['department']){
+            $searchValues = preg_split('/\s+/',$row['designation'], -1, PREG_SPLIT_NO_EMPTY); 
+            $row['designation'] = Designation::where(function ($q) use ($searchValues) {
+                foreach ($searchValues as $value) {
+                  $q->where("name", "like",'%'.$value.'%');
+                }
+            })->orderByRaw('name like ? desc', $row['designation'])
+              ->orderByRaw('instr(name,?) asc', $row['designation'])
+              ->where("department_id",$row['department']->id)
+              ->orderBy('name')->first();
+        }
+        else{
+            $row['designation'] =   $searchValues = preg_split('/\s+/',$row['designation'], -1, PREG_SPLIT_NO_EMPTY); 
+            $row['designation'] = Designation::where(function ($q) use ($searchValues) {
+                foreach ($searchValues as $value) {
+                  $q->where("name", "like",'%'.$value.'%');
+                }
+            })->orderByRaw('name like ? desc', $row['designation'])
+              ->orderByRaw('instr(name,?) asc', $row['designation'])
+              ->orderBy('name')->first();
+        }
+        $row['location'] =   $searchValues = preg_split('/\s+/',$row['location'], -1, PREG_SPLIT_NO_EMPTY); 
+        $row['location'] = Location::where(function ($q) use ($searchValues) {
+            foreach ($searchValues as $value) {
+              $q->where("name", "like",'%'.$value.'%');
+            }
+        })->orderByRaw('name like ? desc', $row['designation'])
+          ->orderByRaw('instr(name,?) asc', $row['designation'])
+          ->orderBy('name')->first();
+
+       // $row['location'] = Location::where("name", "like", "%".$row['location']."%")->first();
     
-        $row['role'] = Role::where("name", "like", "%".$row['role']."%")->first();
+         
+        $searchValues = preg_split('/\s+/',$row['role'], -1, PREG_SPLIT_NO_EMPTY);  
+        $row['role'] = Role::where(function ($q) use ($searchValues) {
+            foreach ($searchValues as $value) {
+              $q->where("name", "like",'%'.$value.'%');
+            }
+        })->orderByRaw('name like ? desc', $row['role'])
+          ->orderByRaw('instr(name,?) asc', $row['role'])
+          ->orderBy('name')->first();
+        // Role::where("name", "like", "%".$row['role']."%")->first();
         $dummy_email='test_'.rand(1000000,10000).'@gmail.com';
 
-        if($row['email']!='' || preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/i")){
+        if($row['email']=='' || !(preg_match("/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,})$/i",$row['email']))){
+            $row['email'] = $dummy_email;
+        }
+        if(Employee::where('email',$row['email'])->first()){
             $row['email'] = $dummy_email;
         }
 
@@ -135,8 +196,8 @@ class FirstSheetImport implements ToModel,WithHeadingRow,WithValidation
         $pi->employment_of_spouse=$row['employment_of_spouse'];
         $pi->emp_id=$employee->id;
         $pi->save();
-		 
-        return $employee;
+		// exit;
+       return $employee;
 		
     }
     public function transformDate($value, $format = 'Y-m-d')

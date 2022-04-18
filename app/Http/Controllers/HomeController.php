@@ -16,7 +16,7 @@ use App\Resignation;
 use App\Promotion;
 use App\Appraisal;
 use App\PersonalExcellence;
-
+use App\Department;
 class HomeController extends Controller
 {
     /**
@@ -386,5 +386,13 @@ class HomeController extends Controller
             return view('employee-dashboard',compact('third_withdraw','third_war','second_withdraw','second_war','first_withdraw','first_war','terminate_emp','promotiondata','personal_excellence','on_leave_data', 'resignation'));
 		}
     }
+    public function test2(){
+        $row['department']='store/kitchen';
+        $data = Department::where("name", "like",'%'.$row['department'].'%')
+        ->orderByRaw('name like ? desc', $row['department'])
+        ->orderByRaw('instr(name,?) asc', $row['department'])
+        ->orderBy('name')->first();
+        dd($data);
 
+    }
 }

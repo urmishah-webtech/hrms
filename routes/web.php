@@ -11,6 +11,7 @@ use App\Http\Controllers\ProfessionalExcellenceController;
 // use App\Http\Middleware\AuthCheck;
 use App\Http\Middleware\IsAdmin;
 use App\Http\Middleware\IfTermination;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,6 +22,7 @@ use App\Http\Middleware\IfTermination;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/test2','HomeController@test2');
 Route::get('/index_2', 'HomeController@test')->name('index_2');
 Route::get('/home', 'HomeController@HomepageUrl')->name('home')->middleware('isTerminated');
 Route::post('/import_employees', 'EmployeeController@import_employees')->name('import_employees');
