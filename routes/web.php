@@ -11,6 +11,7 @@ use App\Http\Controllers\ProfessionalExcellenceController;
 // use App\Http\Middleware\AuthCheck;
 use App\Http\Middleware\IsAdmin;
 use App\Http\Middleware\IfTermination;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,6 +22,7 @@ use App\Http\Middleware\IfTermination;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/test2','HomeController@test2');
 Route::get('/index_2', 'HomeController@test')->name('index_2');
 Route::get('/home', 'HomeController@HomepageUrl')->name('home')->middleware('isTerminated');
 Route::post('/import_employees', 'EmployeeController@import_employees')->name('import_employees');
@@ -656,6 +658,11 @@ Route::get('/departments','DepartmentController@departments')->name('departments
 Route::post('add_deaprtment','DepartmentController@add_department')->name('add_department');
 Route::post('edit_department','DepartmentController@edit_department')->name('edit_department');
 Route::post('delete_department','DepartmentController@delete_department')->name('delete_department');
+
+Route::get('/locations','LocationController@locations')->name('locations');
+Route::post('add_location','LocationController@add_location')->name('add_location');
+Route::post('edit_location','LocationController@edit_location')->name('edit_location');
+Route::post('delete_location','LocationController@delete_location')->name('delete_location');
 
 
 Route::get('/designations','DesignationController@designations')->name('designations');

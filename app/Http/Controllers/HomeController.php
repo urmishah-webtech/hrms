@@ -16,7 +16,7 @@ use App\Resignation;
 use App\Promotion;
 use App\Appraisal;
 use App\PersonalExcellence;
-
+use App\Department;
 class HomeController extends Controller
 {
     /**
@@ -216,7 +216,7 @@ class HomeController extends Controller
 
 	public function HomepageUrl()
     {
-        if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2)
+        if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2 || Auth::user()->role_id == 5)
 		{
             $manager_emp = Employee::where('man_id',Auth::user()->id)->pluck('id')->toArray();
             if(Auth::user()->role_id==2){
@@ -238,7 +238,7 @@ class HomeController extends Controller
             $per_status_incomp= Employee::where('perfomance_status','0')->get()->count();
             }
             $man_total= Employee::where('role_id','2')->get()->count();
-            if(Auth::user()->role_id==1){
+            if(Auth::user()->role_id==1 || Auth::user()->role_id == 5){
                $emp = Employee::where('role_id','3')->orderBy('id', 'DESC')->limit(3)->get();
                $res = Resignation::orderBy('id', 'DESC')->limit(3)->get();
                $promotion = Promotion::orderBy('id', 'DESC')->limit(5)->get();
@@ -253,7 +253,7 @@ class HomeController extends Controller
             $today_date=Carbon::today()->format('Y-m-d');
     
             //leave
-            if(Auth::user()->role_id==1){
+            if(Auth::user()->role_id==1 || Auth::user()->role_id == 5){
             $total_emp=Employee::where('role_id','!=',1)->count();
             $on_leave=EmployeeLeave::where([ ['from_date', '>=', $today_date], ['to_date', '<=', $today_date],])  ->orWhere([['from_date', '>=', $today_date],['to_date', '<=', $today_date],])->orWhere([['from_date', '<=', $today_date],['to_date', '>=', $today_date],])->get()->groupBy('employee_id')->count();
             $on_leave_data=EmployeeLeave::where([ ['from_date', '>=', $today_date], ['to_date', '<=', $today_date],]) ->orWhere([['from_date', '>=', $today_date],['to_date', '<=', $today_date],])->orWhere([['from_date', '<=', $today_date],['to_date', '>=', $today_date],])->limit(2)->get();
@@ -386,5 +386,13 @@ class HomeController extends Controller
             return view('employee-dashboard',compact('third_withdraw','third_war','second_withdraw','second_war','first_withdraw','first_war','terminate_emp','promotiondata','personal_excellence','on_leave_data', 'resignation'));
 		}
     }
+    public function test2(){
+        $row['department']='store/kitchen';
+        $data = Department::where("name", "like",'%'.$row['department'].'%')
+        ->orderByRaw('name like ? desc', $row['department'])
+        ->orderByRaw('instr(name,?) asc', $row['department'])
+        ->orderBy('name')->first();
+        dd($data);
 
+    }
 }

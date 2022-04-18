@@ -23,13 +23,14 @@ use App\Imports\EmployeeMain;
 use Maatwebsite\Excel\Facades\Excel;
 use File;
 use App\Termination;
-
+use App\Location;
 class EmployeeController extends Controller
 {
     public function employees(){
 	//$termination = Termination::where('employee_id',Auth::user()->id)->pluck('employee_id')->toArray();     
 	     
         $dep=Department::get();
+        $location=Location::get();
         $des=Designation::get();
         if(Auth::user()->role_id==2){
             $emps=Employee::where('man_id',Auth::id())->get();
@@ -42,7 +43,7 @@ class EmployeeController extends Controller
         $emp_permissions=EmpPermission::get();
         $permission_modules=PermissionModule::get();
 		$roles=Role::get();
-        return view('employees',compact('dep','des','emps','modules','emp_permissions','permission_modules','last_emp_id','roles'));
+        return view('employees',compact('location','dep','des','emps','modules','emp_permissions','permission_modules','last_emp_id','roles'));
     }
     public function getDesignationAjax(Request $request){
         $des=DB::table('designations')->where('department_id',$request->deptId)->get();
@@ -104,6 +105,7 @@ class EmployeeController extends Controller
         $emp->department_id=$request->department_id;
         $emp->designation_id=$request->designation_id; 
 		$emp->employee_documents = $fileName;  
+        $emp->location_id=$request->location_id;
         $emp->save();
 
         $expl=array();
@@ -175,6 +177,7 @@ class EmployeeController extends Controller
         $emp->department_id=is_null($request->department_id)?$emp->department_id:$request->department_id;
         $emp->designation_id=is_null($request->designation_id)?$emp->designation_id:$request->designation_id;
 		$emp->employee_documents=is_null($fileName)?$emp->employee_documents:$fileName;
+        $emp->location_id=$request->location_id;
         $emp->save();
 
         $expl=array();

@@ -16,8 +16,7 @@ class EmployeeMain implements ToCollection,WithMultipleSheets
     {
         
         return [
-            0 => new FirstSheetImport(),
-           
+            new FirstSheetImport()
         ];
     }
     /**
