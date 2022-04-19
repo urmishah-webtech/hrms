@@ -104,18 +104,14 @@ class EmployeeVerbalWarningController extends Controller
                 {          
                     $scores= EmployeeFirstVerbalWarning::where('id',$id)->first();   
 
-                    $fileName= NULL;    
-                    $file_arr=array();
-                    if(!$scores->document){
-                        if(isset($request->fileadd) && !empty($request->fileadd)){
-                            foreach ($request->fileadd as $key1 => $file) { 
-
-                                $fileName = rand().'.'.$file->extension();      
-                                $file->move(public_path('employee_documents'), $fileName);  
-                                array_push($file_arr,$fileName);
-                            }
-                        }
-                    }    
+                    $fileName= NULL;
+                    if(isset($request->fileadd[$key]) && !empty($request->fileadd[$key])){
+                        $fileName = rand().'.'.$request->fileadd[$key]->extension();      
+                        $request->fileadd[$key]->move(public_path('employee_documents'), $fileName); 
+                        $imagesave = $fileName;  
+                    }else{
+                        $imagesave = $scores->document;
+                    }   
 
                     $scores->emp_id = $employee_nameid[$key] ? $employee_nameid[$key] : '';
                     $scores->employee_comments = $employee_comments[$key] ? $employee_comments[$key] : '';  
@@ -123,7 +119,7 @@ class EmployeeVerbalWarningController extends Controller
                     $scores->admin_comments = $admin_comments[$key] ? $admin_comments[$key] : '';
                     $scores->areas_for_improvement = $areas_for_improvement[$key] ? $areas_for_improvement[$key] : '';
                     $scores->warning_by = $emp_id;
-					$scores->document=(!$file_arr)?$scores->document:$file_arr[$key];
+					$scores->document=$imagesave;
 					 
                     $scores->save();  
                 }
@@ -235,17 +231,13 @@ class EmployeeVerbalWarningController extends Controller
 
                     $score = EmployeeSecondVerbalWarning::where('id',$id[$key])->first(); 
                    // dd($score->document);
-                  $fileName= NULL;    
-                    $file_arr=array();
-                    if(!$score->document){
-                        if(isset($request->fileadd) && !empty($request->fileadd)){
-                            foreach ($request->fileadd as $key1 => $file) { 
-
-                                $fileName = rand().'.'.$file->extension();      
-                                $file->move(public_path('employee_documents'), $fileName);  
-                                array_push($file_arr,$fileName);
-                            }
-                        }
+                    $fileName= NULL;
+                    if(isset($request->fileadd[$key]) && !empty($request->fileadd[$key])){
+                        $fileName = rand().'.'.$request->fileadd[$key]->extension();      
+                        $request->fileadd[$key]->move(public_path('employee_documents'), $fileName); 
+                        $imagesave = $fileName;  
+                    }else{
+                        $imagesave = $scores->document;
                     }
 
                   // dd($admin_comments[$key],$file_arr);
@@ -254,7 +246,7 @@ class EmployeeVerbalWarningController extends Controller
                     $score->managers_comments = $managers_comments[$key] ? $managers_comments[$key] : '';  
                     $score->admin_comments = $admin_comments[$key] ? $admin_comments[$key] : '';
                     $score->areas_for_improvement = $areas_for_improvement[$key] ? $areas_for_improvement[$key] : '';
-                    $score->document=(!$file_arr)?$score->document:$file_arr[$key];
+                    $score->document=$imagesave;
                     $score->warning_by = $emp_id; 
                     $score->save();
                 }
@@ -358,24 +350,21 @@ class EmployeeVerbalWarningController extends Controller
                 if(isset($id[$key]))
                 {              
                     $scores= EmployeeThirdVerbalWarning::where('id',$id[$key])->first();
-                     $fileName= NULL;    
-                    $file_arr=array();
-                    if(!$scores->document){
-                        if(isset($request->fileadd) && !empty($request->fileadd)){
-                            foreach ($request->fileadd as $key1 => $file) { 
-
-                                $fileName = rand().'.'.$file->extension();      
-                                $file->move(public_path('employee_documents'), $fileName);  
-                                array_push($file_arr,$fileName);
-                            }
-                        }
+                    
+                    $fileName= NULL;
+                    if(isset($request->fileadd[$key]) && !empty($request->fileadd[$key])){
+                        $fileName = rand().'.'.$request->fileadd[$key]->extension();      
+                        $request->fileadd[$key]->move(public_path('employee_documents'), $fileName); 
+                        $imagesave = $fileName;  
+                    }else{
+                        $imagesave = $scores->document;
                     }
 
                     $scores->emp_id = $employee_nameid[$key] ? $employee_nameid[$key] : '';
                     $scores->employee_comments = $employee_comments[$key] ? $employee_comments[$key] : '';  
                     $scores->managers_comments = $managers_comments[$key] ? $managers_comments[$key] : '';  
                     $scores->admin_comments = $admin_comments[$key] ? $admin_comments[$key] : '';
-                    $scores->document=(!$file_arr)?$scores->document:$file_arr[$key];
+                    $scores->document=$imagesave;
                     $scores->warning_by = $emp_id; 
                     $scores->save();
                 }
