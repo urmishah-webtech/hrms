@@ -112,13 +112,17 @@
                                             </td>
                                             <td>{{@$val->manager_comment}}</td>
                                             <td class="text-right">
+                                                @if($val->status==1)
                                                 <div class="dropdown dropdown-action">
                                                     <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                                     <div class="dropdown-menu dropdown-menu-right">
+                                                        
                                                         <a class="dropdown-item edtBtn" href="{{ url('edit_emp_leave').'/'.$val->id }}"   data-id="{{ @$val->id }}" ><i class="fa fa-pencil m-r-5"></i> Edit</a>
                                                         <a class="dropdown-item delBtn" data-id="{{ @$val->id }}" href="#" data-toggle="modal" data-target="#delete_approve"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                                                       
                                                     </div>
                                                 </div>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach

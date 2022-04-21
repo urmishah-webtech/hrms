@@ -50,8 +50,12 @@
                                         <option value="">Select Leave Type</option>
                                         @if(@$remaining_leaves>0)
                                             <option value="0" @if( @$data->leave_type_id==0)selected @endif>Casual Leave</option>
+                                           
                                             <option value="1" @if( @$data->leave_type_id==1)selected @endif >Sick Leave</option>
+                                         
+                                            
                                             <option value="2" @if( @$data->leave_type_id==2)selected @endif>Hospitalisation leave</option>
+                                           
                                             @if(Auth::user()->gender==1)
                                                 <option @if( @$data->leave_type_id==3)selected @endif value="3">Maternity leave</option>
                                             @endif
@@ -78,10 +82,10 @@
                                         <input required class="form-control" name="end_date" id="end_date" type="text">
                                     </div>
                                     <span class="end_date_error" style="color:red;display:none">please select proper date</span>
-									<span id="limit_maternity" class="end_date_error" style="color:red;display:none">You have only {{ @$maternity_days }} Leaves in Remaining  in as a Maternity Leave, Please Select onther Date</span>
-									<span id="limit_sick" class="end_date_error" style="color:red;display:none">You have only {{ @$sick_days }} Leaves in Remaining  in as a Sick Leave, Please Select onther Date</span>
-									<span id="limit_hospitalisation" class="end_date_error" style="color:red;display:none">You have only {{ @$hospitalisation_days }} Leaves in Remaining  in as a Hospitalisation, Please Select onther Date</span>
-									<span id="limit_Paternity" class="end_date_error" style="color:red;display:none">You have only {{ @$paternity_days }} Leaves in Remaining  in as a Paternity, Please Select onther Date</span>
+									<span id="limit_maternity" class="end_date_error" style="color:red;display:none">Please Select another Date</span>
+									<span id="limit_sick" class="end_date_error" style="color:red;display:none">Please Select another Date</span>
+									<span id="limit_hospitalisation" class="end_date_error" style="color:red;display:none">Please Select another Date</span>
+									<span id="limit_Paternity" class="end_date_error" style="color:red;display:none"> Please Select another Date</span>
                                 </div> 
                                
                                 <div class="form-group">
@@ -125,6 +129,11 @@
  $(function() {
     var org_rl=parseInt($('#remaining_leaves').val())
     var org_num=parseInt($("#number_of_days").val())
+    $('body').on('change','#leave_type_chng',function(){
+        $('#start_date').datepicker('setDate', null);
+        $('#end_date').datepicker('setDate', null);
+
+    })
     var rl=0;
     $( "#start_date" ).datepicker({
              dateFormat: "yy-mm-dd",

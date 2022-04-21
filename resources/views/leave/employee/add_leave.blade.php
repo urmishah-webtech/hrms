@@ -14,11 +14,11 @@
 					 
                     <div class="form-group">
                         <label>Leave Type <span class="text-danger">*</span></label>
-						
                         <select class="form-control" name="leave_type_id" required id="leave_type_chng">
                             <option value="">Select Leave Type</option>
                             @if(@$remaining_leaves>0)
                                 <option value="0">Casual Leave</option>
+                               
                                 @if($total_sick_taken<$sick_days)
                                     <option value="1">Sick Leave</option>
                                 @endif
@@ -50,10 +50,10 @@
                             <input class="form-control" autocomplete="off" name="end_date" id="end_date" type="text" required>
                         </div>
                         <span class="end_date_error" style="color:red;display:none">Please Select Proper Date</span>
-						<span id="limit_maternity" class="end_date_error" style="color:red;display:none">You have only {{ @$maternity_days }} Leaves in Remaining  in as a Maternity Leave, Please Select onther Date</span>
-						<span id="limit_sick" class="end_date_error" style="color:red;display:none">You have only {{ @$sick_days }} Leaves in Remaining  in as a Sick Leave, Please Select onther Date</span>
-						<span id="limit_hospitalisation" class="end_date_error" style="color:red;display:none">You have only {{ @$hospitalisation_days }} Leaves in Remaining  in as a Hospitalisation, Please Select onther Date</span>
-						<span id="limit_Paternity" class="end_date_error" style="color:red;display:none">You have only {{ @$paternity_days }} Leaves in Remaining  in as a Paternity, Please Select onther Date</span>
+						<span id="limit_maternity" class="end_date_error" style="color:red;display:none">Please Select another Date</span>
+						<span id="limit_sick" class="end_date_error" style="color:red;display:none">Please Select another Date</span>
+						<span id="limit_hospitalisation" class="end_date_error" style="color:red;display:none"> Please Select another Date</span>
+						<span id="limit_Paternity" class="end_date_error" style="color:red;display:none"> Please Select another Date</span>
                     </div>
                     <div class="form-group">
                         <label>Number of days <span class="text-danger">*</span></label>
