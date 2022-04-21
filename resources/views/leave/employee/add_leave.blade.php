@@ -14,7 +14,8 @@
 					 
                     <div class="form-group">
                         <label>Leave Type <span class="text-danger">*</span></label>
-                        <select class="select" name="leave_type_id" required>
+						
+                        <select class="form-control" name="leave_type_id" required id="leave_type_chng">
                             <option value="">Select Leave Type</option>
                             @if(@$remaining_leaves>0)
                                 <option value="0">Casual Leave</option>
@@ -28,13 +29,13 @@
                                 <option value="3">Maternity leave</option>
                                 @endif
                                 @if(Auth::user()->gender==0 && $total_paternity_taken<$paternity_days)
-                                <option value="4">paternity leave</option>
+                                <option value="4">Paternity leave</option>
                                 @endif
                             @endif
                             @if(@$remaining_leaves<=0)
                              <option value="5">Loss of Pay</option>
-                            @endif
-                        </select>
+                            @endif 
+                        </select>  
                     </div>
                     <div class="form-group">
                         <label>From <span class="text-danger">*</span></label>
@@ -48,7 +49,11 @@
                         <div class="cal-icon">
                             <input class="form-control" autocomplete="off" name="end_date" id="end_date" type="text" required>
                         </div>
-                        <span class="end_date_error" style="color:red;display:none">please select proper date</span>
+                        <span class="end_date_error" style="color:red;display:none">Please Select Proper Date</span>
+						<span id="limit_maternity" class="end_date_error" style="color:red;display:none">You have only {{ @$maternity_days }} Leaves in Remaining  in as a Maternity Leave, Please Select onther Date</span>
+						<span id="limit_sick" class="end_date_error" style="color:red;display:none">You have only {{ @$sick_days }} Leaves in Remaining  in as a Sick Leave, Please Select onther Date</span>
+						<span id="limit_hospitalisation" class="end_date_error" style="color:red;display:none">You have only {{ @$hospitalisation_days }} Leaves in Remaining  in as a Hospitalisation, Please Select onther Date</span>
+						<span id="limit_Paternity" class="end_date_error" style="color:red;display:none">You have only {{ @$paternity_days }} Leaves in Remaining  in as a Paternity, Please Select onther Date</span>
                     </div>
                     <div class="form-group">
                         <label>Number of days <span class="text-danger">*</span></label>
@@ -56,8 +61,9 @@
                     </div>
                     @if(@$remaining_leaves>0)
                     <div class="form-group">
-                        <label>Remaining Leaves <span class="text-danger">*</span></label>
-                        <input class="form-control" name="remaining_leaves" readonly required value="{{ @$remaining_leaves }}" id="remaining_leaves" type="number">
+                        <label>Remaining Leaves <span class="text-danger">*</span></label> 
+						<input class="form-control remaining_leaves" name="remaining_leaves" readonly required value="{{ @$remaining_leaves }}" id="remaining_leaves" type="number">
+                         
                     </div>
                     @endif
 
@@ -82,6 +88,7 @@
 <script src="{{ URL::asset('js/jquery-3.5.1.min.js') }}"></script>
 <script src="{{ URL::asset('js/jquery-ui.min.js') }}"></script>
 <script>
+ 
     $(function() {
         var org_rl=$('#remaining_leaves').val()
         $( "#start_date" ).datepicker({
@@ -115,9 +122,92 @@
               //  $("#end_date").datepicker('setDate', null);
                 $("#remaining_leaves").val(org_rl)
                 $("#number_of_days").val(0)
-                $('.end_date_error').show()      
+                $('.end_date_error').show();
+				$('#limit_maternity').hide();
+				$('#limit_sick').hide();
+				$('#limit_hospitalisation').hide();
+				$('#limit_Paternity').hide();
+				$('button.submit-btn').removeAttr('disabled');
             }
-        }
+			
+			//	Maternity		
+			var typeid = $('#leave_type_chng').val();   
+			if(typeid == 3) {
+				$.ajax({
+					url:"{{ route('maternity_remaining_leave_type') }}",
+					type: "GET",
+					data:{"typeid":typeid, 
+						   "days":days },
+					success:function(data) {
+						  if(data == false){
+							$('#limit_maternity').show();
+							$('button.submit-btn').attr('disabled','disabled');
+						  }
+						  else{
+							$('#limit_maternity').hide();
+							$('button.submit-btn').removeAttr('disabled');
+						  }
+						}
+					});			 
+				}
+			/// Sick
+			if(typeid == 1) {
+				$.ajax({
+					url:"{{ route('Sick_remaining_leave_type') }}",
+					type: "GET",
+					data:{"typeid":typeid, 
+						   "days":days },
+					success:function(data) {
+						  if(data == false){
+							$('#limit_sick').show();
+							$('button.submit-btn').attr('disabled','disabled');
+						  }
+						  else{
+							$('#limit_sick').hide();
+							$('button.submit-btn').removeAttr('disabled');
+						  }
+						}
+					});			 
+				}
+			/// Hospitalisation
+			if(typeid == 2) {
+				$.ajax({
+					url:"{{ route('Hospitalisation_remaining_leave_type') }}",
+					type: "GET",
+					data:{"typeid":typeid, 
+						   "days":days },
+					success:function(data) {
+						  if(data == false){
+							$('#limit_hospitalisation').show();
+							$('button.submit-btn').attr('disabled','disabled');
+						  }
+						  else{
+							$('#limit_hospitalisation').hide();
+							$('button.submit-btn').removeAttr('disabled');
+						  }
+						}
+					});			 
+				}
+			/// Paternity
+			if(typeid == 4) {
+				$.ajax({
+					url:"{{ route('Paternity_remaining_leave_type') }}",
+					type: "GET",
+					data:{"typeid":typeid, 
+						   "days":days },
+					success:function(data) {
+						  if(data == false){
+							$('#limit_Paternity').show();
+							$('button.submit-btn').attr('disabled','disabled');
+						  }
+						  else{
+							$('#limit_Paternity').hide();
+							$('button.submit-btn').removeAttr('disabled');
+						  }
+						}
+					});			 
+				}
+			}
         });
     });
     $('#add_leave_form').on('submit', function(e) {
@@ -154,4 +244,7 @@
           }
         })
     });
+	
+	
+	
 </script>

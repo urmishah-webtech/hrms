@@ -631,6 +631,16 @@ Route::post('delete_EmpThirdVerbalWarning','EmployeeVerbalWarningController@dele
 Route::get('changeThirdWarningstatus/{type}/{id}','EmployeeVerbalWarningController@changeThirdWarningstatus')->name('changeThirdWarningstatus'); 
 });
 
+/// Remaning Leave
+Route::get('/maternity_remaining_leave_type','EmployeeLeaveController@maternity_remaining_leave_type')->name('maternity_remaining_leave_type');
+Route::get('/Sick_remaining_leave_type','EmployeeLeaveController@Sick_remaining_leave_type')->name('Sick_remaining_leave_type');
+Route::get('/Hospitalisation_remaining_leave_type','EmployeeLeaveController@Hospitalisation_remaining_leave_type')->name('Hospitalisation_remaining_leave_type');
+Route::get('/Paternity_remaining_leave_type','EmployeeLeaveController@Paternity_remaining_leave_type')->name('Paternity_remaining_leave_type');
+
+Route::get('/Edit_Sick_remaining_leave_type','EmployeeLeaveController@Edit_Sick_remaining_leave_type')->name('Edit_Sick_remaining_leave_type');
+
+
+
 Route::namespace('Auth')->group(function(){
 
     //Login Routes
@@ -669,6 +679,9 @@ Route::get('/designations','DesignationController@designations')->name('designat
 Route::post('add_designation','DesignationController@add_designation')->name('add_designation');
 Route::post('edit_designation','DesignationController@edit_designation')->name('edit_designation');
 Route::post('delete_designation','DesignationController@delete_designation')->name('delete_designation');
+ 
+
+
 });
  Route::post('clear_notification','NotificationController@clear_notification')->name('clear_notification');
  Auth::routes();

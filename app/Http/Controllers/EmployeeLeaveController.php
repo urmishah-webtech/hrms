@@ -10,12 +10,13 @@ use Auth;
 use Carbon\Carbon;
 use App\Notification;
 use App\Events\leaveAdded;
+use DB;
 
 class EmployeeLeaveController extends Controller
 {
     public function index()
     {
-        $lt=LeaveType::first();
+        $lt=LeaveType::first();  
         $total_leaves=0;
         $sick_days=0;
         $hospitalisation_days=0;
@@ -25,9 +26,22 @@ class EmployeeLeaveController extends Controller
         $total_leaves+=is_null($lt->annual_days)?0:$lt->annual_days;
         $total_leaves+=is_null($lt->sick_days)?0:$lt->sick_days;
         $total_leaves+=is_null($lt->hospitalisation_days)?0:$lt->hospitalisation_days;
-
+		if(Auth::user()->gender==1){
+			$total_leaves+=is_null($lt->maternity_days)?0:$lt->maternity_days;
+		}
+		if(Auth::user()->gender==0){
+			$total_leaves+=is_null($lt->paternity_days)?0:$lt->paternity_days;
+		}
+		
         $sick_days=is_null($lt->sick_days)?0:$lt->sick_days;
         $hospitalisation_days+=is_null($lt->hospitalisation_days)?0:$lt->hospitalisation_days;
+		if(Auth::user()->gender==1){
+			$maternity_days+=is_null($lt->maternity_days)?0:$lt->maternity_days;
+		}
+		if(Auth::user()->gender==0){
+			$paternity_days+=is_null($lt->paternity_days)?0:$lt->paternity_days;
+		}
+		
         }
         $data=EmployeeLeave::where('employee_id',Auth::id())->orderBy('id','desc')->get();
         $my_manager_name=Employee::where('id',Auth::user()->man_id)->first();
@@ -47,7 +61,7 @@ class EmployeeLeaveController extends Controller
         $total_maternities = EmployeeLeave::where('employee_id',Auth::id())->where('leave_type_id',3)->where('status',2)->get();
         $total_maternity_taken = 0;
         foreach($total_maternities as $val){
-            $total_maternity_taken+=$val->number_of_days;
+            $total_maternity_taken+=$val->number_of_days; 
         }
 
         $total_paternity_taken = 0;
@@ -64,9 +78,10 @@ class EmployeeLeaveController extends Controller
             }        
         }
         $remaining_leaves=$total_leaves-$taken_leaves;
-      
+		$remaining_maternity=$maternity_days-$total_maternity_taken;   
+		  
         return view('leaves-employee',compact('total_maternity_taken','total_paternity_taken',
-        'maternity_days','paternity_days','total_hospitalisation_taken','hospitalisation_days','total_sick_taken','sick_days','lt','data','total_leaves','taken_leaves','remaining_leaves','my_manager_name'));
+        'maternity_days','paternity_days','total_hospitalisation_taken','hospitalisation_days','total_sick_taken','sick_days','lt','data','total_leaves','taken_leaves','remaining_leaves','my_manager_name','remaining_maternity'));
     } 
     public function save_leave(Request $request){
 	
@@ -130,10 +145,28 @@ class EmployeeLeaveController extends Controller
         $lt=LeaveType::first();
         $total_leaves=0;
         $taken_leaves=0;
+		$sick_days=0;
+        $hospitalisation_days=0;
+		$maternity_days=0;
+		$paternity_days=0;
         if($lt){
-            $total_leaves+=is_null($lt->annual_days)?0:$lt->annual_days;
-            $total_leaves+=is_null($lt->sick_days)?0:$lt->sick_days;
-            $total_leaves+=is_null($lt->hospitalisation_days)?0:$lt->hospitalisation_days;
+				$total_leaves+=is_null($lt->annual_days)?0:$lt->annual_days;
+				$total_leaves+=is_null($lt->sick_days)?0:$lt->sick_days;
+				$total_leaves+=is_null($lt->hospitalisation_days)?0:$lt->hospitalisation_days;
+				if(Auth::user()->gender==1){
+					$total_leaves+=is_null($lt->maternity_days)?0:$lt->maternity_days;
+				}
+				if(Auth::user()->gender==0){
+					$total_leaves+=is_null($lt->paternity_days)?0:$lt->paternity_days;
+				}
+				$sick_days=is_null($lt->sick_days)?0:$lt->sick_days;
+				$hospitalisation_days+=is_null($lt->hospitalisation_days)?0:$lt->hospitalisation_days;
+				if(Auth::user()->gender==1){
+					$maternity_days+=is_null($lt->maternity_days)?0:$lt->maternity_days;
+				}
+				if(Auth::user()->gender==0){
+					$paternity_days+=is_null($lt->paternity_days)?0:$lt->paternity_days;
+				}
             }
             $el=EmployeeLeave::where('employee_id',Auth::id())->orderBy('id','desc')->get();           
             if(!empty($el)){
@@ -144,7 +177,7 @@ class EmployeeLeaveController extends Controller
             }
         $remaining_leaves=$total_leaves-$taken_leaves;
         $data=EmployeeLeave::where('id',$id)->first();
-        return view('edit_emp_leave',compact('data','total_leaves','remaining_leaves'));
+        return view('edit_emp_leave',compact('data','total_leaves','remaining_leaves','maternity_days','paternity_days','sick_days','hospitalisation_days'));
     }
     public function update_leave(Request $request){
 		
@@ -184,5 +217,127 @@ class EmployeeLeaveController extends Controller
         else{
             return back()->with('error','Record Not Found !!');
         }
+    }
+	
+	public function maternity_remaining_leave_type(Request $request){			 
+		$taken_maternity=0;
+		$maternity_days=0;
+		$lt=LeaveType::first(); 
+		if(Auth::user()->gender==1){
+			$maternity_days+=is_null($lt->maternity_days)?0:$lt->maternity_days;
+		}
+		if($request->id){
+		$leave=DB::table('employee_leaves')->where('id','!=',$request->id)->where('employee_id',Auth::user()->id)->where('leave_type_id',$request->typeid)->get('number_of_days');  
+		} else {
+		$leave=DB::table('employee_leaves')->where('employee_id',Auth::user()->id)->where('leave_type_id',$request->typeid)->get('number_of_days'); 
+		}
+		foreach($leave as $val1)
+		{
+			$taken_maternity+=$val1->number_of_days;
+		} 		    
+		$total_mat = $maternity_days-$taken_maternity;
+		if($total_mat >= $request->days){
+			$status= true;
+		}
+		else{
+			$status= false;
+		}
+		return response()->json($status); 
+    }
+	
+	public function Sick_remaining_leave_type(Request $request){			 
+		$taken_sick=0;
+		$sick_days=0;
+		$lt=LeaveType::first(); 
+		 
+			$sick_days+=is_null($lt->sick_days)?0:$lt->sick_days;
+		 
+		$leave=DB::table('employee_leaves')->where('employee_id',Auth::user()->id)->where('leave_type_id',$request->typeid)->get('number_of_days');  
+		foreach($leave as $val1)
+		{
+			$taken_sick+=$val1->number_of_days;
+		} 		    
+		$total_sick = $sick_days-$taken_sick;
+		if($total_sick >= $request->days){
+			$status= true;
+		}
+		else{
+			$status= false;
+		}
+		return response()->json($status); 
+    }
+	
+	public function Edit_Sick_remaining_leave_type(Request $request){			 
+		$taken_sick=0;
+		$sick_days=0;
+		$lt=LeaveType::first(); 
+		 
+			$sick_days+=is_null($lt->sick_days)?0:$lt->sick_days;
+		  
+		$leave=DB::table('employee_leaves')->where('id','!=',$request->id)->where('employee_id',Auth::user()->id)->where('leave_type_id',$request->typeid)->get('number_of_days');  
+		foreach($leave as $val1)
+		{
+			$taken_sick+=$val1->number_of_days;
+		} 		    
+		$total_sick = $sick_days-$taken_sick;
+		if($total_sick >= $request->days){
+			$status= true;
+		}
+		else{
+			$status= false;
+		}
+		return response()->json($status); 
+    }
+	
+	public function Hospitalisation_remaining_leave_type(Request $request){			 
+		$taken_hospital=0;
+		$hospitalisation_days=0;
+		$lt=LeaveType::first(); 
+		
+		$hospitalisation_days+=is_null($lt->hospitalisation_days)?0:$lt->hospitalisation_days;		 
+		if($request->id){
+		$leave=DB::table('employee_leaves')->where('id','!=',$request->id)->where('employee_id',Auth::user()->id)->where('leave_type_id',$request->typeid)->get('number_of_days');  
+		} else {
+		$leave=DB::table('employee_leaves')->where('employee_id',Auth::user()->id)->where('leave_type_id',$request->typeid)->get('number_of_days');  
+		}
+		foreach($leave as $val1)
+		{
+			$taken_hospital+=$val1->number_of_days;
+		} 		    
+		$total_hospital = $hospitalisation_days-$taken_hospital;  
+		if($total_hospital >= $request->days){
+			$status= true;
+		}
+		else{
+			$status= false;
+		}
+		return response()->json($status); 
+    }
+	
+	public function Paternity_remaining_leave_type(Request $request){			 
+		$taken_paternity=0;
+		$paternity_days=0;
+		$lt=LeaveType::first(); 
+		
+		if(Auth::user()->gender==0){
+			$paternity_days+=is_null($lt->paternity_days)?0:$lt->paternity_days;
+		}	 
+		if($request->id){ 
+		$leave=DB::table('employee_leaves')->where('id','!=',$request->id)->where('employee_id',Auth::user()->id)->where('leave_type_id',$request->typeid)->get('number_of_days');
+		} else {
+		$leave=DB::table('employee_leaves')->where('employee_id',Auth::user()->id)->where('leave_type_id',$request->typeid)->get('number_of_days'); 
+		}		
+		foreach($leave as $val1)
+		{
+			$taken_paternity+=$val1->number_of_days;
+		} 		    
+		$total_paternity = $paternity_days-$taken_paternity;
+		if($total_paternity >= $request->days){
+			$status= true;
+		}
+		else{
+			$status= false;
+		}
+		return response()->json($status); 
     }
 }

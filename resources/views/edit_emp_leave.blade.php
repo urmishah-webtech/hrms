@@ -43,9 +43,10 @@
                             <form id="edit_leave_form" enctype="multipart/form-data">
                                 @csrf
 								{{ csrf_field() }} 
+								 <input type="hidden" value="{{ $data->id }}" name="id" id="edit_hiiden_id">
                                 <div class="form-group">
                                     <label>Leave Type <span class="text-danger">*</span></label>
-                                    <select class="select" name="leave_type_id" required>
+                                    <select class="form-control" name="leave_type_id" required id="leave_type_chng">
                                         <option value="">Select Leave Type</option>
                                         @if(@$remaining_leaves>0)
                                             <option value="0" @if( @$data->leave_type_id==0)selected @endif>Casual Leave</option>
@@ -77,8 +78,12 @@
                                         <input required class="form-control" name="end_date" id="end_date" type="text">
                                     </div>
                                     <span class="end_date_error" style="color:red;display:none">please select proper date</span>
-                                </div>
-                                <input type="hidden" value="{{ $data->id }}" name="id" id="">
+									<span id="limit_maternity" class="end_date_error" style="color:red;display:none">You have only {{ @$maternity_days }} Leaves in Remaining  in as a Maternity Leave, Please Select onther Date</span>
+									<span id="limit_sick" class="end_date_error" style="color:red;display:none">You have only {{ @$sick_days }} Leaves in Remaining  in as a Sick Leave, Please Select onther Date</span>
+									<span id="limit_hospitalisation" class="end_date_error" style="color:red;display:none">You have only {{ @$hospitalisation_days }} Leaves in Remaining  in as a Hospitalisation, Please Select onther Date</span>
+									<span id="limit_Paternity" class="end_date_error" style="color:red;display:none">You have only {{ @$paternity_days }} Leaves in Remaining  in as a Paternity, Please Select onther Date</span>
+                                </div> 
+                               
                                 <div class="form-group">
                                     <label>Number of days <span class="text-danger">*</span></label>
                                     <input class="form-control" name="number_of_days" readonly type="number" value="{{ @$data->number_of_days }}" required id="number_of_days">
@@ -172,8 +177,95 @@
             if(days<=0){
                 $("#remaining_leaves").val(org_rl)
                 $("#number_of_days").val(0)
-                $('.end_date_error').show()      
+                $('.end_date_error').show()
+				$('#limit_maternity').hide();
+				$('#limit_sick').hide();
+				$('#limit_hospitalisation').hide();
+				$('#limit_Paternity').hide();
+				$('button.submit-btn').removeAttr('disabled');	
             }
+			//	Maternity		
+			var typeid = $('#leave_type_chng').val();  
+			var id = $('#edit_hiiden_id').val();   
+			if(typeid == 3) {
+				$.ajax({
+					url:"{{ route('maternity_remaining_leave_type') }}",
+					type: "GET",
+					data:{"typeid":typeid, 
+						   "days":days,
+							"id":id},
+					success:function(data) {
+						  if(data == false){
+							$('#limit_maternity').show();
+							$('button.submit-btn').attr('disabled','disabled');
+						  }
+						  else{
+							$('#limit_maternity').hide();
+							$('button.submit-btn').removeAttr('disabled');
+						  }
+						}
+					});			 
+				}
+			/// Sick
+			if(typeid == 1) {
+				$.ajax({
+					url:"{{ URL::route('Edit_Sick_remaining_leave_type', 'id') }}",
+					type: "GET",
+					data:{"typeid":typeid, 
+						   "days":days,
+							"id":id},
+					success:function(data) {
+						  if(data == false){
+							$('#limit_sick').show();
+							$('button.submit-btn').attr('disabled','disabled');
+						  }
+						  else{
+							$('#limit_sick').hide();
+							$('button.submit-btn').removeAttr('disabled');
+						  }
+						}
+					});			 
+				}
+			/// Hospitalisation
+			if(typeid == 2) {
+				$.ajax({
+					url:"{{ route('Hospitalisation_remaining_leave_type') }}",
+					type: "GET",
+					data:{"typeid":typeid, 
+						   "days":days,
+							"id":id},
+					success:function(data) {
+						  if(data == false){
+							$('#limit_hospitalisation').show();
+							$('button.submit-btn').attr('disabled','disabled');
+						  }
+						  else{
+							$('#limit_hospitalisation').hide();
+							$('button.submit-btn').removeAttr('disabled');
+						  }
+						}
+					});			 
+				}
+			/// Paternity
+			if(typeid == 4) {
+				$.ajax({
+					url:"{{ route('Paternity_remaining_leave_type') }}",
+					type: "GET",
+					data:{"typeid":typeid, 
+						   "days":days,
+							"id":id},
+					success:function(data) {
+						  if(data == false){
+							$('#limit_Paternity').show();
+							$('button.submit-btn').attr('disabled','disabled');
+						  }
+						  else{
+							$('#limit_Paternity').hide();
+							$('button.submit-btn').removeAttr('disabled');
+						  }
+						}
+					});			 
+				}
         }
     });
     $("#end_date").datepicker('setDate', '{{ $data->to_date }}');

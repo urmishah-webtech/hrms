@@ -322,9 +322,10 @@
 						 
 						var file_nm = data.emp[0].employee_documents;
 						var image_url="/employee_documents/"+data.emp[0].employee_documents; 
+						if(file_nm){
 						var logo='<a href="'+image_url+'" download="'+image_url+'"><i class="fa fa-download"></i> Download </a><h4>Name : '+file_nm+'</h4>';  
 						$("#employee_document_edit").html(logo);
-						 	
+						} 	
 						$.each(data.permission_modules, function(key, val)
 						{
 							$(".permissionCheck[value='"+val['module_id']+"_"+val['emp_permission_id']	+"']").prop('checked',true);
