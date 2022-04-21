@@ -15,7 +15,7 @@
                     <div class="form-group">
                         <label>Leave Type <span class="text-danger">*</span></label>
                         <select class="form-control" name="leave_type_id" required id="leave_type_chng">
-                            <option value="">Select Leave Type</option>
+                            <option value="select">Select Leave Type</option>
                             @if(@$remaining_leaves>0)
                                 <option value="0">Casual Leave</option>
                                
@@ -87,6 +87,27 @@
 <link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
 <script src="{{ URL::asset('js/jquery-3.5.1.min.js') }}"></script>
 <script src="{{ URL::asset('js/jquery-ui.min.js') }}"></script>
+<script>
+jQuery(document).ready(function() {
+	jQuery("#start_date").css('pointer-events','none');
+	jQuery("#end_date").css('pointer-events','none');
+	jQuery("#leave_type_chng").change(function(){	
+		 if(jQuery(this).val() == "select") {
+			jQuery("#start_date").css('pointer-events','none');			
+			jQuery("#end_date").css('pointer-events','none');			
+		}
+		else{
+			jQuery("#start_date").css('pointer-events','all');
+			jQuery("#end_date").css('pointer-events','all');
+		}
+	});
+});
+ $('body').on('change','#leave_type_chng',function(){
+        $('#start_date').datepicker('setDate', null);
+        $('#end_date').datepicker('setDate', null);
+
+    })
+</script>
 <script>
  
     $(function() {
