@@ -3,10 +3,18 @@
     $setting=DB::table('settings')->first();
 ?>
 <div class="header">
-			
+			<?php 
+            $role=Auth::user()->role_id;
+            if($role==3){
+                $logo_url= url('employee-dashboard');
+            }
+            else{
+                $logo_url=url('index');
+            }
+            ?>
             <!-- Logo -->
             <div class="header-left">
-                <a href="index" class="logo">
+                <a href="{{ $logo_url }}" class="logo">
                     @isset($theme_setting)
                     @if($theme_setting->light_logo!=null)
                     <img src="{{ url('/').'/setting_images/'.@$theme_setting->light_logo }}" alt="" width="150px" height="auto">

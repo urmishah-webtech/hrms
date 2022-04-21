@@ -72,9 +72,11 @@
 							</li>
 						</ul>	
 					</li>
+					@if (auth()->user()->role_id != 3)
 					<li class="{{ Request::is('termination') ? 'active' : '' }}">
         				<a  href="{{ url('termination') }}"><i class="la la-external-link-square"></i> <span>Termination</span> </a>
         			</li>
+					@endif
 					<li>
 						<a class="{{ Request::is('employee-warning') ? 'active' : '' }}" href="{{ url('employee-warning') }}"><i class="la la-external-link-square"></i><span>Warning</span></a>
 					</li>	
