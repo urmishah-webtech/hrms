@@ -102,15 +102,17 @@
                                 <div class="card profile-box flex-fill">
                                     <div class="card-body">
                                         <h3 class="card-title">Personal Informations 
-											<?php if(Auth::user()->role_id == 1){?>
+											<?php if(Auth::user()->role_id == 1){
+											if(Auth::id() != $emp_id->id){?>
 											 <form action="{{ route('add_approve_status_for_employee') }}" method="post">
 											@csrf
-											<input type="hidden" name="id" value="@if(isset($emp_id)){{ $emp_id->id}}@endif">
+											<input type="hidden" name="id" value="@if(isset($emp_id)){{ $emp_id->id}}@endif"> 
 											@if($app_status == 0)
 											<button type="submit" class="btn btn-primary submit-btn"><input type="hidden" name="approve_status" value="1" id="approve_status">Approve Request</button>
 											@endif
 											</form>
-											<?php } ?>
+											<?php } 
+											}?>
                                             <a href="#" class="edit-icon edit_personal_info" data-toggle="modal" data-target="#personal_info_modal" data-id="{{@$per_info->id}}" data-passp="{{@$per_info->passport_no}}" data-expdate="{{@$per_info->passport_expiry_date}}" data-tel="{{@$per_info->tel}}" data-nati="{{@$per_info->nationality}}" data-relg="{{@$per_info->religion}}" data-matst="{{@$per_info->marital_status}}" data-empsp="{{@$per_info->employment_of_spouse}}" data-child="{{@$per_info->No_of_children}}"><i class="fa fa-pencil"></i></a>
                                         
                                         </h3>

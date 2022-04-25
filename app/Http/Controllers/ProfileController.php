@@ -62,7 +62,8 @@ class ProfileController extends Controller
 			$personal->religion=$request->religion;
 			$personal->marital_status=$request->marital_status;
 			$personal->employment_of_spouse=$request->employment_of_spouse;
-			$personal->No_of_children=$request->No_of_children;        
+			$personal->No_of_children=$request->No_of_children;  
+			$personal->approve_status = 0 ; 
 			$personal->save();
 		}
 		else 
