@@ -252,7 +252,7 @@
                                         <div class="form-group">
                                             <label>Location <span class="text-danger">*</span></label>
                                             <select class="select" id="locList" name="location_id" required>
-                                                <option>Select Location</option>
+                                                <option value="">Select Location</option>
                                                 @isset($location)
                                                     @foreach($location as $val)
                                                         <option value="{{ $val->id }}">{{ $val->name }}</option>
@@ -503,7 +503,7 @@
                                         <div class="form-group">
                                             <label>Location <span class="text-danger">*</span></label>
                                             <select class="form-control" id="edit_locList" name="location_id" required>
-                                                <option>Select Location</option>
+                                                <option value="">Select Location</option>
                                                 @isset($location)
                                                     @foreach($location as $val)
                                                         <option value="{{ $val->id }}">{{ $val->name }}</option>
