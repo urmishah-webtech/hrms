@@ -160,7 +160,7 @@ class ProfileController extends Controller
 			'body' => 'Please Allow Admin to Change Employee Personal Informations',
 			'emp_id' => $emp_id
 		];
-		Mail::to('devangivadariya1996@gmail.com')->send(new \App\Mail\AdminApprove($details));
+		Mail::to('mithilchauhan@gmail.com')->send(new \App\Mail\AdminApprove($details));
 		return back();
 	}
 	public function add_approve_status_for_employee(Request $request)
