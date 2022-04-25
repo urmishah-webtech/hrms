@@ -640,6 +640,10 @@ Route::get('/Paternity_remaining_leave_type','EmployeeLeaveController@Paternity_
 Route::get('/Edit_Sick_remaining_leave_type','EmployeeLeaveController@Edit_Sick_remaining_leave_type')->name('Edit_Sick_remaining_leave_type');
 
 
+//// Admin Approve Mail
+Route::post('/send-mail-adminapp','ProfileController@send_mail_adminapprove')->name('send-mail-adminapp');
+Route::post('/add_approve_status_for_employee','ProfileController@add_approve_status_for_employee')->name('add_approve_status_for_employee');
+
 
 Route::namespace('Auth')->group(function(){
 

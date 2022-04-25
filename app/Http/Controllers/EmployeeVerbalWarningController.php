@@ -37,8 +37,8 @@ class EmployeeVerbalWarningController extends Controller
         $string_id = Employee::where('id', $userd)->pluck('id')->all();
         $emp_id=implode("id",$string_id);       
         $employee_nameid = $request->emp_id;   
-        $employee_comments = $request->employee_comments;
-        $managers_comments = $request->managers_comments;
+       // $employee_comments = $request->employee_comments;
+        $hr_input = $request->hr_input;
         $admin_comments = $request->admin_comments;
         $areas_for_improvement = $request->areas_for_improvement;        
        
@@ -48,9 +48,9 @@ class EmployeeVerbalWarningController extends Controller
         //dd($request->file('fileadd'));
         $i=0;
         // dd($request->all()); 
-        foreach($employee_comments as $key => $input) 
+        foreach($admin_comments as $key => $input) 
         {
-            if($employee_comments[$key] || $employee_nameid[$key] || $managers_comments[$key] || $admin_comments[$key] || $areas_for_improvement[$key])
+            if($admin_comments[$key] || $employee_nameid[$key] ||  $areas_for_improvement[$key] || $hr_input[$key])
             {  
 
                 $fileName= NULL;   
@@ -66,8 +66,8 @@ class EmployeeVerbalWarningController extends Controller
 
                 $scores = new EmployeeFirstVerbalWarning();                
                 $scores->emp_id = $employee_nameid[$key] ? $employee_nameid[$key] : '';
-                $scores->employee_comments = $employee_comments[$key] ? $employee_comments[$key] : '';  
-                $scores->managers_comments = $managers_comments[$key] ? $managers_comments[$key] : '';  
+               // $scores->employee_comments = $employee_comments[$key] ? $employee_comments[$key] : '';  
+                $scores->hr_input = $hr_input[$key] ? $hr_input[$key] : '';  
                 $scores->admin_comments = $admin_comments[$key] ? $admin_comments[$key] : '';
                 $scores->areas_for_improvement = $areas_for_improvement[$key] ? $areas_for_improvement[$key] : '';
                 $scores->warning_by = $emp_id;
@@ -88,17 +88,18 @@ class EmployeeVerbalWarningController extends Controller
         $string_id = Employee::where('id', $userd)->pluck('id')->all();
         $emp_id=implode("id",$string_id);       
         $employee_nameid = $request->emp_id;   
-        $employee_comments = $request->employee_comments;
-        $managers_comments = $request->managers_comments;
+        //$employee_comments = $request->employee_comments;
+        //$managers_comments = $request->managers_comments;
+		$hr_input = $request->hr_input;
         $admin_comments = $request->admin_comments;
         $areas_for_improvement = $request->areas_for_improvement;        
         $id = $request->getid;
 
 		$i=0; 
 
-        foreach($employee_comments as $key => $input) 
+        foreach($admin_comments as $key => $input) 
         {
-            if($employee_comments[$key] || $employee_nameid[$key] || $managers_comments[$key] || $admin_comments[$key] || $areas_for_improvement[$key])
+            if($admin_comments[$key] || $employee_nameid[$key] || $hr_input[$key] ||$areas_for_improvement[$key])
             {    
                 if(isset($id[$key]))
                 {          
@@ -114,13 +115,12 @@ class EmployeeVerbalWarningController extends Controller
                     }   
 
                     $scores->emp_id = $employee_nameid[$key] ? $employee_nameid[$key] : '';
-                    $scores->employee_comments = $employee_comments[$key] ? $employee_comments[$key] : '';  
-                    $scores->managers_comments = $managers_comments[$key] ? $managers_comments[$key] : '';  
+                    //$scores->employee_comments = $employee_comments[$key] ? $employee_comments[$key] : '';  
+                    $scores->hr_input = $hr_input[$key] ? $hr_input[$key] : '';  
                     $scores->admin_comments = $admin_comments[$key] ? $admin_comments[$key] : '';
                     $scores->areas_for_improvement = $areas_for_improvement[$key] ? $areas_for_improvement[$key] : '';
                     $scores->warning_by = $emp_id;
-					$scores->document=$imagesave;
-					 
+					$scores->document=$imagesave; 
                     $scores->save();  
                 }
                 else
@@ -138,8 +138,8 @@ class EmployeeVerbalWarningController extends Controller
 
                     $scores = new EmployeeFirstVerbalWarning();               
                     $scores->emp_id = $employee_nameid[$key] ? $employee_nameid[$key] : '';
-                    $scores->employee_comments = $employee_comments[$key] ? $employee_comments[$key] : '';  
-                    $scores->managers_comments = $managers_comments[$key] ? $managers_comments[$key] : '';  
+                    //$scores->employee_comments = $employee_comments[$key] ? $employee_comments[$key] : '';  
+                    $scores->hr_input = $hr_input[$key] ? $hr_input[$key] : '';  
                     $scores->admin_comments = $admin_comments[$key] ? $admin_comments[$key] : '';
                     $scores->areas_for_improvement = $areas_for_improvement[$key] ? $areas_for_improvement[$key] : '';
                     $scores->warning_by = $emp_id;
@@ -168,15 +168,15 @@ class EmployeeVerbalWarningController extends Controller
         $string_id = Employee::where('id', $userd)->pluck('id')->all();
         $emp_id=implode("id",$string_id);      
         $employee_nameid = $request->emp_id;       
-        $employee_comments = $request->employee_comments;
-        $managers_comments = $request->managers_comments;
+        //$employee_comments = $request->employee_comments;
+        $hr_input = $request->hr_input;
         $admin_comments = $request->admin_comments;
         $areas_for_improvement = $request->areas_for_improvement;   
 
         $i=0;
-        foreach($employee_comments as $key => $input) 
+        foreach($admin_comments as $key => $input) 
         {
-            if($employee_comments[$key] || $employee_nameid[$key] || $managers_comments[$key] || $admin_comments[$key] || $areas_for_improvement[$key])
+            if($admin_comments[$key] || $employee_nameid[$key] || $areas_for_improvement[$key] || $hr_input[$key])
             {        
 
                 $fileName= NULL;   
@@ -192,8 +192,8 @@ class EmployeeVerbalWarningController extends Controller
 
                 $scores = new EmployeeSecondVerbalWarning();                
                 $scores->emp_id = $employee_nameid[$key] ? $employee_nameid[$key] : '';
-                $scores->employee_comments = $employee_comments[$key] ? $employee_comments[$key] : '';  
-                $scores->managers_comments = $managers_comments[$key] ? $managers_comments[$key] : '';  
+                //$scores->employee_comments = $employee_comments[$key] ? $employee_comments[$key] : '';  
+                $scores->hr_input = $hr_input[$key] ? $hr_input[$key] : '';  
                 $scores->admin_comments = $admin_comments[$key] ? $admin_comments[$key] : '';
                 $scores->areas_for_improvement = $areas_for_improvement[$key] ? $areas_for_improvement[$key] : '';
                 $scores->warning_by = $emp_id;
@@ -214,17 +214,17 @@ class EmployeeVerbalWarningController extends Controller
         $string_id = Employee::where('id', $userd)->pluck('id')->all();
         $emp_id=implode("id",$string_id);      
         $employee_nameid = $request->emp_id;       
-        $employee_comments = $request->employee_comments;
-        $managers_comments = $request->managers_comments;
+       // $employee_comments = $request->employee_comments;
+        $hr_input = $request->hr_input;
         $admin_comments = $request->admin_comments;
         $areas_for_improvement = $request->areas_for_improvement;        
         $id = $request->getid;
 
         
 
-        foreach($employee_comments as $key => $input) 
+        foreach($admin_comments as $key => $input) 
         {
-            if($employee_comments[$key] || $employee_nameid[$key] || $managers_comments[$key] || $admin_comments[$key] || $areas_for_improvement[$key])
+            if($admin_comments[$key] || $employee_nameid[$key] || $hr_input[$key] ||  $areas_for_improvement[$key])
             {     
                 if(isset($id[$key]))
                 {
@@ -237,13 +237,13 @@ class EmployeeVerbalWarningController extends Controller
                         $request->fileadd[$key]->move(public_path('employee_documents'), $fileName); 
                         $imagesave = $fileName;  
                     }else{
-                        $imagesave = $scores->document;
+                        $imagesave = $score->document;
                     }
 
                   // dd($admin_comments[$key],$file_arr);
                     $score->emp_id = $employee_nameid[$key] ? $employee_nameid[$key] : '';
-                    $score->employee_comments = $employee_comments[$key] ? $employee_comments[$key] : '';  
-                    $score->managers_comments = $managers_comments[$key] ? $managers_comments[$key] : '';  
+                    //$score->employee_comments = $employee_comments[$key] ? $employee_comments[$key] : '';  
+                    $score->hr_input = $hr_input[$key] ? $hr_input[$key] : '';  
                     $score->admin_comments = $admin_comments[$key] ? $admin_comments[$key] : '';
                     $score->areas_for_improvement = $areas_for_improvement[$key] ? $areas_for_improvement[$key] : '';
                     $score->document=$imagesave;
@@ -265,8 +265,8 @@ class EmployeeVerbalWarningController extends Controller
 
                     $scores = new EmployeeSecondVerbalWarning();                
                     $scores->emp_id = $employee_nameid[$key] ? $employee_nameid[$key] : '';
-                    $scores->employee_comments = $employee_comments[$key] ? $employee_comments[$key] : '';  
-                    $scores->managers_comments = $managers_comments[$key] ? $managers_comments[$key] : '';  
+                   // $scores->employee_comments = $employee_comments[$key] ? $employee_comments[$key] : '';  
+                    $scores->hr_input = $hr_input[$key] ? $hr_input[$key] : '';  
                     $scores->admin_comments = $admin_comments[$key] ? $admin_comments[$key] : '';
                     $scores->areas_for_improvement = $areas_for_improvement[$key] ? $areas_for_improvement[$key] : '';
                     $scores->warning_by = $emp_id;
@@ -293,16 +293,16 @@ class EmployeeVerbalWarningController extends Controller
         $string_id = Employee::where('id', $userd)->pluck('id')->all();
         $emp_id=implode("id",$string_id); 
 
-        $employee_comments = $request->employee_comments;
-        $managers_comments = $request->managers_comments;
+        //$employee_comments = $request->employee_comments;
+        $hr_input = $request->hr_input;
         $admin_comments = $request->admin_comments;       
         $employee_nameid = $request->emp_id;  
 
         $i=0;
 
-        foreach($employee_comments as $key => $input) 
+        foreach($admin_comments as $key => $input) 
         {
-            if($employee_comments[$key] || $employee_nameid[$key] || $managers_comments[$key] || $admin_comments[$key])
+            if($admin_comments[$key] || $employee_nameid[$key] || $hr_input[$key])
             {      
 
                 $fileName= NULL;   
@@ -318,8 +318,8 @@ class EmployeeVerbalWarningController extends Controller
 
                 $scores = new EmployeeThirdVerbalWarning();                
                 $scores->emp_id = $employee_nameid[$key] ? $employee_nameid[$key] : '';
-                $scores->employee_comments = $employee_comments[$key] ? $employee_comments[$key] : '';  
-                $scores->managers_comments = $managers_comments[$key] ? $managers_comments[$key] : '';  
+                //$scores->employee_comments = $employee_comments[$key] ? $employee_comments[$key] : '';  
+                $scores->hr_input = $hr_input[$key] ? $hr_input[$key] : '';  
                 $scores->admin_comments = $admin_comments[$key] ? $admin_comments[$key] : '';
                 $scores->document = $imagesave;
                 $scores->warning_by = $emp_id;
@@ -336,16 +336,16 @@ class EmployeeVerbalWarningController extends Controller
         $userd = Auth::user()->id;  
         $string_id = Employee::where('id', $userd)->pluck('id')->all();
         $emp_id=implode("id",$string_id); 
-        $employee_comments = $request->employee_comments;
-        $managers_comments = $request->managers_comments;
+        //$employee_comments = $request->employee_comments;
+        $hr_input = $request->hr_input;
         $admin_comments = $request->admin_comments;       
         $employee_nameid = $request->emp_id;
         $id = $request->getid;    
 
 
-        foreach($employee_comments as $key => $input) 
+        foreach($admin_comments as $key => $input) 
         {
-            if($employee_comments[$key] || $employee_nameid[$key] || $managers_comments[$key] || $admin_comments[$key])
+            if($admin_comments[$key] || $employee_nameid[$key] || $hr_input[$key])
             {   
                 if(isset($id[$key]))
                 {              
@@ -361,8 +361,8 @@ class EmployeeVerbalWarningController extends Controller
                     }
 
                     $scores->emp_id = $employee_nameid[$key] ? $employee_nameid[$key] : '';
-                    $scores->employee_comments = $employee_comments[$key] ? $employee_comments[$key] : '';  
-                    $scores->managers_comments = $managers_comments[$key] ? $managers_comments[$key] : '';  
+                    //$scores->employee_comments = $employee_comments[$key] ? $employee_comments[$key] : '';  
+                    $scores->hr_input = $hr_input[$key] ? $hr_input[$key] : '';  
                     $scores->admin_comments = $admin_comments[$key] ? $admin_comments[$key] : '';
                     $scores->document=$imagesave;
                     $scores->warning_by = $emp_id; 
@@ -383,8 +383,8 @@ class EmployeeVerbalWarningController extends Controller
 
                     $scores = new EmployeeThirdVerbalWarning();                
                     $scores->emp_id = $employee_nameid[$key] ? $employee_nameid[$key] : '';
-                    $scores->employee_comments = $employee_comments[$key] ? $employee_comments[$key] : '';  
-                    $scores->managers_comments = $managers_comments[$key] ? $managers_comments[$key] : '';  
+                    //$scores->employee_comments = $employee_comments[$key] ? $employee_comments[$key] : '';  
+                    $scores->hr_input = $hr_input[$key] ? $hr_input[$key] : '';  
                     $scores->admin_comments = $admin_comments[$key] ? $admin_comments[$key] : '';
                     $scores->document = $imagesave;
                     $scores->warning_by = $emp_id;

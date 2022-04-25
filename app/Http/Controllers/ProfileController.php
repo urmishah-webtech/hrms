@@ -19,6 +19,8 @@ use Validator;
 use Redirect;
 use DB;
 use App\EmployeeDocument; 
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Mail\Mailable;
 class ProfileController extends Controller
 {
     public function Profile_employees($id)
@@ -34,7 +36,9 @@ class ProfileController extends Controller
 		$second_war = EmployeeSecondVerbalWarning::where('emp_id',$userd)->first();
 		$third_war = EmployeeThirdVerbalWarning::where('emp_id',$userd)->first();
 		$documents = EmployeeDocument::where('employee_id',$id)->get();
-        return view('profile',compact('emp_profile','documents','per_info','contact', 'promotiondata', 'id','userd', 'terminate_emp','first_war','second_war','third_war'));
+		$emp_id = Employee::where('id',$id)->first();	
+		$app_status = ProfilePersonalInformations::where('emp_id',$userd)->where('approve_status',1)->pluck('approve_status')->first();  
+        return view('profile',compact('emp_profile','documents','per_info','contact', 'promotiondata', 'id','userd', 'terminate_emp','first_war','second_war','third_war','emp_id','app_status'));
     }
 	 
 	public function add_profile_personal_informations(Request $request){
@@ -148,4 +152,23 @@ class ProfileController extends Controller
 			return Redirect::back()->with("error","Error while Deleting");
 		}
 	}
+	 public function send_mail_adminapprove(Request $request)
+    {
+		$emp_id = Auth::user()->id;
+		$details = [
+			'title' => 'Personal Informations Changes Request',
+			'body' => 'Please Allow Admin to Change Employee Personal Informations',
+			'emp_id' => $emp_id
+		];
+		Mail::to('devangivadariya1996@gmail.com')->send(new \App\Mail\AdminApprove($details));
+		return back();
+	}
+	public function add_approve_status_for_employee(Request $request)
+    {    
+        $userd = Auth::user()->id;  
+        $status=ProfilePersonalInformations::where('emp_id',$request->id)->first();             
+        $status->approve_status=$request->approve_status; 
+        $status->save(); 
+        return back();
+    }
 }
