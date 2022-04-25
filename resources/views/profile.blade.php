@@ -102,6 +102,13 @@
                                 <div class="card profile-box flex-fill">
                                     <div class="card-body">
                                         <h3 class="card-title">Personal Informations 
+											<?php if(Auth::user()->role_id == 1){?>
+											 <form action="{{ route('add_approve_status_for_employee') }}" method="post">
+											@csrf
+											<input type="hidden" name="id" value="@if(isset($emp_id)){{ $emp_id->id}}@endif">
+											<button type="submit" class="btn btn-primary submit-btn"><input type="hidden" name="approve_status" value="1" id="approve_status">Approve Request</button>
+											</form>
+											<?php } ?>
                                             <a href="#" class="edit-icon edit_personal_info" data-toggle="modal" data-target="#personal_info_modal" data-id="{{@$per_info->id}}" data-passp="{{@$per_info->passport_no}}" data-expdate="{{@$per_info->passport_expiry_date}}" data-tel="{{@$per_info->tel}}" data-nati="{{@$per_info->nationality}}" data-relg="{{@$per_info->religion}}" data-matst="{{@$per_info->marital_status}}" data-empsp="{{@$per_info->employment_of_spouse}}" data-child="{{@$per_info->No_of_children}}"><i class="fa fa-pencil"></i></a>
                                         
                                         </h3>
@@ -326,39 +333,39 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Passport No</label>
-                                            <input type="text" class="form-control" name="passport_no" id="passport_no" value="">
+                                            <input type="text" class="form-control" name="passport_no" id="passport_no" value=""  @if($app_status == 1)editable @else readonly @endif>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Passport Expiry Date</label>
                                             <div class="cal-icon">
-												<input name="passport_expiry_date" class="form-control datetimepicker" id="passport_expiry_date" type="text" value="">
+												<input name="passport_expiry_date" class="form-control datetimepicker" id="passport_expiry_date" type="text" value="" @if($app_status == 1)editable @else readonly @endif>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Tel</label>
-                                            <input name="tel" class="form-control" type="number" id="tel">
+                                            <input name="tel" class="form-control" type="number" id="tel" @if($app_status == 1)editable @else readonly @endif>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Nationality <span class="text-danger">*</span></label>
-                                            <input name="nationality" class="form-control" type="text" id="nationality">
+                                            <input name="nationality" class="form-control" type="text" id="nationality" @if($app_status == 1)editable @else readonly @endif>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Religion</label>
-                                                <input name="religion" class="form-control" type="text" id="religion">
+                                                <input name="religion" class="form-control" type="text" id="religion" @if($app_status == 1)editable @else readonly @endif>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Marital status <span class="text-danger">*</span></label>
-                                            <select class="form-control" name="marital_status" id="marital_status">
+                                            <select class="form-control" name="marital_status" id="marital_status" @if($app_status == 1)editable @else disabled @endif>
                                                 <option value="">-</option>
                                                 <option value="Single">Single</option>
                                                 <option value="Married">Married</option>
@@ -368,20 +375,28 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Employment of spouse</label>
-                                            <input class="form-control" type="text" name="employment_of_spouse" id="employment_of_spouse">
+                                            <input class="form-control" type="text" name="employment_of_spouse" id="employment_of_spouse" @if($app_status == 1)editable @else readonly @endif>
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>No. of children </label>
-                                            <input class="form-control" type="number" name="No_of_children" id="No_of_children">
+                                            <input class="form-control" type="number" name="No_of_children" id="No_of_children" @if($app_status == 1)editable @else readonly @endif>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="submit-section">
-                                    <button class="btn btn-primary submit-btn">Submit</button>
+                                    <button class="btn btn-primary submit-btn" @if($app_status == 1)editable @else disabled @endif>Submit</button>
                                 </div>
-                            </form>
+                            </form>  
+							<?php if(Auth::user()->role_id == 3 && $app_status == 0){?>
+							<form action="{{ route('send-mail-adminapp') }}" method="post">
+                            @csrf
+								<div class="submit-section">
+                                    <button class="btn btn-primary submit-btn">Request for Changes</button>
+                                </div>
+							</form>
+							<?php } ?>
                         </div>
                     </div>
                 </div>

@@ -209,8 +209,11 @@
 							<span>{{ Auth::user()->first_name }}</span>
 						</a>
 						<div class="dropdown-menu">
-							<a class="dropdown-item" href="profile">My Profile</a>
-							<a class="dropdown-item" href="settings">Settings</a>
+							 <?php
+							$id=Auth::id();
+							?>
+							<a class="dropdown-item" href="{{ url('profile').'/'.$id }}">My Profile</a>
+							@if(Auth::user()->role_id != 3)<a class="dropdown-item" href="settings">Settings</a>@endif
 							<a class="dropdown-item" href="{{ route('logout') }}"
                         onclick="event.preventDefault();                                document.getElementById('logout-form').submit();">Logout</a>
 							<form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
