@@ -181,7 +181,7 @@
                                             <div class="dropdown dropdown-action">
                                                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item editwarningbtn edslpoin2" href="#" data-document="{{@$val->document}}" data-id2="{{ @$val->id }}" data-emp_id2="{{ @$val->emp_id }}"  data-employee_comments2="{{ @$val->employee_comments }}" data-managers_comments2="{{ @$val->managers_comments }}" data-hr_input2="{{ @$val->hr_input }}" data-admin_comments2="{{ @$val->admin_comments }}" data-areas_for_improvement2="{{ @$val->areas_for_improvement }}" data-toggle="modal" data-target="#edit_warningemployee"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                                    <a class="dropdown-item editwarningbtn edslpoin2" href="#" data-document2 ="{{@$val->document}}" data-id2="{{ @$val->id }}" data-emp_id2="{{ @$val->emp_id }}"  data-employee_comments2="{{ @$val->employee_comments }}" data-managers_comments2="{{ @$val->managers_comments }}" data-hr_input2="{{ @$val->hr_input }}" data-admin_comments2="{{ @$val->admin_comments }}" data-areas_for_improvement2="{{ @$val->areas_for_improvement }}" data-toggle="modal" data-target="#edit_warningemployee"><i class="fa fa-pencil m-r-5"></i> Edit</a>
                                                      
                                                 </div>
                                             </div>
@@ -214,7 +214,7 @@
                                             <div class="dropdown dropdown-action">
                                                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item editwarningbtn edslpoin2" href="#" data-id2="{{ @$val->id }}" data-emp_id2="{{ @$val->emp_id }}"  data-employee_comments2="{{ @$val->employee_comments }}" data-managers_comments2="{{ @$val->managers_comments }}" data-hr_input2="{{ @$val->hr_input }}" data-admin_comments2="{{ @$val->admin_comments }}" data-areas_for_improvement2="{{ @$val->areas_for_improvement }}" data-toggle="modal" data-target="#edit_warningemployee"><i class="fa fa-pencil m-r-5"></i> Edit</a> 
+                                                    <a class="dropdown-item editwarningbtn edslpoin2" href="#" data-document2="{{@$val->document}}"  data-id2="{{ @$val->id }}" data-emp_id2="{{ @$val->emp_id }}"  data-employee_comments2="{{ @$val->employee_comments }}" data-managers_comments2="{{ @$val->managers_comments }}" data-hr_input2="{{ @$val->hr_input }}" data-admin_comments2="{{ @$val->admin_comments }}" data-areas_for_improvement2="{{ @$val->areas_for_improvement }}" data-toggle="modal" data-target="#edit_warningemployee"><i class="fa fa-pencil m-r-5"></i> Edit</a> 
                                                 </div>
                                             </div>
                                         </td>
@@ -250,7 +250,7 @@
                                             <div class="dropdown dropdown-action">
                                                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item editwarningbtn edslpoin2" data-document="{{@$val->document}}" href="#" data-id2="{{ @$val->id }}" data-emp_id2="{{ @$val->emp_id }}"  data-employee_comments2="{{ @$val->employee_comments }}" data-managers_comments2="{{ @$val->managers_comments }}" data-hr_input2="{{ @$val->hr_input }}"  data-admin_comments2="{{ @$val->admin_comments }}" data-areas_for_improvement2="{{ @$val->areas_for_improvement }}" data-toggle="modal" data-target="#edit_warningemployee"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                                    <a class="dropdown-item editwarningbtn edslpoin2" data-document2="{{@$val->document}}" href="#" data-id2="{{ @$val->id }}" data-emp_id2="{{ @$val->emp_id }}"  data-employee_comments2="{{ @$val->employee_comments }}" data-managers_comments2="{{ @$val->managers_comments }}" data-hr_input2="{{ @$val->hr_input }}"  data-admin_comments2="{{ @$val->admin_comments }}" data-areas_for_improvement2="{{ @$val->areas_for_improvement }}" data-toggle="modal" data-target="#edit_warningemployee"><i class="fa fa-pencil m-r-5"></i> Edit</a>
                                                     <a class="dropdown-item seconddeleteWarningbtn" href="#" data-id="{{ @$val->id }}" data-toggle="modal" data-target="#delete_EmpVerbalWarning"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                                                 </div>
                                             </div>
@@ -284,7 +284,7 @@
                                             <div class="dropdown dropdown-action">
                                                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item editwarningbtn edslpoin3" data-document="{{@$val->document}}" href="#" data-id3="{{ @$val->id }}" data-emp_id3="{{ @$val->emp_id }}"  data-employee_comments3="{{ @$val->employee_comments }}" data-managers_comments3="{{ @$val->managers_comments }}"   data-hr_input3="{{ @$val->hr_input }}" data-admin_comments3="{{ @$val->admin_comments }}" data-toggle="modal" data-target="#edit_warningemployee"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                                    <a class="dropdown-item editwarningbtn edslpoin3" data-document3="{{@$val->document}}" href="#" data-id3="{{ @$val->id }}" data-emp_id3="{{ @$val->emp_id }}"  data-employee_comments3="{{ @$val->employee_comments }}" data-managers_comments3="{{ @$val->managers_comments }}"   data-hr_input3="{{ @$val->hr_input }}" data-admin_comments3="{{ @$val->admin_comments }}" data-toggle="modal" data-target="#edit_warningemployee"><i class="fa fa-pencil m-r-5"></i> Edit</a>
                                                      
                                                 </div>
                                             </div>
@@ -317,7 +317,7 @@
                                             <div class="dropdown dropdown-action">
                                                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item editwarningbtn edslpoin3" data-document="{{@$val->document}}" href="#" data-id3="{{ @$val->id }}" data-emp_id3="{{ @$val->emp_id }}"   data-employee_comments3="{{ @$val->employee_comments }}" data-managers_comments3="{{ @$val->managers_comments }}" data-hr_input3="{{ @$val->hr_input }}"  data-admin_comments3="{{ @$val->admin_comments }}" data-toggle="modal" data-target="#edit_warningemployee"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                                    <a class="dropdown-item editwarningbtn edslpoin3" data-document3="{{@$val->document}}" href="#" data-id3="{{ @$val->id }}" data-emp_id3="{{ @$val->emp_id }}"   data-employee_comments3="{{ @$val->employee_comments }}" data-managers_comments3="{{ @$val->managers_comments }}" data-hr_input3="{{ @$val->hr_input }}"  data-admin_comments3="{{ @$val->admin_comments }}" data-toggle="modal" data-target="#edit_warningemployee"><i class="fa fa-pencil m-r-5"></i> Edit</a>
                                                     
                                                 </div>
                                             </div>
@@ -354,7 +354,7 @@
                                             <div class="dropdown dropdown-action">
                                                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                                 <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item editwarningbtn edslpoin3" href="#" data-document="{{@$val->document}}" data-id3="{{ @$val->id }}" data-emp_id3="{{ @$val->emp_id }}"   data-employee_comments3="{{ @$val->employee_comments }}" data-managers_comments3="{{ @$val->managers_comments }}"  data-hr_input3="{{ @$val->hr_input}}" data-admin_comments3="{{ @$val->admin_comments }}" data-toggle="modal" data-target="#edit_warningemployee"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                                    <a class="dropdown-item editwarningbtn edslpoin3" href="#" data-document3="{{@$val->document}}" data-id3="{{ @$val->id }}" data-emp_id3="{{ @$val->emp_id }}"   data-employee_comments3="{{ @$val->employee_comments }}" data-managers_comments3="{{ @$val->managers_comments }}"  data-hr_input3="{{ @$val->hr_input}}" data-admin_comments3="{{ @$val->admin_comments }}" data-toggle="modal" data-target="#edit_warningemployee"><i class="fa fa-pencil m-r-5"></i> Edit</a>
                                                     <a class="dropdown-item thirddeleteWarningbtn" href="#" data-id="{{ @$val->id }}" data-toggle="modal" data-target="#delete_EmpVerbalWarning"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                                                 </div>
                                             </div>
@@ -741,6 +741,7 @@
 														<td><input type="text" id="admin_comments2" class="form-control" name="admin_comments[]" @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2)editable @else readonly @endif></td>
 														<td><input type="text" id="areas_for_improvement2" class="form-control" name="areas_for_improvement[]" @if(Auth::user()->role_id == 3)readonly @endif></td>
                                                         <td><input type="file" class="form-control" name="fileadd[]" id="" @if(Auth::user()->role_id == 3)readonly @endif>
+														<div id="employee_documents_2"></div>
 														<input type="hidden" class="form-control" name="getid[]" value="" id="getidjq2">
                                                         <td></td>
 													</tr>
@@ -808,6 +809,7 @@
 														<td><input type="text" id="hr_input3" class="form-control" name="hr_input[]" @if(Auth::user()->role_id != 5)readonly @endif></td>
 														<td><input type="text" id="admin_comments3" class="form-control" name="admin_comments[]" @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2)editable @else readonly @endif></td>
                                                         <td><input type="file" class="form-control" name="fileadd[]" id="" @if(Auth::user()->role_id == 3)readonly @endif>
+														<div id="employee_documents_3"></div>
                                                         <input type="hidden" class="form-control" name="getid[]" value="" id="getidjq3">
 														<td></td>
 													</tr>

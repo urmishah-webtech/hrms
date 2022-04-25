@@ -29,7 +29,7 @@
                                 <option value="3">Maternity leave</option>
                                 @endif
                                 @if(Auth::user()->gender==0 && $total_paternity_taken<$paternity_days)
-                                <option value="4">Paternity leave</option>
+                                <!--<option value="4">Paternity leave</option>-->
                                 @endif
                             @endif
                             @if(@$remaining_leaves<=0)
