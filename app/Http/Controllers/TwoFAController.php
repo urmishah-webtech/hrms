@@ -30,7 +30,7 @@ class TwoFAController extends Controller
                         ->where('updated_at', '>=', now()->subMinutes(2))
                         ->first();
   
-        if (!is_null($find)) {
+        if ($find) {
             Session::put('user_2fa', auth()->user()->id);
 			return redirect('employee-dashboard');
             //return redirect()->route('home');

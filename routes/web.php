@@ -40,7 +40,7 @@ Route::get('2fa/reset', [App\Http\Controllers\TwoFAController::class, 'resend'])
 
 	
   
-Route::middleware(['App\Http\Middleware\AuthCheck','isTerminated'])->group(function () {
+Route::middleware(['App\Http\Middleware\AuthCheck','isTerminated','App\Http\Middleware\Check2FA'])->group(function () {
 
 // Route::get('/index', function () {
 //     return view('index');
@@ -334,9 +334,9 @@ Route::get('/leave-type', function () {
 Route::get('/client-profile', function () {
     return view('client-profile');
 });
-Route::get('/login', function () {
-    return view('login');
-});
+// Route::get('/login', function () {
+//     return view('login');
+// });
 
 Route::get('/forgot-password', function () {
     return view('forgot-password');
@@ -652,6 +652,44 @@ Route::post('/send-mail-adminapp','ProfileController@send_mail_adminapprove')->n
 Route::post('/add_approve_status_for_employee','ProfileController@add_approve_status_for_employee')->name('add_approve_status_for_employee');
 
 
+Route::get('/resetpassword', 'PasswordResetController@forgotpassword')->name('resetpassword');
+Route::post('/resetpassword', 'PasswordResetController@sendmail');
+Route::get('/resetnewpassword/{id}/{token}', 'PasswordResetController@resetpassword');
+Route::post('/resetnewpassword/{id}/{token}', 'PasswordResetController@setnewpassword');
+
+ Route::post('clear_notification','NotificationController@clear_notification')->name('clear_notification');
+
+// Route::get('/register', function () {
+//     return view('authregister');
+// });
+
+// Route::get('/testpusher', function () {
+//     event(new App\Events\PromotionAdded('Added'));
+//     return "Event has been sent!";
+// });
+Route::middleware([IfAdmin::class])->group(function () {
+    Route::get('/departments','DepartmentController@departments')->name('departments');
+    Route::post('add_deaprtment','DepartmentController@add_department')->name('add_department');
+    Route::post('edit_department','DepartmentController@edit_department')->name('edit_department');
+    Route::post('delete_department','DepartmentController@delete_department')->name('delete_department');
+    
+    Route::get('/locations','LocationController@locations')->name('locations');
+    Route::post('add_location','LocationController@add_location')->name('add_location');
+    Route::post('edit_location','LocationController@edit_location')->name('edit_location');
+    Route::post('delete_location','LocationController@delete_location')->name('delete_location');
+    
+    
+    Route::get('/designations','DesignationController@designations')->name('designations');
+    Route::post('add_designation','DesignationController@add_designation')->name('add_designation');
+    Route::post('edit_designation','DesignationController@edit_designation')->name('edit_designation');
+    Route::post('delete_designation','DesignationController@delete_designation')->name('delete_designation');
+     
+    
+    
+    });
+
+    Auth::routes();
+    
 Route::namespace('Auth')->group(function(){
 
     //Login Routes
@@ -670,37 +708,3 @@ Route::namespace('Auth')->group(function(){
     // Route::post('/password/reset','ResetPasswordController@reset')->name('password.update');
 
 });
-Route::get('/resetpassword', 'PasswordResetController@forgotpassword')->name('resetpassword');
-Route::post('/resetpassword', 'PasswordResetController@sendmail');
-Route::get('/resetnewpassword/{id}/{token}', 'PasswordResetController@resetpassword');
-Route::post('/resetnewpassword/{id}/{token}', 'PasswordResetController@setnewpassword');
-Route::middleware([IfAdmin::class])->group(function () {
-Route::get('/departments','DepartmentController@departments')->name('departments');
-Route::post('add_deaprtment','DepartmentController@add_department')->name('add_department');
-Route::post('edit_department','DepartmentController@edit_department')->name('edit_department');
-Route::post('delete_department','DepartmentController@delete_department')->name('delete_department');
-
-Route::get('/locations','LocationController@locations')->name('locations');
-Route::post('add_location','LocationController@add_location')->name('add_location');
-Route::post('edit_location','LocationController@edit_location')->name('edit_location');
-Route::post('delete_location','LocationController@delete_location')->name('delete_location');
-
-
-Route::get('/designations','DesignationController@designations')->name('designations');
-Route::post('add_designation','DesignationController@add_designation')->name('add_designation');
-Route::post('edit_designation','DesignationController@edit_designation')->name('edit_designation');
-Route::post('delete_designation','DesignationController@delete_designation')->name('delete_designation');
- 
-
-
-});
- Route::post('clear_notification','NotificationController@clear_notification')->name('clear_notification');
- Auth::routes();
-// Route::get('/register', function () {
-//     return view('authregister');
-// });
-
-// Route::get('/testpusher', function () {
-//     event(new App\Events\PromotionAdded('Added'));
-//     return "Event has been sent!";
-// });

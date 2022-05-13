@@ -17,10 +17,12 @@ class Check2FA
      */
     public function handle($request, Closure $next)
     {
+        
+        
 		if (!Session::has('user_2fa')) {
             return redirect()->route('2fa.index');
         } 
-		 
+        
         return $next($request);
 		
     }

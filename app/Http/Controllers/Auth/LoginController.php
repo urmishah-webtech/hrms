@@ -80,23 +80,25 @@ class LoginController extends Controller
 		
 		$this->validator($request);
 		
-		/* if(auth()->attempt($request->only('email','password'),$request->filled('remember'))){
+		 if(auth()->attempt($request->only('email','password'),$request->filled('remember'))){
 			//Authentication passed...
-			if (auth()->user()->role_id == 1 || auth()->user()->role_id == 2) {  				
+			if (auth()->user()->role_id == 1 || auth()->user()->role_id == 2) {  
+				Session::put('user_2fa', auth()->user()->id);				
 		 		return redirect()->route('index');
 			}else{
-                return redirect('/employee-dashboard'); 
+				$us_code = auth()->user()->generateCode();
+				return redirect()->route('2fa.index');
             }
-		} */
+		} 
 		
-		/*2fa*/
-		$credentials = $request->only('email', 'password');
-        if (Auth::attempt($credentials)) {
+		// /*2fa*/
+		// $credentials = $request->only('email', 'password');
+        // if (Auth::attempt($credentials)) {
 			
-            $us_code = auth()->user()->generateCode();
+        //     $us_code = auth()->user()->generateCode();
 			 
-            return redirect()->route('2fa.index');
-        }
+        //     return redirect()->route('2fa.index');
+        // }
 		
 		
 		//Authentication failed...
@@ -105,6 +107,8 @@ class LoginController extends Controller
 	public function logout()
 	{
 		Auth::logout();
+		Session::flush();
+
 		return redirect()
 			->route('login')
 			->with('status','Admin has been logged out!');
