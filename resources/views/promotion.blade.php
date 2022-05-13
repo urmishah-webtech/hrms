@@ -197,7 +197,7 @@
                                         <input type="hidden" id="deleteproid" name="id">
                                     
                                     <div class="col-6">
-                                        <button type="submit" class="btn btn-primary continue-btn">Delete</button>
+                                        <button type="submit" class="btn btn-primary continue-btn" style="width: 100%;">Delete</button>
                                     </div>
                                     <div class="col-6">
                                         <a href="javascript:void(0);" data-dismiss="modal" class="btn btn-primary cancel-btn">Cancel</a>
