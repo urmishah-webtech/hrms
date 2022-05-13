@@ -63,7 +63,7 @@
                                         <td>{{ @$val->hr_input}}</td>                                       
                                         <td>{{ @$val->admin_comments}}</td>
                                         <td>{{ @$val->areas_for_improvement }}</td> 
-										<td><a href="{{url('employee_documents').'/'.@$val->path}}" download="{{@$val->path}}"><i class="fa fa-download"></i></a></td>
+										<td><a href="{{url('employee_documents').'/'.@$val->document}}" download="{{@$val->document}}"><i class="fa fa-download"></i>Download</a></td>
 										<td>{{date('d M Y', strtotime(@$val->updated_at))}}</td>
                                         <td>
                                             <div class="dropdown action-label">
@@ -95,7 +95,7 @@
                                         <td>{{ @$val->hr_input}}</td>  
                                         <td>{{ @$val->admin_comments}}</td>
                                         <td>{{ @$val->areas_for_improvement }}</td>
-                                        <td><a href="{{url('employee_documents').'/'.@$val->path}}" download="{{@$val->path}}"><i class="fa fa-download"></i></a></td>
+                                        <td><a href="{{url('employee_documents').'/'.@$val->document}}" download="{{@$val->document}}"><i class="fa fa-download"></i>Download</a></td>
 										<td>{{date('d M Y', strtotime(@$val->updated_at))}}</td>
                                         <td>
                                             <div class="dropdown action-label">
