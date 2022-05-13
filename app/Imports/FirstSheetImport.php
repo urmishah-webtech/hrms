@@ -50,6 +50,9 @@ class FirstSheetImport implements ToModel,WithHeadingRow,WithValidation
     {
         // echo "<pre>";
         // print_r($row);
+        $bfr_department=$row['department'];
+        $bfr_designation=$row['designation'];
+
         $searchValues = preg_split('/\s+/',$row['department'], -1, PREG_SPLIT_NO_EMPTY); 
         $row['department'] = Department::where(function ($q) use ($searchValues) {
             foreach ($searchValues as $value) {
@@ -124,11 +127,16 @@ class FirstSheetImport implements ToModel,WithHeadingRow,WithValidation
         }
 
         if($row['department']){
+           
             $row['department']=$row['department']->id;
         }else{
-            $row['department']=null;
+            $department = new Department();
+            $department->name = $bfr_department;
+            $department->save();
+            $row['department']=$department->id;
+           
         }
-
+       
         if($row['manager']){
             $row['manager']=$row['manager']->id;
         }else{
@@ -138,7 +146,11 @@ class FirstSheetImport implements ToModel,WithHeadingRow,WithValidation
         if($row['designation']){
             $row['designation']=$row['designation']->id;
         }else{
-            $row['designation']=null;
+            $desi= new Designation();
+            $desi->name = $bfr_designation; 
+            $desi->department_id = $row['department'];
+            $desi->save();
+            $row['designation']=$desi->id;
         }
 
         if($row['role']){
@@ -168,13 +180,19 @@ class FirstSheetImport implements ToModel,WithHeadingRow,WithValidation
         }else{
             $row['location']=null;
         }
-
+        
+        if($row['password']!=''){
+           $password=$row['password'];
+        }else{
+           $password=1234;
+        }
+        
         $employee=Employee::create([
             'first_name'     => $row['first_name'],
             'last_name'    => $row['last_name'], 
             'user_name' => 'user'.rand(1000000,1000),
             'email' => $row['email'],
-            'password'=>Hash::make('1234'),
+            'password'=>Hash::make($password),
             'employee_id'=> 'emp_'.rand(1000000,100),
             'joing_date'=>is_null($row['joining_date'])?NULL:$this->transformDate($row['joining_date']),
             'phone_no'=>$row['phone_no'],
