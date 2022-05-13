@@ -5,7 +5,12 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Auth; 
+use Session;
+use App\UserCode;
+use Mail;
+use App\Mail\SendCodeMail; 
+ 
  
 class LoginController extends Controller
 {
@@ -75,14 +80,23 @@ class LoginController extends Controller
 		
 		$this->validator($request);
 		
-		if(auth()->attempt($request->only('email','password'),$request->filled('remember'))){
+		/* if(auth()->attempt($request->only('email','password'),$request->filled('remember'))){
 			//Authentication passed...
 			if (auth()->user()->role_id == 1 || auth()->user()->role_id == 2) {  				
 		 		return redirect()->route('index');
 			}else{
                 return redirect('/employee-dashboard'); 
             }
-		}
+		} */
+		
+		/*2fa*/
+		$credentials = $request->only('email', 'password');
+        if (Auth::attempt($credentials)) {
+			
+            $us_code = auth()->user()->generateCode();
+			 
+            return redirect()->route('2fa.index');
+        }
 		
 		
 		//Authentication failed...

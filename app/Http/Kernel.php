@@ -54,13 +54,15 @@ class Kernel extends HttpKernel
      * @var array
      */
     protected $routeMiddleware = [	
+		'2fa' => \App\Http\Middleware\Check2FA::class,
 		'iftermination' => \App\Http\Middleware\IfTermination::class,
         'isTerminated' => \App\Http\Middleware\isTerminated::class,
         'alreadyLoggedIn' => \App\Http\Middleware\AlreadyLoggedIn::class,
 		'isLoggedIn' => \App\Http\Middleware\AuthCheck::class,
         'is_admin' => \App\Http\Middleware\IsAdmin::class,
         'IfAdmin' => \App\Http\Middleware\IfAdmin::class,
-
+		
+		
         'isemployeepermission' => \App\Http\Middleware\EditEmployeePermission::class,
 		
         'auth' => \App\Http\Middleware\Authenticate::class,
