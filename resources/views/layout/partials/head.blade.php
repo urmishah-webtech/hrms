@@ -50,10 +50,10 @@
 		<link rel="stylesheet" href="{{ asset('/').'css/fullcalendar.min.css'}}">
 
         <!-- Tagsinput CSS -->
-		<link rel="stylesheet" href="{{URL::asset('plugins/bootstrap-tagsinput/bootstrap-tagsinput.css')}}">
+		<link rel="stylesheet" href="{{url('/').'plugins/bootstrap-tagsinput/bootstrap-tagsinput.css'}}">
 
 		<!-- Datatable CSS -->
-		<link rel="stylesheet" href="{{ asset('/').'css/dataTables.bootstrap4.min.css'}}">
+		<link rel="stylesheet" href="{{ url('/').'css/dataTables.bootstrap4.min.css'}}">
         
 		<!-- Chart CSS -->
 		<link rel="stylesheet" href="{{ asset('/').'plugins/morris/morris.css'}}">

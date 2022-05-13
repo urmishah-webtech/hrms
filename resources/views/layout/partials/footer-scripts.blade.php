@@ -314,11 +314,14 @@
 						$("#emp_joing_date").val(dd+'/'+mm+'/'+yyyy)
 						$("#emp_id").val(data.emp[0].id)
 						$("#edit_depList option[value='"+data.emp[0].department_id+"']").prop('selected',true);
+						$("#edit_designationList option[value='"+data.emp[0].designation_id+"']").prop('selected',true);
+
 						$("#edit_locList option[value='"+data.emp[0].location_id+"']").prop('selected',true);
 						$("#gender option[value='"+data.emp[0].gender+"']").prop('selected',true);
 						$("#edit_role_id option[value='"+roleid+"']").prop('selected',true);
-						change_designation(data.emp[0].department_id)
-						$("#edit_designationList option[value='"+data.emp[0].designation_id	+"']").prop('selected',true);
+						change_designation(data.emp[0].department_id,data.emp[0].designation_id)
+						//console.log(data.emp[0].designation_id)
+						//$("#edit_designationList option[value='"+data.emp[0].designation_id	+"']").attr('selected',true);
 						 
 						var file_nm = data.emp[0].employee_documents;
 						var image_url="/employee_documents/"+data.emp[0].employee_documents; 
@@ -335,7 +338,7 @@
 					}
 				});
 			});
-			function change_designation(id){
+			function change_designation(id,designation_id){
 				var deptId = id;
 				if(deptId) {
 					$.ajax({
@@ -346,7 +349,9 @@
 							$('#edit_designationList').empty();
 							$.each(data, function(key,value) {
 								console.log(value['name'])
-								$('#edit_designationList').append('<option value="'+ value.id +'">'+ value.name +'</option>');
+								$('#edit_designationList').append('<option value="'+ value.id +'" >'+ value.name +'</option>');
+								$("#edit_designationList option[value='"+designation_id	+"']").prop('selected',true);
+
 							});
 						}
 					});
