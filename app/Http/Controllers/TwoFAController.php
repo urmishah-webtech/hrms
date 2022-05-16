@@ -32,7 +32,13 @@ class TwoFAController extends Controller
   
         if ($find) {
             Session::put('user_2fa', auth()->user()->id);
+            if(auth()->user()->role_id == 5)
+			{
+				return redirect('index');
+			}else{
 			return redirect('employee-dashboard');
+			}
+			//return redirect('employee-dashboard');
             //return redirect()->route('home');
         }
   
