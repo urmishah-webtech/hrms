@@ -63,7 +63,7 @@ class EmployeePerformanceController extends Controller
         $add_perfoIdent=PerformanceIdentity::where('emp_id', $id)->get(); 
         $add_perfoIdent_man=PerformanceIdentity::where('emp_id', $id)->where('user_role','2')->get(); 
         $add_perfoIdent_employ=PerformanceIdentity::where('emp_id', $id)->where('user_role','3')->get(); 
-		$manager_user = Employee::where('role_id',2)->get();
+		$manager_user = Employee::where('role_id',2)->orWhere('role_id',6)->orderby('role_id','DESC')->get();
         $prof_excel=KeyprofessionalExcellences::where('emp_id', $id)->first();
 		 
 		 
