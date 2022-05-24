@@ -66,9 +66,9 @@ class EmployeePerformanceController extends Controller
         $add_perfoIdent_employ=PerformanceIdentity::where('emp_id', $id)->where('user_role','3')->get(); 
 		$manager_user = Employee::where('role_id',2)->orWhere('role_id',6)->orderby('role_id','DESC')->get();
         $prof_excel=KeyprofessionalExcellences::where('emp_id', $id)->first();
+		$per_excel=PersonalExcellence::where('emp_id', $id)->first();   
 		 
-		 
-		return view('/edit-performance',compact('emp_id','professional','emps','personal','specialInitiatives','comments_role','add_comments','add_comments_id','add_appraiseest','add_appraiseest_id','add_personalgoal','add_personalgoal_id','professional_achived','professional_forthcoming','training_requirements','general_comment','perfomancemanageruse','add_perfoIdent','manager_user','prof_excel','add_perfoIdent_man','add_perfoIdent_employ','emp_hrcomp'));
+		return view('/edit-performance',compact('emp_id','professional','emps','personal','specialInitiatives','comments_role','add_comments','add_comments_id','add_appraiseest','add_appraiseest_id','add_personalgoal','add_personalgoal_id','professional_achived','professional_forthcoming','training_requirements','general_comment','perfomancemanageruse','add_perfoIdent','manager_user','prof_excel','add_perfoIdent_man','add_perfoIdent_employ','emp_hrcomp','per_excel'));
 	}
 	public function add_managerid_EmployeeBasicInfo(Request $request)
 	{	$id = $request->id;
@@ -142,7 +142,7 @@ class EmployeePerformanceController extends Controller
     }
     public function add_manager_PersonalExcellence(Request $request)
     {
-        $userd = Auth::user()->id;  
+        /* $userd = Auth::user()->id;  
         $id = $request->getid;
         $add_empid = $request->empid;
          
@@ -191,8 +191,57 @@ class EmployeePerformanceController extends Controller
             $personal->total_percentage_employee=$request->total_percentage_employee; 
             $personal->total_percentage_manager=$request->total_percentage_manager;        
             $personal->save();         	  
-		}
-        return redirect("/edit-performance/{$add_empid}/#PersonalExcellence");
+		} */
+		
+		$eid = $request->empid;         
+        $settings=PersonalExcellence::where('emp_id',$eid)->first();  
+        $rate_arr=array();
+        $final_achieved=array();
+        $final_scored=array();
+        $final_achieved_man=array();
+        $final_scored_man=array();
+        array_push($rate_arr,$request->key_no);
+        $rate_count=count($rate_arr);
+        if(!empty($rate_arr)){
+            $i=0;
+            foreach($request->key_no as $key => $val){
+            $final_achieved[$val]['percentage_achieved_employee']=$request->percentage_achieved_employee[$i];
+            $final_scored[$val]['points_scored_employee']=$request->points_scored_employee[$i]; 
+            $final_achieved_man[$val]['percentage_achieved_manager']=$request->percentage_achieved_manager[$i];
+            $final_scored_man[$val]['points_scored_manager']=$request->points_scored_manager[$i];          
+            $i++;
+           }
+        }
+        if($settings){
+                $settings= PersonalExcellence::where('emp_id', $eid)->first();
+                $settings->percentage_achieved_employee=json_encode($final_achieved);
+                $settings->points_scored_employee=json_encode($final_scored);
+                $settings->percentage_achieved_manager=json_encode($final_achieved_man);
+                $settings->points_scored_manager=json_encode($final_scored_man);
+                $settings->total_score_employee=$request->total_score_employee;
+                $settings->total_score_manager=$request->total_score_manager;
+                $settings->total_percentage_employee=$request->total_percentage_employee;
+                $settings->total_percentage_manager=$request->total_percentage_manager;
+                $settings->save();
+             
+        }
+        else{
+                $settings = new PersonalExcellence();
+                $settings->user_id = Auth::user()->id;
+                $settings->emp_id = $eid;
+                $settings->percentage_achieved_employee=json_encode($final_achieved);
+                $settings->points_scored_employee=json_encode($final_scored);
+                $settings->percentage_achieved_manager=json_encode($final_achieved_man);
+                $settings->points_scored_manager=json_encode($final_scored_man);
+                $settings->total_score_employee=$request->total_score_employee;
+                $settings->total_score_manager=$request->total_score_manager;
+                $settings->total_percentage_employee=$request->total_percentage_employee;
+                $settings->total_percentage_manager=$request->total_percentage_manager;
+                $settings->save();
+             
+        }
+		
+        return redirect("/edit-performance/{$eid}/#PersonalExcellence");
 	   
     }
     public function add_manager_SpecialInitiatives(Request $request)

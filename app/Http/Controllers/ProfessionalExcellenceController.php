@@ -47,8 +47,9 @@ class ProfessionalExcellenceController extends Controller
         $add_perfoIdent_employ=PerformanceIdentity::where('emp_id', $userd)->where('user_role','3')->get(); 
 		$emps=Employee::where('id', $userd)->first();          
         $prof_excel=KeyprofessionalExcellences::where('emp_id', $userd)->first();
+        $per_excel=PersonalExcellence::where('emp_id', $userd)->first();
           
-        return view('performance',compact('professional','emps','personal','specialInitiatives','comments_role','add_comments','add_comments_id','add_appraiseest','add_appraiseest_id','add_personalgoal','add_personalgoal_id','professional_achived','professional_forthcoming','training_requirements','general_comment','perfomancemanageruse','add_manager_id','add_perfoIdent','add_perfoIdent_id','prof_excel','add_perfoIdent_man','add_perfoIdent_employ'));
+        return view('performance',compact('professional','emps','personal','specialInitiatives','comments_role','add_comments','add_comments_id','add_appraiseest','add_appraiseest_id','add_personalgoal','add_personalgoal_id','professional_achived','professional_forthcoming','training_requirements','general_comment','perfomancemanageruse','add_manager_id','add_perfoIdent','add_perfoIdent_id','prof_excel','add_perfoIdent_man','add_perfoIdent_employ','per_excel'));
          
     } 
 	
