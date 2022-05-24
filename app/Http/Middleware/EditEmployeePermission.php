@@ -16,7 +16,7 @@ class EditEmployeePermission
     public function handle($request, Closure $next)
     {
         if(Auth::check()){		   
-			if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2 || Auth::user()->role_id == 5)
+			if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2 || Auth::user()->role_id == 6  || Auth::user()->role_id == 5)
 			{	 
 				return $next($request);	 
 			}

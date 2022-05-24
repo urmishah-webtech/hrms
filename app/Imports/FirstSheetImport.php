@@ -48,6 +48,45 @@ class FirstSheetImport implements ToModel,WithHeadingRow,WithValidation
     }
     public function model(array $row)
     {
+        $searchValues = preg_split('/\s+/',$row['manager'], -1, PREG_SPLIT_NO_EMPTY); 
+       
+        $manager  = Employee::where(function ($q) use ($searchValues) {
+            foreach ($searchValues as $value) {
+              $q->where("first_name", "like",'%'.$value.'%')
+              ->orWhere("last_name","like",'%'.$value.'%');
+
+            }
+        })->orderByRaw('first_name like ? desc', $row['manager'])
+          ->orderByRaw('instr(first_name,?) asc', $row['manager'])
+          ->orderBy('first_name')->first();
+        
+        $searchFName = preg_split('/\s+/',$row['first_name'], -1, PREG_SPLIT_NO_EMPTY); 
+        $searchLName = preg_split('/\s+/',$row['last_name'], -1, PREG_SPLIT_NO_EMPTY); 
+
+        $employee = Employee::where(function ($q) use ($searchFName,$searchLName) {
+            foreach ($searchFName as $value) {
+              $q->where("first_name", "like",'%'.$value.'%');
+            }
+            foreach ($searchLName as $value) {
+                $q->where("last_name", "like",'%'.$value.'%');
+              }
+            
+        })->orderByRaw('first_name like ? desc', $row['first_name'])
+          ->orderByRaw('instr(first_name,?) asc', $row['first_name'])
+          ->orderByRaw('last_name like ? desc', $row['last_name'])
+          ->orderByRaw('instr(last_name,?) asc', $row['last_name'])
+          ->orderBy('first_name')->orderby('last_name')->first();
+        
+        if($employee && $manager)
+        {
+            $update=Employee::where('id',$employee->id)->update(['man_id'=>$manager->id]);
+            
+        }
+      
+        
+    }
+    public function model1(array $row)
+    {
         // echo "<pre>";
         // print_r($row);
         $bfr_department=$row['department'];

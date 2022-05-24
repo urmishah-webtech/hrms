@@ -82,7 +82,7 @@ class LoginController extends Controller
 		
 		 if(auth()->attempt($request->only('email','password'),$request->filled('remember'))){
 			//Authentication passed...
-			if (auth()->user()->role_id == 1 || auth()->user()->role_id == 2) {  
+			if (auth()->user()->role_id == 1 || auth()->user()->role_id == 2 || auth()->user()->role_id == 6) {  
 				Session::put('user_2fa', auth()->user()->id);				
 		 		return redirect()->route('index');
 			}else{

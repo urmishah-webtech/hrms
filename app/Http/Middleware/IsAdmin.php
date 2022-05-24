@@ -16,7 +16,7 @@ class IsAdmin
     public function handle($request, Closure $next)
     {
         
-        if(auth()->user()->role_id == 1 || auth()->user()->role_id == 2 || Auth::user()->role_id == 5){
+        if(auth()->user()->role_id == 1 || auth()->user()->role_id == 2 ||  Auth::user()->role_id == 6  || Auth::user()->role_id == 5){
             return $next($request);
         }
 		 return redirect('employee-dashboard')->with('error',"You don't have admin access.");

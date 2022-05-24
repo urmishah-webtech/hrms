@@ -9,7 +9,7 @@
 					<li class="">						
 						@if (Auth::user()->role_id == 1 || Auth::user()->role_id == 5)
 						<a  href="{{ url('index') }}"><i class="la la-dashboard"></i><span>Admin Dashboard</span></a>
-						@elseif (Auth::user()->role_id == 2)
+						@elseif (Auth::user()->role_id == 2 || Auth::user()->role_id == 6)
 						<a href="{{ url('index') }}"><i class="la la-dashboard"></i><span>Manager Dashboard</span></a>
 						@else
 						<a href="{{ url('employee-dashboard') }}"><i class="la la-dashboard"></i><span>Employee Dashboard</span></a>
@@ -24,7 +24,7 @@
 					<li class="submenu">
 						<a href="#" class="noti-dot"><i class="la la-user"></i> <span> Employees</span> <span class="menu-arrow"></span></a>
 						<ul style="display: none;">
-							@if (Auth::user()->role_id == 1 || Auth::user()->role_id==2 || Auth::user()->role_id == 5)
+							@if (Auth::user()->role_id == 1 || Auth::user()->role_id==2 || Auth::user()->role_id == 5 ||  Auth::user()->role_id == 6)
 							<li>
 								<a class="{{ Request::is('employees') ? 'active' : '' }}" href="{{ url('employees') }}">All Employees</a>
 							</li>		
@@ -62,7 +62,7 @@
 								<a class="{{ Request::is('performance') ? 'active' : '' }}" href="{{ url('performance') }}"> Performance Review  </a>
 							</li>
 							@endif	
-							@if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2 || Auth::user()->role_id == 5)
+							@if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2 || Auth::user()->role_id == 5 || Auth::user()->role_id == 6)
 							<li>
 								<a class="{{ Request::is('employees-performance') ? 'active' : '' }}" href="{{ url('employees-performance') }}"> Employee Performance </a>
 							</li>
@@ -95,13 +95,13 @@
 						<span>Leaves</span></a></li>	
 					<li>
 					@endif
-					@if (Auth::user()->role_id == 1 || Auth::user()->role_id==2 || Auth::user()->role_id == 5)
+					@if (Auth::user()->role_id == 1 || Auth::user()->role_id==2 || Auth::user()->role_id == 5 || Auth::user()->role_id == 6)
 					<li>
 						<a class="{{ Request::is('leaves') ? 'active' : '' }}" href="{{ url('leaves') }}"><i class="la la-cube"></i><span>Leaves Approval</span></a></li>								
 	
 					<li>
 					@endif
-					@if (Auth::user()->role_id == 1 || Auth::user()->role_id==2 || Auth::user()->role_id == 5)
+					@if (Auth::user()->role_id == 1 || Auth::user()->role_id==2 || Auth::user()->role_id == 5 || Auth::user()->role_id == 6)
 					<li>
 						<a class="{{ Request::is('leave-calender') ? 'active' : '' }}" href="{{ url('leave-calender') }}"><i class="la la-cube"></i><span>Leave Calender</span></a></li>								
 					<li>
@@ -109,7 +109,7 @@
 					<!--<li>
 						<a class="{{ Request::is('holidays') ? 'active' : '' }}" href="{{ url('holidays') }}"><i class="la la-bullhorn"></i><span>Holidays</span></a>
 					</li>-->
-					@if (Auth::user()->role_id == 1 || Auth::user()->role_id == 5)
+					@if (Auth::user()->role_id == 1 || Auth::user()->role_id == 5 )
 					<li class="menu-title"> 
 						<span>Administration</span>
 					</li> 
