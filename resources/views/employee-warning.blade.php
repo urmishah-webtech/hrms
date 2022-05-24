@@ -83,7 +83,7 @@
                                     </tr>
                                      @endforeach
                                     @endisset 
-                                    @elseif(Auth::user()->role_id == 2)
+                                    @elseif(Auth::user()->role_id == 2 || Auth::user()->role_id == 6)
                                     @isset($war_man)
                                     @foreach($war_man as $val)
                                     <tr class="trindicator">
@@ -189,7 +189,7 @@
                                     </tr>
                                      @endforeach
                                     @endisset 
-                                    @elseif(Auth::user()->role_id == 2)
+                                    @elseif(Auth::user()->role_id == 2 || Auth::user()->role_id == 6)
                                     @isset($war_manag_second)
                                     @foreach($war_manag_second as $val)
                                     <tr class="trindicator">
@@ -292,7 +292,7 @@
                                     </tr>
                                      @endforeach
                                     @endisset 
-                                    @elseif(Auth::user()->role_id == 2)
+                                    @elseif(Auth::user()->role_id == 2 || Auth::user()->role_id == 6)
                                     @isset($war_manag_third)
                                     @foreach($war_manag_third as $val)
                                     <tr class="trindicator">
@@ -416,7 +416,7 @@
                                                         <td>
                                                             <select class="form-control" name="emp_id[]" required>
                                                                 <option>Select Employee</option>
-                                                                @if(Auth::user()->role_id == 2)
+                                                                @if(Auth::user()->role_id == 2 || Auth::user()->role_id == 6)
                                                                 @isset($manager_emp)
                                                                     @foreach($manager_emp as $val)
                                                                         <option value="{{ $val->id }}" >{{ $val->first_name }}</option>
@@ -482,7 +482,7 @@
                                                         <td>
                                                             <select class="form-control" name="emp_id[]">
                                                                 <option>Select Employee</option>
-                                                                @if(Auth::user()->role_id == 2)
+                                                                @if(Auth::user()->role_id == 2 || Auth::user()->role_id == 6)
                                                                 @isset($manager_emp)
                                                                     @foreach($manager_emp as $val)
                                                                         <option value="{{ $val->id }}" >{{ $val->first_name }}</option>
@@ -550,7 +550,7 @@
                                                         <td>
                                                             <select class="form-control" name="emp_id[]" >
                                                                 <option>Select Employee</option>
-                                                                @if(Auth::user()->role_id == 2)
+                                                                @if(Auth::user()->role_id == 2 || Auth::user()->role_id == 6)
                                                                 @isset($manager_emp)
                                                                     @foreach($manager_emp as $val)
                                                                         <option value="{{ $val->id }}" >{{ $val->first_name }}</option>
@@ -648,7 +648,7 @@
                                                         <td>
                                                             <select class="form-control" name="emp_id[]" id="select_emp_id_edit" >
                                                                 <option>Select Employee</option>
-                                                                @if(Auth::user()->role_id == 2)
+                                                                @if(Auth::user()->role_id == 2 || Auth::user()->role_id == 6)
                                                                 @isset($manager_emp)
                                                                     @foreach($manager_emp as $val)
                                                                         <option value="{{ $val->id }}" >{{ $val->first_name }}</option>
@@ -666,7 +666,7 @@
                                                         @endif
 														<!--<td><input type="text" class="form-control" name="employee_comments[]" id="employee_comments" @if(Auth::user()->role_id != 3) readonly @endif ></td>-->
 														<td><input type="text" class="form-control" name="hr_input[]" id="hr_input" @if(Auth::user()->role_id != 5)readonly @endif></td>
-														<td><input type="text" class="form-control" name="admin_comments[]" id="admin_comments" @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2)editable @else readonly @endif></td>
+														<td><input type="text" class="form-control" name="admin_comments[]" id="admin_comments" @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2 || Auth::user()->role_id == 6)editable @else readonly @endif></td>
 														<td><input type="text" class="form-control" name="areas_for_improvement[]" id="areas_for_improvement" @if(Auth::user()->role_id == 3)readonly @endif></td>
 														<td><input type="file" class="form-control" name="fileadd[]" id="" @if(Auth::user()->role_id == 3)readonly @endif>
 														<div id="employee_documents"></div>
@@ -720,7 +720,7 @@
                                                         <td>
                                                             <select class="form-control" name="emp_id[]" id="select_emp_id_edit2" >
                                                                 <option>Select Employee</option>
-                                                                @if(Auth::user()->role_id == 2)
+                                                                @if(Auth::user()->role_id == 2 || Auth::user()->role_id == 6)
                                                                 @isset($manager_emp)
                                                                     @foreach($manager_emp as $val)
                                                                         <option value="{{ $val->id }}" >{{ $val->first_name }}</option>
@@ -738,7 +738,7 @@
                                                         @endif
 														<!--<td><input type="text" class="form-control" name="employee_comments[]" id="employee_comments2" @if(Auth::user()->role_id != 3) readonly @endif ></td>-->
 														<td><input type="text" id="hr_input2"  class="form-control" name="hr_input[]" @if(Auth::user()->role_id != 5)readonly @endif></td>
-														<td><input type="text" id="admin_comments2" class="form-control" name="admin_comments[]" @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2)editable @else readonly @endif></td>
+														<td><input type="text" id="admin_comments2" class="form-control" name="admin_comments[]" @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2 || Auth::user()->role_id == 6)editable @else readonly @endif></td>
 														<td><input type="text" id="areas_for_improvement2" class="form-control" name="areas_for_improvement[]" @if(Auth::user()->role_id == 3)readonly @endif></td>
                                                         <td><input type="file" class="form-control" name="fileadd[]" id="" @if(Auth::user()->role_id == 3)readonly @endif>
 														<div id="employee_documents_2"></div>
@@ -789,7 +789,7 @@
                                                         <td>
                                                             <select class="form-control edit_warning_pointer" name="emp_id[]" id="select_emp_id_edit3">
                                                                 <option>Select Employee</option>
-                                                                @if(Auth::user()->role_id == 2)
+                                                                @if(Auth::user()->role_id == 2 || Auth::user()->role_id == 6)
                                                                 @isset($manager_emp)
                                                                     @foreach($manager_emp as $val)
                                                                         <option value="{{ $val->id }}" >{{ $val->first_name }}</option>
@@ -807,7 +807,7 @@
                                                         @endif
 														<!--<td><input type="text" class="form-control" name="employee_comments[]" id="employee_comments3" @if(Auth::user()->role_id != 3) readonly @endif ></td>-->
 														<td><input type="text" id="hr_input3" class="form-control" name="hr_input[]" @if(Auth::user()->role_id != 5)readonly @endif></td>
-														<td><input type="text" id="admin_comments3" class="form-control" name="admin_comments[]" @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2)editable @else readonly @endif></td>
+														<td><input type="text" id="admin_comments3" class="form-control" name="admin_comments[]" @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2 || Auth::user()->role_id == 6)editable @else readonly @endif></td>
                                                         <td><input type="file" class="form-control" name="fileadd[]" id="" @if(Auth::user()->role_id == 3)readonly @endif>
 														<div id="employee_documents_3"></div>
                                                         <input type="hidden" class="form-control" name="getid[]" value="" id="getidjq3">

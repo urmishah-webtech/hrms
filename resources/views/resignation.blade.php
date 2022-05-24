@@ -39,7 +39,7 @@
                                         <th>Resignation Date </th>
                                         <th>Status </th>
                                         <th>Decision By </th>
-                                        @if (!empty($role) && $role != 3)
+                                        @if (!empty($role) && ($role == 1 || $role==6))
                                             <th>2 Weeks Notice</th>
                                             <th>Rehireable</th>
                                             <th class="text-right">Action</th>
@@ -63,7 +63,7 @@
                                         <td>{{$item->resignationdate}}</td>
                                         <td>{{$item->status}}</td>
                                         <td>{{optional($item->decisionmaker)->first_name}} {{optional($item->decisionmaker)->last_name}}</td>
-                                        @if (!empty($role) && $role != 3)
+                                        @if (!empty($role) && ($role == 1 || $role==6))
                                             <td>{{$item->twoweeknotice}}</td>
                                             <td>{{$item->rehireable}}</td>
                                             @if($item->employeeid != auth()->user()->id)
