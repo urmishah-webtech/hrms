@@ -32,7 +32,7 @@ class EmployeeController extends Controller
         $dep=Department::get();
         $location=Location::get();
         $des=Designation::get();
-        if(Auth::user()->role_id==2){
+        if(Auth::user()->role_id==2 || Auth::user()->role_id==6){
             $emps=Employee::where('man_id',Auth::id())->get();
         }
         else{
