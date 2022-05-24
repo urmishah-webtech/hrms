@@ -30,7 +30,8 @@ class SendCodeMail extends Mailable
      */
     public function build()
     {
-        return $this->subject('Authentication Code')
+        return $this ->from($address = 'webmaster@wazobiamarketinc.com', $name = 'wazobiamarket')
+					->subject('Authentication Code')
                     ->view('emails.code');
     }
 }
