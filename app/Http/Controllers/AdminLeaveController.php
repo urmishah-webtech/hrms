@@ -20,7 +20,7 @@ class AdminLeaveController extends Controller
 		 
 		$man_comment=EmployeeLeave::where('manager_id',Auth::user()->id)->pluck('id')->toArray();  
 		 		
-        if(Auth::user()->role_id==2){
+        if(Auth::user()->role_id==2 || Auth::user()->role_id==6 ){
             $view =$this->manger_leave_list();
             return $view;
         }else{
@@ -76,13 +76,13 @@ class AdminLeaveController extends Controller
         return back();
     }
     public function search_leave_employee(Request $request){
-        if(Auth::user()->role_id==2){
+        if(Auth::user()->role_id==2 || Auth::user()->role_id==6){
             $employee_tb = Employee::where('role_id','!=',1)->where('man_id',Auth::id())->get();
         }
         else{
         $employee_tb = Employee::where('role_id','!=',1)->get();
         }
-        if(Auth::user()->role_id==2){
+        if(Auth::user()->role_id==2 || Auth::user()->role_id==6){
             $emp=EmployeeLeave::where('manager_id',Auth::id());
         }else{
         $emp=new   EmployeeLeave;
@@ -149,7 +149,7 @@ class AdminLeaveController extends Controller
         $plan_count = count($planed_leave);
         //   $un_planed_leave=DB::select("SELECT e2.* FROM employee_leaves e1 inner join employee_leaves e2 on date(e1.updated_at) = (e2.from_date) and e2.id=e1.id;");
         $unplan_count=$on_leave-$plan_count;
-        if(Auth::user()->role_id==2){
+        if(Auth::user()->role_id==2 || Auth::user()->role_id==6 ){
             
             $pending_req=EmployeeLeave::where('status', 1)->where('manager_id',Auth::id())->get()->count();        
            
@@ -199,7 +199,7 @@ class AdminLeaveController extends Controller
     public function leave_render(){
         $result = array();
         $count = 0;
-        if(Auth::user()->role_id==2){
+        if(Auth::user()->role_id==2 || Auth::user()->role_id==6){
         $info2 = EmployeeLeave::where('manager_id',Auth::id())->get();
         }
         elseif(Auth::user()->role_id!=1 || Auth::user()->role_id!=5){

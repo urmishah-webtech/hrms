@@ -77,7 +77,7 @@ class HomeController extends Controller
            $res = Resignation::orderBy('id', 'DESC')->limit(3)->get();
            $promotion = Promotion::orderBy('id', 'DESC')->limit(5)->get();
            $appraisal = Appraisal::orderBy('id', 'DESC')->limit(5)->get();
-        }elseif(Auth::user()->role_id==2){
+        }elseif(Auth::user()->role_id==2 || Auth::user()->role_id==6){
             $emp = Employee::where('man_id',Auth::user()->id)->orderBy('id', 'DESC')->limit(5)->get();
 
             $res = Resignation::whereIn('employeeid', $manager_emp)->orwhere('employeeid', Auth::user()->id)->limit(5)->get();

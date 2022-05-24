@@ -46,7 +46,7 @@ class FirstSheetImport implements ToModel,WithHeadingRow,WithValidation
 
         ];
     }
-    public function model(array $row)
+    public function model1(array $row)
     {
         $searchValues = preg_split('/\s+/',$row['manager'], -1, PREG_SPLIT_NO_EMPTY); 
        
@@ -85,7 +85,7 @@ class FirstSheetImport implements ToModel,WithHeadingRow,WithValidation
       
         
     }
-    public function model1(array $row)
+    public function model(array $row)
     {
         // echo "<pre>";
         // print_r($row);
