@@ -1143,6 +1143,7 @@
                             <input type="hidden" name="empid" value="@if(isset($emps)){{ $emps->id}}@endif">
                             <input type="hidden" name="user_id" value="{{Auth::user()->id}}">                                 
                                 <div class="review-header text-center">
+								<div id="status_dataa">data</div>
                                 <button type="submit" id="perfomance_status_btn"  class="btn btn-primary submit-btn"  ><input type="hidden" name="perfomance_status" value="1" id="perfomance_status">SUBMIT</button>
 								</div>
                             </form>
