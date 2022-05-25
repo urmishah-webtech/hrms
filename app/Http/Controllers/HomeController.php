@@ -53,19 +53,19 @@ class HomeController extends Controller
 	public function adminHome()
     {
         $manager_emp = Employee::where('man_id',Auth::user()->id)->pluck('id')->toArray();
-        if(Auth::user()->role_id==2){
+        if(Auth::user()->role_id==2 || Auth::user()->role_id==6){
         $emp_total= Employee::where('role_id','!=','1')->where('man_id',Auth::id())->get()->count();
         }
         else{
         $emp_total= Employee::where('role_id','!=','1')->get()->count();
 
         }
-        if(Auth::user()->role_id==2){
+        if(Auth::user()->role_id==2 || Auth::user()->role_id==6){
         $per_status_complete= Employee::where('perfomance_status','1')->where('man_id',Auth::user()->id)->get()->count();
         }else{
         $per_status_complete= Employee::where('perfomance_status','1')->get()->count();
         }
-        if(Auth::user()->role_id==2){
+        if(Auth::user()->role_id==2 || Auth::user()->role_id==6){
         $per_status_incomp= Employee::where('perfomance_status','0')->where('man_id',Auth::user()->id)->get()->count();
         }
         else{
@@ -216,22 +216,22 @@ class HomeController extends Controller
 
 	public function HomepageUrl()
     {
-        if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2 || Auth::user()->role_id == 5)
+        if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2 || Auth::user()->role_id == 5 || Auth::user()->role_id==6)
 		{
             $manager_emp = Employee::where('man_id',Auth::user()->id)->pluck('id')->toArray();
-            if(Auth::user()->role_id==2){
+            if(Auth::user()->role_id==2 || Auth::user()->role_id==6){
             $emp_total= Employee::where('role_id','!=','1')->where('man_id',Auth::id())->get()->count();
             }
             else{
             $emp_total= Employee::where('role_id','!=','1')->get()->count();
     
             }
-            if(Auth::user()->role_id==2){
+            if(Auth::user()->role_id==2 || Auth::user()->role_id==6){
             $per_status_complete= Employee::where('perfomance_status','1')->where('man_id',Auth::user()->id)->get()->count();
             }else{
             $per_status_complete= Employee::where('perfomance_status','1')->get()->count();
             }
-            if(Auth::user()->role_id==2){
+            if(Auth::user()->role_id==2 || Auth::user()->role_id==6){
             $per_status_incomp= Employee::where('perfomance_status','0')->where('man_id',Auth::user()->id)->get()->count();
             }
             else{
@@ -243,7 +243,7 @@ class HomeController extends Controller
                $res = Resignation::orderBy('id', 'DESC')->limit(3)->get();
                $promotion = Promotion::orderBy('id', 'DESC')->limit(5)->get();
                $appraisal = Appraisal::orderBy('id', 'DESC')->limit(5)->get();
-            }elseif(Auth::user()->role_id==2){
+            }elseif(Auth::user()->role_id==2 || Auth::user()->role_id==6){
                 $emp = Employee::where('man_id',Auth::user()->id)->orderBy('id', 'DESC')->limit(5)->get();
     
                 $res = Resignation::whereIn('employeeid', $manager_emp)->orwhere('employeeid', Auth::user()->id)->limit(5)->get();

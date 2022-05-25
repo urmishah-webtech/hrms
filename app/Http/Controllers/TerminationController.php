@@ -94,7 +94,7 @@ class TerminationController extends Controller
                     return $q->with('department');
                 }])->get();
 
-            } else if($role == 2) {
+            } else if($role == 2 || $role == 6) {
          
                  $terminations = Termination::with(['employee' => function($q) {
                     return $q->with('department');

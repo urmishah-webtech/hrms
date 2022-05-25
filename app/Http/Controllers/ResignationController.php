@@ -30,7 +30,7 @@ class ResignationController extends Controller
                 }
             }
             $query = Resignation::with('employee', 'decisionmaker', 'getdepartment');
-            if ($role == 2) {
+            if ($role == 2 || $role == 6 ) {
                 $getemployees = Employee::where('man_id', $getrole->id)->pluck('id')->toArray();
                 $query = $query->whereIn('employeeid', $getemployees)->orWhere('employeeid', $getrole->id);
             } 

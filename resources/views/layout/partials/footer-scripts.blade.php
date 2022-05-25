@@ -221,17 +221,10 @@
 				e.preventDefault();
 			});
 			 */
-			/* $("#perfomance_status_btn").click(function(){
-				var val1 =  ("other_comment1_24").val();
-				alert(val1);
-				if( $("#general_comment").validate()){
-					 return true;
-				}
-				else{
-					 return false;
-				}
-			    
-			}); */
+			$("#personal_Behavioralexcel input:not([readonly]").prop('required',true);
+			$("#professionalExcellence input:not([readonly]").prop('required',true);
+			$("#forManagerUser input:not([readonly]").prop('required',true);
+			$("#forManagerUser .select").prop('required',true);   
 			
 			$(".departmentError").hide();
 			$('.locationError').hide();

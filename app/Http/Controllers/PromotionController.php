@@ -16,7 +16,7 @@ class PromotionController extends Controller
     public function index(){
         $employees = Employee::where('role_id', '!=', 1);
         $query = Promotion::with('employee', 'desfrom', 'desto', 'getdepartment');
-        if (auth()->user()->role_id == 2) {
+        if (auth()->user()->role_id == 2 || Auth::user()->role_id==6) {
             $getemployees = $employees->where('man_id', auth()->user()->id)->pluck('id')->toArray();
             $employees = $employees->where('man_id', auth()->user()->id);
             $query = $query->whereIn('employeeid', $getemployees);
