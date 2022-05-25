@@ -206,18 +206,18 @@ class EmployeePerformanceController extends Controller
             $i=0;
             foreach($request->key_no as $key => $val){
             $final_achieved[$val]['percentage_achieved_employee']=$request->percentage_achieved_employee[$i];
-            $final_scored[$val]['points_scored_employee']=$request->points_scored_employee[$i]; 
+            //$final_scored[$val]['points_scored_employee']=$request->points_scored_employee[$i]; 
             $final_achieved_man[$val]['percentage_achieved_manager']=$request->percentage_achieved_manager[$i];
-            $final_scored_man[$val]['points_scored_manager']=$request->points_scored_manager[$i];          
+            //$final_scored_man[$val]['points_scored_manager']=$request->points_scored_manager[$i];          
             $i++;
            }
         }
         if($settings){
                 $settings= PersonalExcellence::where('emp_id', $eid)->first();
                 $settings->percentage_achieved_employee=json_encode($final_achieved);
-                $settings->points_scored_employee=json_encode($final_scored);
+                //$settings->points_scored_employee=json_encode($final_scored);
                 $settings->percentage_achieved_manager=json_encode($final_achieved_man);
-                $settings->points_scored_manager=json_encode($final_scored_man);
+                //$settings->points_scored_manager=json_encode($final_scored_man);
                 $settings->total_score_employee=$request->total_score_employee;
                 $settings->total_score_manager=$request->total_score_manager;
                 $settings->total_percentage_employee=$request->total_percentage_employee;
@@ -230,9 +230,9 @@ class EmployeePerformanceController extends Controller
                 $settings->user_id = Auth::user()->id;
                 $settings->emp_id = $eid;
                 $settings->percentage_achieved_employee=json_encode($final_achieved);
-                $settings->points_scored_employee=json_encode($final_scored);
+               // $settings->points_scored_employee=json_encode($final_scored);
                 $settings->percentage_achieved_manager=json_encode($final_achieved_man);
-                $settings->points_scored_manager=json_encode($final_scored_man);
+                //$settings->points_scored_manager=json_encode($final_scored_man);
                 $settings->total_score_employee=$request->total_score_employee;
                 $settings->total_score_manager=$request->total_score_manager;
                 $settings->total_percentage_employee=$request->total_percentage_employee;
