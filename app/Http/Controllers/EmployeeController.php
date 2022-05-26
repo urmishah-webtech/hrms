@@ -238,10 +238,25 @@ class EmployeeController extends Controller
 
    public function getOrganizationalChart()
     {
-        $users = Employee::whereNotIn('role_id', [4,5])->get(['id', 'man_id', 'first_name', 'last_name', 'role_id']);
+        
         $employees = [];
-        $admin = Employee::where('role_id', 1)->first();
-      
+        
+        $ceo = Employee::whereHas('designation', function($q) {
+            return $q->where('name', 'CEO');
+        })->first(['id', 'man_id', 'first_name', 'last_name', 'role_id', 'designation_id']);
+
+        $data = [
+            'id' => $ceo->id,
+            'name' => $ceo->first_name .' '.$ceo->last_name,
+            'isCollapsed' => true,
+            'pid' => 0
+        ];
+        $employees[] = $data;
+
+        $users = Employee::whereHas('role', function($q) {
+            return $q->whereIn('name', ['Admin', 'Manager', 'Employee', 'Supervisor']);
+        })->with('designation','role')->get(['id', 'man_id', 'first_name', 'last_name', 'role_id', 'designation_id']);
+
         foreach ($users as $user) {
             $data = [
                 'id' => $user->id,
@@ -249,14 +264,13 @@ class EmployeeController extends Controller
                 'isCollapsed' => true
             ];
 
-            if($user->role_id == 1) {
-                $data['pid'] = 0;
-            } else {
+            if($user->id != $ceo->id) {
+               
                 if(!empty($user->man_id)) {
                     $data['pid'] = $user->man_id;
                     
                 } else {
-                    $data['pid'] = $admin->id;
+                    $data['pid'] = $ceo->id;
                     
                 }
             }
