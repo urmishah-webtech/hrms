@@ -57,10 +57,18 @@
 		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.js"></script>
 		<script>
 		 $(document).ready(function(){
+			
+			$("#personal_Behavioralexcel input:not([readonly]").prop('required',true);
+			$("#professionalExcellence input:not([readonly]").prop('required',true);
+			$("#specialInitiatives_validate input:not([readonly]").prop('required',true);
+			$("#Appraisee_validate input:not([readonly]").prop('required',true);
+			$("#OtherGeneral_validate input:not([readonly]").prop('required',true);
+			$("#forManagerUser input:not([readonly]").prop('required',true);
+			//$("#PerfomanceIdentitie_validate input:not([readonly]").prop('required',true);
+			$("#forManagerUser .select").prop('required',true);
 
-
-
-
+			
+			 
 
         // Read value on page load
         $("#result b").html($("#customRange").val());

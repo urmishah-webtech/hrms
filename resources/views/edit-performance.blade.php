@@ -1,6 +1,7 @@
 @extends('layout.mainlayout')
 @section('content')
 <?php use App\Employee ?>
+<?php use App\OtherGeneralComment ?>
 	<!-- Page Wrapper -->
     <div class="page-wrapper">
 			
@@ -705,7 +706,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="table-responsive">
-                                <form action="{{ route('edit_man_AppraiseeStrength') }}" method="post">
+                                <form action="{{ route('edit_man_AppraiseeStrength') }}" method="post" id="Appraisee_validate">
                                 @csrf
                                 <input type="hidden" name="empid" value="@if(isset($emp_id)){{ $emp_id->id}}@endif">
                                 @php $i = 1; @endphp
@@ -969,7 +970,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             <div class="table-responsive">
-                            <form action="{{ route('edit_man_OtherGeneralComment') }}" method="post">
+                            <form action="{{ route('edit_man_OtherGeneralComment') }}" method="post" id="OtherGeneral_validate">
                              @csrf
                                 <table class="table table-bordered table-review review-table mb-0" id="general_comments">
                                     <thead>
@@ -987,7 +988,7 @@
                                         @foreach($general_comment as $val)
                                         <tr>
                                             <td>{{$i}}</td>
-                                            <td><input type="text" class="form-control" name="DynamicTextBoxemp[]" value="{{ $val->employee_comments}}"readonly ></td>
+                                            <td><input type="text" class="form-control" name="DynamicTextBoxemp[]" value="{{ $val->employee_comments}}"readonly id="any_commt_sug"></td>
                                             <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="{{ $val->managers_comments}}"></td>
                                            <td></td>
                                            <input type="hidden" name="getid" value="@if(isset($general_comment)){{ $val->emp_id}}@endif">
@@ -998,8 +999,8 @@
                                         @else
                                         <tr>
                                             <td>1</td>
-                                            <td><input type="text" class="form-control" name="DynamicTextBoxemp[]" value="" readonly @if (Auth::user()->role_id == 3)editable @endif></td>
-                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value=""></td>
+                                            <td><input type="text"  class="form-control" name="DynamicTextBoxemp[]" value="" readonly @if (Auth::user()->role_id == 3)editable @endif ></td>
+                                            <td><input type="text" id="any_commt_sug1" class="form-control" name="DynamicTextBoxman[]" value=""></td>
                                             <td></td>
                                         </tr>
                                         @endif 
@@ -1125,7 +1126,7 @@
                 <section class="review-section row" id="PerfomanceIdentitie">
                     <div class="col-md-12">
                         <div class="">
-                        <form action="{{ route('edit_manPerformanceIdentity') }}" method="post">
+                        <form action="{{ route('edit_manPerformanceIdentity') }}" method="post" id="PerfomanceIdentitie_validate">
                             @csrf
                             <input type="hidden" name="empid" value="@if(isset($emp_id)){{ $emp_id->id}}@endif">
                             @php $i = 1; @endphp
@@ -1178,7 +1179,7 @@
                             <input type="hidden" name="empid" value="@if(isset($emp_id)){{ $emp_id->id}}@endif">
                             <input type="hidden" name="user_id" value="{{Auth::user()->id}}">                                 
                                 <div class="review-header text-center">
-                                <button type="submit" class="btn btn-primary submit-btn"><input type="hidden" name="perfomance_status" value="1" id="perfomance_status">SUBMIT</button>
+                                <button type="submit" id="comple_stat" class="btn btn-primary submit-btn" disabled><input type="hidden" name="perfomance_status" value="1" id="perfomance_status">SUBMIT</button>
 								</div>
                             </form>
                         </div>
@@ -1191,25 +1192,30 @@
         <!-- /Page Wrapper -->
     
 	
-@endsection
+
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 	<script type="text/javascript">
 		jQuery(document).ready(function() {
 		<?php  
-		$hr_id = Employee::where('role_id',5)->get();
-    
-        foreach($hr_id as $hr_id)
+		$hr_id = Employee::where('role_id','!=',5)->get();
+		 
+        foreach($hr_id as $hr_ids)
         {
-		    $compl= Employee::where('performance_completed_by',$hr_id->id)->where('id',$emp_hrcomp)->where('perfomance_status',1)->first();  
-           
-        
-       
-		if($compl){?>
-		jQuery("input").attr('disabled','disabled');
-		jQuery("select").attr('disabled','disabled');
-		jQuery(".btn-add-row").css('pointer-events','none');
-		});
-		<?php }
+		    $compl= Employee::where('performance_completed_by',$hr_ids->id)->where('id',$emp_hrcomp)->where('perfomance_status',1)->first();   //dd($compl);
+			if($compl){?>
+			jQuery("input").attr('disabled','disabled');
+			jQuery("select").attr('disabled','disabled');
+			jQuery(".btn-add-row").css('pointer-events','none'); 
+			<?php }
         }
 		 ?>
-		</script>	 
+		 });
+		 jQuery(document).ready(function(){
+			<?php $comp_status = Employee::where('id',$emp_hrcomp)->where('complete_professional_excellence',1)->where('complete_personal_excellence',1)->where('complete_special_initiative',1)->where('complete_appraisee_strength',1)->where('complete_other_general_comments',1)->where('complete_managers_use',1)->first();
+			if($comp_status){  ?>
+			 $('#comple_stat').removeAttr("disabled")	
+			<?php }?>
+		 });
+		  
+		</script>
+@endsection		

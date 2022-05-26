@@ -119,7 +119,10 @@ class EmployeePerformanceController extends Controller
                 $settings->total_achieved_manager=$request->total_achieved_manager;
                 $settings->total_scored_manager=$request->total_scored_manager;
                 $settings->save();
-             
+				
+				$settings=Employee::where('id',$eid)->first();    
+				$settings->complete_professional_excellence = 1; 
+				$settings->save();
         }
         else{
                 $settings = new KeyprofessionalExcellences();
@@ -134,6 +137,10 @@ class EmployeePerformanceController extends Controller
                 $settings->total_achieved_manager=$request->total_achieved_manager;
                 $settings->total_scored_manager=$request->total_scored_manager;
                 $settings->save();
+				 
+				$settings=Employee::where('id',$eid)->first();    
+				$settings->complete_professional_excellence = 1; 
+				$settings->save();
              
         }                 
     
@@ -223,6 +230,10 @@ class EmployeePerformanceController extends Controller
                 $settings->total_percentage_employee=$request->total_percentage_employee;
                 $settings->total_percentage_manager=$request->total_percentage_manager;
                 $settings->save();
+				
+				$settings=Employee::where('id',$eid)->first();    
+				$settings->complete_personal_excellence = 1; 
+				$settings->save();
              
         }
         else{
@@ -238,6 +249,10 @@ class EmployeePerformanceController extends Controller
                 $settings->total_percentage_employee=$request->total_percentage_employee;
                 $settings->total_percentage_manager=$request->total_percentage_manager;
                 $settings->save();
+				
+				$settings=Employee::where('id',$eid)->first();    
+				$settings->complete_personal_excellence = 1; 
+				$settings->save();
              
         }
 		
@@ -264,6 +279,10 @@ class EmployeePerformanceController extends Controller
                     $score->by_employee = $emp_text[$key] ? $emp_text[$key] : ''; 
                     $score->managers_comment = $manager_text[$key] ? $manager_text[$key] : ''; 
                     $score->save();
+					
+					$settings=Employee::where('id',$add_empid)->first();    
+					$settings->complete_special_initiative = 1; 
+					$settings->save();
                 }		
                 else 
                 { 
@@ -271,7 +290,11 @@ class EmployeePerformanceController extends Controller
                     $scores->emp_id = $add_empid;
                     $scores->by_employee = $emp_text[$key] ? $emp_text[$key] : '';  
                     $scores->managers_comment = $manager_text[$key] ? $manager_text[$key] : '';  
-                    $scores->save();         	  
+                    $scores->save();   
+
+					$settings=Employee::where('id',$add_empid)->first();    
+					$settings->complete_special_initiative = 1; 
+					$settings->save();
                 }
             }
         }
@@ -363,6 +386,10 @@ class EmployeePerformanceController extends Controller
                     $score->strengths = $strengths[$key] ? $strengths[$key] : ''; 
                     $score->areas_improvement = $areas_imp[$key] ? $areas_imp[$key] : ''; 
                     $score->save();
+					
+					$settings=Employee::where('id',$add_empid)->first();    
+					$settings->complete_appraisee_strength = 1; 
+					$settings->save();					
                 }		
                 else 
                 { 
@@ -370,7 +397,11 @@ class EmployeePerformanceController extends Controller
                     $scores->emp_id = $add_empid;
                     $scores->strengths = $strengths[$key] ? $strengths[$key] : '';  
                     $scores->areas_improvement = $areas_imp[$key] ? $areas_imp[$key] : '';  
-                    $scores->save();         	  
+                    $scores->save();   
+						
+					$settings=Employee::where('id',$add_empid)->first();    
+					$settings->complete_appraisee_strength = 1; 
+					$settings->save();
                 }
             }
         }
@@ -528,14 +559,22 @@ class EmployeePerformanceController extends Controller
                     $score->employee_comments = $emp_text[$key] ? $emp_text[$key] : ''; 
                     $score->managers_comments = $manager_text[$key] ? $manager_text[$key] : ''; 
                     $score->save();
+					
+					$settings=Employee::where('id',$add_empid)->first();    
+					$settings->complete_other_general_comments = 1; 
+					$settings->save();
                 }		
                 else 
                 { 
                     $scores = new OtherGeneralComment();
                     $scores->emp_id = $add_empid;
                     $scores->employee_comments = $emp_text[$key] ? $emp_text[$key] : '';  
-                    $scores->managers_comments = $manager_text[$key] ? $manager_text[$key] : '';  
-                    $scores->save();         	  
+                    $scores->managers_comments = $manager_text[$key] ? $manager_text[$key] : ''; 
+                    $scores->save();   
+
+					$settings=Employee::where('id',$add_empid)->first();    
+					$settings->complete_other_general_comments = 1; 
+					$settings->save();	
                 }
             }
         }
@@ -558,10 +597,14 @@ class EmployeePerformanceController extends Controller
             { 
                 if(isset($id_arry[$key]) && !empty($id))
                 {
-                    $score= PerfomanceManagerUse::where('id',$id_arry[$key])->first();                      
+                    $score= PerfomanceManagerUse::where('id',$id_arry[$key])->first();
                     $score->select_option = $select_val[$key] ? $select_val[$key] : ''; 
                     $score->yes_details = $details[$key] ? $details[$key] : ''; 
                     $score->save();
+					
+					$settings=Employee::where('id',$add_empid)->first();    
+					$settings->complete_managers_use = 1; 
+					$settings->save();
                 }		
                 else 
                 { 
@@ -570,7 +613,11 @@ class EmployeePerformanceController extends Controller
                     $scores->issues = $issues[$key] ? $issues[$key] : '';
                     $scores->select_option = $select_val[$key] ? $select_val[$key] : ''; 
                     $scores->yes_details = $details[$key] ? $details[$key] : '';   
-                    $scores->save();         	  
+                    $scores->save();  
+
+					$settings=Employee::where('id',$add_empid)->first();    
+					$settings->complete_managers_use = 1; 
+					$settings->save();
                 }
             }
         }
