@@ -236,43 +236,32 @@ class EmployeeController extends Controller
         'search_employee_id','search_name','search_designation','roles'));
     }
 
-    public function getOrganizationalChart()
+   public function getOrganizationalChart()
     {
-        $users = Employee::all(['id', 'man_id', 'first_name', 'last_name', 'role_id']);
+        $users = Employee::whereNotIn('role_id', [4,5])->get(['id', 'man_id', 'first_name', 'last_name', 'role_id']);
         $employees = [];
         $admin = Employee::where('role_id', 1)->first();
-        $admindata = [
-                    'id' => $admin->id,
-                    'name' => $admin->first_name .' '.$admin->last_name,
-                    'pid' => 0,
-                    'isCollapsed' => true
-                ];
-
-        $employees[] = $admindata;
-
-
+      
         foreach ($users as $user) {
-            $name = $user->first_name .' '.$user->last_name;
+            $data = [
+                'id' => $user->id,
+                'name' => $user->first_name .' '.$user->last_name,
+                'isCollapsed' => true
+            ];
 
-            if($user->role_id !== 1  || $user->role_id !== 5 ) {
-               
+            if($user->role_id == 1) {
+                $data['pid'] = 0;
+            } else {
                 if(!empty($user->man_id)) {
-                    $data = [
-                        'id' => $user->id,
-                        'pid' => $user->man_id,
-                        'name' => $name
-                    ];
-                } else if(empty($user->man_id)) {
-                    $data = [
-                        'id' => $user->id,
-                        'pid' => $admin->id,
-                        'name' => $name
-                    ];
+                    $data['pid'] = $user->man_id;
+                    
+                } else {
+                    $data['pid'] = $admin->id;
+                    
                 }
-                $employees[] = $data;
             }
-           
-            
+
+            $employees[] = $data;
              
         }
         $employees = json_encode($employees);
