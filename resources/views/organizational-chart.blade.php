@@ -31,7 +31,7 @@
 .dtree-node-main{
   width: 100%;
   position: relative;
-  padding-top: 1px;
+  /*padding-top: 1px;*/
 }
 .dtree-node .dtree-img img{
   max-width: 100%;
@@ -62,7 +62,7 @@
   position: relative;
   overflow: hidden;
   transition: 0.3s all ease;
-  height: 100%;
+  /*height: 100%;*/
 }
 .node-collapse {
   position: absolute;
