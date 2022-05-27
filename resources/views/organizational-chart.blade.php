@@ -1,8 +1,8 @@
 @extends('layout.mainlayout')
     @section('content')
     <style>
-        .dtree-wrapper *{
-  box-sizing: border-box
+.dtree-wrapper *{
+  box-sizing: border-box;
 }
 .dtree-wrapper{
   position: relative;
@@ -31,7 +31,7 @@
 .dtree-node-main{
   width: 100%;
   position: relative;
-  padding-top: 1px;
+  top: 1px;
 }
 .dtree-node .dtree-img img{
   max-width: 100%;
@@ -62,7 +62,7 @@
   position: relative;
   overflow: hidden;
   transition: 0.3s all ease;
-  height: 100%;
+  /*height: 100%;*/
 }
 .node-collapse {
   position: absolute;
@@ -142,6 +142,7 @@
   position: relative;
   z-index: 11;
   background-color: white;
+  display: none;
 }
 .dtree-search-icon {
   position: relative;
@@ -226,7 +227,10 @@ input.dtree-search-control {
   color: #555;
   font-size: 13px;
 }
+
     </style>
+                                
+
         <div class="page-wrapper">
 			
             <!-- Page Content -->
@@ -246,25 +250,25 @@ input.dtree-search-control {
                 </div>
                 <!-- /Page Header -->
                 
-                {{-- <div class="row">
+              <div class="row">
                     <div class="col-md-12">
                             <div id="tree"></div>
-                                <script src="https://balkangraph.com/js/latest/OrgChart.js"></script>
-
-                            <script>
-                                var chart = new OrgChart(document.getElementById("tree"), {
-                                    nodeBinding: {
-                                        field_0: "name"
-                                    },
-                                    nodes: @json($employees)
-                                });
-                              
-                                
-                            </script>      
                     </div>
-                </div> --}}
+                </div>
                 <input type="hidden" id="treedata" value="{{$employees}}">
                 <div id="ochart"></div>
             </div>
         </div>
+
     @endsection
+    <script src="https://balkangraph.com/js/latest/OrgChart.js"></script>
+    <script type="text/javascript">
+
+        var chart = new OrgChart(document.getElementById("tree"), {
+            nodeBinding: {
+                field_0: "name"
+            },
+            nodes: @json($employees)
+        });
+        
+    </script>

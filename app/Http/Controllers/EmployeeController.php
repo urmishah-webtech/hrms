@@ -236,43 +236,46 @@ class EmployeeController extends Controller
         'search_employee_id','search_name','search_designation','roles'));
     }
 
-    public function getOrganizationalChart()
+   public function getOrganizationalChart()
     {
-        $users = Employee::all(['id', 'man_id', 'first_name', 'last_name', 'role_id']);
+        
         $employees = [];
-        $admin = Employee::where('role_id', 1)->first();
-        $admindata = [
-                    'id' => $admin->id,
-                    'name' => $admin->first_name .' '.$admin->last_name,
-                    'pid' => 0,
-                    'isCollapsed' => true
-                ];
+        
+        $ceo = Employee::whereHas('designation', function($q) {
+            return $q->where('name', 'CEO');
+        })->first(['id', 'man_id', 'first_name', 'last_name', 'role_id', 'designation_id']);
 
-        $employees[] = $admindata;
+        $data = [
+            'id' => $ceo->id,
+            'name' => $ceo->first_name .' '.$ceo->last_name,
+            'isCollapsed' => true,
+            'pid' => 0
+        ];
+        $employees[] = $data;
 
+        $users = Employee::whereHas('role', function($q) {
+            return $q->whereIn('name', ['Admin', 'Manager', 'Employee', 'Supervisor']);
+        })->with('designation','role')->get(['id', 'man_id', 'first_name', 'last_name', 'role_id', 'designation_id']);
 
         foreach ($users as $user) {
-            $name = $user->first_name .' '.$user->last_name;
+            $data = [
+                'id' => $user->id,
+                'name' => $user->first_name .' '.$user->last_name,
+                'isCollapsed' => true
+            ];
 
-            if($user->role_id !== 1  || $user->role_id !== 5 ) {
+            if($user->id != $ceo->id) {
                
                 if(!empty($user->man_id)) {
-                    $data = [
-                        'id' => $user->id,
-                        'pid' => $user->man_id,
-                        'name' => $name
-                    ];
-                } else if(empty($user->man_id)) {
-                    $data = [
-                        'id' => $user->id,
-                        'pid' => $admin->id,
-                        'name' => $name
-                    ];
+                    $data['pid'] = $user->man_id;
+                    
+                } else {
+                    $data['pid'] = $ceo->id;
+                    
                 }
-                $employees[] = $data;
             }
-           
-            
+
+            $employees[] = $data;
              
         }
         $employees = json_encode($employees);
