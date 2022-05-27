@@ -56,6 +56,9 @@
                                                     <h6 class="staff-id">Department : {{ @$emp_profile->designation->department->name}}</h6>
                                                     <small class="staff-id">Designation : {{ @$emp_profile->designation->name }}</small>
                                                     <div class="staff-id">Employee ID : {{ @$emp_profile->employee_id }}</div>
+													@isset($emp_profile->location->name)
+                                                    <div class="staff-id">Location : {{ @$emp_profile->location->name }}</div>
+													@endisset
                                                      
                                                     
                                                 </div>
@@ -133,7 +136,7 @@
                                                 <div class="title">Nationality</div>
                                                 <div class="text">{{@$per_info->nationality}}</div>
                                             </li>
-                                            <li>
+                                            <!--<li>
                                                 <div class="title">Religion</div>
                                                 <div class="text">{{@$per_info->religion}}</div>
                                             </li>
@@ -148,7 +151,7 @@
                                             <li>
                                                 <div class="title">No. of children</div>
                                                 <div class="text">{{@$per_info->No_of_children}}</div>
-                                            </li>
+                                            </li>-->
                                         </ul>
                                     </div>
                                 </div>
