@@ -46,6 +46,7 @@ class LoginController extends Controller
     }
 	public function showLoginForm()
     {
+
         return view('auth.login',[
             'title' => 'Admin Login',
             'loginRoute' => 'login',
@@ -81,8 +82,9 @@ class LoginController extends Controller
 		$this->validator($request);
 		
 		 if(auth()->attempt($request->only('email','password'),$request->filled('remember'))){
+		
 			//Authentication passed...
-			if (auth()->user()->role_id == 1 || auth()->user()->role_id == 2 || auth()->user()->role_id == 6) {  
+			if (auth()->user()->role_id == 1 || auth()->user()->role_id == 2 || auth()->user()->role_id == 6 || auth()->user()->role_id == 5) {  
 				Session::put('user_2fa', auth()->user()->id);				
 		 		return redirect()->route('index');
 			}else{
