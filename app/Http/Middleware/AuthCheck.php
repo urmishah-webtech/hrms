@@ -19,7 +19,7 @@ class AuthCheck
      */
     public function handle($request, Closure $next)
     {   
-	
+		
 		  if(Auth::check()){		   
 			if (auth()->user()->role_id == 1 || auth()->user()->role_id == 2 || Auth::user()->role_id == 5 || auth()->user()->role_id == 6)
 			{	 
