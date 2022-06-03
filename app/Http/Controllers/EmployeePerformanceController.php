@@ -40,6 +40,13 @@ class EmployeePerformanceController extends Controller
         $emp_id=Employee::get('id');		
         return view('/employees-performance',compact('dep','des','emps','emp_id'));
     }
+	 public function my_performance_data(){
+        $dep=Department::get();
+        $des=Designation::get(); 
+        $emps=Employee::where('id',Auth::id())->where('role_id', '!=',1)->get();  
+        $emp_id=Employee::get('id');		
+        return view('my-performance',compact('dep','des','emps','emp_id'));
+    }
     public function edit_employees($id)
 	{   
 		$emp_id = Employee::where('id',$id)->first();
@@ -93,27 +100,24 @@ class EmployeePerformanceController extends Controller
         $settings=KeyprofessionalExcellences::where('emp_id',$eid)->first();  
         $rate_arr=array();
         $final_achieved=array();
-        $final_scored=array();
+        //$final_scored=array();
         $final_achieved_man=array();
-        $final_scored_man=array();
+        //$final_scored_man=array();
         array_push($rate_arr,$request->key_no);
         $rate_count=count($rate_arr);
         if(!empty($rate_arr)){
             $i=0;
             foreach($request->key_no as $key => $val){
             $final_achieved[$val]['percentage_achieved_employee']=$request->percentage_achieved_employee[$i];
-            $final_scored[$val]['points_scored_employee']=$request->points_scored_employee[$i]; 
             $final_achieved_man[$val]['percentage_achieved_manager']=$request->percentage_achieved_manager[$i];
-            $final_scored_man[$val]['points_scored_manager']=$request->points_scored_manager[$i];          
+               
             $i++;
            }
         }
         if($settings){
                 $settings= KeyprofessionalExcellences::where('emp_id', $eid)->first();
-                $settings->percentage_achieved_employee=json_encode($final_achieved);
-                $settings->points_scored_employee=json_encode($final_scored);
-                $settings->percentage_achieved_manager=json_encode($final_achieved_man);
-                $settings->points_scored_manager=json_encode($final_scored_man);
+                $settings->percentage_achieved_employee=json_encode($final_achieved);              
+                $settings->percentage_achieved_manager=json_encode($final_achieved_man);               
                 $settings->total_achieved_employee=$request->total_achieved_employee;
                 $settings->total_scored_employee=$request->total_scored_employee;
                 $settings->total_achieved_manager=$request->total_achieved_manager;
@@ -128,10 +132,8 @@ class EmployeePerformanceController extends Controller
                 $settings = new KeyprofessionalExcellences();
                 $settings->user_id = Auth::user()->id;
                 $settings->emp_id = $eid;
-                $settings->percentage_achieved_employee=json_encode($final_achieved);
-                $settings->points_scored_employee=json_encode($final_scored);
-                $settings->percentage_achieved_manager=json_encode($final_achieved_man);
-                $settings->points_scored_manager=json_encode($final_scored_man);
+                $settings->percentage_achieved_employee=json_encode($final_achieved);                
+                $settings->percentage_achieved_manager=json_encode($final_achieved_man);                
                 $settings->total_achieved_employee=$request->total_achieved_employee;
                 $settings->total_scored_employee=$request->total_scored_employee;
                 $settings->total_achieved_manager=$request->total_achieved_manager;
@@ -204,9 +206,9 @@ class EmployeePerformanceController extends Controller
         $settings=PersonalExcellence::where('emp_id',$eid)->first();  
         $rate_arr=array();
         $final_achieved=array();
-        $final_scored=array();
+        //$final_scored=array();
         $final_achieved_man=array();
-        $final_scored_man=array();
+       // $final_scored_man=array();
         array_push($rate_arr,$request->key_no);
         $rate_count=count($rate_arr);
         if(!empty($rate_arr)){

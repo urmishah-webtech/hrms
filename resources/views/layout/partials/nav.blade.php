@@ -66,7 +66,12 @@
 							<li>
 								<a class="{{ Request::is('employees-performance') ? 'active' : '' }}" href="{{ url('employees-performance') }}"> Employee Performance </a>
 							</li>
-							@endif								
+							@endif	
+							@if (Auth::user()->role_id == 2 || Auth::user()->role_id == 4 || Auth::user()->role_id == 5 || Auth::user()->role_id == 6)
+							<li>
+								<a class="{{ Request::is('my-performance') ? 'active' : '' }}" href="{{ url('my-performance') }}"> My Performance </a>
+							</li>
+							@endif							
 							<li>
 								<a class="{{ Request::is('performance-appraisal') ? 'active' : '' }}" href="{{ url('performance-appraisal') }}"> Performance Appraisal  </a>
 							</li>

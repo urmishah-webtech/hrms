@@ -217,7 +217,7 @@
                                             <label class="col-form-label">Company</label>
                                             <select class="select" name="company_id" required>
             
-                                                <option value="1">Delta Infotech</option>
+                                                <option value="1">Wazobia Market</option>
                                             </select>
                                         </div>
                                     </div>
@@ -443,11 +443,11 @@
                                             <label class="col-form-label">Company</label>
                                             @if(Auth::user()->role_id==2)
                                             <select class="select" name="" disabled>
-                                                <option value="1">Global Technologies</option>
+                                                <option value="1">Wazobia Market</option>
                                             </select>
                                             @else
                                             <select class="select" name="company_id">
-                                                <option value="1">Global Technologies</option>
+                                                <option value="1">Wazobia Market</option>
                                             </select>
                                             @endif
                                         </div>

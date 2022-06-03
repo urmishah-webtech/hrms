@@ -585,16 +585,17 @@
 					}
 				});
 			});
-			$('.achieved_employee').on('change', function() {
-				var ret = Number($("#achieved_employee1").val()) + Number($("#achieved_employee12").val()) + Number($("#achieved_employee21").val()) + Number($("#achieved_employee22").val()) + Number($("#achieved_employee31").val()) + Number($("#achieved_employee32").val()) + Number($("#achieved_employee41").val()) + Number($("#achieved_employee42").val()) + Number($("#achieved_employee43").val());
+			$('.achieved_employee_perfo').on('change', function() {  
+				var ret = Number($("#achieved_employee1").val()) + Number($("#achieved_employee21").val()) + Number($("#achieved_employee31").val()) + Number($("#achieved_employee41").val());
 				$("#total_achieved_employee").val(ret);
 			});
 			$('.scored_employee').on('change', function() {
 				var ret = Number($("#scored_employee1").val()) + Number($("#scored_employee12").val()) + Number($("#scored_employee21").val()) + Number($("#scored_employee22").val()) + Number($("#scored_employee31").val()) + Number($("#scored_employee32").val()) + Number($("#scored_employee41").val()) + Number($("#scored_employee42").val()) + Number($("#scored_employee43").val());
 				$("#total_scored_employee").val(ret);
 			});
-			$('.achieved_manager').on('change', function() {
-				var ret = Number($("#achieved_manager1").val()) + Number($("#achieved_manager12").val()) + Number($("#achieved_manager21").val()) + Number($("#achieved_manager22").val()) + Number($("#achieved_manager31").val()) + Number($("#achieved_manager32").val()) + Number($("#achieved_manager41").val()) + Number($("#achieved_manager42").val()) + Number($("#achieved_manager43").val());
+		 
+			$('.achieved_manager').on('change', function() {  
+				var ret = Number($("#achieved_manager1").val()) + Number($("#achieved_manager21").val()) + Number($("#achieved_manager31").val()) + Number($("#achieved_manager41").val());
 				$("#total_achieved_manager").val(ret);
 			});
 			$('.scored_manager').on('change', function() {
@@ -622,14 +623,14 @@
 			});
 			
 			$('.percentage_achieved_manager').on('change', function() {  
-				var ret = Number($("#percentage_achieved_manager1").val()) + Number($("#percentage_achieved_manager12").val()) + Number($("#percentage_achieved_manager13").val()) + Number($("#percentage_achieved_manager21").val()) + Number($("#percentage_achieved_manager22").val()) + Number($("#percentage_achieved_manager23").val()) + Number($("#percentage_achieved_manager24").val()) + Number($("#percentage_achieved_manager31").val()) + Number($("#percentage_achieved_manager32").val()) + Number($("#percentage_achieved_manager33").val()) + Number($("#percentage_achieved_manager34").val()) + Number($("#percentage_achieved_manager41").val()) + Number($("#percentage_achieved_manager42").val()) + Number($("#percentage_achieved_manager43").val()) + Number($("#percentage_achieved_manager44").val()) + Number($("#percentage_achieved_manager51").val()) + Number($("#percentage_achieved_manager52").val()) + Number($("#percentage_achieved_manager53").val()) + Number($("#percentage_achieved_manager54").val()) + Number($("#percentage_achieved_manager55").val()) + Number($("#percentage_achieved_manager61").val()) + Number($("#percentage_achieved_manager62").val()) + Number($("#percentage_achieved_manager63").val()) + Number($("#percentage_achieved_manager64").val()) + Number($("#percentage_achieved_manager65").val()); 
+				var ret = Number($("#percentage_achieved_manager1").val()) + Number($("#percentage_achieved_manager21").val()) + Number($("#percentage_achieved_manager31").val())  + Number($("#percentage_achieved_manager41").val()) + Number($("#percentage_achieved_manager51").val()) + Number($("#percentage_achieved_manager61").val()); 
 				$("#total_personal_score_manager").val(ret);
 				var percent = Math.round((ret/ 100)*100);
 				$("#total_percentage_man").val(percent);
 			});
 			
 			$('.percentage_achieved_employee').on('change', function() {  
-				var ret = Number($("#percentage_achieved_employee1").val()) + Number($("#percentage_achieved_employee12").val()) + Number($("#percentage_achieved_employee13").val()) + Number($("#percentage_achieved_employee21").val()) + Number($("#percentage_achieved_employee22").val()) + Number($("#percentage_achieved_employee23").val()) + Number($("#percentage_achieved_employee24").val()) + Number($("#percentage_achieved_employee31").val()) + Number($("#percentage_achieved_employee32").val()) + Number($("#percentage_achieved_employee33").val()) + Number($("#percentage_achieved_employee34").val()) + Number($("#percentage_achieved_employee41").val()) + Number($("#percentage_achieved_employee42").val()) + Number($("#percentage_achieved_employee43").val()) + Number($("#percentage_achieved_employee44").val()) + Number($("#percentage_achieved_employee51").val()) + Number($("#percentage_achieved_employee52").val()) + Number($("#percentage_achieved_employee53").val()) + Number($("#percentage_achieved_employee54").val()) + Number($("#percentage_achieved_employee55").val()) + Number($("#percentage_achieved_employee61").val()) + Number($("#percentage_achieved_employee62").val()) + Number($("#percentage_achieved_employee63").val()) + Number($("#percentage_achieved_employee64").val()) + Number($("#percentage_achieved_employee65").val()); 
+				var ret = Number($("#percentage_achieved_employee1").val()) + Number($("#percentage_achieved_employee21").val()) + Number($("#percentage_achieved_employee31").val()) + Number($("#percentage_achieved_employee41").val()) + Number($("#percentage_achieved_employee51").val()) + Number($("#percentage_achieved_employee61").val()); 
 				$("#total_personal_score_employee").val(ret);
 				var percent = Math.round((ret/ 100)*100);
 				$("#total_percentage_empl").val(percent);

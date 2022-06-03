@@ -72,9 +72,9 @@ class PersonalExcellencesController extends Controller
         $settings=PersonalExcellence::where('emp_id',$eid)->first();  
         $rate_arr=array();
         $final_achieved=array();
-        $final_scored=array();
+        //$final_scored=array();
         $final_achieved_man=array();
-        $final_scored_man=array();
+        //$final_scored_man=array();
         array_push($rate_arr,$request->key_no);
         $rate_count=count($rate_arr);
         if(!empty($rate_arr)){

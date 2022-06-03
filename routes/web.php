@@ -569,6 +569,7 @@ Route::get('/sub-category', function () {
 Route::get('email-settings','EmailsettingsController@Emailsettings')->name('emailsettings');
 Route::post('email_setting_update','EmailsettingsController@Emailsetting_update')->name('emailsetting_update');
 Route::get('/performance-indicator','IndicatorController@indicators')->name('indicators');
+Route::get('/my-performance','EmployeePerformanceController@my_performance_data')->name('my-performance');
 Route::post('add_indicator','IndicatorController@add_indicator')->name('add_indicators');
 Route::post('edit_indicator','IndicatorController@edit_indicator')->name('edit_indicators');
 Route::post('delete_indicator','IndicatorController@delete_indicator')->name('delete_indicator');

@@ -10,7 +10,7 @@
                 <div class="page-header">
                     <div class="row align-items-center">
                         <div class="col">
-                            <h3 class="page-title">Employee Performance</h3>
+                            <h3 class="page-title">My Performance</h3>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="index">Dashboard</a></li>
                                 <li class="breadcrumb-item active">Employee Performance</li>
@@ -22,38 +22,7 @@
                 <!-- /Page Header -->
                 
                 <!-- Search Filter -->
-                <form action="{{ route('search_employee_perfomance') }}" method="post">
-                    @csrf
-                    <div class="row filter-row">
-                        <div class="col-sm-6 col-md-3">  
-                            <div class="form-group form-focus">
-                                <input type="text" value="{{ @$search_employee_id }}" name="search_employee_id" class="form-control floating">
-                                <label class="focus-label">Employee ID</label>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-3">  
-                            <div class="form-group form-focus">
-                                <input type="text" value="{{ @$search_name }}"  name="search_name" class="form-control floating">
-                                <label class="focus-label" >Employee Name</label>
-                            </div>
-                        </div>
-                        <div class="col-sm-6 col-md-3"> 
-                            <div class="form-group form-focus select-focus">
-                                <select class="select floating" name="search_designation"> 
-                                    <option value="">Select Designation</option>
-                                    @isset($des)
-                                        @foreach ($des as $item)
-                                            <option value="{{ $item->id }}" @if(@$search_designation==$item->id ) selected @endif>{{ $item->name }}</option>
-                                        @endforeach
-                                    @endisset
-                                </select>
-                                <label class="focus-label">Designation</label>
-                            </div>
-                        </div>
-                    <div class="col-sm-6 col-md-3">  
-                        <input type="submit" class="btn btn-success btn-block" value="search">  
-                    </div>
-                </form>
+               
                 </div>
                 <!-- Search Filter -->
                 @if ($errors->any())
@@ -70,7 +39,7 @@
                 <div class="row staff-grid-row">
                     @foreach($emps as $val)
                         
-                            <div class="col-md-4 col-sm-6 col-12 col-lg-4 col-xl-3">
+                            <div class="col-md-4 col-sm-6 col-12 col-lg-4 col-xl-3" style="margin-left: 40px;">
                                 <div class="profile-widget">
                                     <div class="profile-img">
                                         <a href="{{ url('profile').'/'.$val->id }}" class="avatar"><img src="img/profiles/avatar-02.jpg" alt=""></a>
