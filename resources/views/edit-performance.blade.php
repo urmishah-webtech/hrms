@@ -1109,7 +1109,7 @@
 		 ?>
 		 });
 		 jQuery(document).ready(function(){
-			<?php $comp_status = Employee::where('id',$emp_hrcomp)->where('complete_professional_excellence',1)->where('complete_personal_excellence',1)->where('complete_special_initiative',1)->where('complete_appraisee_strength',1)->where('complete_other_general_comments',1)->where('complete_managers_use',1)->first();
+			<?php $comp_status = Employee::where('id',$emp_hrcomp)->where('complete_professional_excellence',1)->where('complete_personal_excellence',1)->where('complete_special_initiative',1)->where('complete_appraisee_strength',1)->where('complete_other_general_comments',1)->first();
 			if($comp_status){  ?>
 			 $('#comple_stat').removeAttr("disabled")	
 			<?php }?>
