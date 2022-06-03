@@ -1,5 +1,5 @@
 <!-- jQuery -->
-
+ 
 <script src="{{ URL::asset('js/jquery-3.5.1.min.js') }}"></script>
 
 		<!-- Bootstrap Core JS -->
@@ -144,10 +144,11 @@
 				$(this).closest("tr").prev().find('td:last-child').html('<button type="button" class="btn btn-danger" id="comments_remove"><i class="fa fa-trash-o"></i></button>');
 				$(this).closest("tr").remove();
 			});
-			function GetDynamicTextBox(table_id) {
+			  
+			function GetDynamicTextBox(table_id) {  
 				$('#comments_remove').remove();
 				var rowsLength = document.getElementById(table_id).getElementsByTagName("tbody")[0].getElementsByTagName("tr").length+1;
-				return '<td>'+rowsLength+'</td>' + '<td><input type="text" name = "DynamicTextBoxemp[]" class="form-control" value = "" @if(Auth::id() == $emps->id) editable @else readonly @endif></td>' + '<td><input type="text" name = "DynamicTextBoxman[]" class="form-control" value = "" @if(Auth::id() != $emps->id) editable @else readonly @endif></td>' + '<td><button type="button" class="btn btn-danger" id="comments_remove"><i class="fa fa-trash-o"></i></button></td>'
+				return '<td>'+rowsLength+'</td>' + '<td><input type="text" name = "DynamicTextBoxemp[]" class="form-control" value = "" @if (Auth::user()->role_id != 3)readonly @endif></td>' + '<td><input type="text" name = "DynamicTextBoxman[]" class="form-control" value = "" @if (Auth::user()->role_id == 3)readonly @endif></td>' + '<td><button type="button" class="btn btn-danger" id="comments_remove"><i class="fa fa-trash-o"></i></button></td>'
 			}
 		});
 		/// Employee First Warning

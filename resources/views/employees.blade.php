@@ -321,7 +321,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form action="{{ route('update_employee') }}" method="post" enctype="multipart/form-data">
+                            <form action="{{ route('update_employee') }}" method="post" enctype="multipart/form-data" >
                                 @csrf
                                 <div class="row">
                                     <div class="col-sm-6">
@@ -369,7 +369,7 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class="col-form-label">Password</label>
-                                            <input class="form-control" value="" type="password" autocomplete="off" name="password" placeholder="*****">
+                                            <input class="form-control" value="" type="password"    name="password" placeholder="*****">
                                         </div>
                                     </div>
                                     @endif
