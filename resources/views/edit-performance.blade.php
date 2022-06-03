@@ -104,7 +104,7 @@
                             <div class="table-responsive">
 							 <form action="{{ route('edit_man_professionalExcellence') }}" method="post" id="professionalExcellence">
                              @csrf 
-
+  
                              <input type="hidden" name="empid" value="@if(isset($emps)){{ $emps->id}}@endif">  
 								 
                                 <table class="table table-bordered review-table mb-0">
@@ -133,9 +133,9 @@
                                             <input type="hidden" name="key_no[]" class="form-control" value="1">                                             
                                             <td>Staff Retention</td>                                            
                                             <td rowspan="2"><input type="text" class="form-control" readonly value="25%"></td>
-                                            <td rowspan="2"><input type="number" class="form-control achieved_employee" name="percentage_achieved_employee[]" id="achieved_employee1" value="@isset($prof_data){{$prof_data['1']['percentage_achieved_employee']}}@endisset" max="25" @if (Auth::user()->role_id != 3)readonly @endif required></td>
+                                            <td rowspan="2"><input type="number" class="form-control achieved_employee" name="percentage_achieved_employee[]" id="achieved_employee1" value="@isset($prof_data){{$prof_data['1']['percentage_achieved_employee']}}@endisset" max="25" @if(Auth::id() == $emps->id) editable @else readonly @endif required></td>
                                            <!-- <td><input type="text" class="form-control scored_employee" name="points_scored_employee[]" id="scored_employee1" value=" " @if (Auth::user()->role_id != 3)readonly @endif></td>-->
-                                            <td rowspan="2"><input type="number" class="form-control achieved_manager" name="percentage_achieved_manager[]" id="achieved_manager1" value="@isset($prof_data){{$achi_man['1']['percentage_achieved_manager']}}@endisset" max="25"></td>
+                                            <td rowspan="2"><input type="number" class="form-control achieved_manager" name="percentage_achieved_manager[]" id="achieved_manager1" value="@isset($prof_data){{$achi_man['1']['percentage_achieved_manager']}}@endisset" max="25" @if(Auth::id() != $emps->id) editable @else readonly @endif></td>
                                            <!-- <td><input type="text" name="points_scored_manager[]" class="form-control scored_manager" id="scored_manager1" value=" "></td>-->
                                             <input type="hidden" class="form-control" name="getid[]" value="">
                                         </tr>
@@ -154,9 +154,9 @@
                                             <td rowspan="2">Customer Satisfaction</td>                                             
                                             <td >Customer feedback from mystery shopping</td>
                                             <td rowspan="2"><input type="text" class="form-control" readonly value="25%"></td>
-                                            <td rowspan="2"><input type="number" class="form-control achieved_employee" name="percentage_achieved_employee[]" id="achieved_employee21" value="@isset($prof_data){{$prof_data['2.1']['percentage_achieved_employee']}}@endisset" max="25" @if (Auth::user()->role_id != 3)readonly @endif></td>
+                                            <td rowspan="2"><input type="number" class="form-control achieved_employee" name="percentage_achieved_employee[]" id="achieved_employee21" value="@isset($prof_data){{$prof_data['2.1']['percentage_achieved_employee']}}@endisset" max="25" @if(Auth::id() == $emps->id) editable @else readonly @endif></td>
                                            <!-- <td><input type="text" name="points_scored_employee[]" class="form-control scored_employee" id="scored_employee21" value=" "  @if (Auth::user()->role_id != 3)readonly @endif></td>-->
-                                            <td rowspan="2"><input type="number" class="form-control achieved_manager" name="percentage_achieved_manager[]" id="achieved_manager21" value="@isset($prof_data){{$achi_man['2.1']['percentage_achieved_manager']}}@endisset" max="25"></td>
+                                            <td rowspan="2"><input type="number" class="form-control achieved_manager" name="percentage_achieved_manager[]" id="achieved_manager21" value="@isset($prof_data){{$achi_man['2.1']['percentage_achieved_manager']}}@endisset" max="25" @if(Auth::id() != $emps->id) editable @else readonly @endif></td>
                                             <!--<td><input type="text" name="points_scored_manager[]" class="form-control scored_manager" id="scored_manager21" value=" "></td>-->
                                             <input type="hidden" class="form-control" name="getid[]" value="">
                                         </tr>
@@ -175,9 +175,9 @@
                                             <td rowspan="2">Sales Goals / Increase / Operational Excellence</td>
                                             <td>Company financials</td>
                                            <td rowspan="2"><input type="text" class="form-control" readonly value="25%"></td>
-                                            <td rowspan="2"><input type="number" class="form-control achieved_employee" name="percentage_achieved_employee[]" id="achieved_employee31" value="@isset($prof_data){{$prof_data['3.1']['percentage_achieved_employee']}}@endisset" max="25" @if (Auth::user()->role_id != 3)readonly @endif></td>
+                                            <td rowspan="2"><input type="number" class="form-control achieved_employee" name="percentage_achieved_employee[]" id="achieved_employee31" value="@isset($prof_data){{$prof_data['3.1']['percentage_achieved_employee']}}@endisset" max="25" @if(Auth::id() == $emps->id) editable @else readonly @endif></td>
                                             <!--<td><input type="text" class="form-control scored_employee" name="points_scored_employee[]" id="scored_employee31" value=" "  @if (Auth::user()->role_id != 3)readonly @endif></td>-->
-                                            <td rowspan="2"><input type="number" class="form-control achieved_manager" name="percentage_achieved_manager[]" id="achieved_manager31" max="25" value="@isset($prof_data){{$achi_man['3.1']['percentage_achieved_manager']}}@endisset"></td>
+                                            <td rowspan="2"><input type="number" class="form-control achieved_manager" name="percentage_achieved_manager[]" id="achieved_manager31" max="25" value="@isset($prof_data){{$achi_man['3.1']['percentage_achieved_manager']}}@endisset" @if(Auth::id() != $emps->id) editable @else readonly @endif></td>
                                             <!--<td><input type="text" name="points_scored_manager[]" class="form-control scored_manager" id="scored_manager31" value=" "></td>-->
                                             <input type="hidden" class="form-control" name="getid[]" value="">
                                         </tr>
@@ -196,9 +196,9 @@
                                             <td rowspan="3">Professional Development </td>
                                             <td>Completion of learning journey </td>
                                             <td rowspan="3"><input type="text" class="form-control" readonly value="25%"></td>
-                                            <td rowspan="3"><input type="number" class="form-control achieved_employee" name="percentage_achieved_employee[]" id="achieved_employee41" value="@isset($prof_data){{$prof_data['4.1']['percentage_achieved_employee']}}@endisset" max="25"  @if (Auth::user()->role_id != 3)readonly @endif></td>
+                                            <td rowspan="3"><input type="number" class="form-control achieved_employee" name="percentage_achieved_employee[]" id="achieved_employee41" value="@isset($prof_data){{$prof_data['4.1']['percentage_achieved_employee']}}@endisset" max="25"  @if(Auth::id() == $emps->id) editable @else readonly @endif></td>
                                             <!--<td><input type="text" class="form-control scored_employee" name="points_scored_employee[]" id="scored_employee41" value=" "  @if (Auth::user()->role_id != 3)readonly @endif></td>-->
-                                            <td rowspan="3"><input type="number" class="form-control achieved_manager" name="percentage_achieved_manager[]" id="achieved_manager41"  value="@isset($prof_data){{$achi_man['4.1']['percentage_achieved_manager']}}@endisset" max="25"></td>
+                                            <td rowspan="3"><input type="number" class="form-control achieved_manager" name="percentage_achieved_manager[]" id="achieved_manager41"  value="@isset($prof_data){{$achi_man['4.1']['percentage_achieved_manager']}}@endisset" max="25" @if(Auth::id() != $emps->id) editable @else readonly @endif></td>
                                             <!--<td><input type="text" class="form-control scored_manager" name="points_scored_manager[]" id="scored_manager41" value=" "></td>-->
                                             <input type="hidden" class="form-control" name="getid[]" value=" ">
                                         </tr>
@@ -277,8 +277,8 @@
 											<input type="hidden" name="key_no[]" class="form-control" value="1">
                                             <td>Keep customers as our Top Priority</td>
                                             <td rowspan="3"><input type="text" class="form-control" readonly value="25%" ></td>
-                                            <td rowspan="3"><input type="number" class="form-control percentage_achieved_employee" name="percentage_achieved_employee[]" id="percentage_achieved_employee1" value="@isset($prof_data1){{$prof_data1[1]['percentage_achieved_employee']}}@endisset" max="25" @if (Auth::user()->role_id != 3)readonly @endif required></td> 
-                                            <td rowspan="3"><input type="number" class="form-control percentage_achieved_manager" name="percentage_achieved_manager[]" id="percentage_achieved_manager1" value="@isset($prof_data1){{$achi_man['1']['percentage_achieved_manager']}}@endisset" max="25"  @if (Auth::user()->role_id == 3)readonly @endif >
+                                            <td rowspan="3"><input type="number" class="form-control percentage_achieved_employee" name="percentage_achieved_employee[]" id="percentage_achieved_employee1" value="@isset($prof_data1){{$prof_data1[1]['percentage_achieved_employee']}}@endisset" max="25" @if(Auth::id() == $emps->id) editable @else readonly @endif required></td> 
+                                            <td rowspan="3"><input type="number" class="form-control percentage_achieved_manager" name="percentage_achieved_manager[]" id="percentage_achieved_manager1" value="@isset($prof_data1){{$achi_man['1']['percentage_achieved_manager']}}@endisset" max="25"  @if(Auth::id() != $emps->id) editable @else readonly @endif >
 											 </td> 
                                         </tr>
                                         <tr>
@@ -294,9 +294,9 @@
 											<input type="hidden" name="key_no[]" class="form-control" value="2.1">
                                             <td>Ready to be of assistance to others</td>
                                             <td rowspan="4"><input type="text" class="form-control" readonly value="15%"></td>
-                                            <td rowspan="4"><input type="number" class="form-control percentage_achieved_employee" name="percentage_achieved_employee[]" id="percentage_achieved_employee21" value="@isset($prof_data1){{$prof_data1['2.1']['percentage_achieved_employee']}}@endisset" max="15" @if (Auth::user()->role_id != 3)readonly @endif></td>
+                                            <td rowspan="4"><input type="number" class="form-control percentage_achieved_employee" name="percentage_achieved_employee[]" id="percentage_achieved_employee21" value="@isset($prof_data1){{$prof_data1['2.1']['percentage_achieved_employee']}}@endisset" max="15" @if(Auth::id() == $emps->id) editable @else readonly @endif></td>
                                             <!--<td><input type="text" class="form-control" readonly value="0"></td>-->
-                                            <td rowspan="4"><input type="number" class="form-control percentage_achieved_manager" name="percentage_achieved_manager[]" id="percentage_achieved_manager21" value="@isset($prof_data1){{$achi_man['2.1']['percentage_achieved_manager']}}@endisset" max="15" @if (Auth::user()->role_id == 3)readonly @endif ></td>
+                                            <td rowspan="4"><input type="number" class="form-control percentage_achieved_manager" name="percentage_achieved_manager[]" id="percentage_achieved_manager21" value="@isset($prof_data1){{$achi_man['2.1']['percentage_achieved_manager']}}@endisset" max="15" @if(Auth::id() != $emps->id) editable @else readonly @endif ></td>
                                             <!--<td><input type="text" class="form-control" readonly value="0"></td>-->
                                         </tr>
                                         <tr>
@@ -315,8 +315,8 @@
 											<input type="hidden" name="key_no[]" class="form-control" value="3.1">
                                             <td>Does not discriminate</td>
                                             <td rowspan="4"><input type="text" class="form-control" readonly value="15%"></td>
-                                            <td rowspan="4"><input type="number" class="form-control percentage_achieved_employee" name="percentage_achieved_employee[]" id="percentage_achieved_employee31" value="@isset($prof_data1){{$prof_data1['3.1']['percentage_achieved_employee']}}@endisset" max="15" @if (Auth::user()->role_id != 3)readonly @endif></td>  
-                                            <td rowspan="4"><input type="number" class="form-control percentage_achieved_manager" name="percentage_achieved_manager[]" id="percentage_achieved_manager31" value="@isset($prof_data1){{$achi_man['3.1']['percentage_achieved_manager']}}@endisset" max="15" @if (Auth::user()->role_id == 3)readonly @endif ></td> 
+                                            <td rowspan="4"><input type="number" class="form-control percentage_achieved_employee" name="percentage_achieved_employee[]" id="percentage_achieved_employee31" value="@isset($prof_data1){{$prof_data1['3.1']['percentage_achieved_employee']}}@endisset" max="15" @if(Auth::id() == $emps->id) editable @else readonly @endif></td>  
+                                            <td rowspan="4"><input type="number" class="form-control percentage_achieved_manager" name="percentage_achieved_manager[]" id="percentage_achieved_manager31" value="@isset($prof_data1){{$achi_man['3.1']['percentage_achieved_manager']}}@endisset" max="15" @if(Auth::id() != $emps->id) editable @else readonly @endif ></td> 
                                         </tr>
 										<tr>
                                             <td>Considerate and shows respect to others.</td>  
@@ -334,8 +334,8 @@
 											<input type="hidden" name="key_no[]" class="form-control" value="4.1">
                                             <td>Punctual</td>
                                             <td rowspan="4"><input type="text" class="form-control" readonly value="15%"></td>
-                                            <td rowspan="4"><input type="number" class="form-control percentage_achieved_employee" name="percentage_achieved_employee[]" id="percentage_achieved_employee41" value="@isset($prof_data1){{$prof_data1['4.1']['percentage_achieved_employee']}}@endisset" max="15" @if(Auth::user()->role_id != 3)readonly @endif></td>
-                                            <td rowspan="4"><input type="number" class="form-control percentage_achieved_manager" name="percentage_achieved_manager[]" id="percentage_achieved_manager41" value="@isset($prof_data1){{$achi_man['4.1']['percentage_achieved_manager']}}@endisset" max="15" @if (Auth::user()->role_id == 3)readonly @endif ></td> 
+                                            <td rowspan="4"><input type="number" class="form-control percentage_achieved_employee" name="percentage_achieved_employee[]" id="percentage_achieved_employee41" value="@isset($prof_data1){{$prof_data1['4.1']['percentage_achieved_employee']}}@endisset" max="15" @if(Auth::id() == $emps->id) editable @else readonly @endif</td>
+                                            <td rowspan="4"><input type="number" class="form-control percentage_achieved_manager" name="percentage_achieved_manager[]" id="percentage_achieved_manager41" value="@isset($prof_data1){{$achi_man['4.1']['percentage_achieved_manager']}}@endisset" max="15" @if(Auth::id() != $emps->id) editable @else readonly @endif ></td> 
                                         </tr>
 										<tr>
                                             <td>Consistently delivers excellence in all activities</td> 
@@ -353,8 +353,8 @@
                                             <td rowspan="5">Hardworking</td>
                                             <td>Completes all assigned tasks on-time</td>
                                             <td rowspan="5"><input type="text" class="form-control" readonly value="15%"></td>
-                                            <td rowspan="5"><input type="number" class="form-control percentage_achieved_employee" name="percentage_achieved_employee[]" id="percentage_achieved_employee51" value="@isset($prof_data1){{$prof_data1['5.1']['percentage_achieved_employee']}}@endisset" max="15" @if(Auth::user()->role_id != 3)readonly @endif></td> 
-                                            <td rowspan="5"><input type="number" class="form-control percentage_achieved_manager" name="percentage_achieved_manager[]" id="percentage_achieved_manager51" value="@isset($prof_data1){{$achi_man['5.1']['percentage_achieved_manager']}}@endisset" max="15" @if (Auth::user()->role_id == 3)readonly @endif ></td> 
+                                            <td rowspan="5"><input type="number" class="form-control percentage_achieved_employee" name="percentage_achieved_employee[]" id="percentage_achieved_employee51" value="@isset($prof_data1){{$prof_data1['5.1']['percentage_achieved_employee']}}@endisset" max="15" @if(Auth::id() == $emps->id) editable @else readonly @endif></td> 
+                                            <td rowspan="5"><input type="number" class="form-control percentage_achieved_manager" name="percentage_achieved_manager[]" id="percentage_achieved_manager51" value="@isset($prof_data1){{$achi_man['5.1']['percentage_achieved_manager']}}@endisset" max="15" @if(Auth::id() != $emps->id) editable @else readonly @endif ></td> 
                                         </tr>
 										<tr>
                                             <td>Result Oriented</td> 
@@ -374,8 +374,8 @@
 											<input type="hidden" name="key_no[]" class="form-control" value="6.1">
                                             <td>Committed to continuous improvement</td>
                                             <td rowspan="5"><input type="text" class="form-control" readonly value="15%"></td>
-                                            <td rowspan="5"><input type="number" class="form-control percentage_achieved_employee" name="percentage_achieved_employee[]" id="percentage_achieved_employee61" value="@isset($prof_data1){{$prof_data1['6.1']['percentage_achieved_employee']}}@endisset" max="15" @if (Auth::user()->role_id != 3)readonly @endif></td> 
-                                            <td rowspan="5"><input type="number" class="form-control percentage_achieved_manager" name="percentage_achieved_manager[]" id="percentage_achieved_manager61" value="@isset($prof_data1){{$achi_man['6.1']['percentage_achieved_manager']}}@endisset" max="15" @if (Auth::user()->role_id == 3)readonly @endif ></td> 
+                                            <td rowspan="5"><input type="number" class="form-control percentage_achieved_employee" name="percentage_achieved_employee[]" id="percentage_achieved_employee61" value="@isset($prof_data1){{$prof_data1['6.1']['percentage_achieved_employee']}}@endisset" max="15" @if(Auth::id() == $emps->id) editable @else readonly @endif></td> 
+                                            <td rowspan="5"><input type="number" class="form-control percentage_achieved_manager" name="percentage_achieved_manager[]" id="percentage_achieved_manager61" value="@isset($prof_data1){{$achi_man['6.1']['percentage_achieved_manager']}}@endisset" max="15" @if(Auth::id() != $emps->id) editable @else readonly @endif ></td> 
                                         </tr>
 										<tr>
                                             <td>Innovative</td>  
@@ -453,8 +453,8 @@
                                         <input type="hidden" name="getid" value="@if(isset($specialInitiatives)){{ $val->emp_id}}@endif">
                                         
                                             <td>{{$i}}</td>
-                                            <td><input type="text" class="form-control" name="DynamicTextBoxemp[]" value="{{ $val->by_employee}}" readonly ></td>
-                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="{{ $val->managers_comment}}"></td>
+                                            <td><input type="text" class="form-control" name="DynamicTextBoxemp[]" value="{{ $val->by_employee}}" @if(Auth::id() == $emps->id) editable @else readonly @endif ></td>
+                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="{{ $val->managers_comment}}" @if(Auth::id() != $emps->id) editable @else readonly @endif></td>
                                             <td></td>
                                             <input type="hidden" class="form-control" name="getid_arry[]" value="{{ $val->id}}">
                                         </tr>
@@ -885,8 +885,8 @@
                                         @foreach($general_comment as $val)
                                         <tr>
                                             <td>{{$i}}</td>
-                                            <td><input type="text" class="form-control" name="DynamicTextBoxemp[]" value="{{ $val->employee_comments}}"readonly id="any_commt_sug"></td>
-                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="{{ $val->managers_comments}}"></td>
+                                            <td><input type="text" class="form-control" name="DynamicTextBoxemp[]" value="{{ $val->employee_comments}}" id="any_commt_sug" @if(Auth::id() == $emps->id) editable @else readonly @endif></td>
+                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="{{ $val->managers_comments}}" @if(Auth::id() != $emps->id) editable @else readonly @endif></td>
                                            <td></td>
                                            <input type="hidden" name="getid" value="@if(isset($general_comment)){{ $val->emp_id}}@endif">
                                            <input type="hidden" class="form-control" name="getid_arry[]" value="{{ $val->id}}">
@@ -896,8 +896,8 @@
                                         @else
                                         <tr>
                                             <td>1</td>
-                                            <td><input type="text"  class="form-control" name="DynamicTextBoxemp[]" value="" readonly @if (Auth::user()->role_id == 3)editable @endif ></td>
-                                            <td><input type="text" id="any_commt_sug1" class="form-control" name="DynamicTextBoxman[]" value=""></td>
+                                            <td><input type="text"  class="form-control" name="DynamicTextBoxemp[]" value="" @if(Auth::id() == $emps->id) editable @else readonly @endif ></td>
+                                            <td><input type="text" id="any_commt_sug1" class="form-control" name="DynamicTextBoxman[]" value="" @if(Auth::id() != $emps->id) editable @else readonly @endif></td>
                                             <td></td>
                                         </tr>
                                         @endif 
@@ -1045,17 +1045,17 @@
                                     <tr>
                                         <td>Employee</td>
                                         <input type="hidden" name="user_role[]" value="3">
-                                        <td><input type="text" class="form-control" name="name[]" value="@if(isset($add_perfoIdent_employ[0])){{$add_perfoIdent_employ[0]['name']}} @endif" readonly></td>
-                                        <td><input type="text" class="form-control" name="signature[]" value="@if(isset($add_perfoIdent_employ[0])){{$add_perfoIdent_employ[0]['signature']}} @endif" readonly></td>
-                                        <td><div class="cal-icon"><input type="text" class="form-control datetimepicker" name="date[]" value="@if(isset($add_perfoIdent_employ[0])){{$add_perfoIdent_employ[0]['date']}} @endif" readonly></div></td>
+                                        <td><input type="text" class="form-control" name="name[]" value="@if(isset($add_perfoIdent_employ[0])){{$add_perfoIdent_employ[0]['name']}} @endif" @if(Auth::id() == $emps->id) editable @else readonly @endif></td>
+                                        <td><input type="text" class="form-control" name="signature[]" value="@if(isset($add_perfoIdent_employ[0])){{$add_perfoIdent_employ[0]['signature']}} @endif" @if(Auth::id() == $emps->id) editable @else readonly @endif></td>
+                                        <td><div class="cal-icon"><input type="text" class="form-control datetimepicker" name="date[]" value="@if(isset($add_perfoIdent_employ[0])){{$add_perfoIdent_employ[0]['date']}} @endif" @if(Auth::id() == $emps->id) editable @else readonly @endif></div></td>
                                     </tr>
                                     <tr>
                                         
                                         <td>Manager</td>
                                         <input type="hidden" name="user_role[]" value="2">
-                                        <td><input type="text" class="form-control" name="name[]" value="@if(isset($add_perfoIdent_man[1])){{$add_perfoIdent_man[1]['name']}} @endif"></td>
-                                        <td><input type="text" class="form-control" name="signature[]" value="@if(isset($add_perfoIdent_man[1])){{$add_perfoIdent_man[1]['signature']}} @endif"></td>
-                                        <td><div class="cal-icon"><input type="text" class="form-control datetimepicker" name="date[]" value="@if(isset($add_perfoIdent_man[1])){{$add_perfoIdent_man[1]['date']}} @endif"></div></td>
+                                        <td><input type="text" class="form-control" name="name[]" value="@if(isset($add_perfoIdent_man[1])){{$add_perfoIdent_man[1]['name']}} @endif" @if(Auth::id() != $emps->id) editable @else readonly @endif></td>
+                                        <td><input type="text" class="form-control" name="signature[]" value="@if(isset($add_perfoIdent_man[1])){{$add_perfoIdent_man[1]['signature']}} @endif" @if(Auth::id() != $emps->id) editable @else readonly @endif></td>
+                                        <td><div class="cal-icon"><input type="text" class="form-control datetimepicker" name="date[]" value="@if(isset($add_perfoIdent_man[1])){{$add_perfoIdent_man[1]['date']}} @endif" @if(Auth::id() != $emps->id) editable @else readonly @endif></div></td>
 
                                     </tr>
                                      
