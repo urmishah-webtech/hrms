@@ -27,6 +27,8 @@ use Auth;
 use App\Notification;
 use App\Events\EmployeePerfomanceStatus;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Mail\Mailable;
 
 class EmployeePerformanceController extends Controller
 {
@@ -694,10 +696,19 @@ class EmployeePerformanceController extends Controller
     {   
         $userd = Auth::user()->id; 
 		 
-        $status=Employee::where('id',$request->empid)->first();             
+        $status=Employee::where('id',$request->empid)->first();         
         $status->perfomance_status=$request->perfomance_status;
         $status->performance_completed_by=$request->user_id;
         $status->save();
+
+		$man_ids = $status->man_id;
+		$man_email = Employee::where('id',$man_ids)->pluck('email')->first();    
+		
+		$details = [
+			'title' => 'Employee Performance Status',
+			'body' => 'Your Employee Performance Status has been Complete' 
+		];
+		Mail::to($man_email)->send(new \App\Mail\CompleteStatus($details));
 
         $message='Hi, Your Employee Performance Status has been Complete';
         Notification::create(['employeeid' => $status->id, 'message' => $message]);

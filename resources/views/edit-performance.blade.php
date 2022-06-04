@@ -1072,7 +1072,7 @@
                     <div class="col-md-12">
                         <div class="table-responsive">
                         <form action="{{ route('add_Perfomance_status') }}" method="post">
-                            @csrf
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <input type="hidden" name="empid" value="@if(isset($emp_id)){{ $emp_id->id}}@endif">
                             <input type="hidden" name="user_id" value="{{Auth::user()->id}}">                                 
                                 <div class="review-header text-center">
