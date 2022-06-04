@@ -463,7 +463,7 @@
                                         @else
                                         <tr>
                                             <td>1</td>
-                                            <td><input type="text" class="form-control" name="DynamicTextBoxemp[]" value="" readonly @if(Auth::id() == $emps->id) editable @else readonly @endif ></td>
+                                            <td><input type="text" class="form-control" name="DynamicTextBoxemp[]" value=""  @if(Auth::id() == $emps->id) editable @else readonly @endif ></td>
                                             <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="" @if(Auth::id() != $emps->id) editable @else readonly @endif></td>
                                             <td></td>
                                             
