@@ -132,25 +132,7 @@
 					.filter("[href='#" + id + "']").addClass("active");
 			}
 		});
-		$(function () {
-			$(document).on("click", '.btn-add-row', function () {
-				var id = $(this).closest("table.table-review").attr('id');  // Id of particular table
-				console.log(id);
-				var div = $("<tr />");
-				div.html(GetDynamicTextBox(id));
-				$("#"+id+"_tbody").append(div);
-			});
-			$(document).on("click", "#comments_remove", function () {
-				$(this).closest("tr").prev().find('td:last-child').html('<button type="button" class="btn btn-danger" id="comments_remove"><i class="fa fa-trash-o"></i></button>');
-				$(this).closest("tr").remove();
-			});
-			  
-			function GetDynamicTextBox(table_id) {  
-				$('#comments_remove').remove();
-				var rowsLength = document.getElementById(table_id).getElementsByTagName("tbody")[0].getElementsByTagName("tr").length+1;
-				return '<td>'+rowsLength+'</td>' + '<td><input type="text" name = "DynamicTextBoxemp[]" class="form-control" value = "" @if (Auth::user()->role_id != 3)readonly @endif></td>' + '<td><input type="text" name = "DynamicTextBoxman[]" class="form-control" value = "" @if (Auth::user()->role_id == 3)readonly @endif></td>' + '<td><button type="button" class="btn btn-danger" id="comments_remove"><i class="fa fa-trash-o"></i></button></td>'
-			}
-		});
+		
 		/// Employee First Warning
 		$(function () {
 			$(document).on("click", '.btn-add-row-warning', function () {
@@ -587,6 +569,10 @@
 				});
 			});
 			$('.achieved_employee_perfo').on('change', function() {  
+				var ret = Number($("#achieved_employee1").val()) + Number($("#achieved_employee21").val()) + Number($("#achieved_employee31").val()) + Number($("#achieved_employee41").val());
+				$("#total_achieved_employee").val(ret);
+			});
+			$('.achieved_employee').on('change', function() {  
 				var ret = Number($("#achieved_employee1").val()) + Number($("#achieved_employee21").val()) + Number($("#achieved_employee31").val()) + Number($("#achieved_employee41").val());
 				$("#total_achieved_employee").val(ret);
 			});

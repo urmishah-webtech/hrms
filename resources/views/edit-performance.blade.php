@@ -1115,6 +1115,27 @@
 			<?php }?>
 		 });
 		   
+		   
+		   $(function () {
+			$(document).on("click", '.btn-add-row', function () {
+				var id = $(this).closest("table.table-review").attr('id');  // Id of particular table
+				console.log(id);
+				var div = $("<tr />");
+				div.html(GetDynamicTextBox(id));
+				$("#"+id+"_tbody").append(div);
+			});
+			$(document).on("click", "#comments_remove", function () {
+				$(this).closest("tr").prev().find('td:last-child').html('<button type="button" class="btn btn-danger" id="comments_remove"><i class="fa fa-trash-o"></i></button>');
+				$(this).closest("tr").remove();
+				
+			});
+			  
+			function GetDynamicTextBox(table_id) {   
+				$('#comments_remove').remove();
+				var rowsLength = document.getElementById(table_id).getElementsByTagName("tbody")[0].getElementsByTagName("tr").length+1;
+				return '<td>'+rowsLength+'</td>' + '<td><input type="text" name = "DynamicTextBoxemp[]" class="form-control" value = "" @if(Auth::user()->id == $emps->id) editable @else readonly @endif></td>' + '<td><input type="text" name = "DynamicTextBoxman[]" class="form-control" value = "" @if(Auth::user()->id != $emps->id) editable @else readonly @endif></td>' + '<td><button type="button" class="btn btn-danger" id="comments_remove"><i class="fa fa-trash-o"></i></button></td>'
+			}
+		});
 		</script>
 		 
 @endsection		
