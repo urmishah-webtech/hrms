@@ -703,10 +703,13 @@ class EmployeePerformanceController extends Controller
 
 		$man_ids = $status->man_id;
 		$man_email = Employee::where('id',$man_ids)->pluck('email')->first();    
+		$emp_fname = Employee::where('id',$request->empid)->pluck('first_name')->first();  
+		$emp_lname = Employee::where('id',$request->empid)->pluck('last_name')->first();  
 		
 		$details = [
 			'title' => 'Employee Performance Status',
-			'body' => 'Your Employee Performance Status has been Complete' 
+			'body' => $emp_fname ." ". $emp_lname."'s". ' Performance Status has been Complete' 
+			 
 		];
 		Mail::to($man_email)->send(new \App\Mail\CompleteStatus($details));
 
