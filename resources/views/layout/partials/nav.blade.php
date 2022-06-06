@@ -72,9 +72,9 @@
 								<a class="{{ Request::is('my-performance') ? 'active' : '' }}" href="{{ url('my-performance') }}"> My Performance </a>
 							</li>
 							@endif							
-							<li>
+							<!--<li>
 								<a class="{{ Request::is('performance-appraisal') ? 'active' : '' }}" href="{{ url('performance-appraisal') }}"> Performance Appraisal  </a>
-							</li>
+							</li>-->
 						</ul>	
 					</li>
 					@if (auth()->user()->role_id != 3)
