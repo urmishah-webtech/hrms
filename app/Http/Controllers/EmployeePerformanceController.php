@@ -665,14 +665,35 @@ class EmployeePerformanceController extends Controller
     }
     public function add_Perfomance_status_user(Request $request)
     {   
-        $userd = Auth::user()->id; 
+        $userd = Auth::user()->id;  
+		$key_date = $request->perfomance_date;  
+        $status=KeyprofessionalExcellences::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->first();         
+        $status->complete_perfomance_by_hr=$request->complete_perfomance_by_hr; 
+        $status->save();
+		
+		$status=PersonalExcellence::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->first();
+        $status->complete_perfomance_by_hr=$request->complete_perfomance_by_hr; 
+        $status->save();
+		
+		$status=SpecialInitiatives::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->first();
+        $status->complete_perfomance_by_hr=$request->complete_perfomance_by_hr; 
+        $status->save();
+		
+		$status=AppraiseeStrength::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->first();
+        $status->complete_perfomance_by_hr=$request->complete_perfomance_by_hr; 
+        $status->save();
+		
+		$status=OtherGeneralComment::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->first();
+        $status->complete_perfomance_by_hr=$request->complete_perfomance_by_hr; 
+        $status->save();
 		 
-        $status=Employee::where('id',$request->empid)->first();         
+		 
+        /* $status=Employee::where('id',$request->empid)->first();         
         $status->perfomance_status=$request->perfomance_status;
         $status->performance_completed_by=$request->user_id;
-        $status->save();
-
-		$man_ids = $status->man_id;
+        $status->save(); */
+		$e_ids = $status->emp_id; 
+		$man_ids = Employee::where('id',$e_ids)->first(); 
 		$man_email = Employee::where('id',$man_ids)->pluck('email')->first();    
 		$emp_fname = Employee::where('id',$request->empid)->pluck('first_name')->first();  
 		$emp_lname = Employee::where('id',$request->empid)->pluck('last_name')->first();  
