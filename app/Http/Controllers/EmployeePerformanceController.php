@@ -671,21 +671,7 @@ class EmployeePerformanceController extends Controller
         $status->complete_perfomance_by_hr=$request->complete_perfomance_by_hr; 
         $status->save();
 		
-		$status=PersonalExcellence::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->first();
-        $status->complete_perfomance_by_hr=$request->complete_perfomance_by_hr; 
-        $status->save();
-		
-		$status=SpecialInitiatives::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->first();
-        $status->complete_perfomance_by_hr=$request->complete_perfomance_by_hr; 
-        $status->save();
-		
-		$status=AppraiseeStrength::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->first();
-        $status->complete_perfomance_by_hr=$request->complete_perfomance_by_hr; 
-        $status->save();
-		
-		$status=OtherGeneralComment::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->first();
-        $status->complete_perfomance_by_hr=$request->complete_perfomance_by_hr; 
-        $status->save();
+		 
 		 
 		 
         /* $status=Employee::where('id',$request->empid)->first();         
