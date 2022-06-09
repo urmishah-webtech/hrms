@@ -637,12 +637,12 @@
                     <div class="col-md-12">
                         <div class="table-responsive">
                         <form action="{{ route('add_Perfomance_status') }}" method="post">
-                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
-							
+                            @csrf
+							<input type="hidden" name="perfomance_date" value="@if(isset($url_pdate)){{ $url_pdate}}@endif">
                             <input type="hidden" name="empid" value="@if(isset($emp_id)){{ $emp_id->id}}@endif">
                             <input type="hidden" name="user_id" value="{{Auth::user()->id}}">                                 
                                 <div class="review-header text-center">
-                                <button type="submit" id="comple_stat" class="btn btn-primary submit-btn" disabled><input type="hidden" name="perfomance_status" value="1" id="perfomance_status">SUBMIT</button>
+                                <button type="submit" id="comple_stat" class="btn btn-primary submit-btn" disabled><input type="hidden" name="complete_perfomance_by_hr" value="1" id="perfomance_status">SUBMIT</button>
 								</div>
                             </form>
                         </div>

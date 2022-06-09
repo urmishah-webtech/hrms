@@ -693,13 +693,29 @@ class EmployeePerformanceController extends Controller
 	public function add_Perfomance_status_user_for_employee(Request $request)
     {   
         $userd = Auth::user()->id; 
-		 
-        $status=Employee::where('id',$request->empid)->first();         
-        $status->perfomance_status=$request->perfomance_status;
-        $status->performance_completed_by=$request->user_id;
+		$key_date = $request->perfomance_date;  
+        $status=KeyprofessionalExcellences::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->first();         
+        $status->complete_perfomance_by_hr=$request->complete_perfomance_by_hr; 
+        $status->save();
+		
+		$status=PersonalExcellence::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->first();
+        $status->complete_perfomance_by_hr=$request->complete_perfomance_by_hr; 
+        $status->save();
+		
+		$status=SpecialInitiatives::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->first();
+        $status->complete_perfomance_by_hr=$request->complete_perfomance_by_hr; 
+        $status->save();
+		
+		$status=AppraiseeStrength::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->first();
+        $status->complete_perfomance_by_hr=$request->complete_perfomance_by_hr; 
+        $status->save();
+		
+		$status=OtherGeneralComment::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->first();
+        $status->complete_perfomance_by_hr=$request->complete_perfomance_by_hr; 
         $status->save();
 
-		$man_ids = $status->man_id;
+		$e_ids = $status->emp_id; 
+		$man_ids = Employee::where('id',$e_ids)->first(); 
 		$man_email = Employee::where('id',$man_ids)->pluck('email')->first();    
 		$emp_fname = Employee::where('id',$request->empid)->pluck('first_name')->first();  
 		$emp_lname = Employee::where('id',$request->empid)->pluck('last_name')->first();  
@@ -712,8 +728,8 @@ class EmployeePerformanceController extends Controller
 		Mail::to($man_email)->send(new \App\Mail\CompleteStatus($details));
 
         $message='Hi, Your Employee Performance Status has been Complete';
-        Notification::create(['employeeid' => $status->id, 'message' => $message]);
-        event(new EmployeePerfomanceStatus($message,$status->id));
+        Notification::create(['employeeid' => $status->emp_id, 'message' => $message]);
+        event(new EmployeePerfomanceStatus($message,$status->emp_id));
         return back();
     }
 	

@@ -91,10 +91,10 @@
 											<td>  
 											   {{date('d M Y', strtotime(@$item->perfomance_date))}} 
 											</td>
-											<td>@if($item->complete_perfomance_by_emp == 1) Completed @else Pending
+											<td>@if($item->complete_perfomance_by_manager == 1) Completed @else Pending
 												@endif
 											</td>
-											<td>@if($item->complete_perfomance_by_manager == 1) Completed @else Pending
+											<td>@if($item->complete_perfomance_by_hr == 1) Completed @else Pending
 												@endif</td>
 											<td><a href="/edit-performance/{{@$item->emp_id}}/{{@$item->perfomance_date}}">Edit</a></td> 
 										</tr>
@@ -129,10 +129,10 @@
 											<td>  
 											   {{date('d M Y', strtotime(@$item->perfomance_date))}} 
 											</td>
-											<td>@if($item->complete_perfomance_by_emp == 1) Completed @else Pending
+											<td>@if($item->complete_perfomance_by_manager == 1) Completed @else Pending
 												@endif
 											</td>
-											<td>@if($item->complete_perfomance_by_manager == 1) Completed @else Pending
+											<td>@if($item->complete_perfomance_by_hr == 1) Completed @else Pending
 												@endif</td>
 											<td><a href="/edit-performance/{{@$item->emp_id}}/{{@$item->perfomance_date}}">Edit</a></td> 
 										</tr>
@@ -167,10 +167,10 @@
 											<td>  
 											   {{date('d M Y', strtotime(@$item->perfomance_date))}} 
 											</td>
-											<td>@if($item->complete_perfomance_by_emp == 1) Completed @else Pending
+											<td>@if($item->complete_perfomance_by_manager == 1) Completed @else Pending
 												@endif
 											</td>
-											<td>@if($item->complete_perfomance_by_manager == 1) Completed @else Pending
+											<td>@if($item->complete_perfomance_by_hr == 1) Completed @else Pending
 												@endif</td>
 											<td><a href="/edit-performance/{{@$item->emp_id}}/{{@$item->perfomance_date}}">Edit</a></td> 
 										</tr>
@@ -205,10 +205,10 @@
 											<td>  
 											   {{date('d M Y', strtotime(@$item->perfomance_date))}} 
 											</td>
-											<td>@if($item->complete_perfomance_by_emp == 1) Completed @else Pending
+											<td>@if($item->complete_perfomance_by_manager == 1) Completed @else Pending
 												@endif
 											</td>
-											<td>@if($item->complete_perfomance_by_manager == 1) Completed @else Pending
+											<td>@if($item->complete_perfomance_by_hr == 1) Completed @else Pending
 												@endif</td>
 											<td><a href="/edit-performance/{{@$item->emp_id}}/{{@$item->perfomance_date}}">Edit</a></td> 
 										</tr>
@@ -243,10 +243,10 @@
 											<td>  
 											   {{date('d M Y', strtotime(@$item->perfomance_date))}} 
 											</td>
-											<td>@if($item->complete_perfomance_by_emp == 1) Completed @else Pending
+											<td>@if($item->complete_perfomance_by_manager == 1) Completed @else Pending
 												@endif
 											</td>
-											<td>@if($item->complete_perfomance_by_manager == 1) Completed @else Pending
+											<td>@if($item->complete_perfomance_by_hr == 1) Completed @else Pending
 												@endif</td>
 											<td><a href="/edit-performance/{{@$item->emp_id}}/{{@$item->perfomance_date}}">Edit</a></td> 
 										</tr>
