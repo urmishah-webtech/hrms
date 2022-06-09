@@ -621,7 +621,7 @@ class EmployeePerformanceController extends Controller
                      
                     $score->name = $name[$key] ? $name[$key] : ''; 
                     $score->signature = $signature[$key] ? $signature[$key] : '';
-                    $score->date = Carbon::createFromFormat('d/m/Y', $date[$key])->format('Y-m-d') ? Carbon::createFromFormat('d/m/Y', $date[$key])->format('Y-m-d') : '';  
+                    $score->date = Carbon::createFromFormat('d/m/Y', $date[$key])->format('Y-m-d') ? Carbon::createFromFormat('d/m/Y', $date[$key])->format('Y-m-d') : ''; 
                     $score->save();
                 }		
                 else 
@@ -633,12 +633,11 @@ class EmployeePerformanceController extends Controller
                     $scores->name = $name[$key] ? $name[$key] : '';
                     $scores->signature = $signature[$key] ? $signature[$key] : '';
                     $scores->date = Carbon::createFromFormat('d/m/Y', $date[$key])->format('Y-m-d') ? Carbon::createFromFormat('d/m/Y', $date[$key])->format('Y-m-d') : ''; 
-                    
                     $scores->save();         	  
                 }
             }
         }
-        return redirect("/edit-performance/{$add_empid}/#PerfomanceIdentitie");  
+        return back();  
     }
     public function search_employee_Perfomance(Request $request){
         $dep=Department::get();
