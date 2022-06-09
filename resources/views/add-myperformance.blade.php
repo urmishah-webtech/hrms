@@ -555,7 +555,7 @@
                         </div>
                     </div>
                 </section>
-                <div class="row"  >
+                <div class="row"  style="display:none">
                     <div class="col-md-12">
                         <div class="table-responsive">
                         <form action="{{ route('add_Perfomance_status_user_for_employee') }}" method="post">
