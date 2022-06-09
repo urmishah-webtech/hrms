@@ -721,9 +721,9 @@ class EmployeePerformanceController extends Controller
 		]; */
 		//Mail::to($man_email)->send(new \App\Mail\CompleteStatus($details));
 
-        $message='Hi, Your Employee Performance Status has been Complete';
+        /* $message='Hi, Your Employee Performance Status has been Complete';
         Notification::create(['employeeid' => $status->id, 'message' => $message]);
-        event(new EmployeePerfomanceStatus($message,$status->id));
+        event(new EmployeePerfomanceStatus($message,$status->id)); */
         return back();
     }
 	
