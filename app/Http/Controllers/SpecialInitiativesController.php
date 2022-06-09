@@ -26,14 +26,22 @@ class SpecialInitiativesController extends Controller
                 $score->by_employee = $emp_text[$key] ? $emp_text[$key] : ''; 
                 $score->managers_comment = $manager_text[$key] ? $manager_text[$key] : ''; 
                 $score->save();
+				
+				$score=Employee::where('id',$userd)->first();    
+				$score->complete_special_initiative = 1; 
+				$score->save();
                 }   
                 else 
 		        {   
                 $scores = new SpecialInitiatives();                 
                 $scores->emp_id = $userd;
-                $scores->by_employee = $emp_text[$key] ? $emp_text[$key] : ''; //add a default value here
-                $scores->managers_comment = $manager_text[$key] ? $manager_text[$key] : ''; //add a default value here
+                $scores->by_employee = $emp_text[$key] ? $emp_text[$key] : '';  
+                $scores->managers_comment = $manager_text[$key] ? $manager_text[$key] : '';  
                 $scores->save();
+				
+				$scores=Employee::where('id',$userd)->first();    
+				$scores->complete_special_initiative = 1; 
+				$scores->save();
                 }
             }
         }

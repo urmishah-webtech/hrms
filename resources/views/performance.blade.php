@@ -1,5 +1,7 @@
 @extends('layout.mainlayout')
 @section('content')
+<?php use App\Employee ?>
+<?php use App\OtherGeneralComment ?>
 	<!-- Page Wrapper -->
     <div class="page-wrapper">
 			
@@ -30,7 +32,7 @@
                             <div class="table-responsive">
                                 <table class="table table-bordered table-nowrap review-table mb-0">
                                     <tbody>
-										<form>
+										 
                                         <tr>
                                             <td>                                              
 												<div class="form-group">
@@ -60,22 +62,18 @@
 													<input type="text" class="form-control" id="doj" value="{{ @$emps->joing_date }}" @if (Auth::user()->role_id == 3)readonly @endif>
 												</div>
                                             </td>
-                                            <!--<td>                                               
-												<div class="form-group">
-													<label for="name1"> Manager's Name</label>
-													<select class="form-control" name="manager_id" id="edit_manager_id" required>
-														<option value="">Select Manager</option>
-														@isset($manager_user)
-															@foreach ($manager_user as $item)
-															<option @if($item->name == @$man_name->name)selected @endif value="{{ $item->id }}">{{ $item->name }}</option> 
-															@endforeach							
-														@endisset
-													</select>
-													<input type="text" class="form-control" id="name1" @if (Auth::user()->role_id == 3)readonly @endif value="@if (Auth::user()->role_id == 2){{Auth::user()->name}}@endif">
-												</div>                                      
-                                            </td>--->
-                                        </tr>
-									</form>
+                                            <td>     
+											<form action="{{ route('add_Perfomance_date_for_employee') }}" method="post">	
+											<input type="hidden" name="_token" value="{{ csrf_token() }}">
+											<input type="hidden" name="empid" value="@if(isset($emps)){{ $emps->id}}@endif">  
+												<div class="cal-icon">
+													<label for="name1">Performance Date</label>
+													<input type="text" class="form-control datetimepicker" name="perfomance_date" value="{{ @$emps->perfomance_date }}"> 
+												</div> 
+												<button type="submit" id="comple_stat" class="btn btn-primary submit-btn"> SUBMIT</button> 
+											</form>
+                                            </td>
+                                        </tr> 
                                     </tbody>
                                 </table>
                             </div>
@@ -576,18 +574,18 @@
                                     <tbody>
                                         <tr>
                                             <td>1</td>
-                                            <td><input type="text" class="form-control" name="strengths[]" value="@if(isset($add_appraiseest[0])){{$add_appraiseest[0]['strengths']}} @endif" required></td>
-                                            <td><input type="text" class="form-control" name="areas_improvement[]" value="@if(isset($add_appraiseest[0])){{$add_appraiseest[0]['areas_improvement']}} @endif" required></td>
+                                            <td><input type="text" class="form-control" name="strengths[]" value="@if(isset($add_appraiseest[0])){{$add_appraiseest[0]['strengths']}} @endif" required readonly></td>
+                                            <td><input type="text" class="form-control" name="areas_improvement[]" value="@if(isset($add_appraiseest[0])){{$add_appraiseest[0]['areas_improvement']}} @endif" required readonly></td>
                                         </tr>
                                         <tr>
                                             <td>2</td>
-                                            <td><input type="text" class="form-control" name="strengths[]" value="@if(isset($add_appraiseest[1])){{$add_appraiseest[1]['strengths']}} @endif"></td>
-                                            <td><input type="text" class="form-control" name="areas_improvement[]" value="@if(isset($add_appraiseest[1])){{$add_appraiseest[1]['areas_improvement']}} @endif"></td>
+                                            <td><input type="text" class="form-control" name="strengths[]" value="@if(isset($add_appraiseest[1])){{$add_appraiseest[1]['strengths']}} @endif" required readonly></td>
+                                            <td><input type="text" class="form-control" name="areas_improvement[]" value="@if(isset($add_appraiseest[1])){{$add_appraiseest[1]['areas_improvement']}} @endif" required readonly></td>
                                         </tr>
                                         <tr>
                                             <td>3</td>
-                                            <td><input type="text" class="form-control" name="strengths[]" value="@if(isset($add_appraiseest[2])){{$add_appraiseest[2]['strengths']}} @endif"></td>
-                                            <td><input type="text" class="form-control" name="areas_improvement[]" value="@if(isset($add_appraiseest[2])){{$add_appraiseest[2]['areas_improvement']}} @endif"></td>
+                                            <td><input type="text" class="form-control" name="strengths[]" value="@if(isset($add_appraiseest[2])){{$add_appraiseest[2]['strengths']}} @endif" required readonly></td>
+                                            <td><input type="text" class="form-control" name="areas_improvement[]" value="@if(isset($add_appraiseest[2])){{$add_appraiseest[2]['areas_improvement']}} @endif" required readonly></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -829,7 +827,7 @@
                                         <tr>
                                             <td>{{$i}}</td>
                                             <td><input type="text" class="form-control" name="DynamicTextBoxemp[]" value="{{ $val->employee_comments}}" required id="other_comment1_24"></td>
-                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="{{ $val->managers_comments}}" @if (Auth::user()->role_id == 3)readonly @endif></td>
+                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="{{ $val->managers_comments}}" @if (Auth::user()->role_id == 3)readonly @endif required></td>
                                            <td></td>
                                            <input type="hidden" class="form-control" name="getid[]" value="{{ $val->id}}">
                                         </tr>
@@ -838,8 +836,8 @@
                                         @else
                                         <tr>
                                             <td>1</td>
-                                            <td><input type="text" class="form-control" name="DynamicTextBoxemp[]" value=""></td>
-                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="" @if (Auth::user()->role_id == 3)readonly @endif></td>
+                                            <td><input type="text" class="form-control" name="DynamicTextBoxemp[]" value="" required></td>
+                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="" required @if (Auth::user()->role_id == 3)readonly @endif></td>
                                             <td></td>
                                         </tr>
                                         @endif 
@@ -1006,15 +1004,15 @@
                         </div>
                     </div>
                 </section>
-                <div class="row" style="display:none">
+                <div class="row"  >
                     <div class="col-md-12">
                         <div class="table-responsive">
-                        <form action="{{ route('add_Perfomance_status') }}" method="post">
+                        <form action="{{ route('add_Perfomance_status_user_for_employee') }}" method="post">
                             @csrf
                             <input type="hidden" name="empid" value="@if(isset($emps)){{ $emps->id}}@endif">
                             <input type="hidden" name="user_id" value="{{Auth::user()->id}}">                                 
                                 <div class="review-header text-center"> 
-                                <button type="submit" id="comple_stat"  class="btn btn-primary submit-btn"  ><input type="hidden" name="perfomance_status" value="1" id="perfomance_status">SUBMIT</button>
+                                <button type="submit" id="comple_stat"  class="btn btn-primary submit-btn"   disabled><input type="hidden" name="perfomance_status" value="1" id="perfomance_status">SUBMIT</button>
 								</div>
                             </form>
                         </div>
@@ -1027,6 +1025,13 @@
         <!-- /Page Wrapper -->
 		 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 		<script>
+		jQuery(document).ready(function(){
+			<?php $comp_status = Employee::where('id',Auth::id())->where('complete_professional_excellence',1)->where('complete_personal_excellence',1)->where('complete_special_initiative',1)->where('complete_other_general_comments',1)->first();
+			if($comp_status){  ?>
+			 $('#comple_stat').removeAttr("disabled")	
+			<?php }?>
+		 });
+		 
 		$(function () {
 			$(document).on("click", '.btn-add-row', function () {
 				var id = $(this).closest("table.table-review").attr('id');  // Id of particular table
@@ -1048,5 +1053,8 @@
 			}
 		});
 		</script>
+		<style>
+		.cal-icon:after{top: 38px;}
+		</style>
 @endsection
  

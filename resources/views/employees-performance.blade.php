@@ -79,7 +79,7 @@
                                         <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                         <div class="dropdown-menu dropdown-menu-right">
                                         
-                                            <a class="dropdown-item edtEmpBtn editmanagerbut" href="edit-performance/{{$val->id}}" data-eid="{{ @$val->id }}" ><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                            <a class="dropdown-item edtEmpBtn editmanagerbut" href="my-performance/{{$val->id}}" data-eid="{{ @$val->id }}" ><i class="fa fa-pencil m-r-5"></i> Edit</a>
                                             
                                             <a class="dropdown-item delEmpBtn" href="#" data-toggle="modal" data-id="{{ @$val->id }}" data-target="#delete_employee"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                                         </div>

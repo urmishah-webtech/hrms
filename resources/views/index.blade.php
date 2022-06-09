@@ -497,7 +497,48 @@
                                     @foreach ($manger_emp as $item)
                                     <tr>
                                         <td>  
-                                            <h2><a href="{{route('profile_details', @$item->id)}}">{{ @$item->first_name }} </a></h2>
+                                            <h2><a href="edit-performance/{{@$item->id}}">{{ @$item->first_name }} </a></h2>
+                                        </td>
+										<td>  
+                                            <h2><a href="{{route('profile_details', @$item->id)}}">  {{ @$item->last_name }}</a></h2>
+                                        </td>
+                                        <td>{{@$item->designation->name}}</td>
+                                        <td>{{@$item->department->name}}</td>
+                                         
+                                    </tr>
+                                    @endforeach
+                                    @endisset
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                     
+                </div>
+            </div>
+			@endif
+			@if(Auth::user()->role_id == 2)
+			<div class="col-md-6 d-flex">
+                <div class="card card-table flex-fill">
+                    <div class="card-header">
+                        <h3 class="card-title mb-0">Employess To Be Reviewed</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table custom-table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>First Name </th>
+                                        <th>Last Name </th>
+                                        <th>Designation</th>
+                                        <th>Department</th> 
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @isset($pending_emp)
+                                    @foreach ($pending_emp as $item)
+                                    <tr>
+                                        <td>  
+                                            <h2><a href="edit-performance/{{@$item->id}}">{{ @$item->first_name }} </a></h2>
                                         </td>
 										<td>  
                                             <h2><a href="{{route('profile_details', @$item->id)}}">  {{ @$item->last_name }}</a></h2>

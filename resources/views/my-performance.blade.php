@@ -15,8 +15,12 @@
                                 <li class="breadcrumb-item"><a href="index">Dashboard</a></li>
                                 <li class="breadcrumb-item active">Employee Performance</li>
                             </ul>
-                        </div>
-                         
+                        </div>  
+						@if(Auth::user()->id == $urlid) 
+                        <div class="col-auto float-right ml-auto">
+							<a href="/add-myperformance/{{Auth::id()}}" class="btn  perfomane_btn"><i class="fa fa-plus"></i>  Add Performance</a>						 
+                        </div> 
+						@endif
                     </div>
                 </div>
                 <!-- /Page Header -->
@@ -34,9 +38,10 @@
                     @endif
                    
                 </div>
-                @endif
+                @endif 
+				 
                 @isset($emps)
-                <div class="row staff-grid-row">
+                <div class="row staff-grid-row"  >
                     @foreach($emps as $val)
                         
                             <div class="col-md-4 col-sm-6 col-12 col-lg-4 col-xl-3" style="margin-left: 40px;">
@@ -44,7 +49,7 @@
                                     <div class="profile-img">
                                         <a href="{{ url('profile').'/'.$val->id }}" class="avatar"><img src="img/profiles/avatar-02.jpg" alt=""></a>
                                     </div>
-                                    <div class="dropdown profile-action">
+                                    <!--<div class="dropdown profile-action">
                                         <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                         <div class="dropdown-menu dropdown-menu-right">
                                         
@@ -52,7 +57,7 @@
                                             
                                             <a class="dropdown-item delEmpBtn" href="#" data-toggle="modal" data-id="{{ @$val->id }}" data-target="#delete_employee"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                                         </div>
-                                    </div>
+                                    </div>-->
                                     <h4 class="user-name m-t-10 mb-0 text-ellipsis"><a href="profile">{{ $val->first_name }}  </a></h4>
                                     <div class="small text-muted"> </div>
                                 </div>
@@ -61,7 +66,201 @@
                         </div>
                 @endisset 
             <!-- /Page Content -->
-            
+            <div class="content container-fluid">
+			<div class="row">
+                <div class="col-md-6 d-flex">
+					<div class="card card-table flex-fill">
+						<div class="card-header">
+							<h3 class="card-title mb-0">Professional Excellence Review History</h3>
+						</div>
+						<div class="card-body">
+							<div class="table-responsive">
+								<table class="table table-nowrap custom-table mb-0">
+									<thead>
+										<tr>
+											<th>Date</th>
+											<th>Manager Status</th>
+											<th>HR Review Status</th>
+											<th>Action</th> 
+										</tr>
+									</thead>
+									<tbody> 
+										@isset($professional_emp)
+										@foreach ($professional_emp as $item)
+										<tr>
+											<td>  
+											   {{date('d M Y', strtotime(@$item->perfomance_date))}} 
+											</td>
+											<td>@if($item->complete_perfomance_by_emp == 1) Completed @else Pending
+												@endif
+											</td>
+											<td>@if($item->complete_perfomance_by_manager == 1) Completed @else Pending
+												@endif</td>
+											<td><a href="/edit-performance/{{@$item->emp_id}}/{{@$item->perfomance_date}}">Edit</a></td> 
+										</tr>
+										@endforeach
+										@endisset
+									</tbody>
+								</table>
+							</div>
+						</div> 
+					</div>
+				</div>
+				<div class="col-md-6 d-flex">
+					<div class="card card-table flex-fill">
+						<div class="card-header">
+							<h3 class="card-title mb-0">Personal & Behavioral Excellence</h3>
+						</div>
+						<div class="card-body">
+							<div class="table-responsive">
+								<table class="table table-nowrap custom-table mb-0">
+									<thead>
+										<tr>
+											<th>Date</th>
+											<th>Manager Status</th>
+											<th>HR Review Status</th>
+											<th>Action</th> 
+										</tr>
+									</thead>
+									<tbody>  
+										@isset($personal_emp)
+										@foreach ($personal_emp as $item)
+										<tr>
+											<td>  
+											   {{date('d M Y', strtotime(@$item->perfomance_date))}} 
+											</td>
+											<td>@if($item->complete_perfomance_by_emp == 1) Completed @else Pending
+												@endif
+											</td>
+											<td>@if($item->complete_perfomance_by_manager == 1) Completed @else Pending
+												@endif</td>
+											<td><a href="/edit-performance/{{@$item->emp_id}}/{{@$item->perfomance_date}}">Edit</a></td> 
+										</tr>
+										@endforeach
+										@endisset
+									</tbody>
+								</table>
+							</div>
+						</div> 
+					</div>
+				</div>
+				<div class="col-md-6 d-flex">
+					<div class="card card-table flex-fill">
+						<div class="card-header">
+							<h3 class="card-title mb-0">Special Initiatives, Achievements, contributions if any</h3>
+						</div>
+						<div class="card-body">
+							<div class="table-responsive">
+								<table class="table table-nowrap custom-table mb-0">
+									<thead>
+										<tr>
+											<th>Date</th>
+											<th>Manager Status</th>
+											<th>HR Review Status</th>
+											<th>Action</th> 
+										</tr>
+									</thead>
+									<tbody> 
+										@isset($special_emp)
+										@foreach ($special_emp as $item)
+										<tr>
+											<td>  
+											   {{date('d M Y', strtotime(@$item->perfomance_date))}} 
+											</td>
+											<td>@if($item->complete_perfomance_by_emp == 1) Completed @else Pending
+												@endif
+											</td>
+											<td>@if($item->complete_perfomance_by_manager == 1) Completed @else Pending
+												@endif</td>
+											<td><a href="/edit-performance/{{@$item->emp_id}}/{{@$item->perfomance_date}}">Edit</a></td> 
+										</tr>
+										@endforeach
+										@endisset
+									</tbody>
+								</table>
+							</div>
+						</div> 
+					</div>
+				</div>
+				<div class="col-md-6 d-flex">
+					<div class="card card-table flex-fill">
+						<div class="card-header">
+							<h3 class="card-title mb-0">Any other general comments, observations, suggestions etc.</h3>
+						</div>
+						<div class="card-body">
+							<div class="table-responsive">
+								<table class="table table-nowrap custom-table mb-0">
+									<thead>
+										<tr>
+											<th>Date</th>
+											<th>Manager Status</th>
+											<th>HR Review Status</th>
+											<th>Action</th> 
+										</tr>
+									</thead>
+									<tbody> 
+										@isset($comment_emp)
+										@foreach ($comment_emp as $item)
+										<tr>
+											<td>  
+											   {{date('d M Y', strtotime(@$item->perfomance_date))}} 
+											</td>
+											<td>@if($item->complete_perfomance_by_emp == 1) Completed @else Pending
+												@endif
+											</td>
+											<td>@if($item->complete_perfomance_by_manager == 1) Completed @else Pending
+												@endif</td>
+											<td><a href="/edit-performance/{{@$item->emp_id}}/{{@$item->perfomance_date}}">Edit</a></td> 
+										</tr>
+										@endforeach
+										@endisset
+									</tbody>
+								</table>
+							</div>
+						</div> 
+					</div>
+				</div>
+				<div class="col-md-6 d-flex">
+					<div class="card card-table flex-fill">
+						<div class="card-header">
+							<h3 class="card-title mb-0">Appraisee's Strengths and Areas for Improvement perceived by the Manager/Supervisor</h3>
+						</div>
+						<div class="card-body">
+							<div class="table-responsive">
+								<table class="table table-nowrap custom-table mb-0">
+									<thead>
+										<tr>
+											<th>Date</th>
+											<th>Manager Status</th>
+											<th>HR Review Status</th>
+											<th>Action</th> 
+										</tr>
+									</thead>
+									<tbody> 
+										@isset($appraisee_emp)
+										@foreach ($appraisee_emp as $item)
+										<tr>
+											<td>  
+											   {{date('d M Y', strtotime(@$item->perfomance_date))}} 
+											</td>
+											<td>@if($item->complete_perfomance_by_emp == 1) Completed @else Pending
+												@endif
+											</td>
+											<td>@if($item->complete_perfomance_by_manager == 1) Completed @else Pending
+												@endif</td>
+											<td><a href="/edit-performance/{{@$item->emp_id}}/{{@$item->perfomance_date}}">Edit</a></td> 
+										</tr>
+										@endforeach
+										@endisset
+									</tbody>
+								</table>
+							</div>
+						</div> 
+					</div>
+				</div>
+            </div>
+			</div>
+			
             <!-- Add Employee Modal -->
             <div id="add_employee" class="modal custom-modal fade" role="dialog">
                 <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -377,5 +576,12 @@
             <!-- /Delete Employee Modal -->
             
         </div>
+		<style>
+		.perfomane_btn{
+		background-color: #ff851a;
+		border: 1px solid #ff851a;
+		color: #fff;
+		}
+		</style>
         <!-- /Page Wrapper -->
 @endsection

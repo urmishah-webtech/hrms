@@ -66,6 +66,7 @@
 			$("#forManagerUser input:not([readonly]").prop('required',true);
 			//$("#PerfomanceIdentitie_validate input:not([readonly]").prop('required',true);
 			$("#forManagerUser .select").prop('required',true);
+			 
 
 			
 			 

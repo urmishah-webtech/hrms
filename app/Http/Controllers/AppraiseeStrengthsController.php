@@ -24,7 +24,11 @@ class AppraiseeStrengthsController extends Controller
                     $score= AppraiseeStrength::where('id',$id[$key])->first();  
                     $score->strengths = $strength[$key] ? $strength[$key] : '';  
                     $score->areas_improvement = $improvement[$key] ? $improvement[$key] : '';
-                    $score->save();   
+                    $score->save();  
+
+					$score=Employee::where('id',$userd)->first();    
+					$score->complete_appraisee_strength = 1; 
+					$score->save();
                 }   
                 else 
                 {                  
@@ -32,7 +36,11 @@ class AppraiseeStrengthsController extends Controller
                     $scores->emp_id = $userd;
                     $scores->strengths = $strength[$key] ? $strength[$key] : ''; 
                     $scores->areas_improvement = $improvement[$key] ? $improvement[$key] : ''; 
-                    $scores->save();                 
+                    $scores->save(); 
+
+					$scores=Employee::where('id',$userd)->first();    
+					$scores->complete_appraisee_strength = 1; 
+					$scores->save();
                 }
             }
         }

@@ -124,7 +124,7 @@ class ProfessionalExcellenceController extends Controller
            }
         }
         if($settings){
-             
+              
                 $settings->percentage_achieved_employee=json_encode($final_achieved);
                // $settings->points_scored_employee=json_encode($final_scored);
                 $settings->percentage_achieved_manager=json_encode($final_achieved_man);
@@ -134,6 +134,10 @@ class ProfessionalExcellenceController extends Controller
                 $settings->total_achieved_manager=$request->total_achieved_manager;
                 $settings->total_scored_manager=$request->total_scored_manager;
                 $settings->save();
+				
+				$settings=Employee::where('id',$eid)->first();    
+				$settings->complete_professional_excellence = 1; 
+				$settings->save();
              
         }
         else{
@@ -148,6 +152,10 @@ class ProfessionalExcellenceController extends Controller
                 $settings->total_achieved_manager=$request->total_achieved_manager;
                 $settings->total_scored_manager=$request->total_scored_manager;
                 $settings->save();
+				
+				$settings=Employee::where('id',$eid)->first();    
+				$settings->complete_professional_excellence = 1; 
+				$settings->save();
              
         }
 

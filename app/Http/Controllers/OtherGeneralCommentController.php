@@ -26,6 +26,10 @@ class OtherGeneralCommentController extends Controller
                 $score->employee_comments = $emp_text[$key] ? $emp_text[$key] : ''; 
                 $score->managers_comments = $manager_text[$key] ? $manager_text[$key] : ''; 
                 $score->save();
+				
+				$score=Employee::where('id',$userd)->first();    
+				$score->complete_other_general_comments = 1; 
+				$score->save();
                 }   
                 else 
 		        {   
@@ -34,6 +38,10 @@ class OtherGeneralCommentController extends Controller
                 $scores->employee_comments = $emp_text[$key] ? $emp_text[$key] : '';  
                 $scores->managers_comments = $manager_text[$key] ? $manager_text[$key] : '';  
                 $scores->save();
+				
+				$score=Employee::where('id',$userd)->first();    
+				$score->complete_other_general_comments = 1; 
+				$score->save();
                 }
             }
         }

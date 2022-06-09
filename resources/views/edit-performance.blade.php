@@ -2,6 +2,11 @@
 @section('content')
 <?php use App\Employee ?>
 <?php use App\OtherGeneralComment ?>
+<?php use App\KeyprofessionalExcellences ?>
+<?php use App\PersonalExcellence ?>
+<?php use App\SpecialInitiatives ?>
+<?php use App\AppraiseeStrength ?>
+ 
 	<!-- Page Wrapper -->
     <div class="page-wrapper">
 			
@@ -72,7 +77,7 @@
 														@endphp
 														<input type="hidden" name="get_manager_id" value="{{ @$man_name->first_name }}">
 														@endisset 
-													<select class="form-control" name="man_id" id="edit_manager_id" required @if(Auth::user()->role_id==2)disabled @endif>
+													<select class="form-control" name="man_id" id="edit_manager_id" required @if(Auth::user()->role_id==2 || Auth::user()->role_id==3)disabled @endif>
 														<option value="">Select Manager</option>
 														@isset($manager_user)
 															@foreach ($manager_user as $item)
@@ -106,7 +111,11 @@
                              @csrf 
   
                              <input type="hidden" name="empid" value="@if(isset($emps)){{ $emps->id}}@endif">  
-								 
+                             <input type="hidden" name="professional_id" value="@if(isset($professional_id)){{ $professional_id}}@endif">  
+							 <input type="hidden" name="perfomance_date" value="@if(isset($date_professional)){{ $date_professional->perfomance_date}}@else{{$url_pdate}}@endif">	 
+							 <input type="hidden" name="complete_perfomance_by_emp" value="@if(Auth::user()->id == $emps->id) 1 @else 0 @endif">	 
+							 <input type="hidden" name="complete_perfomance_by_manager" value="@if(Auth::user()->id != $emps->id) 1 @else 0 @endif">	
+							 
                                 <table class="table table-bordered review-table mb-0">
                                     <thead>
                                         <tr>
@@ -114,10 +123,8 @@
                                             <th>Key Result Area</th>
                                             <th>Key Performance Indicators</th>
                                             <th>Weightage</th>
-                                            <th>Percentage achieved <br>( self Score )</th>
-                                           <!-- <th>Points Scored <br>( self )</th> -->
-                                            <th>Percentage achieved <br>( Manager's Score )</th>
-                                           <!-- <th>Points Scored <br>( Manager )</th> -->
+                                            <th>Percentage achieved <br>( self Score )</th> 
+                                            <th>Percentage achieved <br>( Manager's Score )</th> 
                                         </tr>
                                     </thead>
                                     <tbody>   
@@ -133,10 +140,8 @@
                                             <input type="hidden" name="key_no[]" class="form-control" value="1">                                             
                                             <td>Staff Retention</td>                                            
                                             <td rowspan="2"><input type="text" class="form-control" readonly value="25%"></td>
-                                            <td rowspan="2"><input type="number" class="form-control achieved_employee" name="percentage_achieved_employee[]" id="achieved_employee1" value="@isset($prof_data){{$prof_data['1']['percentage_achieved_employee']}}@endisset" max="25" @if(Auth::id() == $emps->id) editable @else readonly @endif required></td>
-                                           <!-- <td><input type="text" class="form-control scored_employee" name="points_scored_employee[]" id="scored_employee1" value=" " @if (Auth::user()->role_id != 3)readonly @endif></td>-->
-                                            <td rowspan="2"><input type="number" class="form-control achieved_manager" name="percentage_achieved_manager[]" id="achieved_manager1" value="@isset($prof_data){{$achi_man['1']['percentage_achieved_manager']}}@endisset" max="25" @if(Auth::id() != $emps->id) editable @else readonly @endif></td>
-                                           <!-- <td><input type="text" name="points_scored_manager[]" class="form-control scored_manager" id="scored_manager1" value=" "></td>-->
+                                            <td rowspan="2"><input type="number" class="form-control achieved_employee" name="percentage_achieved_employee[]" id="achieved_employee1" value="@isset($prof_data){{$prof_data['1']['percentage_achieved_employee']}}@endisset" max="25" @if(Auth::id() == $emps->id) editable @else readonly @endif required></td> 
+                                            <td rowspan="2"><input type="number" class="form-control achieved_manager" name="percentage_achieved_manager[]" id="achieved_manager1" value="@isset($prof_data){{$achi_man['1']['percentage_achieved_manager']}}@endisset" max="25" @if(Auth::id() != $emps->id) editable @else readonly @endif></td> 
                                             <input type="hidden" class="form-control" name="getid[]" value="">
                                         </tr>
                                         <tr>
@@ -154,19 +159,13 @@
                                             <td rowspan="2">Customer Satisfaction</td>                                             
                                             <td >Customer feedback from mystery shopping</td>
                                             <td rowspan="2"><input type="text" class="form-control" readonly value="25%"></td>
-                                            <td rowspan="2"><input type="number" class="form-control achieved_employee" name="percentage_achieved_employee[]" id="achieved_employee21" value="@isset($prof_data){{$prof_data['2.1']['percentage_achieved_employee']}}@endisset" max="25" @if(Auth::id() == $emps->id) editable @else readonly @endif></td>
-                                           <!-- <td><input type="text" name="points_scored_employee[]" class="form-control scored_employee" id="scored_employee21" value=" "  @if (Auth::user()->role_id != 3)readonly @endif></td>-->
-                                            <td rowspan="2"><input type="number" class="form-control achieved_manager" name="percentage_achieved_manager[]" id="achieved_manager21" value="@isset($prof_data){{$achi_man['2.1']['percentage_achieved_manager']}}@endisset" max="25" @if(Auth::id() != $emps->id) editable @else readonly @endif></td>
-                                            <!--<td><input type="text" name="points_scored_manager[]" class="form-control scored_manager" id="scored_manager21" value=" "></td>-->
+                                            <td rowspan="2"><input type="number" class="form-control achieved_employee" name="percentage_achieved_employee[]" id="achieved_employee21" value="@isset($prof_data){{$prof_data['2.1']['percentage_achieved_employee']}}@endisset" max="25" @if(Auth::id() == $emps->id) editable @else readonly @endif></td> 
+                                            <td rowspan="2"><input type="number" class="form-control achieved_manager" name="percentage_achieved_manager[]" id="achieved_manager21" value="@isset($prof_data){{$achi_man['2.1']['percentage_achieved_manager']}}@endisset" max="25" @if(Auth::id() != $emps->id) editable @else readonly @endif></td> 
                                             <input type="hidden" class="form-control" name="getid[]" value="">
                                         </tr>
                                         <tr>
                                             
-                                            <td>Zero complains</td>
-                                            <!--<td><input type="text" class="form-control achieved_employee" name="percentage_achieved_employee[]" id="achieved_employee22" value=" "  @if (Auth::user()->role_id != 3)readonly @endif></td>
-                                            <td><input type="text" class="form-control scored_employee"  name="points_scored_employee[]" id="scored_employee22" value=" "  @if (Auth::user()->role_id != 3)readonly @endif></td>
-                                            <td><input type="text" class="form-control achieved_manager" name="percentage_achieved_manager[]" id="achieved_manager22" value=" "></td>-->
-                                            <!--<td><input type="text" class="form-control scored_manager" name="points_scored_manager[]" id="scored_manager22" value=" "></td>-->
+                                            <td>Zero complains</td> 
                                             <input type="hidden" class="form-control" name="getid[]" value="">
                                         </tr>
                                         <tr>
@@ -175,19 +174,13 @@
                                             <td rowspan="2">Sales Goals / Increase / Operational Excellence</td>
                                             <td>Company financials</td>
                                            <td rowspan="2"><input type="text" class="form-control" readonly value="25%"></td>
-                                            <td rowspan="2"><input type="number" class="form-control achieved_employee" name="percentage_achieved_employee[]" id="achieved_employee31" value="@isset($prof_data){{$prof_data['3.1']['percentage_achieved_employee']}}@endisset" max="25" @if(Auth::id() == $emps->id) editable @else readonly @endif></td>
-                                            <!--<td><input type="text" class="form-control scored_employee" name="points_scored_employee[]" id="scored_employee31" value=" "  @if (Auth::user()->role_id != 3)readonly @endif></td>-->
-                                            <td rowspan="2"><input type="number" class="form-control achieved_manager" name="percentage_achieved_manager[]" id="achieved_manager31" max="25" value="@isset($prof_data){{$achi_man['3.1']['percentage_achieved_manager']}}@endisset" @if(Auth::id() != $emps->id) editable @else readonly @endif></td>
-                                            <!--<td><input type="text" name="points_scored_manager[]" class="form-control scored_manager" id="scored_manager31" value=" "></td>-->
+                                            <td rowspan="2"><input type="number" class="form-control achieved_employee" name="percentage_achieved_employee[]" id="achieved_employee31" value="@isset($prof_data){{$prof_data['3.1']['percentage_achieved_employee']}}@endisset" max="25" @if(Auth::id() == $emps->id) editable @else readonly @endif></td> 
+                                            <td rowspan="2"><input type="number" class="form-control achieved_manager" name="percentage_achieved_manager[]" id="achieved_manager31" max="25" value="@isset($prof_data){{$achi_man['3.1']['percentage_achieved_manager']}}@endisset" @if(Auth::id() != $emps->id) editable @else readonly @endif></td> 
                                             <input type="hidden" class="form-control" name="getid[]" value="">
                                         </tr>
                                         <tr>
                                             
-                                            <td>Retail Standard Audit / Regulatory Audit</td>
-                                           <!--<td><input type="text" class="form-control achieved_employee" name="percentage_achieved_employee[]" id="achieved_employee32" value=" "  @if (Auth::user()->role_id != 3)readonly @endif></td>
-                                            <td><input type="text" class="form-control scored_employee" name="points_scored_employee[]" id="scored_employee32" value=" "  @if (Auth::user()->role_id != 3)readonly @endif></td>
-                                            <td><input type="text" class="form-control achieved_manager" name="percentage_achieved_manager[]" id="achieved_manager32"  value=" "></td>-->
-                                            <!--<td><input type="text" class="form-control scored_manager" name="points_scored_manager[]" id="scored_manager32" value=" "></td>-->
+                                            <td>Retail Standard Audit / Regulatory Audit</td> 
                                             <input type="hidden" class="form-control" name="getid[]" value="">
                                         </tr>
                                         <tr>
@@ -196,39 +189,27 @@
                                             <td rowspan="3">Professional Development </td>
                                             <td>Completion of learning journey </td>
                                             <td rowspan="3"><input type="text" class="form-control" readonly value="25%"></td>
-                                            <td rowspan="3"><input type="number" class="form-control achieved_employee" name="percentage_achieved_employee[]" id="achieved_employee41" value="@isset($prof_data){{$prof_data['4.1']['percentage_achieved_employee']}}@endisset" max="25"  @if(Auth::id() == $emps->id) editable @else readonly @endif></td>
-                                            <!--<td><input type="text" class="form-control scored_employee" name="points_scored_employee[]" id="scored_employee41" value=" "  @if (Auth::user()->role_id != 3)readonly @endif></td>-->
-                                            <td rowspan="3"><input type="number" class="form-control achieved_manager" name="percentage_achieved_manager[]" id="achieved_manager41"  value="@isset($prof_data){{$achi_man['4.1']['percentage_achieved_manager']}}@endisset" max="25" @if(Auth::id() != $emps->id) editable @else readonly @endif></td>
-                                            <!--<td><input type="text" class="form-control scored_manager" name="points_scored_manager[]" id="scored_manager41" value=" "></td>-->
+                                            <td rowspan="3"><input type="number" class="form-control achieved_employee" name="percentage_achieved_employee[]" id="achieved_employee41" value="@isset($prof_data){{$prof_data['4.1']['percentage_achieved_employee']}}@endisset" max="25"  @if(Auth::id() == $emps->id) editable @else readonly @endif></td> 
+                                            <td rowspan="3"><input type="number" class="form-control achieved_manager" name="percentage_achieved_manager[]" id="achieved_manager41"  value="@isset($prof_data){{$achi_man['4.1']['percentage_achieved_manager']}}@endisset" max="25" @if(Auth::id() != $emps->id) editable @else readonly @endif></td> 
                                             <input type="hidden" class="form-control" name="getid[]" value=" ">
                                         </tr>
                                         <tr>
                                             
-                                            <td>Well trained team</td>    
-                                            <!--<td><input type="text" class="form-control achieved_employee" name="percentage_achieved_employee[]" id="achieved_employee42" value=" "  @if (Auth::user()->role_id != 3)readonly @endif></td>
-                                            <!--<td><input type="text" class="form-control scored_employee" name="points_scored_employee[]" id="scored_employee42" value=" "  @if (Auth::user()->role_id != 3)readonly @endif></td>
-                                            <td><input type="text" class="form-control achieved_manager" name="percentage_achieved_manager[]" id="achieved_manager42"  value=" "></td>-->
-                                            <!--<td><input type="text" class="form-control scored_manager" name="points_scored_manager[]" id="scored_manager42" value=" "></td>-->
+                                            <td>Well trained team</td>  
                                             <input type="hidden" class="form-control" name="getid[]" value=" ">
                                         </tr>
                                         <tr>
                                             
-                                            <td>Team performance</td>
-                                            <!--<td><input type="text" class="form-control achieved_employee" name="percentage_achieved_employee[]" id="achieved_employee43" value=" "  @if (Auth::user()->role_id != 3)readonly @endif></td>
-                                            <td><input type="text" class="form-control scored_employee" name="points_scored_employee[]" id="scored_employee43" value=" "  @if (Auth::user()->role_id != 3)readonly @endif></td>
-                                            <td><input type="text" class="form-control achieved_manager" name="percentage_achieved_manager[]" id="achieved_manager43" value=" "></td>-->
-                                            <!--<td><input type="text" class="form-control scored_manager" name="points_scored_manager[]" id="scored_manager43" value=" "></td>-->
+                                            <td>Team performance</td> 
                                             <input type="hidden" class="form-control" name="getid[]" value=" ">
                                         </tr>                                         
                                         <tr>
                                             <td colspan="3" class="text-center">Total </td>
                                             <td><input type="text" class="form-control" readonly value="100%"></td>
                                             <td> 
-                                            <input type="text" class="form-control" readonly name="total_achieved_employee" id="total_achieved_employee" value="{{@$prof_excel->total_achieved_employee}}"></td>
-                                            <!--<td> 
-                                            <input type="text" class="form-control" name="total_scored_employee" id="total_scored_employee" readonly value=" "></td>-->
+                                            <input type="text" class="form-control" readonly name="total_achieved_employee" id="total_achieved_employee" value="{{@$prof_excel->total_achieved_employee}}"></td> 
                                             <td><input type="text" class="form-control" readonly name="total_achieved_manager" id="total_achieved_manager" value="{{@$prof_excel->total_achieved_manager}}"></td>
-                                            <!--<td><input type="text" class="form-control" name="total_scored_manager" id="total_scored_manager" readonly value=" "></td>-->
+                                             
                                         </tr>                                       
                                     </tbody>
                                 </table>	
@@ -251,6 +232,12 @@
                             <form action="{{ route('edit_man_PersonalExcellence') }}" method="post" id="personal_Behavioralexcel">
                              @csrf
 							  <input type="hidden" name="empid" value="@if(isset($emps)){{ $emps->id}}@endif"> 
+							  <input type="hidden" name="personal_id" value="@if(isset($personal_id)){{ $personal_id}}@endif">
+							  <input type="hidden" name="perfomance_date" value="@if(isset($date_Personal)){{ $date_Personal->perfomance_date}}@else{{$url_pdate}}@endif">	
+							  <input type="hidden" name="complete_perfomance_by_emp" value="@if(Auth::user()->id == $emps->id) 1 @else 0 @endif">	 
+							 <input type="hidden" name="complete_perfomance_by_manager" 
+							 value="@if(Auth::user()->id != $emps->id) 1 @else 0 @endif">	
+							 
                                 <table class="table table-bordered review-table mb-0">
                                     <thead>
                                         <tr>
@@ -258,13 +245,11 @@
                                             <th>Personal Attributes</th>
                                             <th>Key Indicators</th>
                                             <th>Weightage</th>
-                                            <th>Percentage achieved <br>( self Score )</th>
-                                            <!--<th>Points Scored <br>( self )</th>-->
-                                            <th>Percentage achieved <br>( Manager's Score )</th>
-                                            <!--<th>Points Scored <br>( Manager )</th>-->
+                                            <th>Percentage achieved <br>( self Score )</th> 
+                                            <th>Percentage achieved <br>( Manager's Score )</th> 
                                         </tr>
                                     </thead>
-                                    <tbody>
+                                    <tbody> 
 										<?php if($per_excel){
                                         $prof_data1 = json_decode($per_excel->percentage_achieved_employee, true);
                                         $scoredemp = json_decode($per_excel->points_scored_employee, true);
@@ -445,13 +430,18 @@
                                         </tr>
                                     </thead>
                                     <tbody id="table_achievements_tbody">
-                                        <input type="hidden" name="empid" value="@if(isset($emp_id)){{ $emp_id->id}}@endif">
+                                        <input type="hidden" name="empid" value="@if(isset($emp_id)){{ $emp_id->id}}@endif"> 
+										 <input type="hidden" name="perfomance_date" value="@if(isset($date_Special)){{ $date_Special->perfomance_date}}@else{{$url_pdate}}@endif">
+										 <input type="hidden" name="complete_perfomance_by_emp" value="@if(Auth::user()->id == $emps->id) 1 @else 0 @endif">	 
+										<input type="hidden" name="complete_perfomance_by_manager" value="@if(Auth::user()->id != $emps->id) 1 @else 0 @endif">	
+										
                                         @php $i = 1; @endphp
                                         @if(!empty($specialInitiatives) && count($specialInitiatives) > 0)
                                         @foreach($specialInitiatives as $val)
+									
                                         <tr>
-                                        <input type="hidden" name="getid" value="@if(isset($specialInitiatives)){{ $val->emp_id}}@endif">
-                                        
+                                        <input type="hidden" name="getid" value="@if(isset($specialInitiatives)){{ $val->emp_id}}@endif">  
+                                       
                                             <td>{{$i}}</td>
                                             <td><input type="text" class="form-control" name="DynamicTextBoxemp[]" value="{{ $val->by_employee}}" @if(Auth::id() == $emps->id) editable @else readonly @endif ></td>
                                             <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="{{ $val->managers_comment}}" @if(Auth::id() != $emps->id) editable @else readonly @endif></td>
@@ -479,133 +469,23 @@
                         </div>
                     </div>
                 </section>
-                <section class="review-section" id="CommentsRole" style="display:none;">
-                    <div class="review-header text-center">
-                        <h3 class="review-title">Comments on the role</h3>
-                        <p class="text-muted">alterations if any requirred like addition/deletion of responsibilities</p>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="table-responsive">
-                            <form action="{{ route('edit_man_CommentsRole') }}" method="post">
-                             @csrf
-                             <input class="form-control" value="" name="id" type="hidden" required> 
-                                <table class="table table-bordered table-review review-table mb-0" id="table_alterations">
-                                    <thead>
-                                        <tr>
-                                            <th style="width:40px;">#</th>
-                                            <th>By Self</th>
-                                            <th>Manager's Comment</th>                                           
-                                            <th style="width: 64px;"><button type="button" class="btn btn-primary btn-add-row"><i class="fa fa-plus"></i></button></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="table_alterations_tbody">
-                                        <input type="hidden" name="empid" value="@if(isset($emp_id)){{ $emp_id->id}}@endif">
-                                        @php $i = 1; @endphp
-                                        @if(!empty($comments_role) && count($comments_role) > 0)
-                                        @foreach($comments_role as $val)
-                                        <tr>
-                                            <input type="hidden" name="getid" value="@if(isset($comments_role)){{ $val->emp_id}}@endif">
-                                            <td>{{$i}}</td>
-                                            <td><input type="text" class="form-control" name="DynamicTextBoxemp[]" value="{{ $val->by_employee}}"   readonly ></td>
-                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="{{ $val->managers_comment}}"></td>                                            
-                                            <td></td>
-                                            <input type="hidden" class="form-control" name="getid_arry[]" value="{{ $val->id}}">
-                                        </tr>
-                                        @php $i++; @endphp
-                                        @endforeach  
-                                        @else
-                                        <tr>
-                                            <td>1</td>
-                                            <td><input type="text" class="form-control" name="DynamicTextBoxemp[]" value="" readonly></td>
-                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value=""></td>
-                                            <td></td>                                            
-                                        </tr>
-                                        @endif  
-                                    </tbody>
-                                </table>
-                                <div class="review-header text-center">
-									<button type="submit" name="email_setting_submit" class="btn btn-primary submit-btn">Save &amp; update</button>
-								</div>
-                            </form> 
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                
-                <section class="review-section" id="AdditionCommentRole" style="display:none;">
-                    <div class="review-header text-center">
-                        <h3 class="review-title">Comments on the role</h3>
-                        <p class="text-muted">alterations if any requirred like addition/deletion of responsibilities</p>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="table-responsive">
-                            <form action="{{ route('edit_man_AdditionComment') }}" method="post">
-                             @csrf
-                             
-                             <input type="hidden" name="empid" value="@if(isset($emp_id)){{ $emp_id->id}}@endif">
-                             @php $i = 1; @endphp
-                               @foreach($add_comments_id as $val)
-                               <input type="hidden" class="form-control" name="getid_arry[]" value="{{$val->id}}">
-                               <input type="hidden" name="getid" value="@if(isset($add_comments_id)){{ $val->emp_id}}@endif">
-                               @php $i++; @endphp
-                              @endforeach                              
-                                <table class="table table-bordered review-table mb-0">
-                                    <thead>
-                                        <tr>
-                                            <th style="width:40px;">#</th>
-                                            <th>Strengths</th>
-                                            <th>Area's for Improvement</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>                                   
-                                        <tr>
-                                            <td>1</td>
-                                            <td><input type="text" class="form-control" name="strengths[]" value="@if(isset($add_comments[0])){{$add_comments[0]['strengths']}} @endif"  ></td>
-                                            <td><input type="text" class="form-control" name="areas_improvement[]" value="@if(isset($add_comments[0])){{$add_comments[0]['areas_improvement']}} @endif"></td>                                             
-                                        </tr>                                         
-                                        <tr>
-                                            <td>2</td>
-                                            <td><input type="text" class="form-control" name="strengths[]" value="@if(isset($add_comments[1])){{$add_comments[1]['strengths']}} @endif"  ></td>
-                                            <td><input type="text" class="form-control" name="areas_improvement[]" value="@if(isset($add_comments[1])){{$add_comments[1]['areas_improvement']}} @endif"></td>                                            
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td><input type="text" class="form-control" name="strengths[]" value="@if(isset($add_comments[2])){{$add_comments[2]['strengths']}} @endif"  ></td>
-                                            <td><input type="text" class="form-control" name="areas_improvement[]" value="@if(isset($add_comments[2])){{$add_comments[2]['areas_improvement']}} @endif"></td>                                             
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <td><input type="text" class="form-control" name="strengths[]" value="@if(isset($add_comments[3])){{$add_comments[3]['strengths']}} @endif" ></td>
-                                            <td><input type="text" class="form-control" name="areas_improvement[]" value="@if(isset($add_comments[3])){{$add_comments[3]['areas_improvement']}} @endif"></td>                                             
-                                        </tr>
-                                        <tr>
-                                            <td>5</td>
-                                            <td><input type="text" class="form-control" name="strengths[]" value="@if(isset($add_comments[4])){{$add_comments[4]['strengths']}} @endif" ></td>
-                                            <td><input type="text" class="form-control" name="areas_improvement[]" value="@if(isset($add_comments[4])){{$add_comments[4]['areas_improvement']}} @endif"></td>                                            
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <div class="review-header text-center">
-									<button type="submit" name="email_setting_submit" class="btn btn-primary submit-btn">Save &amp; update</button>
-								</div>
-                            </form>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                  
                 <section class="review-section" id="AppraiseeStrength">
                     <div class="review-header text-center">
                         <h3 class="review-title">Appraisee's Strengths and Areas for Improvement perceived by the Manager/Supervisor</h3>
                         
                     </div>
-                    <div class="row">
+                    <div class="row">  
                         <div class="col-md-12">
                             <div class="table-responsive">
                                 <form action="{{ route('edit_man_AppraiseeStrength') }}" method="post" id="Appraisee_validate">
                                 @csrf
-                                <input type="hidden" name="empid" value="@if(isset($emp_id)){{ $emp_id->id}}@endif">
+                                <input type="hidden" name="empid" value="@if(isset($emp_id)){{ $emp_id->id}}@endif">								
+								<input type="hidden" name="perfomance_date" value="@if(isset($url_pdate)){{ $url_pdate}}@endif">
+								 <input type="hidden" name="appraisee_id" value="@if(isset($appraisee_id)){{ $appraisee_id}}@endif">
+								<input type="hidden" name="complete_perfomance_by_emp" value="@if(Auth::user()->id == $emps->id) 1 @else 0 @endif">	 
+								<input type="hidden" name="complete_perfomance_by_manager" value="@if(Auth::user()->id != $emps->id) 1 @else 0 @endif">	
+							 
                                 @php $i = 1; @endphp
                                 @foreach($add_appraiseest_id as $val)
                                 <input type="hidden" class="form-control" name="getid_arry[]" value="{{$val->id}}">
@@ -619,24 +499,24 @@
                                             <th>Strengths</th>
                                             <th>Area's for Improvement</th>
                                         </tr>
-                                    </thead>
-                                    <tbody>
+                                    </thead> 
+									 <tbody>
                                         <tr>
                                             <td>1</td>
-                                            <td><input type="text" class="form-control" name="strengths[]" value="@if(isset($add_appraiseest[0])){{$add_appraiseest[0]['strengths']}} @endif" required></td>
-                                            <td><input type="text" class="form-control" name="areas_improvement[]" value="@if(isset($add_appraiseest[0])){{$add_appraiseest[0]['areas_improvement']}} @endif" required></td>
+                                            <td><input type="text" class="form-control" name="strengths[]" value="@if(isset($add_appraiseest[0])){{$add_appraiseest[0]['strengths']}} @endif" required @if(Auth::id() != $emps->id) editable @else readonly @endif></td>
+                                            <td><input type="text" class="form-control" name="areas_improvement[]" value="@if(isset($add_appraiseest[0])){{$add_appraiseest[0]['areas_improvement']}} @endif" required @if(Auth::id() != $emps->id) editable @else readonly @endif></td>
                                         </tr>
                                         <tr>
                                             <td>2</td>
-                                            <td><input type="text" class="form-control" name="strengths[]" value="@if(isset($add_appraiseest[1])){{$add_appraiseest[1]['strengths']}} @endif" ></td>
-                                            <td><input type="text" class="form-control" name="areas_improvement[]" value="@if(isset($add_appraiseest[1])){{$add_appraiseest[1]['areas_improvement']}} @endif"></td>
+                                            <td><input type="text" class="form-control" name="strengths[]" value="@if(isset($add_appraiseest[1])){{$add_appraiseest[1]['strengths']}} @endif" @if(Auth::id() != $emps->id) editable @else readonly @endif></td>
+                                            <td><input type="text" class="form-control" name="areas_improvement[]" value="@if(isset($add_appraiseest[1])){{$add_appraiseest[1]['areas_improvement']}} @endif" @if(Auth::id() != $emps->id) editable @else readonly @endif></td>
                                         </tr>
                                         <tr>
                                             <td>3</td>
-                                            <td><input type="text" class="form-control" name="strengths[]" value="@if(isset($add_appraiseest[2])){{$add_appraiseest[2]['strengths']}} @endif"  ></td>
-                                            <td><input type="text" class="form-control" name="areas_improvement[]" value="@if(isset($add_appraiseest[2])){{$add_appraiseest[2]['areas_improvement']}} @endif"></td>
+                                            <td><input type="text" class="form-control" name="strengths[]" value="@if(isset($add_appraiseest[2])){{$add_appraiseest[2]['strengths']}} @endif"  @if(Auth::id() != $emps->id) editable @else readonly @endif></td>
+                                            <td><input type="text" class="form-control" name="areas_improvement[]" value="@if(isset($add_appraiseest[2])){{$add_appraiseest[2]['areas_improvement']}} @endif" @if(Auth::id() != $emps->id) editable @else readonly @endif></td>
                                         </tr>
-                                    </tbody>
+                                    </tbody> 
                                 </table>
                                 <div class="review-header text-center">
 									<button type="submit" name="email_setting_submit" class="btn btn-primary submit-btn">Save &amp; update</button>
@@ -645,224 +525,11 @@
                             </div>
                         </div>
                     </div>
-                </section>
-                
-                <section class="review-section" id="PersonalGoal" style="display:none;">
-                    <div class="review-header text-center">
-                        <h3 class="review-title">Personal Goals</h3>
-                        <p class="text-muted">Lorem ipsum dollar</p>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="table-responsive">
-                                <form action="{{ route('edit_man_PersonalGoal') }}" method="post">
-                                @csrf
-                                <input type="hidden" name="empid" value="@if(isset($emp_id)){{ $emp_id->id}}@endif">
-                                @php $i = 1; @endphp
-                                @foreach($add_personalgoal_id as $val)
-                                <input type="hidden" class="form-control" name="getid_arry[]" value="{{$val->id}}">
-                               <input type="hidden" name="getid" value="@if(isset($add_personalgoal_id)){{ $val->emp_id}}@endif">
-                                @php $i++; @endphp
-                                @endforeach
-                                <table class="table table-bordered review-table mb-0">
-                                    <thead>
-                                        <tr>
-                                            <th style="width:40px;">#</th>
-                                            <th>Goal Achieved during last year</th>
-                                            <th>Goal set for current year</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td><input type="text" class="form-control" name="goal_last_year[]" value="@if(isset($add_personalgoal[0])){{$add_personalgoal[0]['goal_last_year']}} @endif" ></td>
-                                            <td><input type="text" class="form-control" name="goal_current_year[]" value="@if(isset($add_personalgoal[0])){{$add_personalgoal[0]['goal_current_year']}} @endif"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td><input type="text" class="form-control" name="goal_last_year[]" value="@if(isset($add_personalgoal[1])){{$add_personalgoal[1]['goal_last_year']}} @endif" ></td>
-                                            <td><input type="text" class="form-control" name="goal_current_year[]" value="@if(isset($add_personalgoal[1])){{$add_personalgoal[1]['goal_current_year']}} @endif"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td><input type="text" class="form-control" name="goal_last_year[]" value="@if(isset($add_personalgoal[2])){{$add_personalgoal[2]['goal_last_year']}} @endif"  ></td>
-                                            <td><input type="text" class="form-control" name="goal_current_year[]" value="@if(isset($add_personalgoal[2])){{$add_personalgoal[2]['goal_current_year']}} @endif"></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <div class="review-header text-center">
-									<button type="submit" class="btn btn-primary submit-btn">Save &amp; update</button>
-								</div>
-                            </form>
-                            </div>
-                        </div>
-                    </div>
-                </section>
+                </section> 
                  
-                <section class="review-section" id="ProfessionalAchived" style="display:none;">
-                    <div class="review-header text-center">
-                        <h3 class="review-title">Professional Goals Achieved for last year</h3>
-                        <p class="text-muted">Lorem ipsum dollar</p>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="table-responsive">
-                            <form action="{{ route('edit_man_ProfessionalGoalsAchieved') }}" method="post">
-                             @csrf
-                                <table class="table table-bordered table-review review-table mb-0" id="table_goals">
-                                    <thead>
-                                        <tr>
-                                            <th style="width:40px;">#</th>
-                                            <th>By Self</th>
-                                            <th>Manager's Comment</th>
-                                            <th style="width: 64px;"><button type="button" class="btn btn-primary btn-add-row"><i class="fa fa-plus"></i></button></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="table_goals_tbody">
-                                        <input type="hidden" name="empid" value="@if(isset($emp_id)){{ $emp_id->id}}@endif">
-                                        @php $i = 1; @endphp
-                                        @if(!empty($professional_achived) && count($professional_achived) > 0)
-                                        @foreach($professional_achived as $val)
-                                        <tr>
-                                            <td>{{$i}}</td>
-                                            <td><input type="text" class="form-control" name="DynamicTextBoxemp[]" value="{{ $val->by_employee}}" readonly ></td>
-                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="{{ $val->managers_comment}}"></td>
-                                            <td></td>
-                                            <input type="hidden" name="getid" value="@if(isset($professional_achived)){{ $val->emp_id}}@endif" >
-                                            <input type="hidden" class="form-control" name="getid_arry[]" value="{{ $val->id}}">
-                                        </tr>
-                                        @php $i++; @endphp
-                                        @endforeach  
-                                        @else
-                                        <tr>
-                                            <td>1</td>
-                                            <td><input type="text" class="form-control" name="DynamicTextBoxemp[]" value="" readonly ></td>
-                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value=""></td>
-                                            <td></td>
-                                        </tr>
-                                        @endif  
-                                    </tbody>
-                                </table>
-                                <div class="review-header text-center">
-									<button type="submit" name="email_setting_submit" class="btn btn-primary submit-btn">Save &amp; update</button>
-								</div>
-                            </form>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                
-                <section class="review-section" id="ProfForthcoming" style="display:none;">
-                    <div class="review-header text-center">
-                        <h3 class="review-title">Professional Goals for the forthcoming year</h3>
-                        <p class="text-muted">Lorem ipsum dollar</p>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="table-responsive">
-                            <form action="{{ route('edit_man_ProfessionalGoalsForthcoming') }}" method="post">
-                             @csrf
-                                <table class="table table-bordered table-review review-table mb-0" id="table_forthcoming">
-                                    <thead>
-                                        <tr>
-                                            <th style="width:40px;">#</th>
-                                            <th>By Self</th>
-                                            <th>Manager's Comment</th>
-                                            <th style="width: 64px;"><button type="button" class="btn btn-primary btn-add-row"><i class="fa fa-plus"></i></button></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="table_forthcoming_tbody">
-                                        <input type="hidden" name="empid" value="@if(isset($emp_id)){{ $emp_id->id}}@endif">
-                                        @php $i = 1; @endphp
-                                        @if(!empty($professional_forthcoming) && count($professional_forthcoming) > 0)
-                                        @foreach($professional_forthcoming as $val)
-                                        <tr>
-                                            <td>{{$i}}</td>
-                                            <td><input type="text" class="form-control" name="DynamicTextBoxemp[]" value="{{ $val->by_employee}}" readonly  ></td>
-                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="{{ $val->managers_comment}}"></td>
-                                            <td></td>
-                                            <input type="hidden" class="form-control" name="getid[]" value="{{ $val->id}}">
-                                            <input type="hidden" name="getid" value="@if(isset($professional_forthcoming)){{ $val->emp_id}}@endif">
-                                            <input type="hidden" class="form-control" name="getid_arry[]" value="{{ $val->id}}">
-                                        </tr>
-                                        @php $i++; @endphp
-                                        @endforeach  
-                                        @else
-                                        <tr>
-                                            <td>1</td>
-                                            <td><input type="text" class="form-control" name="DynamicTextBoxemp[]" value="" readonly ></td>
-                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value=""></td>
-                                            <td></td>
-                                        </tr>
-                                        @endif
-                                    </tbody>
-                                </table>
-                                <div class="review-header text-center">
-									<button type="submit" class="btn btn-primary submit-btn">Save &amp; update</button>
-								</div>
-                            </form> 
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                
-                <section class="review-section" id="TrainingRequirement" style="display:none;">
-                    <div class="review-header text-center">
-                        <h3 class="review-title">Training Requirements</h3>
-                        <p class="text-muted">if any to achieve the Performance Standard Targets completely</p>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="table-responsive">
-                            <form action="{{ route('edit_man_TrainingRequirements') }}" method="post">
-                             @csrf
-                                <table class="table table-bordered table-review review-table mb-0" id="table_targets">
-                                    <thead>
-                                        <tr>
-                                        <th style="width:40px;">#</th>
-                                        <th>By Self</th>
-                                        <th>Manager's Comment</th>
-                                        <th style="width: 64px;"><button type="button" class="btn btn-primary btn-add-row"><i class="fa fa-plus"></i></button></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="table_targets_tbody">
-                                        <input type="hidden" name="empid" value="@if(isset($emp_id)){{ $emp_id->id}}@endif">
-                                        @php $i = 1; @endphp
-                                        @if(!empty($training_requirements) && count($training_requirements) > 0)
-                                        @foreach($training_requirements as $val)
-                                        <tr>
-                                            <td>{{$i}}</td>
-                                            <td><input type="text" class="form-control" name="DynamicTextBoxemp[]" value="{{ $val->by_employee}}" readonly ></td>
-                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value="{{ $val->managers_comment}}"></td>
-                                            <td></td>
-                                            <input type="hidden" class="form-control" name="getid_arry[]" value="{{ $val->id}}">
-                                            <input type="hidden" name="getid" value="@if(isset($training_requirements)){{ $val->emp_id}}@endif">
-                                        </tr>
-                                        @php $i++; @endphp
-                                        @endforeach  
-                                        @else
-                                        <tr>
-                                            <td>1</td>
-                                            <td><input type="text" class="form-control" name="DynamicTextBoxemp[]" value="" readonly ></td>
-                                            <td><input type="text" class="form-control" name="DynamicTextBoxman[]" value=""></td>
-                                            <td></td>
-                                        </tr>
-                                        @endif  
-                                    </tbody>
-                                </table>
-                                <div class="review-header text-center">
-									<button type="submit" name="email_setting_submit" class="btn btn-primary submit-btn">Save &amp; update</button>
-								</div>
-                            </form> 
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
                 <section class="review-section" id="GeneralComment">
                     <div class="review-header text-center">
-                        <h3 class="review-title">Any other general comments, observations, suggestions etc.</h3>
-                        
+                        <h3 class="review-title">Any other general comments, observations, suggestions etc.</h3> 
                     </div>
                     <div class="row">
                         <div class="col-md-12">
@@ -880,6 +547,11 @@
                                     </thead>
                                     <tbody id="general_comments_tbody" >
                                         <input type="hidden" name="empid" value="@if(isset($emp_id)){{ $emp_id->id}}@endif">
+										<input type="hidden" name="comment_id" value="@if(isset($comment_id)){{ $comment_id}}@endif">
+										<input type="hidden" name="perfomance_date" value="@if(isset($date_Comment)){{ $date_Comment->perfomance_date}}@else{{$url_pdate}}@endif">
+										<input type="hidden" name="complete_perfomance_by_emp" value="@if(Auth::user()->id == $emps->id) 1 @else 0 @endif">	 
+										<input type="hidden" name="complete_perfomance_by_manager" value="@if(Auth::user()->id != $emps->id) 1 @else 0 @endif">	
+							 
                                         @php $i = 1; @endphp
                                         @if(!empty($general_comment) && count($general_comment) > 0)
                                         @foreach($general_comment as $val)
@@ -911,115 +583,7 @@
                         </div>
                     </div>
                 </section>
-
-               <section class="review-section" id="PerfomanceManagerUse" style="display:none">
-                    <div class="review-header text-center">
-                        <h3 class="review-title">For Manager's Use Only</h3>
-                        
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="table-responsive">
-                            <form action="{{ route('edit_man_PerfomanceManagerUse') }}" method="post" id="forManagerUser">
-                             @csrf
-                             <input type="hidden" name="empid" value="@if(isset($emp_id)){{ $emp_id->id}}@endif">
-                             @php $i = 1; @endphp
-                               @foreach($perfomancemanageruse as $val)
-                               <input type="hidden" class="form-control" name="getid_arry[]" value="{{$val->id}}">
-                               <input type="hidden" name="getid" value="@if(isset($perfomancemanageruse)){{ $val->emp_id}}@endif">
-                               @php $i++; @endphp
-                              @endforeach 
-                                <table class="table table-bordered review-table mb-0">
-                                    <thead>
-                                        <tr>
-                                            <th></th>
-                                            <th>Yes/No</th>
-                                            <th>If Yes - Details</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>The Team member has Work related Issues</td>
-                                            <input type="hidden" class="form-control" name="issues[]" required value="The Team member has Work related Issues">
-                                            <td>
-                                                <select class="form-control select" name="select_option[]">
-                                                    <option value="">Select</option>
-                                                    <option @if(isset($perfomancemanageruse[0])) @if($perfomancemanageruse[0]['select_option']  == "Yes") selected @endif @endif value="Yes">Yes</option>
-                                                    <option @if(isset($perfomancemanageruse[0])) @if($perfomancemanageruse[0]['select_option']  == "No") selected @endif @endif value="No">No</option>
-                                                </select>
-                                            </td>
-                                            <td><input type="text" class="form-control" name="yes_details[]" value="@if(isset($perfomancemanageruse[0])){{$perfomancemanageruse[0]['yes_details']}} @endif"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>The Team member has Leave Issues</td>
-                                            <input type="hidden" class="form-control" name="issues[]" value="The Team member has Leave Issues">
-                                            <td>
-                                            <select class="form-control select" name="select_option[]">
-                                                <option value="">Select</option>
-                                                <option  @if(isset($perfomancemanageruse[1])) @if($perfomancemanageruse[1]['select_option']  == "Yes") selected @endif @endif value="Yes">Yes</option>
-                                                <option @if(isset($perfomancemanageruse[1])) @if($perfomancemanageruse[1]['select_option']  == "No") selected @endif @endif value="No">No</option>
-                                            </select>
-                                            </td>
-                                            <td><input type="text" class="form-control" name="yes_details[]" value="@if(isset($perfomancemanageruse[1])){{$perfomancemanageruse[1]['yes_details']}} @endif"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>The team member has Stability Issues</td>
-                                            <input type="hidden" class="form-control" name="issues[]" value="The team member has Stability Issues">
-                                            <td>
-                                                <select class="form-control select" name="select_option[]">
-                                                    <option value="">Select</option>
-                                                    <option @if(isset($perfomancemanageruse[2])) @if($perfomancemanageruse[2]['select_option']  == "Yes") selected @endif @endif  value="Yes">Yes</option>
-                                                    <option @if(isset($perfomancemanageruse[2])) @if($perfomancemanageruse[2]['select_option']  == "No") selected @endif @endif value="No">No</option>
-                                                </select>
-                                            </td>
-                                            <td><input type="text" class="form-control" name="yes_details[]" value="@if(isset($perfomancemanageruse[2])){{$perfomancemanageruse[2]['yes_details']}} @endif"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>The Team member exhibits non-supportive attitude</td>
-                                            <input type="hidden" class="form-control" name="issues[]" value="The Team member exhibits non-supportive attitude">
-                                            <td>
-                                                <select class="form-control select" name="select_option[]">
-                                                    <option value="">Select</option>
-                                                    <option @if(isset($perfomancemanageruse[3])) @if($perfomancemanageruse[3]['select_option']  == "Yes") selected @endif @endif value="Yes">Yes</option>
-                                                    <option @if(isset($perfomancemanageruse[3])) @if($perfomancemanageruse[3]['select_option']  == "No") selected @endif @endif value="No">No</option>
-                                                </select>
-                                            </td>
-                                            <td><input type="text" class="form-control" name="yes_details[]" value="@if(isset($perfomancemanageruse[3])){{$perfomancemanageruse[3]['yes_details']}} @endif"></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Any other points in specific to note about the team member</td>
-                                            <input type="hidden" class="form-control" name="issues[]" value="Any other points in specific to note about the team member">
-                                            <td>
-                                                <select class="form-control select" name="select_option[]">
-                                                    <option value="">Select</option>
-                                                    <option @if(isset($perfomancemanageruse[4])) @if($perfomancemanageruse[4]['select_option']  == "Yes") selected @endif @endif value="Yes">Yes</option>
-                                                    <option @if(isset($perfomancemanageruse[4])) @if($perfomancemanageruse[4]['select_option']  == "No") selected @endif @endif value="No">No</option>
-                                                </select>
-                                            </td>
-                                            <td><input type="text" class="form-control" name="yes_details[]" value="@if(isset($perfomancemanageruse[4])){{$perfomancemanageruse[4]['yes_details']}} @endif"></td>
-                                        </tr>
-                                        <tr>
-                                        <td>Overall Comment /Performance of the team member</td>
-                                        <input type="hidden" class="form-control" name="issues[]" value="Overall Comment /Performance of the team member">
-                                            <td>
-                                                <select class="form-control select" name="select_option[]">
-                                                    <option value="">Select</option>
-                                                    <option @if(isset($perfomancemanageruse[5])) @if($perfomancemanageruse[5]['select_option']  == "Yes") selected @endif @endif value="Yes">Yes</option>
-                                                    <option @if(isset($perfomancemanageruse[5])) @if($perfomancemanageruse[5]['select_option']  == "No") selected @endif @endif value="No">No</option>
-                                                </select>
-                                            </td>
-                                            <td><input type="text" class="form-control" name="yes_details[]" value="@if(isset($perfomancemanageruse[5])){{$perfomancemanageruse[5]['yes_details']}} @endif"></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <div class="review-header text-center">
-									<button type="submit"  class="btn btn-primary submit-btn">Save &amp; update</button>
-								</div>
-                            </form>
-                            </div>
-                        </div>
-                    </div>
-                </section>                
+              
                 <section class="review-section row" id="PerfomanceIdentitie">
                     <div class="col-md-12">
                         <div class="">
@@ -1095,26 +659,46 @@
 	<script type="text/javascript">
 		jQuery(document).ready(function() {
 		<?php  
-		$hr_id = Employee::where('role_id','!=',5)->get();
+		  $hr_id = Employee::where('role_id','!=',5)->get();
 		 
-        foreach($hr_id as $hr_ids)
+          foreach($hr_id as $hr_ids)
         {
-		    $compl= Employee::where('performance_completed_by',$hr_ids->id)->where('id',$emp_hrcomp)->where('perfomance_status',1)->first();   //dd($compl);
-			if($compl){?>
+		    $compl= Employee::where('performance_completed_by',$hr_ids->id)->where('id',$emp_hrcomp)->where('perfomance_status',1)->first();  
+			$key_prof = KeyprofessionalExcellences::where('emp_id',$emp_hrcomp)->where('perfomance_date', $url_pdate)->where('complete_perfomance_by_emp',1)->where('complete_perfomance_by_manager',1)->first();
+			$personal = PersonalExcellence::where('emp_id',$emp_hrcomp)->where('perfomance_date', $url_pdate)->where('complete_perfomance_by_emp',1)->where('complete_perfomance_by_manager',1)->first();  
+			$special = SpecialInitiatives::where('emp_id',$emp_hrcomp)->where('perfomance_date', $url_pdate)->where('complete_perfomance_by_emp',1)->where('complete_perfomance_by_manager',1)->first();
+			$comment = OtherGeneralComment::where('emp_id',$emp_hrcomp)->where('perfomance_date', $url_pdate)->where('complete_perfomance_by_emp',1)->where('complete_perfomance_by_manager',1)->first();  
+			$appraisee = AppraiseeStrength::where('emp_id',$emp_hrcomp)->where('perfomance_date', $url_pdate)->where('complete_perfomance_by_manager',1)->first();
+			if($compl && $key_prof && $personal && $special && $comment && $appraisee){?>
 			jQuery("input").attr('disabled','disabled');
 			jQuery("select").attr('disabled','disabled');
 			jQuery(".btn-add-row").css('pointer-events','none'); 
 			<?php }
-        }
+        }   
 		 ?>
 		 });
-		 jQuery(document).ready(function(){
-			<?php $comp_status = Employee::where('id',$emp_hrcomp)->where('complete_professional_excellence',1)->where('complete_personal_excellence',1)->where('complete_special_initiative',1)->where('complete_appraisee_strength',1)->where('complete_other_general_comments',1)->first();
-			if($comp_status){  ?>
+		
+		   jQuery(document).ready(function(){ 
+			<?php if(Auth::id() == $emp_hrcomp){
+			$key_prof1 = KeyprofessionalExcellences::where('emp_id',$emp_hrcomp)->where('perfomance_date', $url_pdate)->where('complete_perfomance_by_emp',1)->first();
+			$personal1 = PersonalExcellence::where('emp_id',$emp_hrcomp)->where('perfomance_date', $url_pdate)->where('complete_perfomance_by_emp',1)->first();  
+			$special1 = SpecialInitiatives::where('emp_id',$emp_hrcomp)->where('perfomance_date', $url_pdate)->where('complete_perfomance_by_emp',1)->first(); 
+			$comment1 = OtherGeneralComment::where('emp_id',$emp_hrcomp)->where('perfomance_date', $url_pdate)->where('complete_perfomance_by_emp',1)->first();  
+			if($key_prof1 && $personal1 && $special1 && $comment1){  ?>
 			 $('#comple_stat').removeAttr("disabled")	
-			<?php }?>
-		 });
-		   
+			<?php }
+			} else {
+			$key_prof = KeyprofessionalExcellences::where('emp_id',$emp_hrcomp)->where('perfomance_date', $url_pdate)->where('complete_perfomance_by_emp',1)->where('complete_perfomance_by_manager',1)->first();
+			$personal = PersonalExcellence::where('emp_id',$emp_hrcomp)->where('perfomance_date', $url_pdate)->where('complete_perfomance_by_emp',1)->where('complete_perfomance_by_manager',1)->first();  
+			$special = SpecialInitiatives::where('emp_id',$emp_hrcomp)->where('perfomance_date', $url_pdate)->where('complete_perfomance_by_emp',1)->where('complete_perfomance_by_manager',1)->first();
+			$appraisee = AppraiseeStrength::where('emp_id',$emp_hrcomp)->where('perfomance_date', $url_pdate)->where('complete_perfomance_by_manager',1)->first();
+			$comment = OtherGeneralComment::where('emp_id',$emp_hrcomp)->where('perfomance_date', $url_pdate)->where('complete_perfomance_by_emp',1)->where('complete_perfomance_by_manager',1)->first();  
+		   if($key_prof && $personal && $special && $comment && $appraisee){  ?>
+			 $('#comple_stat').removeAttr("disabled")	
+			<?php }
+			}?>
+			});
+		 
 		   
 		   $(function () {
 			$(document).on("click", '.btn-add-row', function () {

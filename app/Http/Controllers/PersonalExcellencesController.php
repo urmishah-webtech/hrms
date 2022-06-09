@@ -99,6 +99,9 @@ class PersonalExcellencesController extends Controller
                 $settings->total_percentage_manager=$request->total_percentage_manager;
                 $settings->save();
              
+				$settings=Employee::where('id',$eid)->first();    
+				$settings->complete_personal_excellence = 1; 
+				$settings->save();
         }
         else{
                 $settings = new PersonalExcellence();                 
@@ -112,6 +115,10 @@ class PersonalExcellencesController extends Controller
                 $settings->total_percentage_employee=$request->total_percentage_employee;
                 $settings->total_percentage_manager=$request->total_percentage_manager;
                 $settings->save();
+				
+				$settings=Employee::where('id',$eid)->first();    
+				$settings->complete_personal_excellence = 1; 
+				$settings->save();
              
         }
 
