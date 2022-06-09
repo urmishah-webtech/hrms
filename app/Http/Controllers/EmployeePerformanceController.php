@@ -676,17 +676,32 @@ class EmployeePerformanceController extends Controller
         $status->complete_perfomance_by_hr=1;   
         $status->save();
 		 
-		$status=SpecialInitiatives::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->first(); 
-        $status->complete_perfomance_by_hr=1;   
-        $status->save();
+		$status=SpecialInitiatives::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->get();
+		foreach($status as $key => $input)
+		{  
+			$score=SpecialInitiatives::where('id',$input->id)->first(); 
+			$score->complete_perfomance_by_hr=1;   
+			$score->save();  
+		}
+         
 		
-		/* $status=AppraiseeStrength::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->first(); 
-        $status->complete_perfomance_by_hr=1;   
-        $status->save(); */
-		
-		$status=OtherGeneralComment::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->first(); 
-        $status->complete_perfomance_by_hr=1;   
-        $status->save();
+		if($userd != $request->empid){ 
+		$status=AppraiseeStrength::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->get(); 
+			foreach($status as $key => $input)
+			{  
+				$score=AppraiseeStrength::where('id',$input->id)->first(); 
+				$score->complete_perfomance_by_hr=1;   
+				$score->save();  
+			}
+		}
+		$status=OtherGeneralComment::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->get();
+		foreach($status as $key => $input)
+		{  
+			$score=OtherGeneralComment::where('id',$input->id)->first(); 
+			$score->complete_perfomance_by_hr=1;   
+			$score->save();  
+		}
+        
 		 
 		 
         /* $status=Employee::where('id',$request->empid)->first();         

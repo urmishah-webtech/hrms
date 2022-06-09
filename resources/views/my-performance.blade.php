@@ -160,7 +160,7 @@
 											<th>Action</th> 
 										</tr>
 									</thead>
-									<tbody> 
+									<tbody> <?php //dd($special_emp); ?>
 										@isset($special_emp)
 										@foreach ($special_emp as $item)
 										<tr>
