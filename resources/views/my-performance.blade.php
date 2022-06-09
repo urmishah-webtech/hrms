@@ -220,7 +220,7 @@
 						</div> 
 					</div>
 				</div>
-				<div class="col-md-6 d-flex">
+				<div class="col-md-6 d-flex" style="display:none">
 					<div class="card card-table flex-fill">
 						<div class="card-header">
 							<h3 class="card-title mb-0">Appraisee's Strengths and Areas for Improvement perceived by the Manager/Supervisor</h3>

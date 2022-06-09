@@ -664,14 +664,29 @@ class EmployeePerformanceController extends Controller
         'search_employee_id','search_name','search_designation'));
     }
     public function add_Perfomance_status_user(Request $request)
-    {   
+    {   	
+	
         $userd = Auth::user()->id;  
 		$key_date = $request->perfomance_date;  
         $status=KeyprofessionalExcellences::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->first();         
-        $status->complete_perfomance_by_hr=$request->complete_perfomance_by_hr; 
+        $status->complete_perfomance_by_hr=1;   
         $status->save();
 		
+		$status=PersonalExcellence::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->first(); 
+        $status->complete_perfomance_by_hr=1;   
+        $status->save();
 		 
+		$status=SpecialInitiatives::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->first(); 
+        $status->complete_perfomance_by_hr=1;   
+        $status->save();
+		
+		$status=AppraiseeStrength::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->first(); 
+        $status->complete_perfomance_by_hr=1;   
+        $status->save();
+		
+		$status=OtherGeneralComment::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->first(); 
+        $status->complete_perfomance_by_hr=1;   
+        $status->save();
 		 
 		 
         /* $status=Employee::where('id',$request->empid)->first();         
