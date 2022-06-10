@@ -337,7 +337,19 @@
                                             <input class="form-control" value="" type="text" name="last_name" id="emp_last_name">
                                         </div>
                                     </div>
-                                    
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Select Manager</label>
+                                            <select class="form-control" name="man_id" id="manager_id" required>
+												<option  >Select Manager</option>
+												@isset($manager)
+                                                    @foreach ($manager as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->first_name }}</option> 
+                                                    @endforeach
+                                                @endisset
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             @if(Auth::user()->role_id==2)

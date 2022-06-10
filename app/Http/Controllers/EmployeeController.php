@@ -32,7 +32,7 @@ class EmployeeController extends Controller
         $dep=Department::get();
         $location=Location::get();
         $des=Designation::get();
-		
+		$manager = Employee::where('role_id',2)->orwhere('role_id',6)->get(); 
         if(Auth::user()->role_id==2 || Auth::user()->role_id==6){
             $emps=Employee::where('man_id',Auth::id())->get();
         }
@@ -44,7 +44,7 @@ class EmployeeController extends Controller
         $emp_permissions=EmpPermission::get();
         $permission_modules=PermissionModule::get();
 		$roles=Role::get();
-        return view('employees',compact('location','dep','des','emps','modules','emp_permissions','permission_modules','last_emp_id','roles'));
+        return view('employees',compact('location','dep','des','emps','modules','emp_permissions','permission_modules','last_emp_id','roles','manager'));
     }
     public function getDesignationAjax(Request $request){
         $des=DB::table('designations')->where('department_id',$request->deptId)->get();
@@ -179,6 +179,7 @@ class EmployeeController extends Controller
         $emp->designation_id=is_null($request->designation_id)?$emp->designation_id:$request->designation_id;
 		$emp->employee_documents=is_null($fileName)?$emp->employee_documents:$fileName;
         $emp->location_id=$request->location_id;
+		$emp->man_id=$request->man_id;
         $emp->save();
 
         $expl=array();
