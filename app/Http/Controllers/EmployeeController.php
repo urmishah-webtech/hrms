@@ -32,6 +32,7 @@ class EmployeeController extends Controller
         $dep=Department::get();
         $location=Location::get();
         $des=Designation::get();
+		
         if(Auth::user()->role_id==2 || Auth::user()->role_id==6){
             $emps=Employee::where('man_id',Auth::id())->get();
         }
@@ -214,6 +215,7 @@ class EmployeeController extends Controller
     public function search_employee(Request $request){
         $dep=Department::get();
         $des=Designation::get();
+		$location=Location::get();
         $emp=new Employee;
         $search_employee_id=$request->search_employee_id;
         $search_name=$request->search_name;
@@ -233,7 +235,7 @@ class EmployeeController extends Controller
         $permission_modules=PermissionModule::get();
         $roles=Role::get();
         return view('employees',compact('dep','des','emps','modules','emp_permissions','permission_modules',
-        'search_employee_id','search_name','search_designation','roles'));
+        'search_employee_id','search_name','search_designation','roles','location'));
     }
 
    public function getOrganizationalChart()
