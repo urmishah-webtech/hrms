@@ -34,11 +34,11 @@ class EmployeeController extends Controller
         $des=Designation::get();
 		$manager = Employee::where('role_id',2)->orwhere('role_id',6)->get(); 
         if(Auth::user()->role_id==2 || Auth::user()->role_id==6){
-            $emps=Employee::where('man_id',Auth::id())->get();
+            $emps=Employee::where('man_id',Auth::id())->get(); 
         }
         else{
         $emps=Employee::get();
-        }
+        }  
         $last_emp_id=DB::table('employees')->latest('id')->first();
         $modules=Module::get();
         $emp_permissions=EmpPermission::get();
@@ -217,6 +217,7 @@ class EmployeeController extends Controller
         $dep=Department::get();
         $des=Designation::get();
 		$location=Location::get();
+		$manager = Employee::where('role_id',2)->orwhere('role_id',6)->get(); 
         $emp=new Employee;
         $search_employee_id=$request->search_employee_id;
         $search_name=$request->search_name;
@@ -236,7 +237,7 @@ class EmployeeController extends Controller
         $permission_modules=PermissionModule::get();
         $roles=Role::get();
         return view('employees',compact('dep','des','emps','modules','emp_permissions','permission_modules',
-        'search_employee_id','search_name','search_designation','roles','location'));
+        'search_employee_id','search_name','search_designation','roles','location','manager'));
     }
 
    public function getOrganizationalChart()
