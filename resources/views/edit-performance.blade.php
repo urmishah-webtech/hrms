@@ -587,7 +587,7 @@
                 <section class="review-section row" id="PerfomanceIdentitie">
                     <div class="col-md-12">
                         <div class="">
-                        <form action="{{ route('edit_manPerformanceIdentity') }}" method="post" id="PerfomanceIdentitie_validate">
+                        <form action="{{ route('edit_manPerformanceIdentity') }}" method="post" id="PerfomanceIdentitie_validate" style="display: none">
                             @csrf
 							<input type="hidden" name="perfomance_date" value="@if(isset($url_pdate)){{ $url_pdate}}@endif">
                             <input type="hidden" name="empid" value="@if(isset($emp_id)){{ $emp_id->id}}@endif">

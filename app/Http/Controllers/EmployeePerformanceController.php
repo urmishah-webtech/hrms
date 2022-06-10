@@ -665,22 +665,46 @@ class EmployeePerformanceController extends Controller
     }
     public function add_Perfomance_status_user(Request $request)
     {   	
-	
+        
         $userd = Auth::user()->id;  
 		$key_date = $request->perfomance_date; 
-		if($userd != $request->empid){ 
+		if($userd != $request->empid && (Auth::user()->role_id == 1 || Auth::user()->role_id == 5)){ 
 			$status=KeyprofessionalExcellences::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->first();         
 			$status->complete_perfomance_by_hr=1;   
 			$status->save();
 		}
+        elseif(Auth::user()->role_id == 2 || Auth::user()->role_id == 6){
+            $status=KeyprofessionalExcellences::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->first();         
+			$status->complete_perfomance_by_manager=1;   
+			$status->save();
+        }
+        else{
+            $status=KeyprofessionalExcellences::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->first();         
+			$status->complete_perfomance_by_emp=1;   
+			$status->save();
+        }
 		
-		if($userd != $request->empid){ 
+
+
+		if($userd != $request->empid && (Auth::user()->role_id == 1 || Auth::user()->role_id == 5)){ 
 			$status=PersonalExcellence::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->first(); 
 			$status->complete_perfomance_by_hr=1;   
 			$status->save();
 		}
+        elseif(Auth::user()->role_id == 2 || Auth::user()->role_id == 6){
+            $status=PersonalExcellence::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->first(); 
+			$status->complete_perfomance_by_manager=1;   
+			$status->save();
+        }
+        else{
+            $status=PersonalExcellence::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->first(); 
+			$status->complete_perfomance_by_emp=1;   
+			$status->save();
+        }
 		
-		if($userd != $request->empid){ 
+
+
+		if($userd != $request->empid && (Auth::user()->role_id == 1 || Auth::user()->role_id == 5)){ 
 			$status=SpecialInitiatives::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->get();
 			foreach($status as $key => $input)
 			{  
@@ -689,9 +713,29 @@ class EmployeePerformanceController extends Controller
 				$score->save();  
 			}
         } 
-		
-		if($userd != $request->empid){ 
-		$status=AppraiseeStrength::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->get(); 
+        elseif(Auth::user()->role_id == 2 || Auth::user()->role_id == 6){
+            $status=SpecialInitiatives::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->get();
+			foreach($status as $key => $input)
+			{  
+				$score=SpecialInitiatives::where('id',$input->id)->first(); 
+				$score->complete_perfomance_by_manager=1;   
+				$score->save();  
+			} 
+        }
+		else{
+            $status=SpecialInitiatives::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->get();
+			foreach($status as $key => $input)
+			{  
+				$score=SpecialInitiatives::where('id',$input->id)->first(); 
+				$score->complete_perfomance_by_emp=1;   
+				$score->save();  
+			}
+        }
+
+
+
+		if($userd != $request->empid && (Auth::user()->role_id == 1 || Auth::user()->role_id == 5)){ 
+		    $status=AppraiseeStrength::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->get(); 
 			foreach($status as $key => $input)
 			{  
 				$score=AppraiseeStrength::where('id',$input->id)->first(); 
@@ -699,8 +743,27 @@ class EmployeePerformanceController extends Controller
 				$score->save();  
 			}
 		}
+        elseif(Auth::user()->role_id == 2 || Auth::user()->role_id == 6){
+            $status=AppraiseeStrength::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->get(); 
+			foreach($status as $key => $input)
+			{  
+				$score=AppraiseeStrength::where('id',$input->id)->first(); 
+				$score->complete_perfomance_by_manager=1;   
+				$score->save();  
+			}
+        }
+        else{
+            $status=AppraiseeStrength::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->get(); 
+			foreach($status as $key => $input)
+			{  
+				$score=AppraiseeStrength::where('id',$input->id)->first(); 
+				$score->complete_perfomance_by_emp=1;   
+				$score->save();  
+			}
+        }
 		
-		if($userd != $request->empid){ 
+
+		if($userd != $request->empid && (Auth::user()->role_id == 1 || Auth::user()->role_id == 5)){ 
 			$status=OtherGeneralComment::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->get();
 			foreach($status as $key => $input)
 			{  
@@ -709,7 +772,24 @@ class EmployeePerformanceController extends Controller
 				$score->save();  
 			}
         } 
-		 
+        elseif(Auth::user()->role_id == 2 || Auth::user()->role_id == 6){
+            $status=OtherGeneralComment::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->get();
+			foreach($status as $key => $input)
+			{  
+				$score=OtherGeneralComment::where('id',$input->id)->first(); 
+				$score->complete_perfomance_by_manager=1;   
+				$score->save();  
+			}
+        }
+		else{
+            $status=OtherGeneralComment::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->get();
+			foreach($status as $key => $input)
+			{  
+				$score=OtherGeneralComment::where('id',$input->id)->first(); 
+				$score->complete_perfomance_by_emp=1;   
+				$score->save();  
+			}
+        }
         /* $status=Employee::where('id',$request->empid)->first();         
         $status->perfomance_status=$request->perfomance_status;
         $status->performance_completed_by=$request->user_id;

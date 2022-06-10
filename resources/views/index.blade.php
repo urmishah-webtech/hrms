@@ -488,8 +488,8 @@
                                     <tr>
                                         <th>First Name </th>
                                         <th>Last Name </th>
-                                        <th>Designation</th>
-                                        <th>Department</th> 
+                                        
+                                        <th>Performance Date</th> 
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -497,14 +497,13 @@
                                     @foreach ($manger_emp as $item)
                                     <tr>
                                         <td>  
-                                            <h2><a href="edit-performance/{{@$item->id}}">{{ @$item->first_name }} </a></h2>
+                                            <h2><a href="edit-performance/{{@$item->id}}/{{@$item->perfomance_date}}">{{ @$item->first_name }} </a></h2>
                                         </td>
 										<td>  
                                             <h2><a href="{{route('profile_details', @$item->id)}}">  {{ @$item->last_name }}</a></h2>
                                         </td>
-                                        <td>{{@$item->designation->name}}</td>
-                                        <td>{{@$item->department->name}}</td>
-                                         
+                                       
+                                        <td>{{@$item->perfomance_date}}</td>
                                     </tr>
                                     @endforeach
                                     @endisset
@@ -529,8 +528,7 @@
                                     <tr>
                                         <th>First Name </th>
                                         <th>Last Name </th>
-                                        <th>Designation</th>
-                                        <th>Department</th> 
+                                        <th>Performance Date</th> 
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -538,13 +536,13 @@
                                     @foreach ($pending_emp as $item)
                                     <tr>
                                         <td>  
-                                            <h2><a href="edit-performance/{{@$item->id}}">{{ @$item->first_name }} </a></h2>
+                                            <h2><a href="edit-performance/{{@$item->id}}/{{$item->perfomance_date}}">{{ @$item->first_name }} </a></h2>
                                         </td>
 										<td>  
                                             <h2><a href="{{route('profile_details', @$item->id)}}">  {{ @$item->last_name }}</a></h2>
                                         </td>
-                                        <td>{{@$item->designation->name}}</td>
-                                        <td>{{@$item->department->name}}</td>
+                                        <td>{{@$item->perfomance_date}}</td>
+
                                          
                                     </tr>
                                     @endforeach

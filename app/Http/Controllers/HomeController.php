@@ -198,11 +198,32 @@ class HomeController extends Controller
         if($man_excel_total_entry != 0){$man_width_4059 = ($man_excel_4059*100)/$man_excel_total_entry;} else{$man_width_4059 = 0;}
         if($man_excel_total_entry != 0){$man_width_2039 = ($man_excel_2039*100)/$man_excel_total_entry;} else{$man_width_2039 = 0;}
         if($man_excel_total_entry != 0){$man_width_119 = ($man_excel_119*100)/$man_excel_total_entry;} else{$man_width_119 = 0;}
+
 		//$manger_emp = Employee::where('complete_professional_excellence',1)->where('complete_personal_excellence',1)->where('complete_special_initiative',1)->where('complete_other_general_comments',1)->where('complete_professional_excellence_by_manager',1)->where('complete_personal_excellence_by_manager',1)->where('complete_special_initiative_by_manager',1)->where('complete_appraisee_strength_by_manager',1)->where('complete_other_general_comments_by_manager',1)->get();
-		
-		//$pending_emp = Employee::where('man_id',Auth::user()->id)->where('complete_professional_excellence',1)->where('complete_personal_excellence',1)->where('complete_special_initiative',1)->where('complete_other_general_comments',1)->get();
-		 
-        return view('index',compact('emp_total','per_status_complete','per_status_incomp','man_total', 'emp', 'res', 'promotion', 'appraisal','on_leave','on_leave_data','total_emp','progress_leave','plan_count','unplan_count','pending_persent','unplan_data','plan_data','pending_req', 'linechartdata',
+		$manger_emp = DB::table('employees')->leftJoin('keyprofessional_excellences as ke','employees.id','ke.emp_id')->
+        leftJoin('new_personal_behavioral_excellence as be','employees.id','be.emp_id')->
+        leftJoin('special_initiatives as si','employees.id','si.emp_id')->
+        leftJoin('appraisee_strengths as as','employees.id','as.emp_id')->
+        leftJoin('other_general_comments as gc','employees.id','gc.emp_id')
+        ->where('ke.complete_perfomance_by_manager',1)->where('be.complete_perfomance_by_manager',1)->
+        where('si.complete_perfomance_by_manager',1)->where('gc.complete_perfomance_by_manager',1)->
+        select('employees.id','employees.first_name','employees.last_name','ke.perfomance_date')->groupBy('ke.perfomance_date','employees.last_name','employees.first_name')->
+        get();
+       
+     
+		$pending_emp = DB::table('employees')->join('keyprofessional_excellences as ke','employees.id','ke.emp_id')->
+        leftJoin('new_personal_behavioral_excellence as be','employees.id','be.emp_id')->
+        leftJoin('special_initiatives as si','employees.id','si.emp_id')->
+        leftJoin('appraisee_strengths as as','employees.id','as.emp_id')->
+        leftJoin('other_general_comments as gc','employees.id','gc.emp_id')->
+        where('man_id',Auth::user()->id)
+        ->where('ke.complete_perfomance_by_emp',1)->where('be.complete_perfomance_by_emp',1)->
+        where('si.complete_perfomance_by_emp',1)->where('gc.complete_perfomance_by_emp',1)->
+        select('employees.id','employees.first_name','employees.last_name','ke.perfomance_date')->groupBy('ke.perfomance_date','employees.last_name','employees.first_name')->
+        get();
+       
+
+        return view('index',compact('manger_emp','pending_emp','emp_total','per_status_complete','per_status_incomp','man_total', 'emp', 'res', 'promotion', 'appraisal','on_leave','on_leave_data','total_emp','progress_leave','plan_count','unplan_count','pending_persent','unplan_data','plan_data','pending_req', 'linechartdata',
         'last_month_emp_count','current_month_emp_count','emp_per','last_month_resi_count','current_month_resi_count','resi_per','promotion_month', 'promotion_previousmonth','pro_per','excel_80100','excel_6079','excel_4059','excel_2039','excel_119','excel_total_entry','width_80100','width_6079','width_4059','width_2039','width_119','third_withdraw','third_war',
         'second_withdraw','second_war','first_withdraw','first_war','terminate_emp','my_leaves','terminated_emp_under_me','last_month_ter_count','current_month_ter_count','ter_per','man_excel_80100','man_excel_6079','man_excel_4059','man_excel_2039','man_excel_119','man_width_80100','man_width_6079','man_width_4059','man_width_2039','man_width_119'));
 
