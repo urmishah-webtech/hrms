@@ -667,23 +667,28 @@ class EmployeePerformanceController extends Controller
     {   	
 	
         $userd = Auth::user()->id;  
-		$key_date = $request->perfomance_date;  
-        $status=KeyprofessionalExcellences::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->first();         
-        $status->complete_perfomance_by_hr=1;   
-        $status->save();
-		
-		$status=PersonalExcellence::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->first(); 
-        $status->complete_perfomance_by_hr=1;   
-        $status->save();
-		 
-		$status=SpecialInitiatives::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->get();
-		foreach($status as $key => $input)
-		{  
-			$score=SpecialInitiatives::where('id',$input->id)->first(); 
-			$score->complete_perfomance_by_hr=1;   
-			$score->save();  
+		$key_date = $request->perfomance_date; 
+		if($userd != $request->empid){ 
+			$status=KeyprofessionalExcellences::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->first();         
+			$status->complete_perfomance_by_hr=1;   
+			$status->save();
 		}
-         
+		
+		if($userd != $request->empid){ 
+			$status=PersonalExcellence::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->first(); 
+			$status->complete_perfomance_by_hr=1;   
+			$status->save();
+		}
+		
+		if($userd != $request->empid){ 
+			$status=SpecialInitiatives::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->get();
+			foreach($status as $key => $input)
+			{  
+				$score=SpecialInitiatives::where('id',$input->id)->first(); 
+				$score->complete_perfomance_by_hr=1;   
+				$score->save();  
+			}
+        } 
 		
 		if($userd != $request->empid){ 
 		$status=AppraiseeStrength::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->get(); 
@@ -694,14 +699,16 @@ class EmployeePerformanceController extends Controller
 				$score->save();  
 			}
 		}
-		$status=OtherGeneralComment::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->get();
-		foreach($status as $key => $input)
-		{  
-			$score=OtherGeneralComment::where('id',$input->id)->first(); 
-			$score->complete_perfomance_by_hr=1;   
-			$score->save();  
-		}
-         
+		
+		if($userd != $request->empid){ 
+			$status=OtherGeneralComment::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->get();
+			foreach($status as $key => $input)
+			{  
+				$score=OtherGeneralComment::where('id',$input->id)->first(); 
+				$score->complete_perfomance_by_hr=1;   
+				$score->save();  
+			}
+        } 
 		 
         /* $status=Employee::where('id',$request->empid)->first();         
         $status->perfomance_status=$request->perfomance_status;
@@ -730,7 +737,7 @@ class EmployeePerformanceController extends Controller
 	
 	public function add_Perfomance_status_user_for_employee(Request $request)
     {   
-        $userd = Auth::user()->id; 
+        /* $userd = Auth::user()->id; 
 		$key_date = $request->perfomance_date;  
         $status=KeyprofessionalExcellences::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->first();         
         $status->complete_perfomance_by_hr=$request->complete_perfomance_by_hr; 
@@ -768,7 +775,7 @@ class EmployeePerformanceController extends Controller
         $message='Hi, Your Employee Performance Status has been Complete';
         Notification::create(['employeeid' => $status->emp_id, 'message' => $message]);
         event(new EmployeePerfomanceStatus($message,$status->emp_id));
-        return back();
+        return back(); */
     }
 	
 	public function add_Perfomance_date_for_employee(Request $request)

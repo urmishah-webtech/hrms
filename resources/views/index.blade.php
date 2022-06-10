@@ -474,8 +474,8 @@
                 </div>
             </div>
         </div>
-		<div>
-			@if(Auth::user()->role_id == 1 || Auth::user()->role_id == 5)
+		<div> 
+			@if(auth::user()->role_id ==  1 || auth::user()->role_id == 5)
 			<div class="col-md-6 d-flex">
                 <div class="card card-table flex-fill">
                     <div class="card-header">
