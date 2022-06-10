@@ -687,7 +687,11 @@
 			$special1 = SpecialInitiatives::where('emp_id',$emp_hrcomp)->where('perfomance_date', $url_pdate)->where('complete_perfomance_by_emp',1)->first(); 
 			$comment1 = OtherGeneralComment::where('emp_id',$emp_hrcomp)->where('perfomance_date', $url_pdate)->where('complete_perfomance_by_emp',1)->first();  
 			if($key_prof1 && $personal1 && $special1 && $comment1){  ?>
-			 $('#comple_stat').removeAttr("disabled")	
+			 $('#comple_stat').removeAttr("disabled");
+			 $('#perfomance_datef').removeAttr("disabled");
+			 $('#hidden_from').removeAttr("disabled");
+			 $('#empid_f').removeAttr("disabled");
+			 $('#userid_f').removeAttr("disabled"); 
 			<?php }
 			} else {
 			$key_prof = KeyprofessionalExcellences::where('emp_id',$emp_hrcomp)->where('perfomance_date', $url_pdate)->where('complete_perfomance_by_emp',1)->where('complete_perfomance_by_manager',1)->first();
@@ -700,8 +704,7 @@
 			 $('#perfomance_datef').removeAttr("disabled");
 			 $('#hidden_from').removeAttr("disabled");
 			 $('#empid_f').removeAttr("disabled");
-			 $('#userid_f').removeAttr("disabled");
-			 
+			 $('#userid_f').removeAttr("disabled"); 
 			<?php }
 			}?>
 			});
