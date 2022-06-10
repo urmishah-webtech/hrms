@@ -206,7 +206,9 @@ class HomeController extends Controller
         leftJoin('appraisee_strengths as as','employees.id','as.emp_id')->
         leftJoin('other_general_comments as gc','employees.id','gc.emp_id')
         ->where('ke.complete_perfomance_by_manager',1)->where('be.complete_perfomance_by_manager',1)->
-        where('si.complete_perfomance_by_manager',1)->where('gc.complete_perfomance_by_manager',1)->
+        where('si.complete_perfomance_by_manager',1)->where('gc.complete_perfomance_by_manager',1)
+        ->where('ke.complete_perfomance_by_hr','!=',1)->where('be.complete_perfomance_by_hr','!=',1)->
+        where('si.complete_perfomance_by_hr','!=',1)->where('gc.complete_perfomance_by_hr','!=',1)->
         select('employees.id','employees.first_name','employees.last_name','ke.perfomance_date')->groupBy('ke.perfomance_date','employees.last_name','employees.first_name')->
         get();
        
@@ -218,7 +220,9 @@ class HomeController extends Controller
         leftJoin('other_general_comments as gc','employees.id','gc.emp_id')->
         where('man_id',Auth::user()->id)
         ->where('ke.complete_perfomance_by_emp',1)->where('be.complete_perfomance_by_emp',1)->
-        where('si.complete_perfomance_by_emp',1)->where('gc.complete_perfomance_by_emp',1)->
+        where('si.complete_perfomance_by_emp',1)->where('gc.complete_perfomance_by_emp',1)
+        ->where('ke.complete_perfomance_by_hr','!=',1)->where('be.complete_perfomance_by_hr','!=',1)->
+        where('si.complete_perfomance_by_hr','!=',1)->where('gc.complete_perfomance_by_hr','!=',1)->
         select('employees.id','employees.first_name','employees.last_name','ke.perfomance_date')->groupBy('ke.perfomance_date','employees.last_name','employees.first_name')->
         get();
        
