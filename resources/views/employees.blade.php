@@ -344,7 +344,7 @@
 												<option  >Select Manager</option>
 												@isset($manager)
                                                     @foreach ($manager as $item)
-                                                    <option value="{{ $item->id }}">{{ $item->first_name }}</option> 
+                                                    <option value="{{ $item->id }}">{{ $item->first_name }}  {{$item->last_name }}</option> 
                                                     @endforeach
                                                 @endisset
                                             </select>
