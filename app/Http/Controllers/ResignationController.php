@@ -72,8 +72,11 @@ class ResignationController extends Controller
         $empname = getemployeename($request->employeeid);
         $message = $empname.' has sent a resignation request.';
         $adminid = Employee::where('role_id', 1)->first()->id;
+		$hrid = Employee::where('role_id', 5)->first()->id;
         Notification::create(['employeeid' => $adminid, 'message' => $message]);
         event(new EmployeeResignation($message, $adminid));
+		Notification::create(['employeeid' => $hrid, 'message' => $message]);
+        event(new EmployeeResignation($message, $hrid));
         $managerid = Employee::where('id', $request->employeeid)->first()->man_id;
         if (!empty($managerid)) {
             Notification::create(['employeeid' => $managerid, 'message' => $message]);
