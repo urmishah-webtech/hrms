@@ -60,11 +60,13 @@ class ResignationController extends Controller
             $department = $emp->department_id;
         } else {
             $department = '';
-        }
+        } 
+		$man_name = Employee::where('id',$emp->man_id)->pluck('first_name')->first();   
+		$hr_name = Employee::where('role_id',5)->pluck('first_name')->first();   
         $noticedate = Carbon::createFromFormat('d/m/Y', $request->noticedate)->format('Y-m-d');
         $resignationdate = Carbon::createFromFormat('d/m/Y', $request->resignationdate)->format('Y-m-d');
         Resignation::create(['employeeid' => $request->employeeid, 'department' => $department, 'noticedate' => $noticedate, 'resignationdate' => $resignationdate, 'reason' => $request->reason]);
-        $empmessage = 'Your resignation request has been sent to your manager and admin.';
+        $empmessage = 'Your resignation request has been sent to '.$man_name.' (Reporting manager)  and '.$hr_name.' (HR Manager).';
         Notification::create(['employeeid' => $request->employeeid, 'message' => $empmessage]);
         event(new EmployeeResignation($empmessage, $request->employeeid));
         $empname = getemployeename($request->employeeid);

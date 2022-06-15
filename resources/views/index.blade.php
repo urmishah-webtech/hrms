@@ -301,7 +301,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if($emp->isEmpty())
+                                    @if($emp->isNotEmpty())
                                     @foreach ($emp as $employee)
                                     <tr>
                                         <td><a href="{{route('profile_details', @$employee->id)}}">{{$employee->employee_id}}</a></td>
@@ -345,10 +345,14 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if($res->isEmpty())
-                                    @foreach ($res as $resemp)
+                                    @if($res)
+                                    @foreach($res as $resemp)
                                     <tr>
+										@if(Auth::user()->role_id==1 || Auth::user()->role_id==5)
+                                        <td><a href="{{route('profile_details', @$resemp->id)}}">{{@$resemp->employee->first_name}}</a></td>
+										@else
                                         <td><a href="{{route('profile_details', @$resemp->employee->id)}}">{{@$resemp->employee->first_name}}</a></td>
+										@endif
                                         <td>{{date('d-m-Y', strtotime($resemp->noticedate))}}</td>
                                         <td>{{date('d-m-Y', strtotime($resemp->resignationdate))}}</td>
                                         <td><span class="badge bg-inverse-warning">{{$resemp->status}}</span></td>
@@ -384,7 +388,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if($promotion->isEmpty())
+                                    @if($promotion->isnotEmpty())
                                     @foreach ($promotion as $item)
                                        <tr>
                                         <td>
@@ -416,6 +420,48 @@
                     </div>
                 </div>
             </div>
+			<div class="col-md-6 d-flex">
+                <div class="card card-table flex-fill">
+                    <div class="card-header">
+                        <h3 class="card-title mb-0">Employee Leaves</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-nowrap custom-table mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>Leave Employee</th>
+                                        <th>Leave Type</th>
+                                        <th>From</th>
+                                        <th>To</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @if($leave_dt->isNotEmpty())
+                                    @foreach ($leave_dt as $employee)
+                                    <tr>
+                                        <td><a href="{{route('profile_details', @$employee->id)}}">{{@$employee->employee->first_name}}</a></td>
+                                        <td>
+                                            @if(@$employee->leave_type_id== '0') Causal Leave @elseif(@$employee->leave_type_id== '1') Sick Leave @elseif(@$employee->leave_type_id== '2') Hospitalisation @elseif(@$employee->leave_type_id== '3') Maternity @elseif(@$employee->leave_type_id== '4') Paternity @else lop @endif 
+                                        </td> 
+                                        <td>{{date('d M Y', strtotime(@$employee->from_date))}}</td>
+                                        <td>{{date('d M Y', strtotime(@$employee->to_date))}}</td>
+                                        <td>
+                                            @if(@$employee->status== '1') Pending @elseif(@$employee->status== '2') Approved @else Disappoved @endif
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                    @endif
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{{ url('leaves') }}">View Employee Leaves</a>
+                    </div>
+                </div>
+            </div>
             <div class="col-md-6 d-flex">
                 <div class="card card-table flex-fill">
                     <div class="card-header">
@@ -434,7 +480,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @if($appraisal->isEmpty())
+                                    @if($appraisal->isNotEmpty())
                                     @foreach ($appraisal as $item)
                                     <tr>
                                         <td>
