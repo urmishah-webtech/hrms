@@ -219,7 +219,7 @@
                                 <div class="modal-btn delete-action">
                                     <div class="row">
                                         <div class="col-6">
-                                            <button type="submit" class="btn btn-primary continue-btn">Delete</a>
+                                            <button type="submit" class="btn btn-primary continue-btn" style="width:100%">Delete</a>
                                         </div>
                                         <div class="col-6">
                                             <a href="javascript:void(0);" data-dismiss="modal" class="btn btn-primary cancel-btn">Cancel</a>

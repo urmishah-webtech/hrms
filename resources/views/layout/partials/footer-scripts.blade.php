@@ -150,7 +150,7 @@
 			function GetDynamicTextBox(table_id) {
 				$('#comments_remove').remove();
 				var rowsLength = document.getElementById(table_id).getElementsByTagName("tbody")[0].getElementsByTagName("tr").length+1;
-				return '<td>'+rowsLength+'</td>' + '@if(Auth::user()->role_id != 3)<td><select class="form-control" name="emp_id[]" ><option>Select Employee</option>@isset($emp_name) @foreach($emp_name as $val)<option value="{{ $val->id }}">{{ $val->first_name }}</option>@endforeach @endisset</select></td>@endif' + '<td><input type="text" name = "hr_input[]" class="form-control" @if(Auth::user()->role_id != 5)readonly @endif></td>' + '<td><input type="text" name = "admin_comments[]" class="form-control" @if(Auth::user()->role_id != 1)readonly @endif></td>' + '<td><input type="text" name = "areas_for_improvement[]" class="form-control" @if(Auth::user()->role_id == 3)readonly @endif></td>' + '<td><input type="file" name = "fileadd[]" class="form-control" @if(Auth::user()->role_id == 3)readonly @endif></td>' + '<td><button type="button" class="btn btn-danger" id="comments_remove"><i class="fa fa-trash-o"></i></button></td>'
+				return '<td>'+rowsLength+'</td>' + '@if(Auth::user()->role_id != 3)<td><select class="form-control" name="emp_id[]" required><option>Select Employee</option> @if(Auth::user()->role_id == 2 || Auth::user()->role_id == 6) @isset($manager_emp) @foreach($manager_emp as $val) <option value="{{ $val->id }}" >{{ $val->first_name }}</option> @endforeach @endisset @else @isset($emp_name) @foreach($emp_name as $val) <option value="{{ $val->id }}" >{{ $val->first_name }}</option> @endforeach @endisset @endif </select></td>@endif' + '<td><input type="text" name = "hr_input[]" class="form-control" @if(Auth::user()->role_id != 5)readonly @endif></td>' + '<td><input type="text" name = "admin_comments[]" class="form-control"  @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2 || Auth::user()->role_id == 6)editable @else readonly @endif></td>' + '<td><input type="text" name = "areas_for_improvement[]" class="form-control" @if(Auth::user()->role_id == 3)readonly @endif></td>' + '<td><input type="file" name = "fileadd[]" class="form-control" @if(Auth::user()->role_id == 3)readonly @endif></td>' + '<td><button type="button" class="btn btn-danger" id="comments_remove"><i class="fa fa-trash-o"></i></button></td>'
 			}
 		});
 		/// Second Warning
@@ -169,7 +169,7 @@
 			function GetDynamicTextBox(table_id) {
 				$('#comments_remove').remove();
 				var rowsLength = document.getElementById(table_id).getElementsByTagName("tbody")[0].getElementsByTagName("tr").length+1;
-				return '<td>'+rowsLength+'</td>' + '@if(Auth::user()->role_id != 3)<td><select class="form-control" name="emp_id[]" ><option>Select Employee</option>@isset($emp_name) @foreach($emp_name as $val)<option value="{{ $val->id }}">{{ $val->first_name }}</option>@endforeach @endisset</select></td>@endif' + '<td><input type="text" name = "hr_input[]" class="form-control" @if(Auth::user()->role_id != 5)readonly @endif></td>' + '<td><input type="text" name = "admin_comments[]" class="form-control" @if(Auth::user()->role_id != 1)readonly @endif></td>' + '<td><input type="text" name = "areas_for_improvement[]" class="form-control" @if(Auth::user()->role_id == 3)readonly @endif></td>' + '<td><input type="file" name = "fileadd[]" class="form-control" @if(Auth::user()->role_id == 3)readonly @endif></td>' + '<td><button type="button" class="btn btn-danger" id="comments_remove"><i class="fa fa-trash-o"></i></button></td>'
+				return '<td>'+rowsLength+'</td>' + '@if(Auth::user()->role_id != 3)<td><select class="form-control" name="emp_id[]"><option>Select Employee</option> @if(Auth::user()->role_id == 2 || Auth::user()->role_id == 6) @isset($manager_emp)  @foreach($manager_emp as $val) <option value="{{ $val->id }}" >{{ $val->first_name }}</option> @endforeach @endisset @else @isset($emp_name) @foreach($emp_name as $val) <option value="{{ $val->id }}" >{{ $val->first_name }}</option> @endforeach @endisset @endif </select></td>@endif' + '<td><input type="text" name = "hr_input[]" class="form-control" @if(Auth::user()->role_id != 5)readonly @endif></td>' + '<td><input type="text" name = "admin_comments[]" class="form-control"  @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2 || Auth::user()->role_id == 6)editable @else readonly @endif></td>' + '<td><input type="text" name = "areas_for_improvement[]" class="form-control" @if(Auth::user()->role_id == 3)readonly @endif></td>' + '<td><input type="file" name = "fileadd[]" class="form-control" @if(Auth::user()->role_id == 3)readonly @endif></td>' + '<td><button type="button" class="btn btn-danger" id="comments_remove"><i class="fa fa-trash-o"></i></button></td>'
 			}
 		});
 		/// Third Warning
@@ -188,7 +188,7 @@
 			function GetDynamicTextBox(table_id) {
 				$('#comments_remove').remove();
 				var rowsLength = document.getElementById(table_id).getElementsByTagName("tbody")[0].getElementsByTagName("tr").length+1;
-				return '<td>'+rowsLength+'</td>'+ '@if(Auth::user()->role_id != 3)<td><select class="form-control" name="emp_id[]" ><option>Select Employee</option>@isset($emp_name) @foreach($emp_name as $val)<option value="{{ $val->id }}">{{ $val->first_name }}</option>@endforeach @endisset</select></td>@endif' + '<td><input type="text" name = "hr_input[]" class="form-control" @if(Auth::user()->role_id != 5)readonly @endif></td>' + '<td><input type="text" name = "admin_comments[]" class="form-control" @if(Auth::user()->role_id != 1)readonly @endif></td>' + '<td><input type="file" name = "fileadd[]" class="form-control" @if(Auth::user()->role_id == 3)readonly @endif></td>' + '<td><button type="button" class="btn btn-danger" id="comments_remove"><i class="fa fa-trash-o"></i></button></td>'
+				return '<td>'+rowsLength+'</td>'+ '@if(Auth::user()->role_id != 3)<td><select class="form-control" name="emp_id[]" > <option>Select Employee</option> @if(Auth::user()->role_id == 2 || Auth::user()->role_id == 6) @isset($manager_emp) @foreach($manager_emp as $val) <option value="{{ $val->id }}" >{{ $val->first_name }}</option> @endforeach @endisset @else @isset($emp_name) @foreach($emp_name as $val) <option value="{{ $val->id }}" >{{ $val->first_name }}</option> @endforeach @endisset @endif </select></td>@endif' + '<td><input type="text" name = "hr_input[]" class="form-control" @if(Auth::user()->role_id != 5)readonly @endif></td>' + '<td><input type="text" name = "admin_comments[]" class="form-control"  @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2 || Auth::user()->role_id == 6)editable @else readonly @endif></td>' + '<td><input type="file" name = "fileadd[]" class="form-control" @if(Auth::user()->role_id == 3)readonly @endif></td>' + '<td><button type="button" class="btn btn-danger" id="comments_remove"><i class="fa fa-trash-o"></i></button></td>'
 			}
 		});
 		</script>
@@ -961,7 +961,7 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 }
             });
-            var calendar = $('#calendar1').fullCalendar({
+            var calendar = $('#calendar1').fullCalendar({  
                 events: SITEURL + "/leave_render",
                 eventRender: function (event, element, view) {
                     if (event.allDay === 'true') {
@@ -1006,6 +1006,17 @@
 	var channelname_resignation = 'employeeresignation-'+authuser;
 
 	channel_resignation.bind(channelname_resignation, function(data) {
+       var pre = $('#noti-badge').html();
+	   var newcount = parseInt(pre) + parseInt(1);
+	   $('#noti-badge').html(newcount);
+	   $('.notification-list').prepend('<li class="notification-message"><a href="activities"><div class="media"><span class="avatar"><img alt="" src="img/profiles/avatar-03.jpg"></span><div class="media-body"><p class="noti-details"><span class="noti-title">'+data.message+'</span> </p><p class="noti-time"><span class="notification-time">a few seconds ago</span></p></div></div></a></li>')
+    });
+
+	/// warning
+	var channel_warning = pusher.subscribe('employee-warning');
+	var channelname_warning = 'employeewarning-'+authuser;
+
+	channel_warning.bind(channelname_warning, function(data) {
        var pre = $('#noti-badge').html();
 	   var newcount = parseInt(pre) + parseInt(1);
 	   $('#noti-badge').html(newcount);

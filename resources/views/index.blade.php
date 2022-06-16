@@ -347,12 +347,8 @@
                                 <tbody>
                                     @if($res)
                                     @foreach($res as $resemp)
-                                    <tr>
-										@if(Auth::user()->role_id==1 || Auth::user()->role_id==5)
-                                        <td><a href="{{route('profile_details', @$resemp->id)}}">{{@$resemp->employee->first_name}}</a></td>
-										@else
-                                        <td><a href="{{route('profile_details', @$resemp->employee->id)}}">{{@$resemp->employee->first_name}}</a></td>
-										@endif
+                                    <tr> 
+                                        <td><a href="{{route('profile_details', @$resemp->employeeid)}}">{{@$resemp->employee->first_name}}</a></td> 
                                         <td>{{date('d-m-Y', strtotime($resemp->noticedate))}}</td>
                                         <td>{{date('d-m-Y', strtotime($resemp->resignationdate))}}</td>
                                         <td><span class="badge bg-inverse-warning">{{$resemp->status}}</span></td>
@@ -441,7 +437,7 @@
                                     @if($leave_dt->isNotEmpty())
                                     @foreach ($leave_dt as $employee)
                                     <tr>
-                                        <td><a href="{{route('profile_details', @$employee->id)}}">{{@$employee->employee->first_name}}</a></td>
+                                        <td><a href="{{route('profile_details', @$employee->employee_id)}}">{{@$employee->employee->first_name}}</a></td>
                                         <td>
                                             @if(@$employee->leave_type_id== '0') Causal Leave @elseif(@$employee->leave_type_id== '1') Sick Leave @elseif(@$employee->leave_type_id== '2') Hospitalisation @elseif(@$employee->leave_type_id== '3') Maternity @elseif(@$employee->leave_type_id== '4') Paternity @else lop @endif 
                                         </td> 

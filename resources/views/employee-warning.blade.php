@@ -17,7 +17,7 @@
                                 <li class="breadcrumb-item active">Employees Warning</li>
                             </ul>
                         </div>
-                        @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 5)
+                        @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 5 || Auth::user()->role_id == 2 || Auth::user()->role_id == 6)
                         <div class="col-auto float-right ml-auto">
                             <a href="#" class="btn add-btn" data-toggle="modal" data-target="#add_indicator"><i class="fa fa-plus"></i> Add New</a>
                         </div>
@@ -164,7 +164,7 @@
                                         <input type="hidden" name="editid" value="{{ @$val->id }}">
                                         <td>{{ @$val->id }}</td>
                                         <td>Second</td>
-                                        <!--<td class="tdindicator">{{ @$val->employee_comments }}</td>      -->                                  
+                                        <!--<td class="tdindicator">{{ @$val->employee_comments }}</td>      -->  
                                         <td>{{ @$val->hr_input}}</td>                                    
                                         <td>{{ @$val->admin_comments}}</td>
                                         <td>{{ @$val->areas_for_improvement }}</td>
@@ -196,8 +196,9 @@
                                         <input type="hidden" name="editid" value="{{ @$val->id }}">
                                         <td>{{ @$val->id }}</td>
                                         <td>Second</td>
-                                        <!--<td>{{ @$val->employee->first_name }}</td>
-                                        <td class="tdindicator">{{ @$val->employee_comments }}</td>         -->                                 
+										<td>{{ @$val->employee->first_name }}</td>
+                                        <!--
+                                        <td class="tdindicator">{{ @$val->employee_comments }}</td>         --> 
                                         <td>{{ @$val->hr_input}}</td>         
                                         <td>{{ @$val->admin_comments}}</td>
                                         <td>{{ @$val->areas_for_improvement }}</td>
@@ -229,7 +230,7 @@
                                         <td>{{ @$val->id }}</td>
                                         <td>Second</td>
                                         <td>{{ @$val->employee->first_name }}</td>
-                                        <!--<td class="tdindicator">{{ @$val->employee_comments }}</td>         -->                                
+                                        <!--<td class="tdindicator">{{ @$val->employee_comments }}</td>  --> 
                                         <td>{{ @$val->hr_input}}</td>      
                                         <td>{{ @$val->admin_comments}}</td>
                                         <td>{{ @$val->areas_for_improvement }}</td>
@@ -434,7 +435,7 @@
                                                         @endif
 														<!--<td><input type="text" class="form-control" name="employee_comments[]"  @if(Auth::user()->role_id != 3) readonly @endif ></td> -->
 														<td><input type="text" class="form-control" name="hr_input[]" @if(Auth::user()->role_id != 5)readonly @endif></td>
-														<td><textarea type="text" class="form-control" name="admin_comments[]" @if(Auth::user()->role_id != 1)readonly @endif rows="4" cols="50"></textarea></td>
+														<td><textarea type="text" class="form-control" name="admin_comments[]" @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2 || Auth::user()->role_id == 6)editable @else readonly @endif rows="4" cols="50"></textarea></td>
 														<td><input type="text" class="form-control" name="areas_for_improvement[]" @if(Auth::user()->role_id == 3)readonly @endif></td>
 														<td><input type="file" class="form-control" name="fileadd[]" @if(Auth::user()->role_id == 3)readonly @endif></td> 
 														<td></td>
@@ -500,7 +501,7 @@
                                                         @endif
 														<!--<td><input type="text" class="form-control" name="employee_comments[]"  @if(Auth::user()->role_id != 3) readonly @endif ></td> -->
 														<td><input type="text" class="form-control" name="hr_input[]" @if(Auth::user()->role_id != 5)readonly @endif></td>
-														<td><textarea type="text" class="form-control" name="admin_comments[]"  @if(Auth::user()->role_id != 1)readonly @endif rows="4" cols="50"></textarea></td>
+														<td><textarea type="text" class="form-control" name="admin_comments[]"  @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2 || Auth::user()->role_id == 6)editable @else readonly @endif rows="4" cols="50"></textarea></td>
 														<td><input type="text" class="form-control" name="areas_for_improvement[]" @if(Auth::user()->role_id == 3)readonly @endif></td>
                                                         <td><input type="file" class="form-control" name="fileadd[]" @if(Auth::user()->role_id == 3)readonly @endif></td>
 														<input type="hidden" class="form-control" name="getid[]" value="" >
@@ -568,7 +569,7 @@
                                                         @endif
 														<!--<td><input type="text" class="form-control" name="employee_comments[]"  @if(Auth::user()->role_id != 3) readonly @endif ></td>-->
 														<td><input type="text" class="form-control" name="hr_input[]"  @if(Auth::user()->role_id != 5)readonly @endif></td>
-														<td><textarea type="text" class="form-control" name="admin_comments[]" @if(Auth::user()->role_id != 1)readonly @endif rows="4" cols="50"></textarea></td>
+														<td><textarea type="text" class="form-control" name="admin_comments[]" @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2 || Auth::user()->role_id == 6)editable @else readonly @endif rows="4" cols="50"></textarea></td>
                                                         <td><input type="file" class="form-control" name="fileadd[]" @if(Auth::user()->role_id == 3)readonly @endif></td>
 														<td></td>
 													</tr>

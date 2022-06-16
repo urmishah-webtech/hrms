@@ -206,7 +206,7 @@ class AdminLeaveController extends Controller
          $info2 = EmployeeLeave::where('employee_id',Auth::id())->get();
         }else{
         $info2 = EmployeeLeave::get();
-        }
+        }  
         foreach($info2 as $value){
             $color = sprintf("#%06x",rand(0,16777215));
             $date = new DateTime($value->to_date);
@@ -216,10 +216,19 @@ class AdminLeaveController extends Controller
             $result[$count]['title']           = $value->employee->first_name.' '.$value->employee->last_name;
             $result[$count]['start']           = $value->from_date;
             $result[$count]['end']             = $date->format('Y-m-d');
-            if($value->employee->role_id==2){
-            $result[$count]['backgroundColor'] = '#ff9b44';
-            $result[$count]['borderColor']     = '#ff9b44';
+			if($value->status == 1){
+            $result[$count]['backgroundColor'] = '#ffbc34';
+            $result[$count]['borderColor']     = '#ffbc34';
             }
+			if($value->status == 2){
+            $result[$count]['backgroundColor'] = '#28a745';
+            $result[$count]['borderColor']     = '#28a745';
+            }	
+			if($value->status == 3){
+            $result[$count]['backgroundColor'] = '#f62d51';
+            $result[$count]['borderColor']     = '#f62d51';
+            }
+             
           
             $count++;
         }
