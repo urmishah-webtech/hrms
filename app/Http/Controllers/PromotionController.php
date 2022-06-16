@@ -10,6 +10,8 @@ use App\Promotion;
 use Carbon\Carbon;
 use Validator;
 use Illuminate\Http\Request;
+use Auth;
+
 
 class PromotionController extends Controller
 {
