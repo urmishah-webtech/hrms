@@ -686,7 +686,8 @@
 			$personal1 = PersonalExcellence::where('emp_id',$emp_hrcomp)->where('perfomance_date', $url_pdate)->where('complete_perfomance_by_emp',1)->first();  
 			$special1 = SpecialInitiatives::where('emp_id',$emp_hrcomp)->where('perfomance_date', $url_pdate)->where('complete_perfomance_by_emp',1)->first(); 
 			$comment1 = OtherGeneralComment::where('emp_id',$emp_hrcomp)->where('perfomance_date', $url_pdate)->where('complete_perfomance_by_emp',1)->first();  
-			if($key_prof1 && $personal1 && $special1 && $comment1){  ?>
+			$auth_manager = DB::table('employees')->where('id',Auth::id())->whereNotNull('man_id')->first(); 
+			if($key_prof1 && $personal1 && $special1 && $comment1 && $auth_manager){  ?>
 			 $('#comple_stat').removeAttr("disabled");
 			 $('#perfomance_datef').removeAttr("disabled");
 			 $('#hidden_from').removeAttr("disabled");
@@ -698,7 +699,8 @@
 			$personal = PersonalExcellence::where('emp_id',$emp_hrcomp)->where('perfomance_date', $url_pdate)->where('complete_perfomance_by_emp',1)->where('complete_perfomance_by_manager',1)->first();  
 			$special = SpecialInitiatives::where('emp_id',$emp_hrcomp)->where('perfomance_date', $url_pdate)->where('complete_perfomance_by_emp',1)->where('complete_perfomance_by_manager',1)->first();
 			$appraisee = AppraiseeStrength::where('emp_id',$emp_hrcomp)->where('perfomance_date', $url_pdate)->where('complete_perfomance_by_manager',1)->first();
-			$comment = OtherGeneralComment::where('emp_id',$emp_hrcomp)->where('perfomance_date', $url_pdate)->where('complete_perfomance_by_emp',1)->where('complete_perfomance_by_manager',1)->first();  
+			$comment = OtherGeneralComment::where('emp_id',$emp_hrcomp)->where('perfomance_date', $url_pdate)->where('complete_perfomance_by_emp',1)->where('complete_perfomance_by_manager',1)->first(); 
+			  			
 		   if($key_prof && $personal && $special && $comment && $appraisee){  ?>
 			 $('#comple_stat').removeAttr("disabled");
 			 $('#perfomance_datef').removeAttr("disabled");

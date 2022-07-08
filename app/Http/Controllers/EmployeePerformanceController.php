@@ -29,7 +29,7 @@ use App\Events\EmployeePerfomanceStatus;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Mail\Mailable;
- 
+use DB; 
 
 class EmployeePerformanceController extends Controller
 {
@@ -81,7 +81,7 @@ class EmployeePerformanceController extends Controller
 		$manager_user = Employee::where('role_id',2)->orWhere('role_id',6)->orderby('role_id','DESC')->get();
         $prof_excel=KeyprofessionalExcellences::where('emp_id', $id)->where('perfomance_date',$perfomance_date)->first();
 		$per_excel=PersonalExcellence::where('emp_id', $id)->where('perfomance_date',$perfomance_date)->first();   
-		  
+		   
 		return view('/edit-performance',compact('emp_id','professional','emps','personal','specialInitiatives','comments_role','add_comments','add_comments_id','add_appraiseest','add_appraiseest_id','add_personalgoal','add_personalgoal_id','professional_achived','professional_forthcoming','training_requirements','general_comment','perfomancemanageruse','add_perfoIdent','manager_user','prof_excel','add_perfoIdent_man','add_perfoIdent_employ','emp_hrcomp','per_excel','date_professional','date_Personal','date_Special','date_Comment','date_Appraisee','url_pdate','professional_id','personal_id','comment_id','appraisee_id'));
 	}
 	public function add_managerid_EmployeeBasicInfo(Request $request)

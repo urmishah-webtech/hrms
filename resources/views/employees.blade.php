@@ -143,6 +143,19 @@
                                             <input class="form-control" type="text" name="last_name" required>
                                         </div>
                                     </div>
+									 <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Select Manager <span class="text-danger">*</span></label>
+                                            <select class="form-control" name="man_id" id="manager_id" required>
+												<option  >Select Manager</option>
+												@isset($manager)
+                                                    @foreach ($manager as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->first_name }}  {{$item->last_name }}</option> 
+                                                    @endforeach
+                                                @endisset
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class="col-form-label">Username <span class="text-danger">*</span></label>
@@ -339,7 +352,7 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            <label class="col-form-label">Select Manager</label>
+                                            <label class="col-form-label">Select Manager <span class="text-danger">*</span></label>
                                             <select class="form-control" name="man_id" id="manager_id" required>
 												<option  >Select Manager</option>
 												@isset($manager)

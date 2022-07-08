@@ -107,6 +107,7 @@ class EmployeeController extends Controller
         $emp->designation_id=$request->designation_id; 
 		$emp->employee_documents = $fileName;  
         $emp->location_id=$request->location_id;
+		$emp->man_id=$request->man_id;
         $emp->save();
 
         $expl=array();
