@@ -12,10 +12,10 @@
                 <div class="page-header">
                     <div class="row">
                         <div class="col-sm-12">
-                            <h3 class="page-title">Success </h3>
+                            <h3 class="page-title">Employee Performance Submission </h3>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="index">Dashboard</a></li>
-                                <li class="breadcrumb-item active">Success</li>
+                                <li class="breadcrumb-item active">Employee Performance Submission</li>
                             </ul>
                         </div>
                     </div>
@@ -29,8 +29,8 @@
                                         <div class="row">
                                             <div class="col-md-12">
                                                 <div class="" style="text-align:center">
-                                                    <h3 class="user-name m-t-0 mb-0">  Your Performance for this Period has now been Submitted.</h3>  <br>
-                                                    <h6 class="staff-id">We have notified your manager.</h6><br>
+                                                    <h3 class="user-name m-t-0 mb-0">  Your Performance for this Period has now been Submitted.</h3>  
+                                                    <h6 class="staff-id">We have notified your manager.</h6> 
                                                     <small class="staff-id">Please allow some time for their review, and other follow ups.</small> 
                                                 </div>
                                             </div> 
