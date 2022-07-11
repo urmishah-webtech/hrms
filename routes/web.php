@@ -628,6 +628,7 @@ Route::get('profile/{id}','ProfileController@Profile_employees')->name('profile_
 Route::post('add_personal_info','ProfileController@add_profile_personal_informations')->name('add_personal_info');
 Route::post('add_emergency_contact','ProfileController@add_profile_emergency_contact')->name('add_emergency_contact');
 Route::get('/profile-employee-warning/{id}','EmployeeVerbalWarningController@Profile_EmployeeVerbalWarning_list')->name('Edit_Profile_Warning');
+Route::get('success_status','EmployeePerformanceController@success_Perfomance_status')->name('success_status');
 Route::post('employee_document','ProfileController@employee_document')->name('employee_document');
 Route::get('employee_documents_delete/{id}','ProfileController@employee_document_delete')->name('employee_document_delete');
 Route::post('add_Perfomance_status','EmployeePerformanceController@add_Perfomance_status_user')->name('add_Perfomance_status');

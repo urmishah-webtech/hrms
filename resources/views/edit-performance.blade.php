@@ -470,64 +470,7 @@
                     </div>
                 </section>
                   
-                <section class="review-section" id="AppraiseeStrength">
-                    <div class="review-header text-center">
-                        <h3 class="review-title">Appraisee's Strengths and Areas for Improvement perceived by the Manager/Supervisor</h3>
-                        
-                    </div>
-                    <div class="row">  
-                        <div class="col-md-12">
-                            <div class="table-responsive">
-                                <form action="{{ route('edit_man_AppraiseeStrength') }}" method="post" id="Appraisee_validate">
-                                @csrf
-                                <input type="hidden" name="empid" value="@if(isset($emp_id)){{ $emp_id->id}}@endif">								
-								<input type="hidden" name="perfomance_date" value="@if(isset($url_pdate)){{ $url_pdate}}@endif">
-								 <input type="hidden" name="appraisee_id" value="@if(isset($appraisee_id)){{ $appraisee_id}}@endif">
-								<input type="hidden" name="complete_perfomance_by_emp" value="@if(Auth::user()->id == $emps->id) 1 @else 0 @endif">	 
-								<input type="hidden" name="complete_perfomance_by_manager" value="@if(Auth::user()->id != $emps->id) 1 @else 0 @endif">	
-							 
-                                @php $i = 1; @endphp
-                                @foreach($add_appraiseest_id as $val)
-                                <input type="hidden" class="form-control" name="getid_arry[]" value="{{$val->id}}">
-                               <input type="hidden" name="getid" value="@if(isset($add_appraiseest_id)){{ $val->emp_id}}@endif">                                 
-                                @php $i++; @endphp
-                                @endforeach      
-                                <table class="table table-bordered review-table mb-0">
-                                    <thead>
-                                        <tr>
-                                            <th style="width:40px;">#</th>
-                                            <th>Strengths</th>
-                                            <th>Area's for Improvement</th>
-                                        </tr>
-                                    </thead> 
-									 <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td><input type="text" class="form-control" name="strengths[]" value="@if(isset($add_appraiseest[0])){{$add_appraiseest[0]['strengths']}} @endif" required @if(Auth::id() != $emps->id) editable @else readonly @endif></td>
-                                            <td><input type="text" class="form-control" name="areas_improvement[]" value="@if(isset($add_appraiseest[0])){{$add_appraiseest[0]['areas_improvement']}} @endif" required @if(Auth::id() != $emps->id) editable @else readonly @endif></td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td><input type="text" class="form-control" name="strengths[]" value="@if(isset($add_appraiseest[1])){{$add_appraiseest[1]['strengths']}} @endif" @if(Auth::id() != $emps->id) editable @else readonly @endif></td>
-                                            <td><input type="text" class="form-control" name="areas_improvement[]" value="@if(isset($add_appraiseest[1])){{$add_appraiseest[1]['areas_improvement']}} @endif" @if(Auth::id() != $emps->id) editable @else readonly @endif></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td><input type="text" class="form-control" name="strengths[]" value="@if(isset($add_appraiseest[2])){{$add_appraiseest[2]['strengths']}} @endif"  @if(Auth::id() != $emps->id) editable @else readonly @endif></td>
-                                            <td><input type="text" class="form-control" name="areas_improvement[]" value="@if(isset($add_appraiseest[2])){{$add_appraiseest[2]['areas_improvement']}} @endif" @if(Auth::id() != $emps->id) editable @else readonly @endif></td>
-                                        </tr>
-                                    </tbody> 
-                                </table>
-                                <div class="review-header text-center">
-									<button type="submit" name="email_setting_submit" class="btn btn-primary submit-btn">Save &amp; update</button>
-								</div>
-                            </form>
-                            </div>
-                        </div>
-                    </div>
-                </section> 
-                 
-                <section class="review-section" id="GeneralComment">
+				<section class="review-section" id="GeneralComment">
                     <div class="review-header text-center">
                         <h3 class="review-title">Any other general comments, observations, suggestions etc.</h3> 
                     </div>
@@ -582,7 +525,68 @@
                             </div>
                         </div>
                     </div>
-                </section>
+                </section>  
+								  
+                <section class="review-section" id="AppraiseeStrength">
+                    <div class="review-header text-center">
+                        <h3 class="review-title">Appraisee's Strengths and Areas for Improvement perceived by the <span style="color:#FF0000;">Manager/Supervisor</span></h3>
+                        
+                    </div>
+                    <div class="row">  
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <form action="{{ route('edit_man_AppraiseeStrength') }}" method="post" id="Appraisee_validate">
+                                @csrf
+                                <input type="hidden" name="empid" value="@if(isset($emp_id)){{ $emp_id->id}}@endif">								
+								<input type="hidden" name="perfomance_date" value="@if(isset($url_pdate)){{ $url_pdate}}@endif">
+								 <input type="hidden" name="appraisee_id" value="@if(isset($appraisee_id)){{ $appraisee_id}}@endif">
+								<input type="hidden" name="complete_perfomance_by_emp" value="@if(Auth::user()->id == $emps->id) 1 @else 0 @endif">	 
+								<input type="hidden" name="complete_perfomance_by_manager" value="@if(Auth::user()->id != $emps->id) 1 @else 0 @endif">	
+							 
+                                @php $i = 1; @endphp
+                                @foreach($add_appraiseest_id as $val)
+                                <input type="hidden" class="form-control" name="getid_arry[]" value="{{$val->id}}">
+                               <input type="hidden" name="getid" value="@if(isset($add_appraiseest_id)){{ $val->emp_id}}@endif">                                 
+                                @php $i++; @endphp
+                                @endforeach      
+                                <table class="table table-bordered review-table mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:40px;">#</th>
+                                            <th>Strengths</th>
+                                            <th>Area's for Improvement</th>
+                                        </tr>
+                                    </thead> 
+									 <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td><input type="text" class="form-control" name="strengths[]" value="@if(isset($add_appraiseest[0])){{$add_appraiseest[0]['strengths']}} @endif" required @if(Auth::id() != $emps->id) editable @else readonly @endif></td>
+                                            <td><input type="text" class="form-control" name="areas_improvement[]" value="@if(isset($add_appraiseest[0])){{$add_appraiseest[0]['areas_improvement']}} @endif" required @if(Auth::id() != $emps->id) editable @else readonly @endif></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td><input type="text" class="form-control" name="strengths[]" value="@if(isset($add_appraiseest[1])){{$add_appraiseest[1]['strengths']}} @endif" @if(Auth::id() != $emps->id) editable @else readonly @endif></td>
+                                            <td><input type="text" class="form-control" name="areas_improvement[]" value="@if(isset($add_appraiseest[1])){{$add_appraiseest[1]['areas_improvement']}} @endif" @if(Auth::id() != $emps->id) editable @else readonly @endif></td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td><input type="text" class="form-control" name="strengths[]" value="@if(isset($add_appraiseest[2])){{$add_appraiseest[2]['strengths']}} @endif"  @if(Auth::id() != $emps->id) editable @else readonly @endif></td>
+                                            <td><input type="text" class="form-control" name="areas_improvement[]" value="@if(isset($add_appraiseest[2])){{$add_appraiseest[2]['areas_improvement']}} @endif" @if(Auth::id() != $emps->id) editable @else readonly @endif></td>
+                                        </tr>
+                                    </tbody> 
+                                </table>
+								@if(Auth::user()->role_id != 3 && Auth::user()->id != $emps->id)
+                                <div class="review-header text-center">
+									<button type="submit" name="email_setting_submit" class="btn btn-primary submit-btn">Save &amp; update</button>
+								</div>
+								@endif
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+                </section> 
+                 
+                
               
                 <section class="review-section row" id="PerfomanceIdentitie">
                     <div class="col-md-12">

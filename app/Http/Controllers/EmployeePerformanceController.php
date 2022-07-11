@@ -812,8 +812,13 @@ class EmployeePerformanceController extends Controller
         $message='Hi, '. $emp_fname ." ". $emp_lname."'s ". 'Performance Status has been Complete';
         Notification::create(['employeeid' => $email_em->man_id, 'message' => $message]);
         event(new EmployeePerfomanceStatus($message,$email_em->man_id));
-        return back();
+        return redirect('success_status');
     }
+	
+	public function success_Perfomance_status()
+	{
+		return view('success_status');
+	}
 	
 	public function add_Perfomance_status_user_for_employee(Request $request)
     {   

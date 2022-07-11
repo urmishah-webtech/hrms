@@ -416,58 +416,7 @@
                     </div>
                 </section>
                   
-                <section class="review-section" id="AppraiseeStrength">
-                    <div class="review-header text-center">
-                        <h3 class="review-title">Appraisee's Strengths and Areas for Improvement perceived by the Manager/Supervisor</h3> 
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="table-responsive">
-                                <form action="" method="post">
-                                @csrf
-                                @php $i = 1; @endphp
-                                @foreach($add_appraiseest_id as $val)
-                                <input type="hidden" class="form-control" name="getid[]" value="{{$val->id}}">
-                                @php $i++; @endphp
-                                @endforeach 
-								<input type="hidden" name="perfomance_date" id="get_appraiseestrength_date">
-								<input type="hidden" name="empid" value="@if(isset($emps)){{ $emps->id}}@endif">
-                                <table class="table table-bordered review-table mb-0">
-                                    <thead>
-                                        <tr>
-                                            <th style="width:40px;">#</th>
-                                            <th>Strengths</th>
-                                            <th>Area's for Improvement</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td><input type="text" class="form-control" name="strengths[]" value=" " required readonly></td>
-                                            <td><input type="text" class="form-control" name="areas_improvement[]" value=" " required readonly></td>
-                                        </tr>
-                                        <tr>
-                                            <td>2</td>
-                                            <td><input type="text" class="form-control" name="strengths[]" value=" " required readonly></td>
-                                            <td><input type="text" class="form-control" name="areas_improvement[]" value=" " required readonly></td>
-                                        </tr>
-                                        <tr>
-                                            <td>3</td>
-                                            <td><input type="text" class="form-control" name="strengths[]" value=" " required readonly></td>
-                                            <td><input type="text" class="form-control" name="areas_improvement[]" value=" " required readonly></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                                <div class="review-header text-center">
-									<button disabled type="submit" name="email_setting_submit" class="btn btn-primary submit-btn">Save &amp; update</button>
-								</div>
-                            </form>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                 
-                <section class="review-section" id="GeneralComment">
+				<section class="review-section" id="GeneralComment">
                     <div class="review-header text-center">
                         <h3 class="review-title">Any other general comments, observations, suggestions etc.</h3>
                         
@@ -509,6 +458,61 @@
                         </div>
                     </div>
                 </section>
+				  
+                <section class="review-section" id="AppraiseeStrength">
+                    <div class="review-header text-center">
+                        <h3 class="review-title">Appraisee's Strengths and Areas for Improvement perceived by the <span style="color:#FF0000;">Manager/Supervisor</span></h3> 
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="table-responsive">
+                                <form action="" method="post">
+                                @csrf
+                                @php $i = 1; @endphp
+                                @foreach($add_appraiseest_id as $val)
+                                <input type="hidden" class="form-control" name="getid[]" value="{{$val->id}}">
+                                @php $i++; @endphp
+                                @endforeach 
+								<input type="hidden" name="perfomance_date" id="get_appraiseestrength_date">
+								<input type="hidden" name="empid" value="@if(isset($emps)){{ $emps->id}}@endif">
+                                <table class="table table-bordered review-table mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:40px;">#</th>
+                                            <th>Strengths</th>
+                                            <th>Area's for Improvement</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td><input type="text" class="form-control" name="strengths[]" value=" " required readonly></td>
+                                            <td><input type="text" class="form-control" name="areas_improvement[]" value=" " required readonly></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td><input type="text" class="form-control" name="strengths[]" value=" " required readonly></td>
+                                            <td><input type="text" class="form-control" name="areas_improvement[]" value=" " required readonly></td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td><input type="text" class="form-control" name="strengths[]" value=" " required readonly></td>
+                                            <td><input type="text" class="form-control" name="areas_improvement[]" value=" " required readonly></td>
+                                        </tr>
+                                    </tbody>
+                                </table>  
+								@if(Auth::user()->role_id != 3 || Auth::user()->id != $emps->id)
+                                <div class="review-header text-center">
+									<button disabled type="submit" name="email_setting_submit" class="btn btn-primary submit-btn">Save &amp; update</button>
+								</div>
+								@endif
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                 
+                
  
                 <section class="review-section row" id="PerfomanceIdentitie" style="display:none">
                     <div class="col-md-12">
