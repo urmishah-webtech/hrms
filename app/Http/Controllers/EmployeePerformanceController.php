@@ -159,8 +159,8 @@ class EmployeePerformanceController extends Controller
                 $settings->save(); 
              
         }                 
-    
-        return back();
+		  
+        return redirect('/edit-performance/'.$request->empid.'/'.$perfomance_date.'/#professionalexcel');
 	   
     }
     public function add_manager_PersonalExcellence(Request $request)
@@ -217,8 +217,8 @@ class EmployeePerformanceController extends Controller
 				}
                 $settings->save(); 
         }
-		
-        return back();
+		 
+        return redirect('/edit-performance/'.$request->empid.'/'.$request->perfomance_date.'/#PersonalExcellence');
 	   
     }
     public function add_manager_SpecialInitiatives(Request $request)
@@ -266,7 +266,7 @@ class EmployeePerformanceController extends Controller
                 }
             }
         }
-        return back();	   
+        return redirect('/edit-performance/'.$request->empid.'/'.$request->perfomance_date.'/#specialInitiatives');	   
     }
     public function add_manager_CommentsRole(Request $request)
     {
@@ -375,7 +375,7 @@ class EmployeePerformanceController extends Controller
                 }
             }
         }
-        return back();   
+        return redirect('/edit-performance/'.$request->empid.'/'.$request->perfomance_date.'/#AppraiseeStrength'); 
     }
     public function add_manager_PersonalGoal(Request $request)
     {
@@ -554,7 +554,7 @@ class EmployeePerformanceController extends Controller
                 }
             }
         }
-        return back();   
+        return redirect('/edit-performance/'.$request->empid.'/'.$request->perfomance_date.'/#GeneralComment');   
     }
     public function add_manager_PerfomanceManagerUse(Request $request)
     {

@@ -645,8 +645,8 @@
 							<input type="hidden" name="perfomance_date" value="@if(isset($url_pdate)){{ $url_pdate}}@endif" id="perfomance_datef">
                             <input type="hidden" name="empid" value="@if(isset($emp_id)){{ $emp_id->id}}@endif" id="empid_f">
                             <input type="hidden" name="user_id" value="{{Auth::user()->id}}" id="userid_f">                                 
-                                <div class="review-header text-center">
-                                <button type="submit" id="comple_stat" class="btn btn-primary submit-btn" disabled><input type="hidden" name="complete_perfomance_by_hr" value="1" id="perfomance_status">SUBMIT</button>
+                                <div class="review-header text-center" >
+                                <button type="submit" id="comple_stat" class="btn btn-primary submit-btn" disabled style="background: #34444c; border: 1px solid #34444c;"><input type="hidden" name="complete_perfomance_by_hr" value="1" id="perfomance_status"><span style="font-size: 22px;">SUBMIT</span></button>
 								</div>
                             </form>
                         </div>
