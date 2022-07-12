@@ -131,9 +131,9 @@ class EmployeeController extends Controller
         if(Auth::user()->role_id==3 || Auth::user()->role_id==2)
         {
             $validator = Validator::make($request->all(), [
-                'first_name' => 'required',
+                /* 'first_name' => 'required',
                 'last_name' => 'required', 
-                'phone_no' => 'required',
+                'phone_no' => 'required', */
                 'confirm_password'=>'required_with:password|same:password'
             ]); 
         }
