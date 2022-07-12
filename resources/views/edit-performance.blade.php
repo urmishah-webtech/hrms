@@ -86,7 +86,7 @@
 														@endisset
 													</select>										 
 												</div> 
-												<div class="review-header text-center" style="border:none;">
+												<div class="review-header text-center" style="border:none;" id="personal_exce_next">
 												<button type="submit" name="email_setting_submit" class="btn btn-primary submit-btn">Save &amp; update</button>
 												</div>
                                             </td>
@@ -213,7 +213,7 @@
                                         </tr>                                       
                                     </tbody>
                                 </table>	
-								<div class="review-header text-center">
+								<div class="review-header text-center" id="professionalexcel_next">
 									<button type="submit" name="email_setting_submit" class="btn btn-primary submit-btn">Save &amp; update</button>
 								</div>
 								</form>
@@ -400,7 +400,7 @@
                                         </tr>
                                     </tbody>                                    
                                 </table>                           
-                                <div class="review-header text-center">
+                                <div class="review-header text-center" id="personal_Behavioralexce_next">
 									<button type="submit" name="personal" class="btn btn-primary submit-btn">Save &amp; update</button>
 								</div>
                             </form>
@@ -461,7 +461,7 @@
                                         @endif  
                                     </tbody>
                                 </table>
-                                <div class="review-header text-center">
+                                <div class="review-header text-center" id="specialInitiatives_next">
 									<button type="submit" name="email_setting_submit" class="btn btn-primary submit-btn">Save &amp; update</button>
 								</div>
                             </form>    
@@ -518,7 +518,7 @@
                                         @endif 
                                     </tbody>
                                 </table>
-                                <div class="review-header text-center">
+                                <div class="review-header text-center" id="GeneralComment_next">
 									<button type="submit" name="email_setting_submit" class="btn btn-primary submit-btn">Save &amp; update</button>
 								</div>
                             </form> 

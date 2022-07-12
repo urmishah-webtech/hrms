@@ -123,8 +123,9 @@ class MyPerfomanceCycleController extends Controller
                 $settings->perfomance_date=Carbon::createFromFormat('m/d/Y', $request->perfomance_date)->format('Y-m-d');
 				$settings->complete_perfomance_by_emp = 1;   
                 $settings->save(); 
-    
-        return redirect()->route('employees_per', ['id' => $eid, 'perfomance_date' => Carbon::createFromFormat('m/d/Y', $request->perfomance_date)->format('Y-m-d')]);
+				
+		return redirect('/edit-performance/'.$request->empid.'/'.$settings->perfomance_date.'/#professionalexcel_next');
+        //return redirect()->route('employees_per', ['id' => $eid, 'perfomance_date' => Carbon::createFromFormat('m/d/Y', $request->perfomance_date)->format('Y-m-d')]);
 
     }
 	
@@ -158,8 +159,9 @@ class MyPerfomanceCycleController extends Controller
 				$settings->perfomance_date=Carbon::createFromFormat('m/d/Y', $request->perfomance_date)->format('Y-m-d');
 				$settings->complete_perfomance_by_emp = 1; 
                 $settings->save();
-				 
-        return redirect()->route('employees_per', ['id' => $eid, 'perfomance_date' => Carbon::createFromFormat('m/d/Y', $request->perfomance_date)->format('Y-m-d')]);
+			
+		return redirect('/edit-performance/'.$request->empid.'/'.$settings->perfomance_date.'/#personal_Behavioralexce_next');
+        //return redirect()->route('employees_per', ['id' => $eid, 'perfomance_date' => Carbon::createFromFormat('m/d/Y', $request->perfomance_date)->format('Y-m-d')]);
 
     }
 	
@@ -190,7 +192,8 @@ class MyPerfomanceCycleController extends Controller
                 
             }
         }
-        return redirect()->route('employees_per', ['id' => $eid, 'perfomance_date' => Carbon::createFromFormat('m/d/Y', $request->perfomance_date)->format('Y-m-d')]);
+		return redirect('/edit-performance/'.$request->empid.'/'.$scores->perfomance_date.'/#specialInitiatives_next');
+        //return redirect()->route('employees_per', ['id' => $eid, 'perfomance_date' => Carbon::createFromFormat('m/d/Y', $request->perfomance_date)->format('Y-m-d')]);
 
     }
 	
@@ -218,7 +221,8 @@ class MyPerfomanceCycleController extends Controller
  
             }
         }
-        return redirect()->route('employees_per', ['id' => $eid, 'perfomance_date' => Carbon::createFromFormat('m/d/Y', $request->perfomance_date)->format('Y-m-d')]);
+		return redirect('/edit-performance/'.$request->empid.'/'.$scores->perfomance_date.'/#GeneralComment_next');
+        //return redirect()->route('employees_per', ['id' => $eid, 'perfomance_date' => Carbon::createFromFormat('m/d/Y', $request->perfomance_date)->format('Y-m-d')]);
 
     } 
 }

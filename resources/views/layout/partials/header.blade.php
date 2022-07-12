@@ -1,4 +1,4 @@
-<?php
+<?php use App\Notification;
     $theme_setting=DB::table('theme_settings')->first();
     $setting=DB::table('settings')->first();
 ?>
@@ -92,12 +92,13 @@
                 </li> --}}
                 <!-- /Flag -->
             @php
-                $notifications = getnotifications(auth()->user()->id);
+                $notifications =  getnotifications(auth()->user()->id); 
+                $notifications_read =  Notification::where('employeeid', Auth::id())->where('read_at',0)->get(); 
             @endphp
                 <!-- Notifications -->
                 <li class="nav-item dropdown">
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                        <i class="fa fa-bell-o"></i> <span class="badge badge-pill" id="noti-badge">{{count($notifications)}}</span>
+                        <i class="fa fa-bell-o"></i> <span class="badge badge-pill" id="noti-badge"> {{count($notifications_read)}}</span>
                     </a>
                     <div class="dropdown-menu notifications">
                         <div class="topnav-dropdown-header">
@@ -109,14 +110,21 @@
                                 @if (!empty($notifications))
                                     @foreach ($notifications as $item)
                                     <li class="notification-message">
-                                        <a href="activities">
+                                        <a href="/activities">
                                             <div class="media">
                                                 <span class="avatar">
                                                     <img alt="" src="{{ url('/').'/img/profiles/avatar-02.jpg'}}">
                                                 </span>
                                                 <div class="media-body">
-                                                    <p class="noti-details"><span class="noti-title">{{$item->message}}</span> </p>
+													 <form action="{{ route('add_read_notification_status') }}" method="post">
+													 @csrf
+													 <input type="hidden" name="emp_id" value="{{@$item->employeeid}}" >
+													 <input type="hidden" name="read_at" value="1" id="read_at">
+													 <input type="hidden" name="created_at" value="{{@$item->created_at}}" >
+                                                    <p class="noti-details">
+													<span  > <button class="@if($item->read_at == 1) read_noti_title @else noti-title @endif" type="submit">{{$item->message}} </button></span> </p>
                                                     <p class="noti-time"><span class="notification-time">{{date('d-m-Y H:i', strtotime($item->created_at))}}</span></p>
+													</form>
                                                 </div>
                                             </div>
                                         </a>
@@ -139,7 +147,7 @@
                             </ul>
                         </div>
                         <div class="topnav-dropdown-footer">
-                            <a href="activities">View all Notifications</a>
+                            <a href="/activities">View all Notifications</a>
                         </div>
                     </div>
                 </li>
@@ -200,3 +208,7 @@
             <!-- /Mobile Menu -->
             
         </div>
+<style>
+.noti-title{border: none; background: none; text-align: left;}
+.read_noti_title{border: none; background: none; color: #989c9e;text-align: left;}
+</style>

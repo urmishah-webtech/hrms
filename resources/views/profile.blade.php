@@ -101,10 +101,46 @@
                     <!-- Profile Info Tab -->
                     <div id="emp_profile" class="pro-overview tab-pane fade show active">
                         <div class="row">
+							<div class="col-md-12 d-flex">
+                                <div class="card profile-box flex-fill">
+                                    <div class="card-body">
+                                        <h3 class="card-title">Employee Informations  
+											<?php if(Auth::user()->role_id == 1){
+											if(Auth::id() != $emp_id->id){?>
+											 <form action="{{ route('add_approve_status_for_employee') }}" method="post">
+											@csrf
+											<input type="hidden" name="id" value="@if(isset($emp_id)){{ $emp_id->id}}@endif"> 
+											@if($app_status == 0)
+											<button type="submit" class="btn btn-primary submit-btn"><input type="hidden" name="approve_status" value="1" id="approve_status">Approve Request</button>
+											@endif
+											</form>
+											<?php } 
+											}?>
+                                            <a href="#" class="edit-icon edit_personal_info" data-toggle="modal" data-target="#employee_info_modal" data-id="{{@$emp_profile->id}}" data-first_name="{{@$emp_profile->first_name}}" data-last_name="{{@$emp_profile->last_name}}" data-phone_no="{{@$emp_profile->phone_no}}" ><i class="fa fa-pencil"></i></a>
+                                        
+                                        </h3>
+                                        <ul class="personal-info">
+                                            <li>
+                                                <div class="title">Firstname </div>
+                                                <div class="text">{{$emp_profile->first_name}} </div>
+                                            </li>
+                                            <li>
+                                                <div class="title">Lastname </div>
+                                                <div class="text">{{$emp_profile->last_name}}</div>
+                                            </li>
+                                            <li>
+                                                <div class="title">Phone number</div>
+                                                <div class="text"><a href="tel:{{$emp_profile->phone_no}}">{{$emp_profile->phone_no}}</a></div>
+                                            </li> 
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+							
                             <div class="col-md-6 d-flex">
                                 <div class="card profile-box flex-fill">
                                     <div class="card-body">
-                                        <h3 class="card-title">Personal Informations 
+                                        <h3 class="card-title">Personal Informations  
 											<?php if(Auth::user()->role_id == 1){
 											if(Auth::id() != $emp_id->id){?>
 											 <form action="{{ route('add_approve_status_for_employee') }}" method="post">
@@ -322,6 +358,57 @@
             </div>
       
             @include('change_emp_info')
+			
+			<div id="employee_info_modal" class="modal custom-modal fade" role="dialog">
+                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Employee Information</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{ route('update_employee') }}" method="post">
+							@csrf
+								 <input type="hidden" name="id" value="@if(isset($emp_profile)){{$emp_profile->id}}@endif" id="id">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Firstname</label>
+                                            <input type="text" class="form-control" name="first_name" id="first_name" value="{{$emp_profile->first_name}}"  @if($app_status == 1)editable @else readonly @endif>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Lastname</label> 
+											<input name="last_name" class="form-control" id="last_name" type="text" value="{{$emp_profile->last_name}}" @if($app_status == 1)editable @else readonly @endif> 
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label>Phone number</label>
+                                            <input name="phone_no" class="form-control" type="number" id="phone_no" @if($app_status == 1)editable @else readonly @endif value="{{$emp_profile->phone_no}}">
+                                        </div>
+                                    </div> 
+                                </div>
+                                <div class="submit-section">
+                                    <button class="btn btn-primary submit-btn" @if($app_status == 1)editable @else disabled @endif>Submit</button>
+                                </div>
+                            </form>  
+							<?php if(Auth::user()->role_id == 3 && $app_status == 0){?>
+							<form action="{{ route('send-mail-adminapp') }}" method="post">
+                            @csrf
+								<div class="submit-section">
+                                    <button class="btn btn-primary submit-btn">Request for Changes</button>
+                                </div>
+							</form>
+							<?php } ?>
+                        </div>
+                    </div>
+                </div>
+            </div>
+			
             <!-- Personal Info Modal -->
             <div id="personal_info_modal" class="modal custom-modal fade" role="dialog">
                 <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
@@ -379,7 +466,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
+                                    <!--<div class="col-md-6">
                                         <div class="form-group">
                                             <label>Employment of spouse</label>
                                             <input class="form-control" type="text" name="employment_of_spouse" id="employment_of_spouse" @if($app_status == 1)editable @else readonly @endif>
@@ -390,7 +477,7 @@
                                             <label>No. of children </label>
                                             <input class="form-control" type="number" name="No_of_children" id="No_of_children" @if($app_status == 1)editable @else readonly @endif>
                                         </div>
-                                    </div>
+                                    </div>-->
                                 </div>
                                 <div class="submit-section">
                                     <button class="btn btn-primary submit-btn" @if($app_status == 1)editable @else disabled @endif>Submit</button>

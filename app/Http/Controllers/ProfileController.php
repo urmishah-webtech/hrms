@@ -156,12 +156,13 @@ class ProfileController extends Controller
 	 public function send_mail_adminapprove(Request $request)
     {
 		$emp_id = Auth::user()->id;
+		$admin_email = Employee::where('role_id',1)->pluck('email')->first();  
 		$details = [
 			'title' => 'Personal Informations Changes Request',
 			'body' => 'Please Allow Admin to Change Employee Personal Informations',
 			'emp_id' => $emp_id
 		];
-		Mail::to('mithilchauhan@gmail.com')->send(new \App\Mail\AdminApprove($details));
+		Mail::to($admin_email)->send(new \App\Mail\AdminApprove($details));
 		return back();
 	}
 	public function add_approve_status_for_employee(Request $request)

@@ -160,7 +160,7 @@ class EmployeePerformanceController extends Controller
              
         }                 
 		  
-        return redirect('/edit-performance/'.$request->empid.'/'.$perfomance_date.'/#professionalexcel');
+        return redirect('/edit-performance/'.$request->empid.'/'.$perfomance_date.'/#professionalexcel_next');
 	   
     }
     public function add_manager_PersonalExcellence(Request $request)
@@ -218,7 +218,7 @@ class EmployeePerformanceController extends Controller
                 $settings->save(); 
         }
 		 
-        return redirect('/edit-performance/'.$request->empid.'/'.$request->perfomance_date.'/#PersonalExcellence');
+        return redirect('/edit-performance/'.$request->empid.'/'.$request->perfomance_date.'/#personal_Behavioralexce_next');
 	   
     }
     public function add_manager_SpecialInitiatives(Request $request)
@@ -266,7 +266,7 @@ class EmployeePerformanceController extends Controller
                 }
             }
         }
-        return redirect('/edit-performance/'.$request->empid.'/'.$request->perfomance_date.'/#specialInitiatives');	   
+        return redirect('/edit-performance/'.$request->empid.'/'.$request->perfomance_date.'/#specialInitiatives_next');	   
     }
     public function add_manager_CommentsRole(Request $request)
     {
@@ -554,7 +554,7 @@ class EmployeePerformanceController extends Controller
                 }
             }
         }
-        return redirect('/edit-performance/'.$request->empid.'/'.$request->perfomance_date.'/#GeneralComment');   
+        return redirect('/edit-performance/'.$request->empid.'/'.$request->perfomance_date.'/#GeneralComment_next');   
     }
     public function add_manager_PerfomanceManagerUse(Request $request)
     {

@@ -366,7 +366,7 @@
                                         </tr>
                                     </tbody>                                    
                                 </table>                            
-                                <div class="review-header text-center">
+                                <div class="review-header text-center" id="personal_Behavioralexce_next">
 									<button type="submit" name="personal" class="btn btn-primary submit-btn add_perfo_btn">Save &amp; update</button>
 								</div>
                             </form>
@@ -407,7 +407,7 @@
                                         @php $i++; @endphp 
                                     </tbody>
                                 </table>
-                                <div class="review-header text-center">
+                                <div class="review-header text-center" id="specialInitiatives_next">
 									<button type="submit" name="email_setting_submit" class="btn btn-primary submit-btn add_perfo_btn">Save &amp; update</button>
 								</div>
                             </form>    
@@ -450,7 +450,7 @@
 										
                                     </tbody>
                                 </table>
-                                <div class="review-header text-center">
+                                <div class="review-header text-center" id="GeneralComment_next">
 									<button type="submit" name="email_setting_submit" class="btn btn-primary submit-btn add_perfo_btn">Save &amp; update</button>
 								</div>
                             </form> 

@@ -11,33 +11,11 @@
                 <form action="{{ route('update_employee') }}" method="post">
                 @csrf
                     <input type="hidden" name="id" value="@if(isset($emp_profile)){{$emp_profile->id}}@endif" id="id">
+                     
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label>Firstname <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" value="{{$emp_profile->first_name}}" name="first_name">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Lastname <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" value="{{$emp_profile->last_name}}" name="last_name">
-                            </div>
-                        </div>
-                      
-                    </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label>Phone number <span class="text-danger">*</span></label>
-                                <input type="number" class="form-control" value="{{$emp_profile->phone_no}}" name="phone_no">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>password<span class="text-danger">*</span></label>
+                                <label>Password<span class="text-danger">*</span></label>
                                 <input class="form-control" value="" type="password" autocomplete="off" name="password" placeholder="*****">
                             </div>
                         </div>
