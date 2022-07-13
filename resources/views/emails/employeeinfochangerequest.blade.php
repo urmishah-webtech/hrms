@@ -11,7 +11,7 @@
     
 	<h4>Current Profile Data</h4><br>
 	First Name : <?php echo $details['old_first_name']; ?>  <br>
-	Last Name : <?php echo $details['old_first_name']; ?><br>
+	Last Name : <?php echo $details['old_last_name']; ?><br>
 	Phone Number : <?php echo $details['old_phone_no']; ?><br><br>
 	
 	<h4>Requested to change profile data to : </h4><br>
