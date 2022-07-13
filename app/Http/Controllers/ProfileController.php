@@ -13,6 +13,7 @@ use App\ProfileEmergencyContact;
 use App\TerminationType;
 use App\Promotion;
 use App\Termination;
+use App\ChangeEmpinformationtion;
 use Auth;
 use Illuminate\Support\Carbon;
 use Validator;
@@ -37,8 +38,10 @@ class ProfileController extends Controller
 		$third_war = EmployeeThirdVerbalWarning::where('emp_id',$userd)->first();
 		$documents = EmployeeDocument::where('employee_id',$id)->get();
 		$emp_id = Employee::where('id',$id)->first();	
+		$change_emp = ChangeEmpinformationtion::where('emp_id',$id)->where('approve_status',1)->first();	 
 		$app_status = ProfilePersonalInformations::where('emp_id',$userd)->where('approve_status',1)->pluck('approve_status')->first();  
-        return view('profile',compact('emp_profile','documents','per_info','contact', 'promotiondata', 'id','userd', 'terminate_emp','first_war','second_war','third_war','emp_id','app_status'));
+		$emp_approve_status = ChangeEmpinformationtion::where('emp_id',$userd)->where('approve_status',1)->pluck('approve_status')->first();   
+        return view('profile',compact('emp_profile','documents','per_info','contact', 'promotiondata', 'id','userd', 'terminate_emp','first_war','second_war','third_war','emp_id','app_status','change_emp','emp_approve_status'));
     }
 	 
 	public function add_profile_personal_informations(Request $request){
@@ -153,16 +156,58 @@ class ProfileController extends Controller
 			return Redirect::back()->with("error","Error while Deleting");
 		}
 	}
-	 public function send_mail_adminapprove(Request $request)
+	
+	 public function send_mail_personalinfo_adminapprove(Request $request)
     {
+		  
 		$emp_id = Auth::user()->id;
 		$admin_email = Employee::where('role_id',1)->pluck('email')->first();  
+		$hr_email = Employee::where('role_id',5)->pluck('email')->first();  
 		$details = [
 			'title' => 'Personal Informations Changes Request',
 			'body' => 'Please Allow Admin to Change Employee Personal Informations',
 			'emp_id' => $emp_id
 		];
 		Mail::to($admin_email)->send(new \App\Mail\AdminApprove($details));
+		Mail::to($hr_email)->send(new \App\Mail\AdminApprove($details)); 
+		 
+		return back();
+	}
+	
+	 public function send_mail_adminapprove(Request $request)
+    {
+		 
+		$first_name = $request->first_name;
+		$old_first_name = $request->old_first_name;
+		$last_name = $request->last_name;
+		$old_last_name = $request->old_last_name;
+		$phone_no = $request->phone_no;
+		$old_phone_no = $request->old_phone_no;
+		$emp_id = Auth::user()->id;
+		$admin_email = Employee::where('role_id',1)->pluck('email')->first();  
+		$hr_email = Employee::where('role_id',5)->pluck('email')->first();  
+		$details = [
+			'title' => 'Personal Informations Changes Request',
+			'body' => 'The following employee has requested for change',
+			'emp_id' => $emp_id,
+			'first_name' => $first_name,
+			'old_first_name' => $old_first_name,
+			'last_name' => $last_name,
+			'old_last_name' => $old_last_name,
+			'phone_no' => $phone_no,
+			'old_phone_no' => $old_phone_no
+		];
+		Mail::to($admin_email)->send(new \App\Mail\EmpinfoChangeRequest($details));
+		Mail::to($hr_email)->send(new \App\Mail\EmpinfoChangeRequest($details)); 
+		
+		$emp=new ChangeEmpinformationtion();  
+		$emp->emp_id = $request->id;
+        $emp->first_name=is_null($request->first_name)?$emp->first_name:$request->first_name;  
+        $emp->last_name=is_null($request->last_name)?$emp->last_name:$request->last_name;
+		$emp->phone_no=$request->phone_no;
+		$emp->approve_status=1;
+		$emp->save();
+		 
 		return back();
 	}
 	public function add_approve_status_for_employee(Request $request)
@@ -170,6 +215,20 @@ class ProfileController extends Controller
         $userd = Auth::user()->id;  
         $status=ProfilePersonalInformations::where('emp_id',$request->id)->first();             
         $status->approve_status=$request->approve_status; 
+        $status->save(); 
+        return back();
+    }
+	public function change_emp_info_approve_status(Request $request)
+    {    
+        $userd = Auth::user()->id;  
+		$emp=Employee::where('id',$request->id)->first();
+        $emp->first_name=is_null($request->first_name)?$emp->first_name:$request->first_name;  
+        $emp->last_name=is_null($request->last_name)?$emp->last_name:$request->last_name;
+		$emp->phone_no=$request->phone_no;
+		$emp->save();
+		
+        $status=ChangeEmpinformationtion::where('emp_id',$request->id)->where('approve_status',1)->first(); 
+        $status->approve_status=0; 
         $status->save(); 
         return back();
     }

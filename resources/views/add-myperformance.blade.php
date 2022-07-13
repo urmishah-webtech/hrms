@@ -630,6 +630,28 @@
 		<style>
 		.cal-icon:after{top: 38px;}
 		#select_date_error{color:red}
+		div#ui-datepicker-div {
+    width: 270px;
+    background: #eee;
+}
+table.ui-datepicker-calendar {
+    width: 100%;
+}
+.ui-datepicker-next.ui-corner-all {order: 3;}
+
+.ui-datepicker-title {
+    text-align: center;
+}
+.ui-datepicker-header.ui-widget-header.ui-helper-clearfix.ui-corner-all {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 5px;
+    background: #c7c7c7;
+    padding: 5px 10px;
+}
+table.ui-datepicker-calendar td,table.ui-datepicker-calendar th {
+    padding: 3px 10px;
+}
 		</style>
 @endsection
  

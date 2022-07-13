@@ -6,8 +6,8 @@
 <body>
     <h1>{{ $details['title'] }}</h1>
     <p>{{ $details['body'] }}</p>
-   <?php $link_id = $details['emp_id']; ?>
-    <a href="<?php echo url('/profile/'.$link_id)?>">Approve Request for link</a>
+   <?php $link_id = $details['emp_id']; ?> 
+	<a href="<?php echo url('/profile/'.$link_id)?>">Approve Request for link</a><br>
     <p>Thank you</p>
 </body>
 </html>

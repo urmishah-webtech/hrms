@@ -107,11 +107,14 @@
                                         <h3 class="card-title">Employee Informations  
 											<?php if(Auth::user()->role_id == 1){
 											if(Auth::id() != $emp_id->id){?>
-											 <form action="{{ route('add_approve_status_for_employee') }}" method="post">
+											 <form action="{{ route('change_emp_info_approve_status') }}" method="post">
 											@csrf
 											<input type="hidden" name="id" value="@if(isset($emp_id)){{ $emp_id->id}}@endif"> 
-											@if($app_status == 0)
-											<button type="submit" class="btn btn-primary submit-btn"><input type="hidden" name="approve_status" value="1" id="approve_status">Approve Request</button>
+											<input type="hidden" name="first_name" value="{{@$change_emp->first_name}}" id="first_name_approve"> 
+											<input type="hidden" name="last_name" value="{{@$change_emp->last_name}}" id="last_name_approve"> 
+											<input type="hidden" name="phone_no" value="{{@$change_emp->phone_no}}" id="phone_no_approve"> 
+											@if($emp_approve_status == 1)
+											<button type="submit" class="btn btn-primary submit-btn"> Approve Request</button>
 											@endif
 											</form>
 											<?php } 
@@ -369,41 +372,43 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form action="{{ route('update_employee') }}" method="post">
+                            <form action="{{ route('send-mail-adminapp') }}" method="post">
 							@csrf
 								 <input type="hidden" name="id" value="@if(isset($emp_profile)){{$emp_profile->id}}@endif" id="id">
+								 <input type="hidden" name="approve_status" value="1">
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            <label>Firstname</label>
-                                            <input type="text" class="form-control" name="first_name" id="first_name" value="{{$emp_profile->first_name}}"  @if($app_status == 1)editable @else readonly @endif>
+                                            <label>Firstname </label>
+                                            <input type="text" class="form-control" name="first_name" id="first_name_change" value="" >
+											<input type="hidden" class="form-control" name="old_first_name" value="{{$emp_profile->first_name}}">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Lastname</label> 
-											<input name="last_name" class="form-control" id="last_name" type="text" value="{{$emp_profile->last_name}}" @if($app_status == 1)editable @else readonly @endif> 
+											<input name="last_name" class="form-control" id="last_name" type="text" value=""> 
+											<input type="hidden" class="form-control" name="old_last_name" value="{{$emp_profile->last_name}}">
                                         </div>
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Phone number</label>
-                                            <input name="phone_no" class="form-control" type="number" id="phone_no" @if($app_status == 1)editable @else readonly @endif value="{{$emp_profile->phone_no}}">
+                                            <input name="phone_no" class="form-control" type="number" id="phone_no" value="">
+											<input type="hidden" class="form-control" name="old_phone_no" value="{{$emp_profile->phone_no}}">
                                         </div>
                                     </div> 
                                 </div>
-                                <div class="submit-section">
-                                    <button class="btn btn-primary submit-btn" @if($app_status == 1)editable @else disabled @endif>Submit</button>
-                                </div>
-                            </form>  
-							<?php if(Auth::user()->role_id == 3 && $app_status == 0){?>
-							<form action="{{ route('send-mail-adminapp') }}" method="post">
-                            @csrf
+                                <!--<div class="submit-section">
+                                    <button class="btn btn-primary submit-btn" 	@if($app_status == 1)editable @else disabled @endif>Submit</button>
+                                </div>-->
+                            
+							 
 								<div class="submit-section">
-                                    <button class="btn btn-primary submit-btn">Request for Changes</button>
+                                    <button class="btn btn-primary submit-btn" id="emp_request_change" >Request for Changes</button>
                                 </div>
 							</form>
-							<?php } ?>
+							 
                         </div>
                     </div>
                 </div>
@@ -484,7 +489,7 @@
                                 </div>
                             </form>  
 							<?php if(Auth::user()->role_id == 3 && $app_status == 0){?>
-							<form action="{{ route('send-mail-adminapp') }}" method="post">
+							<form action="{{ route('send_mail_personalinfo_adminapprove') }}" method="post">
                             @csrf
 								<div class="submit-section">
                                     <button class="btn btn-primary submit-btn">Request for Changes</button>
@@ -818,4 +823,14 @@
             @endif
         </div>
         <!-- /Page Wrapper -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+		<script>
+		 jQuery(document).ready(function(){
+			 
+			// var firstname = jQuery('#first_name_change').val(); alert(firstname);
+			// jQuery('#first_name_approve').val(firstname);
+			 
+			 
+		 });
+		</script>
 @endsection

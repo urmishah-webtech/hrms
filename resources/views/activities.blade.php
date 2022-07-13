@@ -34,7 +34,8 @@
                                         </div>
                                         <div class="activity-content">
                                             <div class="timeline-content">
-                                                <a href="profile" class="name"></a> {{$note->message}}
+                                                <a href="profile" class="name"></a>
+												<span class="@if($note->read_at == 1)  read_noti_title  @else noti-title @endif"> {{$note->message}}</span>
                                             <?php $note_time = date('Y-m-d', strtotime($note->created_at)); ?>
                                                 <span class="time">@if ($note_time == date('Y-m-d'))
                                                     {{date('H:i', strtotime($note->created_at))}}

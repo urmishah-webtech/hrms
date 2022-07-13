@@ -661,9 +661,10 @@ Route::get('/Edit_Sick_remaining_leave_type','EmployeeLeaveController@Edit_Sick_
 
 
 //// Admin Approve Mail
+Route::post('/send_mail_personalinfo_adminapprove','ProfileController@send_mail_personalinfo_adminapprove')->name('send_mail_personalinfo_adminapprove');
 Route::post('/send-mail-adminapp','ProfileController@send_mail_adminapprove')->name('send-mail-adminapp');
 Route::post('/add_approve_status_for_employee','ProfileController@add_approve_status_for_employee')->name('add_approve_status_for_employee');
-
+Route::post('/change_emp_info_approve_status','ProfileController@change_emp_info_approve_status')->name('change_emp_info_approve_status');
 
 Route::get('/resetpassword', 'PasswordResetController@forgotpassword')->name('resetpassword');
 Route::post('/resetpassword', 'PasswordResetController@sendmail');
