@@ -214,7 +214,7 @@ class ProfileController extends Controller
     {    
         $userd = Auth::user()->id;  
         $status=ProfilePersonalInformations::where('emp_id',$request->id)->first();             
-        $status->approve_status=$request->approve_status; 
+        $status->approve_status=1; 
         $status->save(); 
         return back();
     }

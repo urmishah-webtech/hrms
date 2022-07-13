@@ -150,7 +150,7 @@
 											@csrf
 											<input type="hidden" name="id" value="@if(isset($emp_id)){{ $emp_id->id}}@endif"> 
 											@if($app_status == 0)
-											<button type="submit" class="btn btn-primary submit-btn"><input type="hidden" name="approve_status" value="1" id="approve_status">Approve Request</button>
+											<button type="submit" class="btn btn-primary submit-btn"><input type="hidden" name="approve_status" id="approve_status">Approve Request</button>
 											@endif
 											</form>
 											<?php } 
