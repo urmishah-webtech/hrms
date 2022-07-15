@@ -119,7 +119,7 @@ class TerminationController extends Controller
     	return view('termination')->with(['terminations'=>$terminations, 'types' => $types, 'employees' => $employees, 'resignation' => $resignation, 'user' => $user]);
 	}
     public function save(Request $request)
-    {
+    {	
     	$validated = $request->validate($this->terminationRules);
     	$validated['terminated_by'] = Auth::id();
 
@@ -198,5 +198,11 @@ class TerminationController extends Controller
         session()->put('resignation_id', $resignation_id);
 
         return redirect()->to(route('termination'));
+    }
+	 public function change_termination_status($type,$id){
+        $data=Termination::where('id',$id)->first();
+        $data->status=$type; 
+        $data->save(); 
+        return back();
     }
 }

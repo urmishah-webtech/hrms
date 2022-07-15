@@ -897,4 +897,19 @@ class EmployeePerformanceController extends Controller
         return back();
     }
 	
+	public function performance_dashboard(){
+		$manger_emp = DB::table('employees')->leftJoin('keyprofessional_excellences as ke','employees.id','ke.emp_id')->
+        leftJoin('new_personal_behavioral_excellence as be','employees.id','be.emp_id')->
+        leftJoin('special_initiatives as si','employees.id','si.emp_id')->
+        leftJoin('appraisee_strengths as as','employees.id','as.emp_id')->
+        leftJoin('other_general_comments as gc','employees.id','gc.emp_id')
+        ->where('ke.complete_perfomance_by_manager',1)->where('be.complete_perfomance_by_manager',1)->
+        where('si.complete_perfomance_by_manager',1)->where('gc.complete_perfomance_by_manager',1)
+        ->where('ke.complete_perfomance_by_hr','!=',1)->where('be.complete_perfomance_by_hr','!=',1)->
+        where('si.complete_perfomance_by_hr','!=',1)->where('gc.complete_perfomance_by_hr','!=',1)->
+        select('employees.id','employees.first_name','employees.last_name','ke.perfomance_date')->groupBy('ke.perfomance_date','employees.last_name','employees.first_name')->
+        get();
+		
+		return view('performance-dashboard',compact('manger_emp'));
+	}
 }

@@ -104,6 +104,7 @@ Route::post('search_leave_employees','AdminLeaveController@search_leave_employee
 Route::post('/add_manager_comment','AdminLeaveController@add_manager_comment')->name('add_manager_comment');
 //leave routes end
 
+Route::get('/change_termination_status/{type}/{id}','TerminationController@change_termination_status')->name('change_termination_status');
 
 Route::get('/holidays', 'HolidayController@list')->name('holidays');
 Route::post('save-holiday','HolidayController@save')->name('holiday.save');
@@ -226,7 +227,7 @@ Route::post('/update-termination', 'TerminationController@update')->name('termin
 Route::get('/delete-termination/{id?}', 'TerminationController@delete')->name('termination.delete');
 Route::get('/open-termination-create-form/{id?}', 'TerminationController@openCreateForm')->name('termination.openCreateForm');
 
-
+Route::get('/performance-dashboard', 'EmployeePerformanceController@performance_dashboard')->name('performance_dashboard');
 
 
 // Route::get('/resignation', function () {

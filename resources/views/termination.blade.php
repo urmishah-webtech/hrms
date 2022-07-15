@@ -16,7 +16,7 @@
                                 <li class="breadcrumb-item active">Termination</li>
                             </ul>
                         </div>
-                        @if(!empty($user) && ($user->role_id == 1 || $user->role_id == 5 ) )
+                        @if(!empty($user) && ($user->role_id == 1 || $user->role_id == 5 || $user->role_id == 2 || $user->role_id == 6) )
                         <div class="col-auto float-right ml-auto">
                             <a href="#" class="btn add-btn" data-toggle="modal" data-target="#add_termination"><i class="fa fa-plus"></i> Add Termination</a>
                         </div>
@@ -31,13 +31,14 @@
                             <table class="table table-striped custom-table mb-0 datatable">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
+                                        <!--<th>#</th>-->
                                         <th>Terminated Employee </th>
-                                        <th>Department</th>
-                                        <th>Termination Type </th>
+                                        <!--<th>Department</th>
+                                        <th>Termination Type </th>-->
                                         <th>Termination Date </th>
                                         <th>Reason</th>
-                                        <th>Notice Date </th>
+                                        <th>Status</th>
+                                        <!--<th>Notice Date </th>-->
                                         <th class="text-right">Action</th>
                                     </tr>
                                 </thead>
@@ -46,23 +47,40 @@
                                     @if($terminations)
                                     @foreach($terminations as $termination)
                                     <tr>
-                                        <td>{{$termination->id}}</td>
+                                        <!--<td>{{$termination->id}}</td>-->
                                         <td>
                                             <h2 class="table-avatar blue-link">
                                                 <a href="profile/{{$termination->employee_id}}" class="avatar"><img alt="" src="img/profiles/avatar-02.jpg"></a>
                                                 <a href="profile/{{$termination->employee_id}}">{{@$termination->employee->first_name}} {{@$termination->employee->last_name}}</a>
                                             </h2>
                                         </td>
-                                        <td>@if(isset($termination->employee->department->name))
+                                       <!-- <td>@if(isset($termination->employee->department->name))
                                             {{$termination->employee->department->name}}
                                             @else
                                             -
                                             @endif
                                         </td>
-                                        <td>{{$termination->type}}</td>
+                                        <td>{{$termination->type}}</td>-->
                                         <td>{{date('d M Y', strtotime($termination->termination_date))}}</td>
                                         <td>{{$termination->reason}}</td>
-                                        <td>{{date('d M Y', strtotime($termination->notice_date))}}</td>
+                                        <td><div class="dropdown action-label">
+											@if(@$termination->status==0)
+											<a class="btn btn-white btn-sm btn-rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
+												<i class="fa fa-dot-circle-o text-danger"></i> Rejected
+											</a>
+											@else
+											<a class="btn btn-white btn-sm btn-rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
+												<i class="fa fa-dot-circle-o text-success"></i> Approve
+											</a>
+											@endif    
+											@if(!empty($user) && ($user->role_id == 1 || $user->role_id == 5))
+											 <div class="dropdown-menu dropdown-menu-right">
+												<a class="dropdown-item" href="{{ url('change_termination_status').'/1'.'/'.@$termination->id }}"><i class="fa fa-dot-circle-o text-success"></i> Approve</a>
+												<a class="dropdown-item" href="{{ url('change_termination_status').'/0'.'/'.@$termination->id }}"><i class="fa fa-dot-circle-o text-danger"></i> Rejected</a> 
+											 </div>
+											 @endif
+											 </td>
+                                        <!--<td>{{date('d M Y', strtotime($termination->notice_date))}}</td>-->
                                         <td class="text-right">
                                             <div class="dropdown dropdown-action">
                                                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>

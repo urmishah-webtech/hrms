@@ -10,10 +10,10 @@
                 <div class="page-header">
                     <div class="row align-items-center">
                         <div class="col">
-                            <h3 class="page-title">My Performance</h3>
+                            <h3 class="page-title">My Performance Review</h3>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="index">Dashboard</a></li>
-                                <li class="breadcrumb-item active">Employee Performance</li>
+                                <li class="breadcrumb-item active">My Performance Review</li>
                             </ul>
                         </div>  
 						@if(Auth::user()->id == $urlid) 

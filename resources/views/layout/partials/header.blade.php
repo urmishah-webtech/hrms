@@ -154,7 +154,7 @@
                 <!-- /Notifications -->
                 
                 <!-- Message Notifications -->
-                <li class="nav-item dropdown">
+               <!-- <li class="nav-item dropdown">
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                         <i class="fa fa-comment-o"></i> <span class="badge badge-pill">8</span>
                     </a>
@@ -172,7 +172,7 @@
                             <a href="chat">View all Messages</a>
                         </div>
                     </div>
-                </li>
+                </li>-->
                 <!-- /Message Notifications -->
                 <?php
                 $id=Auth::id();

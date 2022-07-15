@@ -22,7 +22,7 @@
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                 <div class="card dash-widget">
                     <div class="card-body">
-                        <span class="dash-widget-icon"><i class="fa fa-cubes"></i></span>
+                        <a href="/employees-performance"><span class="dash-widget-icon"><i class="fa fa-cubes"></i></span></a>
                         <div class="dash-widget-info">
                             <h3>{{@$per_status_complete}}</h3>
                             <span>Performance Complete</span>
@@ -33,7 +33,7 @@
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                 <div class="card dash-widget">
                     <div class="card-body">
-                        <span class="dash-widget-icon"><i class="fa fa-usd"></i></span>
+                        <a href="/employees-performance"><span class="dash-widget-icon"><i class="fa fa-usd"></i></span></a>
                         <div class="dash-widget-info">
                             <h3>{{@$per_status_incomp}}</h3>
                             <span>Performance Incomplete</span>
@@ -45,7 +45,7 @@
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                 <div class="card dash-widget">
                     <div class="card-body">
-                        <span class="dash-widget-icon"><i class="fa fa-diamond"></i></span>
+                        <a href="/employees"><span class="dash-widget-icon"><i class="fa fa-diamond"></i></span></a>
                         <div class="dash-widget-info">
                             <h3>{{@$man_total}}</h3>
                             <span>Managers</span>
@@ -57,7 +57,7 @@
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                 <div class="card dash-widget">
                     <div class="card-body">
-                        <span class="dash-widget-icon"><i class="fa fa-diamond"></i></span>
+                         <a href="/termination"><span class="dash-widget-icon"><i class="fa fa-diamond"></i></span></a>
                         <div class="dash-widget-info">
                             <h3>{{@$terminated_emp_under_me}}</h3>
                             <span>Terminated Employees</span>
@@ -69,7 +69,7 @@
             <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
                 <div class="card dash-widget">
                     <div class="card-body">
-                        <span class="dash-widget-icon"><i class="fa fa-user"></i></span>
+                        <a href="/employees"><span class="dash-widget-icon"><i class="fa fa-user"></i></span></a>
                         <div class="dash-widget-info">
                             <h3>{{@$emp_total}}</h3>
                             <span>Employees</span>
@@ -521,7 +521,7 @@
 			<div class="col-md-6 d-flex">
                 <div class="card card-table flex-fill">
                     <div class="card-header">
-                        <h3 class="card-title mb-0">Employess To Be Reviewed </h3>
+                        <h3 class="card-title mb-0">Employes To Be Reviewed </h3>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -534,7 +534,7 @@
                                         <th>Performance Date</th> 
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody>  
                                     @isset($manger_emp)
                                     @foreach ($manger_emp as $item)
                                     <tr>

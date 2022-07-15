@@ -54,9 +54,9 @@
 					<li class="submenu">
 						<a href="#"><i class="la la-graduation-cap"></i> <span> Performance </span> <span class="menu-arrow"></span></a>
 						<ul style="display: none;">
-							<li>
+							<!--<li>
 								<a class="{{ Request::is('performance-indicator') ? 'active' : '' }}" href="{{ url('performance-indicator') }}"> Performance Indicator  </a>
-							</li>
+							</li>-->	
 							<!-- @if (Auth::user()->role_id == 3)	
 							<li>
 								<a class="{{ Request::is('performance') ? 'active' : '' }}" href="{{ url('performance') }}"> Performance Review  </a>
@@ -67,9 +67,14 @@
 								<a class="{{ Request::is('employees-performance') ? 'active' : '' }}" href="{{ url('employees-performance') }}"> Employee Performance </a>
 							</li>
 							@endif	
+							@if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2 || Auth::user()->role_id == 5 || Auth::user()->role_id == 6)
+							<li>
+								<a class="{{ Request::is('performance-dashboard') ? 'active' : '' }}" href="{{ url('performance-dashboard') }}"> Performance Dashboard  </a>
+							</li>
+							@endif	
 							@if (Auth::user()->role_id == 2 || Auth::user()->role_id == 3 || Auth::user()->role_id == 4 || Auth::user()->role_id == 5 || Auth::user()->role_id == 6)
 							<li>
-								<a class="{{ Request::is('my-performance') ? 'active' : '' }}" href="{{ route('my-performance', auth()->user()->id) }}">Performance Review</a>
+								<a class="{{ Request::is('my-performance') ? 'active' : '' }}" href="{{ route('my-performance', auth()->user()->id) }}">My Performance Review</a>
 							</li>
 							@endif							
 							<!--<li>
