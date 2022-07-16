@@ -72,7 +72,11 @@
                         
                             <div class="col-md-4 col-sm-6 col-12 col-lg-4 col-xl-3">
                                 <div class="profile-widget">
+									@if($val->perfomance_status == 1)
+										<span class="status online" style="float: left;"></span>
+										@endif
                                     <div class="profile-img">
+										
                                         <a href="my-performance/{{$val->id}}" class="avatar"><img src="img/profiles/avatar-02.jpg" alt=""></a>
                                     </div>
                                     <div class="dropdown profile-action">
@@ -84,7 +88,7 @@
                                             <a class="dropdown-item delEmpBtn" href="#" data-toggle="modal" data-id="{{ @$val->id }}" data-target="#delete_employee"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                                         </div>
                                     </div>
-                                    <h4 class="user-name m-t-10 mb-0 text-ellipsis"><a href="my-performance/{{$val->id}}">{{ $val->first_name }}  </a></h4>
+                                    <h4 class="user-name m-t-10 mb-0 text-ellipsis"><a href="my-performance/{{$val->id}}">{{ $val->first_name }} </a></h4>
                                     <div class="small text-muted"> </div>
                                 </div>
                             </div>

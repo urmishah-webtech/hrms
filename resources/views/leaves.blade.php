@@ -126,7 +126,7 @@
                 
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="table-responsive">
+                        <div class="table-responsive1">
                             <table class="table table-striped custom-table mb-0 datatable">
                                 <thead>
                                     <tr>
@@ -201,12 +201,11 @@
                                                                 <!--<a class="dropdown-item disapproved" href="{{ url('change_leave_status').'/3'.'/'.@$val->id  }}"><i class="fa fa-dot-circle-o text-danger"></i> Disapproved</a>-->
                                                             </div>
                                                         </div>
-                                                    </td>
-													@if(@$val->status == 3)
-													<td><a href="">{{@$val->manager_comment}}</a>
-													<a href="#" id="man_comment_edit" class="edit-icon edit_personal_info" data-toggle="modal" data-target="#personal_info_modal" data-id="{{@$val->id}}" data-comment="{{@$val->manager_comment}}"><i class="fa fa-pencil"></i></a>
+                                                    </td> 
+													<td>@if(@$val->status == 3)<a href="">{{@$val->manager_comment}}</a>
+													<a href="#" id="man_comment_edit" class="edit-icon edit_personal_info" data-toggle="modal" data-target="#personal_info_modal" data-id="{{@$val->id}}" data-comment="{{@$val->manager_comment}}"><i class="fa fa-pencil"></i></a>@endif
 													</td>
-													@endif
+													
                                                 </tr>
                                             @endforeach
                                         @endif

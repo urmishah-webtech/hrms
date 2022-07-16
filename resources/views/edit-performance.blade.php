@@ -34,7 +34,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
-                            <div class="table-responsive">
+                            <div class="table-responsive1">
                                 <table class="table table-bordered table-nowrap review-table mb-0">
                                     <tbody>
 									<form action="{{ route('add_managerid_Employees') }}" method="post" >
@@ -106,7 +106,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="table-responsive">
+                            <div class="table-responsive1">
 							 <form action="{{ route('edit_man_professionalExcellence') }}" method="post" id="professionalExcellence">
                              @csrf 
   
@@ -119,12 +119,12 @@
                                 <table class="table table-bordered review-table mb-0">
                                     <thead>
                                         <tr>
-                                            <th style="width:40px;">#</th>
-                                            <th>Key Result Area</th>
-                                            <th>Key Performance Indicators</th>
-                                            <th>Weightage</th>
-                                            <th>Percentage achieved <br>( self Score )</th> 
-                                            <th>Percentage achieved <br>( Manager's Score )</th> 
+                                            <th style="width: 5%;">#</th>
+                                            <th style="width: 20%;">Key Result Area</th>
+                                            <th style="width: 30%;">Key Performance Indicators</th>
+                                            <th style="width: 15%;">Weightage</th>
+                                            <th style="width: 15%;">Percentage achieved <br>( self Score )</th> 
+                                            <th style="width: 15%;">Percentage achieved <br>( Manager's Score )</th> 
                                         </tr>
                                     </thead>
                                     <tbody>   
@@ -228,7 +228,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="table-responsive">
+                            <div class="table-responsive1">
                             <form action="{{ route('edit_man_PersonalExcellence') }}" method="post" id="personal_Behavioralexcel">
                              @csrf
 							  <input type="hidden" name="empid" value="@if(isset($emps)){{ $emps->id}}@endif"> 
@@ -416,7 +416,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="table-responsive">
+                            <div class="table-responsive1">
                             <form action="{{ route('edit_man_SpecialInitiatives') }}" method="post" id="specialInitiatives_validate">
                              @csrf
                                 
@@ -476,7 +476,7 @@
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="table-responsive">
+                            <div class="table-responsive1">
                             <form action="{{ route('edit_man_OtherGeneralComment') }}" method="post" id="OtherGeneral_validate">
                              @csrf
                                 <table class="table table-bordered table-review review-table mb-0" id="general_comments">
@@ -534,7 +534,7 @@
                     </div>
                     <div class="row">  
                         <div class="col-md-12">
-                            <div class="table-responsive">
+                            <div class="table-responsive1">
                                 <form action="{{ route('edit_man_AppraiseeStrength') }}" method="post" id="Appraisee_validate">
                                 @csrf
                                 <input type="hidden" name="empid" value="@if(isset($emp_id)){{ $emp_id->id}}@endif">								

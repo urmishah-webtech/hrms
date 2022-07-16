@@ -27,7 +27,7 @@
                 
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="table-responsive">
+                        <div class="table-responsive1">
                         
                             <!-- Promotion Table -->
                             <table class="table table-striped custom-table mb-0 datatable" id="promotion-table">

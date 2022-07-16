@@ -122,6 +122,7 @@
                                             <a href="#" class="edit-icon edit_personal_info" data-toggle="modal" data-target="#employee_info_modal" data-id="{{@$emp_profile->id}}" data-first_name="{{@$emp_profile->first_name}}" data-last_name="{{@$emp_profile->last_name}}" data-phone_no="{{@$emp_profile->phone_no}}" ><i class="fa fa-pencil"></i></a>
                                         
                                         </h3>
+										<h4>Current Profile Data</h4>
                                         <ul class="personal-info">
                                             <li>
                                                 <div class="title">Firstname </div>
@@ -136,6 +137,23 @@
                                                 <div class="text"><a href="tel:{{$emp_profile->phone_no}}">{{$emp_profile->phone_no}}</a></div>
                                             </li> 
                                         </ul>
+										 @isset($change_emp->first_name)
+										<h4>Requested to change profile data to :</h4>
+                                        <ul class="personal-info">
+                                            <li>
+                                                <div class="title">Firstname </div>
+                                                <div class="text">@isset($change_emp->first_name){{@$change_emp->first_name}}@endisset</div>
+                                            </li>
+                                            <li>
+                                                <div class="title">Lastname </div>
+                                                <div class="text">@isset($change_emp->last_name){{@$change_emp->last_name}}@endisset</div>
+                                            </li>
+                                            <li>
+                                                <div class="title">Phone number</div>
+                                                <div class="text"><a href="tel:{{@$change_emp->phone_no}}">@isset($change_emp->phone_no){{@$change_emp->phone_no}}@endisset</a></div>
+                                            </li> 
+                                        </ul>
+										@endisset 
                                     </div>
                                 </div>
                             </div>

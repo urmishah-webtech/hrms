@@ -283,13 +283,13 @@
 
 
         <div class="row">
-            <div class="col-md-6 d-flex">
+            <div class="col-md-12 d-flex">
                 <div class="card card-table flex-fill">
                     <div class="card-header">
                         <h3 class="card-title mb-0">Employees</h3>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
+                        <div class="table-responsive1">
                             <table class="table table-nowrap custom-table mb-0">
                                 <thead>
                                     <tr>
@@ -328,13 +328,13 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 d-flex">
+            <div class="col-md-12 d-flex">
                 <div class="card card-table flex-fill">
                     <div class="card-header">
                         <h3 class="card-title mb-0">Resignations</h3>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
+                        <div class="table-responsive1">
                             <table class="table custom-table table-nowrap mb-0">
                                 <thead>
                                     <tr>
@@ -367,13 +367,13 @@
         </div>
 
         <div class="row">
-            <div class="col-md-6 d-flex">
+            <div class="col-md-12 d-flex">
                 <div class="card card-table flex-fill">
                     <div class="card-header">
                         <h3 class="card-title mb-0">Promotions</h3>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
+                        <div class="table-responsive1">
                             <table class="table custom-table mb-0" id="promotion-table">
                                 <thead>
                                     <tr>
@@ -416,13 +416,13 @@
                     </div>
                 </div>
             </div>
-			<div class="col-md-6 d-flex">
+			<div class="col-md-12 d-flex">
                 <div class="card card-table flex-fill">
                     <div class="card-header">
                         <h3 class="card-title mb-0">Employee Leaves</h3>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
+                        <div class="table-responsive1">
                             <table class="table table-nowrap custom-table mb-0">
                                 <thead>
                                     <tr>
@@ -458,13 +458,13 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 d-flex">
+            <div class="col-md-12 d-flex">
                 <div class="card card-table flex-fill">
                     <div class="card-header">
                         <h3 class="card-title mb-0">Performance Appraisal</h3>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
+                        <div class="table-responsive1">
                             <table class="table custom-table mb-0">
                                 <thead>
                                     <tr>
@@ -518,13 +518,13 @@
         </div>
 		<div> 
 			@if(auth::user()->role_id ==  1 || auth::user()->role_id == 5)
-			<div class="col-md-6 d-flex">
+			<div class="col-md-12 d-flex">
                 <div class="card card-table flex-fill">
                     <div class="card-header">
                         <h3 class="card-title mb-0">Employes To Be Reviewed </h3>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
+                        <div class="table-responsive1">
                             <table class="table custom-table mb-0">
                                 <thead>
                                     <tr>
@@ -558,13 +558,13 @@
             </div>
 			@endif
 			@if(Auth::user()->role_id == 2)
-			<div class="col-md-6 d-flex">
+			<div class="col-md-12 d-flex">
                 <div class="card card-table flex-fill">
                     <div class="card-header">
                         <h3 class="card-title mb-0">Employess To Be Reviewed</h3>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
+                        <div class="table-responsive1">
                             <table class="table custom-table mb-0">
                                 <thead>
                                     <tr>
@@ -607,7 +607,7 @@
                         <h3 class="card-title mb-0">Employees Warning</h3>
                     </div>
                     <div class="card-body">
-                        <div class="table-responsive">
+                        <div class="table-responsive1">
                             <table class="table table-nowrap custom-table mb-0">
                                 <thead>
                                     <tr>

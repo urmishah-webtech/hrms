@@ -35,7 +35,7 @@
                             <button type="button" class="close" data-dismiss="alert">×</button>    
                             <strong>You can not delete this designation because it belongs to some employee</strong>
                         </div>
-                        <div class="table-responsive">
+                        <div class="table-responsive1">
                             <table class="table table-striped custom-table mb-0 datatable">
                                 <thead>
                                     <tr>

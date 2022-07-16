@@ -260,7 +260,7 @@ input.dtree-search-control {
             </div>
         </div>
 
-    @endsection
+   
     <script src="https://balkangraph.com/js/latest/OrgChart.js"></script>
     <script type="text/javascript">
 
@@ -272,3 +272,4 @@ input.dtree-search-control {
         });
         
     </script>
+	 @endsection

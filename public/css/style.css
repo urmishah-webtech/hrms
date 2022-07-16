@@ -8528,3 +8528,13 @@ ul.comment-list li ul.children {
     margin: 1px 6px;
     padding: 4px 4px;
 }
+
+media only screen and (max-width:1024px){
+.table-responsive1 {
+    white-space: nowrap;
+    width: 100%;
+    display: block;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+}

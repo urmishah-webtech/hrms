@@ -40,8 +40,17 @@ class EmployeePerformanceController extends Controller
         if(Auth::user()->role_id == 2 || Auth::user()->role_id==6
         ){$emps=Employee::where('man_id',Auth::id())->where('role_id', '!=',1)->get();}
         else{$emps=Employee::where('role_id', '!=',1)->get();}   
-        $emp_id=Employee::get('id');		
-        return view('/employees-performance',compact('dep','des','emps','emp_id'));
+        $emp_id=Employee::get('id'); 
+		
+		$manger_emp_icon = DB::table('employees')->leftJoin('keyprofessional_excellences as ke','employees.id','ke.emp_id')->
+        leftJoin('new_personal_behavioral_excellence as be','employees.id','be.emp_id')->
+        leftJoin('special_initiatives as si','employees.id','si.emp_id')->
+        leftJoin('appraisee_strengths as as','employees.id','as.emp_id')->
+        leftJoin('other_general_comments as gc','employees.id','gc.emp_id')
+        ->where('ke.complete_perfomance_by_manager',0)->where('be.complete_perfomance_by_manager',0)->
+        where('si.complete_perfomance_by_manager',0)->where('gc.complete_perfomance_by_manager',0)->where('employees.id','be.emp_id')->select('employees.id','employees.first_name','employees.last_name','ke.perfomance_date')->first();  
+		 	
+        return view('/employees-performance',compact('dep','des','emps','emp_id','manger_emp_icon'));
     }
 	
     public function edit_employees($id,$perfomance_date)
@@ -790,10 +799,12 @@ class EmployeePerformanceController extends Controller
 				$score->save();  
 			}
         }
-        /* $status=Employee::where('id',$request->empid)->first();         
-        $status->perfomance_status=$request->perfomance_status;
-        $status->performance_completed_by=$request->user_id;
-        $status->save(); */
+		
+		if($userd == $request->empid || Auth::user()->role_id == 3){  
+        $status=Employee::where('id',$request->empid)->first();         
+        $status->perfomance_status=1; 
+        $status->save();  
+		}
 		
 		$email_em=Employee::where('id',$request->empid)->first();  
 		$manager_ids = $email_em->man_id;  
