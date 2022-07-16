@@ -101,6 +101,7 @@
                     <!-- Profile Info Tab -->
                     <div id="emp_profile" class="pro-overview tab-pane fade show active">
                         <div class="row">
+							@if(Auth::id() != $emp_id->id)
 							<div class="col-md-12 d-flex">
                                 <div class="card profile-box flex-fill">
                                     <div class="card-body">
@@ -157,7 +158,7 @@
                                     </div>
                                 </div>
                             </div>
-							
+							@endif
                             <div class="col-md-6 d-flex">
                                 <div class="card profile-box flex-fill">
                                     <div class="card-body">
