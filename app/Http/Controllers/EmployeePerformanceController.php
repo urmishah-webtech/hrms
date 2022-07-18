@@ -821,7 +821,8 @@ class EmployeePerformanceController extends Controller
 		Mail::to($man_email)->send(new \App\Mail\CompleteStatus($details));
  
         $message='Hi, '. $emp_fname ." ". $emp_lname."'s ". 'Performance Status has been Complete';
-        Notification::create(['employeeid' => $email_em->man_id, 'message' => $message]);
+		$myperformance = 'my-performance/'.$request->empid;
+        Notification::create(['employeeid' => $email_em->man_id, 'message' => $message, 'slug' => $myperformance]);
         event(new EmployeePerfomanceStatus($message,$email_em->man_id));
         return redirect('success_status');
     }
@@ -921,6 +922,18 @@ class EmployeePerformanceController extends Controller
         select('employees.id','employees.first_name','employees.last_name','ke.perfomance_date')->groupBy('ke.perfomance_date','employees.last_name','employees.first_name')->
         get();
 		
-		return view('performance-dashboard',compact('manger_emp'));
+		$pending_emp = DB::table('employees')->join('keyprofessional_excellences as ke','employees.id','ke.emp_id')->
+        leftJoin('new_personal_behavioral_excellence as be','employees.id','be.emp_id')->
+        leftJoin('special_initiatives as si','employees.id','si.emp_id')->
+        leftJoin('appraisee_strengths as as','employees.id','as.emp_id')->
+        leftJoin('other_general_comments as gc','employees.id','gc.emp_id')->
+        where('man_id',Auth::user()->id)
+        ->where('ke.complete_perfomance_by_emp',1)->where('be.complete_perfomance_by_emp',1)->
+        where('si.complete_perfomance_by_emp',1)->where('gc.complete_perfomance_by_emp',1)
+        ->where('ke.complete_perfomance_by_manager','!=',1)->where('be.complete_perfomance_by_manager','!=',1)->
+        where('si.complete_perfomance_by_manager','!=',1)->where('gc.complete_perfomance_by_manager','!=',1)->
+        select('employees.id','employees.first_name','employees.last_name','ke.perfomance_date')->groupBy('ke.perfomance_date','employees.last_name','employees.first_name')->
+        get();
+		return view('performance-dashboard',compact('manger_emp','pending_emp'));
 	}
 }

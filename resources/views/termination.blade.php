@@ -123,14 +123,23 @@
                             <form action="{{route('termination.save')}}" method="POST">
                                 @csrf
                                 <div class="form-group">
-                                    <label>Terminated Employee <span class="text-danger">*</span></label>
+                                    <label>Terminated Employee<span class="text-danger">*</span></label>
                                     
                                     <select class="select" name="employee_id">
-                                        @if($employees)
-                                        @foreach($employees as $employee)
-                                            <option value="{{$employee->id}}" <?php if(!empty($resignation) && $resignation->employeeid == $employee->id) echo 'selected="selected"'; ?>>{{$employee->first_name}} {{$employee->last_name}}</option>
-                                        @endforeach
-                                        @endif
+										@if(auth::user()->role_id ==  1 || auth::user()->role_id == 5)
+											@if($employees)
+											@foreach($employees as $employee)
+												<option value="{{$employee->id}}" <?php if(!empty($resignation) && $resignation->employeeid == $employee->id) echo 'selected="selected"'; ?>>{{$employee->first_name}} {{$employee->last_name}}</option>
+											@endforeach
+											@endif
+										@else
+											@if($man_employees)
+											@foreach($man_employees as $employee)
+												<option value="{{$employee->id}}" <?php if(!empty($resignation) && $resignation->employeeid == $employee->id) echo 'selected="selected"'; ?>>{{$employee->first_name}} {{$employee->last_name}}</option>
+											@endforeach
+											@endif
+										@endif	
+										
                                     </select>
                                 </div>
                                 <div class="form-group">

@@ -24,6 +24,7 @@ class EmployeeResignation implements ShouldBroadcastNow
     {
         $this->message = $message;
         $this->user = $user;
+        
     }
 
     /**
@@ -39,5 +40,6 @@ class EmployeeResignation implements ShouldBroadcastNow
     public function broadcastAs()
     {
         return 'employeeresignation-'.$this->user;
+		 
     }
 }

@@ -25,7 +25,7 @@
                         <a href="/employees-performance"><span class="dash-widget-icon"><i class="fa fa-cubes"></i></span></a>
                         <div class="dash-widget-info">
                             <h3>{{@$per_status_complete}}</h3>
-                            <span>Performance Complete</span>
+                            <a href="/employees-performance"><span>Performance Complete</span></a>
                         </div>
                     </div>
                 </div>
@@ -36,7 +36,7 @@
                         <a href="/employees-performance"><span class="dash-widget-icon"><i class="fa fa-usd"></i></span></a>
                         <div class="dash-widget-info">
                             <h3>{{@$per_status_incomp}}</h3>
-                            <span>Performance Incomplete</span>
+                            <a href="/employees-performance"><span>Performance Incomplete</span></a>
                         </div>
                     </div>
                 </div>
@@ -48,7 +48,7 @@
                         <a href="/employees"><span class="dash-widget-icon"><i class="fa fa-diamond"></i></span></a>
                         <div class="dash-widget-info">
                             <h3>{{@$man_total}}</h3>
-                            <span>Managers</span>
+                            <a href="/employees"><span>Managers</span></a>
                         </div>
                     </div>
                 </div>
@@ -60,7 +60,7 @@
                          <a href="/termination"><span class="dash-widget-icon"><i class="fa fa-diamond"></i></span></a>
                         <div class="dash-widget-info">
                             <h3>{{@$terminated_emp_under_me}}</h3>
-                            <span>Terminated Employees</span>
+                            <a href="/termination"><span>Terminated Employees</span></a>
                         </div>
                     </div>
                 </div>
@@ -72,7 +72,7 @@
                         <a href="/employees"><span class="dash-widget-icon"><i class="fa fa-user"></i></span></a>
                         <div class="dash-widget-info">
                             <h3>{{@$emp_total}}</h3>
-                            <span>Employees</span>
+                            <a href="/employees"><span>Employees</span></a>
                         </div>
                     </div>
                 </div>

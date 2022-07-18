@@ -110,7 +110,7 @@
                                 @if (!empty($notifications))
                                     @foreach ($notifications as $item)
                                     <li class="notification-message">
-                                        <a href="/activities">
+                                        <a href="@if($item->slug)/{{@$item->slug}} @endif">
                                             <div class="media">
                                                 <span class="avatar">
                                                     <img alt="" src="{{ url('/').'/img/profiles/avatar-02.jpg'}}">
@@ -121,8 +121,8 @@
 													 <input type="hidden" name="emp_id" value="{{@$item->employeeid}}" >
 													 <input type="hidden" name="read_at" value="1" id="read_at">
 													 <input type="hidden" name="created_at" value="{{@$item->created_at}}" >
-                                                    <p class="noti-details">
-													<span  > <button class="@if($item->read_at == 1) read_noti_title @else noti-title @endif" type="submit">{{$item->message}} </button></span> </p>
+                                                   <p class="noti-details">
+													<span > <button class="@if($item->read_at == 1) read_noti_title @else noti-title @endif" type="submit">{{$item->message}} </button></span> </p> 
                                                     <p class="noti-time"><span class="notification-time">{{date('d-m-Y H:i', strtotime($item->created_at))}}</span></p>
 													</form>
                                                 </div>

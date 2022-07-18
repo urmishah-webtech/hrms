@@ -38,10 +38,10 @@
                                         <th>Notice Date </th>
                                         <th>Resignation Date </th>
                                         <th>Status </th>
-                                        <th>Decision By </th>
+                                        <!--<th>Decision By </th>-->
                                         @if (!empty($role) && ($role == 1 || $role==5))
-                                            <th>2 Weeks Notice</th>
-                                            <th>Rehireable</th>
+                                            <!-- <th>2 Weeks Notice</th>-->
+                                            <!-- <th>Rehireable</th>-->
                                             <th class="text-right">Action</th>
                                         @endif
                                     </tr>
@@ -62,10 +62,10 @@
                                         <td>{{$item->noticedate}}</td>
                                         <td>{{$item->resignationdate}}</td>
                                         <td>{{$item->status}}</td>
-                                        <td>{{optional($item->decisionmaker)->first_name}} {{optional($item->decisionmaker)->last_name}}</td>
+                                       <!-- <td>{{optional($item->decisionmaker)->first_name}} {{optional($item->decisionmaker)->last_name}}</td>-->
                                         @if (!empty($role) && ($role == 1 || $role==5))
-                                            <td>{{$item->twoweeknotice}}</td>
-                                            <td>{{$item->rehireable}}</td>
+                                           <!--  <td>{{$item->twoweeknotice}}</td>-->
+                                           <!--  <td>{{$item->rehireable}}</td>-->
                                             @if($item->employeeid != auth()->user()->id)
                                             <td class="text-right">
                                                 <div class="dropdown dropdown-action">

@@ -55,7 +55,8 @@ class PromotionController extends Controller
         $designationfrom = optional($newpromotion->desfrom)->name;
         $designationto = optional($newpromotion->desto)->name;
         $message = 'Congratulations! You are promoted from '.$designationfrom.' to '.$designationto;
-        Notification::create(['employeeid' => $newpromotion->employeeid, 'message' => $message]);
+		$promotion = "promotion";
+        Notification::create(['employeeid' => $newpromotion->employeeid, 'message' => $message, 'slug' =>$promotion]);
         event(new PromotionAdded($message, $newpromotion->employeeid));
         return redirect()->back()->with('msg', 'Created Successfully');
     }

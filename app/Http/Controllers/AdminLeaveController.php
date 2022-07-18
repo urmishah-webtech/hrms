@@ -71,7 +71,8 @@ class AdminLeaveController extends Controller
         $data->save();
         $type_name=($type=='2')?'approved':'rejected';
         $message='Hi, Your leave has been '.$type_name;
-        Notification::create(['employeeid' => $data->employee_id, 'message' => $message]);
+		$leave = 'leaves-employee';
+        Notification::create(['employeeid' => $data->employee_id, 'message' => $message, 'slug' =>$leave]);
         event(new LeaveApprove($message,$data->employee_id));
         return back();
     }

@@ -116,7 +116,8 @@ class TerminationController extends Controller
       
 		$types = TerminationType::where('status', 'Active')->get()->pluck(['type']);
 		$employees = Employee::where('id', '!=', Auth::user()->id)->get();
-    	return view('termination')->with(['terminations'=>$terminations, 'types' => $types, 'employees' => $employees, 'resignation' => $resignation, 'user' => $user]);
+		$man_employees = Employee::where('id', '!=', Auth::user()->id)->where('man_id',Auth::user()->id)->get();
+    	return view('termination')->with(['terminations'=>$terminations, 'types' => $types, 'employees' => $employees, 'man_employees' => $man_employees, 'resignation' => $resignation, 'user' => $user]);
 	}
     public function save(Request $request)
     {	
