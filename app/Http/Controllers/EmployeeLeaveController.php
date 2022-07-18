@@ -117,7 +117,7 @@ class EmployeeLeaveController extends Controller
 
         }
         Notification::create(['employeeid' => Auth::user()->man_id, 'message' => $message, 'slug' =>$man_leave]);
-        event(new leaveAdded($message,Auth::user()->man_id,$admin_ids,));
+        event(new leaveAdded($message,Auth::user()->man_id,$admin_ids,$man_leave));
 
         return json_encode("1");
     }

@@ -823,7 +823,7 @@ class EmployeePerformanceController extends Controller
         $message='Hi, '. $emp_fname ." ". $emp_lname."'s ". 'Performance Status has been Complete';
 		$myperformance = 'my-performance/'.$request->empid;
         Notification::create(['employeeid' => $email_em->man_id, 'message' => $message, 'slug' => $myperformance]);
-        event(new EmployeePerfomanceStatus($message,$email_em->man_id));
+        event(new EmployeePerfomanceStatus($message,$email_em->man_id,$myperformance));
         return redirect('success_status');
     }
 	

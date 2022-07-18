@@ -69,19 +69,19 @@ class ResignationController extends Controller
         $empmessage = 'Your resignation request has been sent to '.$man_name.' (Reporting manager)  and '.$hr_name.' (HR Manager).';
 		$resignations = "resignation";
         Notification::create(['employeeid' => $request->employeeid, 'message' => $empmessage, 'slug' => $resignations]);
-        event(new EmployeeResignation($empmessage, $request->employeeid));
+        event(new EmployeeResignation($empmessage, $request->employeeid, $resignations));
         $empname = getemployeename($request->employeeid);
         $message = $empname.' has sent a resignation request.';
         $adminid = Employee::where('role_id', 1)->first()->id;
 		$hrid = Employee::where('role_id', 5)->first()->id;
         Notification::create(['employeeid' => $adminid, 'message' => $message, 'slug' => $resignations]);
-        event(new EmployeeResignation($message, $adminid));
+        event(new EmployeeResignation($message, $adminid, $resignations));
 		Notification::create(['employeeid' => $hrid, 'message' => $message, 'slug' => $resignations]);
-        event(new EmployeeResignation($message, $hrid));
+        event(new EmployeeResignation($message, $hrid, $resignations));
         $managerid = Employee::where('id', $request->employeeid)->first()->man_id;
         if (!empty($managerid)) {
             Notification::create(['employeeid' => $managerid, 'message' => $message, 'slug' => $resignations]);
-            event(new EmployeeResignation($message, $managerid));
+            event(new EmployeeResignation($message, $managerid, $resignations));
         }
         return redirect()->back()->with('msg', 'Created Successfully');
     }

@@ -17,15 +17,17 @@ class EmployeePerfomanceStatus implements ShouldBroadcastNow
     use Dispatchable, InteractsWithSockets, SerializesModels;
     public $message;
     public $id;
+	public $slug;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($message,$id)
+    public function __construct($message,$id,$slug)
     {
         $this->message = $message;
         $this->id = $id;
+        $this->slug = $slug;
     }
 
     /**

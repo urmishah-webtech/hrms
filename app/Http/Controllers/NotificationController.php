@@ -16,7 +16,7 @@ class NotificationController extends Controller
     }
 	public function add_read_notification_status(Request $request){
 		$status=Notification::where('employeeid',$request->emp_id)->where('created_at',$request->created_at)->first();         
-		$status->read_at=$request->read_at;
+		$status->read_at=1;
 		$status->save();  
 		if(!empty($status->slug)){
 			return redirect('/'.$status->slug);

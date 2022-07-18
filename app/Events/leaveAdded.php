@@ -17,16 +17,18 @@ class leaveAdded implements ShouldBroadcastNow
     public $message;
     public $id;
     public $admin_ids;
+    public $slug;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($message,$id,$admin_ids)
+    public function __construct($message,$id,$admin_ids,$slug)
     {
         $this->message = $message;
         $this->id = $id;
         $this->admin_ids=$admin_ids;
+        $this->slug=$slug;
 
     }
 

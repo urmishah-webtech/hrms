@@ -73,7 +73,7 @@ class AdminLeaveController extends Controller
         $message='Hi, Your leave has been '.$type_name;
 		$leave = 'leaves-employee';
         Notification::create(['employeeid' => $data->employee_id, 'message' => $message, 'slug' =>$leave]);
-        event(new LeaveApprove($message,$data->employee_id));
+        event(new LeaveApprove($message,$data->employee_id,$leave));
         return back();
     }
     public function search_leave_employee(Request $request){

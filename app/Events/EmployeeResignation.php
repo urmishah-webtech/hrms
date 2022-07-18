@@ -15,16 +15,17 @@ class EmployeeResignation implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
     public $message, $user;
+	public $slug;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($message, $user)
+    public function __construct($message, $user, $slug)
     {
         $this->message = $message;
         $this->user = $user;
-        
+        $this->slug = $slug;
     }
 
     /**
