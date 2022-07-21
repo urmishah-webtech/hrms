@@ -10,6 +10,7 @@ use App\EmployeeThirdVerbalWarning;
 use App\Termination;
 use Auth;
 use Carbon\Carbon;
+use App\employee_all_verbal_warnings;
 use DB;
 use App\EmployeeLeave;
 use App\Resignation;
@@ -48,7 +49,8 @@ class HomeController extends Controller
         $personal_excellence=PersonalExcellence::where('emp_id',$userd)->first();
         $on_leave_data=EmployeeLeave::where('employee_id',$userd)->get();
         $resignation = Resignation::where('employeeid', $userd)->orderBy('id', 'DESC')->get();
-        return view('employee-dashboard',compact('third_withdraw','third_war','second_withdraw','second_war','first_withdraw','first_war','terminate_emp','promotiondata','personal_excellence','on_leave_data', 'resignation'));
+		$all_all_warning = employee_all_verbal_warnings::with('employee_name')->get();
+        return view('employee-dashboard',compact('third_withdraw','third_war','second_withdraw','second_war','first_withdraw','first_war','terminate_emp','promotiondata','personal_excellence','on_leave_data', 'resignation','all_all_warning'));
     }
 	public function adminHome()
     {
@@ -226,11 +228,13 @@ class HomeController extends Controller
         where('si.complete_perfomance_by_manager','!=',1)->where('gc.complete_perfomance_by_manager','!=',1)->
         select('employees.id','employees.first_name','employees.last_name','ke.perfomance_date')->groupBy('ke.perfomance_date','employees.last_name','employees.first_name')->
         get();
+		
+		$all_all_warning = employee_all_verbal_warnings::with('employee_name')->get();
        
 
         return view('index',compact('manger_emp','pending_emp','emp_total','per_status_complete','per_status_incomp','man_total', 'emp', 'res', 'promotion', 'appraisal','leave_dt','on_leave','on_leave_data','total_emp','progress_leave','plan_count','unplan_count','pending_persent','unplan_data','plan_data','pending_req', 'linechartdata',
         'last_month_emp_count','current_month_emp_count','emp_per','last_month_resi_count','current_month_resi_count','resi_per','promotion_month', 'promotion_previousmonth','pro_per','excel_80100','excel_6079','excel_4059','excel_2039','excel_119','excel_total_entry','width_80100','width_6079','width_4059','width_2039','width_119','third_withdraw','third_war',
-        'second_withdraw','second_war','first_withdraw','first_war','terminate_emp','my_leaves','terminated_emp_under_me','last_month_ter_count','current_month_ter_count','ter_per','man_excel_80100','man_excel_6079','man_excel_4059','man_excel_2039','man_excel_119','man_width_80100','man_width_6079','man_width_4059','man_width_2039','man_width_119'));
+        'second_withdraw','second_war','first_withdraw','first_war','terminate_emp','my_leaves','terminated_emp_under_me','last_month_ter_count','current_month_ter_count','ter_per','man_excel_80100','man_excel_6079','man_excel_4059','man_excel_2039','man_excel_119','man_width_80100','man_width_6079','man_width_4059','man_width_2039','man_width_119','all_all_warning'));
 
     }
 

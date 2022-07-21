@@ -619,89 +619,43 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @php $i = 1; @endphp
-                                    <!---3 Warning and withdraw---->
-                                    @if(!empty($third_withdraw) && count($third_withdraw) > 0)
-                                    @foreach($third_withdraw as $val)
-                                        <tr>
-                                            <td>{{$i}}</td>
-                                            <td>{{$val->employee->first_name}}</td>
-                                            <td>Third</td>
-                                            <td>{{date('d M Y', strtotime(@$val->updated_at))}}</td>
-                                            <td class="text-center">
-                                                <div class="action-label">
-                                                    <a class="btn btn-white btn-sm btn-rounded">
-                                                        @if($val->status == 0) <i class="fa fa-dot-circle-o text-success"></i> Withdraw
-                                                        @elseif($val->status == 1) <i class="fa fa-dot-circle-o text-danger"></i> Active @endif
-                                                    </a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    @php $i++; @endphp
-                                    @endforeach
-                                    <!---2 Warning and withdraw---->
-                                    @elseif(!empty($second_withdraw) && count($second_withdraw) > 0)
-                                    @foreach($second_withdraw as $val)
-                                    <tr>
-                                        <td>{{$i}}</td>
-                                        <td>{{$val->employee->first_name}}</td>
-                                        <td>Second</td>
-                                        <td>{{date('d M Y', strtotime(@$val->updated_at))}}</td>
-                                        <td class="text-center">
-                                            <div class="action-label">
-                                                <a class="btn btn-white btn-sm btn-rounded" >
-                                                    @if($val->status == 0) <i class="fa fa-dot-circle-o text-success"></i> Withdraw
-                                                        @elseif($val->status == 1) <i class="fa fa-dot-circle-o text-danger"></i> Active @endif
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    @php $i++; @endphp
-                                    @endforeach
-                                    <!---1 Warning and withdraw---->
-                                    @elseif(!empty($first_withdraw) && count($first_withdraw) > 0)
-                                    @foreach($first_withdraw as $val)
-                                    <tr>
-                                        <td>{{$i}}</td>
-                                        <td>{{$val->employee->first_name}}</td>
-                                        <td>First</td>
-                                        <td>{{date('d M Y', strtotime(@$val->updated_at))}}</td>
-                                        <td class="text-center">
-                                            <div class="action-label">
-                                                <a class="btn btn-white btn-sm btn-rounded" >
-                                                    @if($val->status == 0) <i class="fa fa-dot-circle-o text-success"></i> Withdraw
-                                                    @elseif($val->status == 1) <i class="fa fa-dot-circle-o text-danger"></i> Active @endif
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    @php $i++; @endphp
-                                    @endforeach
-                                    @else
-                                    @endif
-                                    <!--- warning--->
+                                   @php $i = 1; @endphp
+                                            <!---withdraw---->
+                                            @if(!empty($all_all_warning) && count($all_all_warning) > 0)
+                                            @foreach($all_all_warning as $val)
+                                             <?php  $admin_comments_first_json = json_decode($val->admin_comments_first); 
+                                                    $areas_for_improvement_first_json = json_decode($val->areas_for_improvement_first); 
+                                                    $hr_input_first_json = json_decode($val->hr_input_first); 
+                                                    $employee_documents_json = json_decode($val->employee_documents_first); 
 
-                                    <!--- termination --->
-                                    @if(!empty($terminate_emp) && count($terminate_emp) > 0)
-                                    @foreach($terminate_emp as $val)
-                                    <tr>
-                                        <td>{{$i}} </td>
-                                        <td>{{$val->employee->first_name}}</td>
-                                        <td>Fourth</td>
-                                        <td>{{date('d M Y', strtotime(@$val->updated_at))}}</td>
-                                        <td class="text-center">
-                                            <div class="action-label">
-                                                <a class="btn btn-white btn-sm btn-rounded">
-                                                    <i class="fa fa-dot-circle-o text-danger"></i>Termination
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr> @php $i++; @endphp
-                                    @endforeach
-                                    @endif
-                                    {{-- @if(count($third_withdraw) == 0 && count($third_war)==0 && count($second_withdraw)==0 && count($second_war)==0 && count($first_withdraw)==0 && count($first_war)==0 && count($terminate_emp)==0)
-                                    <tr> <td colspan="4" style="text-align: center;">No Data Found<td></tr>
-                                    @endif --}}
+                                                    $employee_documents_second_json = json_decode($val->admin_comments_second); 
+                                                    $areas_for_improvement_second_json = json_decode($val->areas_for_improvement_second); 
+                                                    $hr_input_second_json = json_decode($val->hr_input_second); 
+                                                    $employee_documents_second_json = json_decode($val->employee_documents_second); 
+                                                 
+                                                    $employee_documents_third_json = json_decode($val->employee_documents_third); 
+                                                    $admin_comments_third_json = json_decode($val->admin_comments_third); 
+                                                    $areas_for_improvement_third_json = json_decode($val->areas_for_improvement_third); 
+                                                    $hr_input_third_json = json_decode($val->hr_input_third);
+                                             ?>
+                                            <tr>
+                                                <td>{{$i}}</td>
+                                                <td>{{ @$val['employee_name'][0]['first_name'] }}</td>
+                                                <td>@if($val->warmingstatus == 1) First @endif @if($val->warmingstatus == 2) Second @endif @if($val->warmingstatus == 3) Third @endif</td>
+                                                <td>{{date('d M Y', strtotime(@$val->updated_at))}}</td>
+                                                <td class="text-center">
+                                                    <div class="action-label">
+                                                        <a class="btn btn-white btn-sm btn-rounded">
+                                                            <i class="fa fa-dot-circle-o @if(@$val->status== '0')text-success @else text-danger @endif"></i> @if(@$val->status== '1') Active @else Withdraw @endif
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            @php $i++; @endphp
+                                            @endforeach
+                                            @else
+                                             <tr> <td colspan="4" style="text-align: center;">No Data Found<td></tr>
+                                            @endif
                                 </tbody>
                             </table>
                         </div>

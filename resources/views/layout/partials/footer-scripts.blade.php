@@ -56,7 +56,47 @@
 		<script src="{{ URL::asset('js/app.js') }}"></script>
 		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.js"></script>
 		<script>
-		 $(document).ready(function(){
+		  $(document).ready(function(){
+
+		  
+		  	$("#first-select").change(function() {
+		  		var id = $("#first-select option:selected").val();
+			   
+			    $.ajax({
+					type:'GET',
+					url:"show-edit-view/"+id,
+					success:function(response){
+						if(response.status == 200){
+							//alert('ok')
+							$('#add_indicator').modal('hide');
+							setTimeout(function() {
+								$('#editRecordModal').modal('show'); 
+								var rc_id= response.getrecordid;
+								$.ajax({
+									type:'GET',
+									url:"edit-employee-warning/"+rc_id,
+									success:function(response){
+										$('.dyanamic-wrap').html(response);
+									}
+								})
+							}, 500);
+						}
+					}
+				})
+			});
+
+		 	$(document).on("click",".editallwarning",function() {
+				var id= $(this).data('id');
+				$('#editRecordModal').modal('show'); 
+
+				$.ajax({
+					type:'GET',
+					url:"edit-employee-warning/"+id,
+					success:function(response){
+						$('.dyanamic-wrap').html(response);
+					}
+				})
+			})
 			
 			$("#personal_Behavioralexcel input:not([readonly]").prop('required',true);
 			$("#professionalExcellence input:not([readonly]").prop('required',true);
@@ -150,7 +190,7 @@
 			function GetDynamicTextBox(table_id) {
 				$('#comments_remove').remove();
 				var rowsLength = document.getElementById(table_id).getElementsByTagName("tbody")[0].getElementsByTagName("tr").length+1;
-				return '<td>'+rowsLength+'</td>' + '@if(Auth::user()->role_id != 3)<td><select class="form-control" name="emp_id[]" required><option>Select Employee</option> @if(Auth::user()->role_id == 2 || Auth::user()->role_id == 6) @isset($manager_emp) @foreach($manager_emp as $val) <option value="{{ $val->id }}" >{{ $val->first_name }}</option> @endforeach @endisset @else @isset($emp_name) @foreach($emp_name as $val) <option value="{{ $val->id }}" >{{ $val->first_name }}</option> @endforeach @endisset @endif </select></td>@endif' + '<td><input type="text" name = "hr_input[]" class="form-control" @if(Auth::user()->role_id != 5)readonly @endif></td>' + '<td><input type="text" name = "admin_comments[]" class="form-control"  @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2 || Auth::user()->role_id == 6)editable @else readonly @endif></td>' + '<td><input type="text" name = "areas_for_improvement[]" class="form-control" @if(Auth::user()->role_id == 3)readonly @endif></td>' + '<td><input type="file" name = "fileadd[]" class="form-control" @if(Auth::user()->role_id == 3)readonly @endif></td>' + '<td><button type="button" class="btn btn-danger" id="comments_remove"><i class="fa fa-trash-o"></i></button></td>'
+				return '<td>'+rowsLength+'</td>' + '@if(Auth::user()->role_id != 3)<td><input type="text" class="form-control" id="edit_emp_name" value="" required readonly></td>@endif' + '<td><input type="text" name = "hr_input[]" class="form-control" @if(Auth::user()->role_id != 5)readonly @endif></td>' + '<td><input type="text" name = "admin_comments[]" class="form-control"  @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2 || Auth::user()->role_id == 6)editable @else readonly @endif></td>' + '<td><input type="text" name = "areas_for_improvement[]" class="form-control" @if(Auth::user()->role_id == 3)readonly @endif></td>' + '<td><input type="file" name = "fileadd[]" class="form-control" @if(Auth::user()->role_id == 3)readonly @endif></td>' + '<td><button type="button" class="btn btn-danger" id="comments_remove"><i class="fa fa-trash-o"></i></button></td>'
 			}
 		});
 		/// Second Warning
@@ -169,7 +209,7 @@
 			function GetDynamicTextBox(table_id) {
 				$('#comments_remove').remove();
 				var rowsLength = document.getElementById(table_id).getElementsByTagName("tbody")[0].getElementsByTagName("tr").length+1;
-				return '<td>'+rowsLength+'</td>' + '@if(Auth::user()->role_id != 3)<td><select class="form-control" name="emp_id[]"><option>Select Employee</option> @if(Auth::user()->role_id == 2 || Auth::user()->role_id == 6) @isset($manager_emp)  @foreach($manager_emp as $val) <option value="{{ $val->id }}" >{{ $val->first_name }}</option> @endforeach @endisset @else @isset($emp_name) @foreach($emp_name as $val) <option value="{{ $val->id }}" >{{ $val->first_name }}</option> @endforeach @endisset @endif </select></td>@endif' + '<td><input type="text" name = "hr_input[]" class="form-control" @if(Auth::user()->role_id != 5)readonly @endif></td>' + '<td><input type="text" name = "admin_comments[]" class="form-control"  @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2 || Auth::user()->role_id == 6)editable @else readonly @endif></td>' + '<td><input type="text" name = "areas_for_improvement[]" class="form-control" @if(Auth::user()->role_id == 3)readonly @endif></td>' + '<td><input type="file" name = "fileadd[]" class="form-control" @if(Auth::user()->role_id == 3)readonly @endif></td>' + '<td><button type="button" class="btn btn-danger" id="comments_remove"><i class="fa fa-trash-o"></i></button></td>'
+				return '<td>'+rowsLength+'</td>' + '@if(Auth::user()->role_id != 3)<td><input type="text" class="form-control" id="edit_emp_name" value="" required readonly></td>@endif' + '<td><input type="text" name = "second_edit_hr_input[]" class="form-control" @if(Auth::user()->role_id != 5)readonly @endif></td>' + '<td><input type="text" name = "second_admin_comments_second[]" class="form-control"  @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2 || Auth::user()->role_id == 6)editable @else readonly @endif></td>' + '<td><input type="text" name = "second_areas_for_improvement_second[]" class="form-control" @if(Auth::user()->role_id == 3)readonly @endif></td>' + '<td><input type="file" name = "second_fileadd_second[]" class="form-control" @if(Auth::user()->role_id == 3)readonly @endif></td>' + '<td><button type="button" class="btn btn-danger" id="comments_remove"><i class="fa fa-trash-o"></i></button></td>'
 			}
 		});
 		/// Third Warning
@@ -177,7 +217,7 @@
 			$(document).on("click", '.btn-third-warning3', function () {
 				var id = $(this).closest("table.table-review3").attr('id');
 				console.log(id);
-				var div = $("<tr />");
+				var div = $("<tr />");  
 				div.html(GetDynamicTextBox(id));
 				$("#"+id+"_tbody").append(div);
 			});
@@ -188,7 +228,7 @@
 			function GetDynamicTextBox(table_id) {
 				$('#comments_remove').remove();
 				var rowsLength = document.getElementById(table_id).getElementsByTagName("tbody")[0].getElementsByTagName("tr").length+1;
-				return '<td>'+rowsLength+'</td>'+ '@if(Auth::user()->role_id != 3)<td><select class="form-control" name="emp_id[]" > <option>Select Employee</option> @if(Auth::user()->role_id == 2 || Auth::user()->role_id == 6) @isset($manager_emp) @foreach($manager_emp as $val) <option value="{{ $val->id }}" >{{ $val->first_name }}</option> @endforeach @endisset @else @isset($emp_name) @foreach($emp_name as $val) <option value="{{ $val->id }}" >{{ $val->first_name }}</option> @endforeach @endisset @endif </select></td>@endif' + '<td><input type="text" name = "hr_input[]" class="form-control" @if(Auth::user()->role_id != 5)readonly @endif></td>' + '<td><input type="text" name = "admin_comments[]" class="form-control"  @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2 || Auth::user()->role_id == 6)editable @else readonly @endif></td>' + '<td><input type="file" name = "fileadd[]" class="form-control" @if(Auth::user()->role_id == 3)readonly @endif></td>' + '<td><button type="button" class="btn btn-danger" id="comments_remove"><i class="fa fa-trash-o"></i></button></td>'
+				return '<td>'+rowsLength+'</td>'+ '@if(Auth::user()->role_id != 3)<td><input type="text" class="form-control" id="third_emp_name" value="" required readonly></td>@endif' + '<td><input type="text" name = "third_hr_input_third[]" class="form-control" @if(Auth::user()->role_id != 5)readonly @endif></td>' + '<td><input type="text" name = "third_admin_comments_third[]" class="form-control"  @if(Auth::user()->role_id == 1 || Auth::user()->role_id == 2 || Auth::user()->role_id == 6)editable @else readonly @endif></td>' + '<td><input type="file" name = "third_fileadd_third[]" class="form-control" @if(Auth::user()->role_id == 3)readonly @endif></td>' + '<td><button type="button" class="btn btn-danger" id="comments_remove"><i class="fa fa-trash-o"></i></button></td>'
 			}
 		});
 		</script>

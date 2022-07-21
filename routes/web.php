@@ -636,7 +636,10 @@ Route::post('add_Perfomance_status','EmployeePerformanceController@add_Perfomanc
 Route::post('add_read_notification_status','NotificationController@add_read_notification_status')->name('add_read_notification_status');
 Route::post('add_Perfomance_status_user_for_employee','EmployeePerformanceController@add_Perfomance_status_user_for_employee')->name('add_Perfomance_status_user_for_employee');
 Route::post('add_Perfomance_date_for_employee','EmployeePerformanceController@add_Perfomance_date_for_employee')->name('add_Perfomance_date_for_employee');
+Route::get('show-edit-view/{id}','EmployeeVerbalWarningController@showEmployeeWarning')->name('show-edit-view');
 Route::post('add_KeyprofessionalExcellences',[ProfessionalExcellenceController::class,'store_KeyprofessionalExcellences'])->name('add_KeyprofessionalExcellences');
+Route::get('download-warming-image/{id}','EmployeeVerbalWarningController@downloadwarmingimage')->name('download-warming-image');
+Route::get('edit-employee-warning/{id}','EmployeeVerbalWarningController@EditEmployeeWarning')->name('edit-employee-warning');
 Route::get('employee-warning','EmployeeVerbalWarningController@EmployeeFirstVerbalWarning_list')->name('employee-warning');
 Route::post('add_EmployeeFirstVerbalWarning','EmployeeVerbalWarningController@store_EmployeeFirstVerbalWarning')->name('add_EmployeeFirstVerbalWarning');
 Route::post('update_EmployeeFirstVerbal','EmployeeVerbalWarningController@update_EmployeeFirstVerbalWarning')->name('update_EmployeeFirstVerbalWarning');
