@@ -155,7 +155,8 @@ class EmployeeController extends Controller
                 /* 'first_name' => 'required',
                 'last_name' => 'required', 
                 'phone_no' => 'required', */
-                'confirm_password'=>'required_with:password|same:password'
+                'confirm_password'=>'required_with:password|same:password',
+				'assis_man_id' => 'required'
             ]); 
         }
        
@@ -224,6 +225,7 @@ class EmployeeController extends Controller
 		$emp->employee_documents=is_null($fileName)?$emp->employee_documents:$fileName;
         $emp->location_id=$request->location_id;
 		$emp->man_id=$request->man_id;
+		$emp->assi_manager_id=$request->assis_man_id;    
         $emp->save();
 
         $expl=array();
@@ -262,6 +264,7 @@ class EmployeeController extends Controller
         $des=Designation::get();
 		$location=Location::get();
 		$manager = Employee::where('role_id',2)->orwhere('role_id',6)->get(); 
+		$assistantmanager = Employee::where('role_id',7)->get(); 
         $emp=new Employee;
         $search_employee_id=$request->search_employee_id;
         $search_name=$request->search_name;
@@ -281,7 +284,7 @@ class EmployeeController extends Controller
         $permission_modules=PermissionModule::get();
         $roles=Role::get();
         return view('employees',compact('dep','des','emps','modules','emp_permissions','permission_modules',
-        'search_employee_id','search_name','search_designation','roles','location','manager'));
+        'search_employee_id','search_name','search_designation','roles','location','manager','assistantmanager'));
     }
 
    public function getOrganizationalChart()

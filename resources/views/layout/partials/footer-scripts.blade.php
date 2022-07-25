@@ -351,6 +351,7 @@
 				$("#disabled_emp_id").val(emp_id)
 				$("#employee_id").val(emp_id)
 				$('#add_employee').modal('toggle');
+				
 
 			});
 			$(document).on("click",".edtEmpBtn",function() {
@@ -358,7 +359,8 @@
 				var emp_id="emp_"+last_emp_id+Math.floor(Math.random() * 10000);
 				var id= $(this).data('id');
 				var roleid=$(this).data('role_id');
-
+				var assis_man_id = $(this).data('assis_man_id');  
+				
 				$(".permissionCheck").prop('checked',false)
 				$.ajax({
 					type:'POST',
@@ -387,6 +389,7 @@
 						}
 						$("#edit_role_id").val(data.emp[0].role_id)
 						$("#edit_role_id_data").val(data.emp[0].role_id)
+						 
 						$("#emp_phone_no").val(data.emp[0].phone_no)
 
 						var d = new Date(data.emp[0].joing_date);
@@ -397,6 +400,9 @@
 						$("#emp_id").val(data.emp[0].id)
 						$("#edit_depList option[value='"+data.emp[0].department_id+"']").prop('selected',true);
 						$("#manager_id option[value='"+data.emp[0].man_id+"']").prop('selected',true);
+						  
+						 
+						$("#assi_manager_id_add_data option[value='"+assis_man_id+"']").prop('selected',true);
 						$("#edit_designationList option[value='"+data.emp[0].designation_id+"']").prop('selected',true);
 
 						$("#edit_locList option[value='"+data.emp[0].location_id+"']").prop('selected',true);
