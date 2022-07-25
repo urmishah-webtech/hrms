@@ -57,6 +57,23 @@
 		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.js"></script>
 		<script>
 		  $(document).ready(function(){
+			$("#edit_role_id_data").change(function() {  
+		  		var id = $("#edit_role_id_data option:selected").val();
+		  		//alert(id)
+							
+			  	if(id == 7){
+			  		//alert('hello');
+			  		$(".add-class").addClass("disabled");
+			  		$('.requiredornot').removeAttr('required');
+			  		//$("#select_emp_id_edit").addClass("edit_warning_pointer");
+			  	}else{
+			  		$(".add-class").removeClass("disabled");
+			  		$('.requiredornot').Attr('required');
+			  		//$("#select_emp_id_edit").addClass("edit_warning_pointer");
+			  	}
+			});	  
+			  
+			  
 			$("#edit_role_id").change(function() {
 		  		var id = $("#edit_role_id option:selected").val();
 		  		//alert(id)
