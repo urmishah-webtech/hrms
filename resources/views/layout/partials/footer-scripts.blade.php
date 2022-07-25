@@ -386,7 +386,7 @@
 
 						}
 						$("#edit_role_id").val(data.emp[0].role_id)
-
+						$("#edit_role_id_data").val(data.emp[0].role_id)
 						$("#emp_phone_no").val(data.emp[0].phone_no)
 
 						var d = new Date(data.emp[0].joing_date);
