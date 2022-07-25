@@ -197,7 +197,7 @@
                                                             <div class="dropdown-menu dropdown-menu-right">
                                                                 <a class="dropdown-item" href="{{ url('change_leave_status').'/1'.'/'.@$val->id }}"><i class="fa fa-dot-circle-o text-info"></i> Pending</a>
                                                                 <a class="dropdown-item" href="{{ url('change_leave_status').'/2'.'/'.@$val->id  }}"><i class="fa fa-dot-circle-o text-success"></i> Approved</a>
-                                                                <a class="dropdown-item disapproved"  data-id="{{@$val->id}}" data-comment="{{@$val->manager_comment}}"><i class="fa fa-dot-circle-o text-danger"></i> Disapproved</a>
+                                                                <!--<a class="dropdown-item disapproved"  data-id="{{@$val->id}}" data-comment="{{@$val->manager_comment}}"><i class="fa fa-dot-circle-o text-danger"></i> Disapproved</a>
                                                                 <!--<a class="dropdown-item disapproved" href="{{ url('change_leave_status').'/3'.'/'.@$val->id  }}"><i class="fa fa-dot-circle-o text-danger"></i> Disapproved</a>-->
                                                             </div>
                                                         </div>
