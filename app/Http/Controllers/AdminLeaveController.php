@@ -24,7 +24,7 @@ class AdminLeaveController extends Controller
             $view =$this->manger_leave_list();
             return $view;
         }else{
-        $data=EmployeeLeave::orderBy('status','asc')->get();
+        $data=EmployeeLeave::orderBy('status','asc')->where('assis_manager_id',Auth::user()->id)->get();
         $total_emp=Employee::where('role_id','!=',1)->count();
         $today_date=Carbon::today()->format('Y-m-d'); 
 
@@ -69,11 +69,14 @@ class AdminLeaveController extends Controller
             return back()->with('error','Timelimit for Changing Status is over ! you cant change now');
         }
         $data->save();
-        $type_name=($type=='2')?'approved':'rejected';
+         $employeename =Employee::find($data->approved_by);
+  
+        $type_name=($type=='2')?'approved by '.$employeename->first_name :'rejected by'.$employeename->first_name;
         $message='Hi, Your leave has been '.$type_name;
 		$leave = 'leaves-employee';
         Notification::create(['employeeid' => $data->employee_id, 'message' => $message, 'slug' =>$leave]);
         event(new LeaveApprove($message,$data->employee_id,$leave));
+
         return back();
     }
     public function search_leave_employee(Request $request){

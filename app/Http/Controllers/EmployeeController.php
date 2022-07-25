@@ -33,6 +33,7 @@ class EmployeeController extends Controller
         $location=Location::get();
         $des=Designation::get();
 		$manager = Employee::where('role_id',2)->orwhere('role_id',6)->get(); 
+        $assistantmanager = Employee::where('role_id',7)->get(); 
         if(Auth::user()->role_id==2 || Auth::user()->role_id==6){
             $emps=Employee::where('man_id',Auth::id())->get(); 
         }
@@ -44,7 +45,7 @@ class EmployeeController extends Controller
         $emp_permissions=EmpPermission::get();
         $permission_modules=PermissionModule::get();
 		$roles=Role::get();
-        return view('employees',compact('location','dep','des','emps','modules','emp_permissions','permission_modules','last_emp_id','roles','manager'));
+        return view('employees',compact('location','dep','des','emps','modules','emp_permissions','permission_modules','last_emp_id','roles','manager','assistantmanager'));
     }
     public function getDesignationAjax(Request $request){
         $des=DB::table('designations')->where('department_id',$request->deptId)->get();
@@ -52,25 +53,44 @@ class EmployeeController extends Controller
     }
     public function add_employee(Request $request){
     
-       
-     
-        $validator = Validator::make($request->all(), [
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'man_id' => 'required',
-            'user_name' => 'required|unique:employees',
-            'email' => 'required:unique:employees',
-            'password' => 'required',
-            'employee_id' => 'required|unique:employees',
-			'role_id' => 'required',
-            'joing_date' => 'required',
-            'phone_no' => 'required',
-            'company_id' => 'required',
-            'department_id' => 'required',
-            'designation_id' => 'required',
-            'confirm_password'=>'required_with:password|same:password'
+       if($request->role_id == 7){
+            $validator = Validator::make($request->all(), [
+                'first_name' => 'required',
+                'last_name' => 'required',
+                'man_id' => 'required',
+                'user_name' => 'required|unique:employees',
+                'email' => 'required:unique:employees',
+                'password' => 'required',
+                'employee_id' => 'required|unique:employees',
+                'role_id' => 'required',
+                'joing_date' => 'required',
+                'phone_no' => 'required',
+                'company_id' => 'required',
+                'department_id' => 'required',
+                'designation_id' => 'required',
+                'confirm_password'=>'required_with:password|same:password'
 
-        ]); 
+            ]);
+       }else{
+             $validator = Validator::make($request->all(), [
+                'first_name' => 'required',
+                'last_name' => 'required',
+                'man_id' => 'required',
+                'assis_man_id' => 'required',
+                'user_name' => 'required|unique:employees',
+                'email' => 'required:unique:employees',
+                'password' => 'required',
+                'employee_id' => 'required|unique:employees',
+                'role_id' => 'required',
+                'joing_date' => 'required',
+                'phone_no' => 'required',
+                'company_id' => 'required',
+                'department_id' => 'required',
+                'designation_id' => 'required',
+                'confirm_password'=>'required_with:password|same:password'
+
+            ]);
+       }
         
         if($validator->fails()){
            
@@ -109,6 +129,7 @@ class EmployeeController extends Controller
 		$emp->employee_documents = $fileName;  
         $emp->location_id=$request->location_id;
 		$emp->man_id=$request->man_id;
+        $emp->assi_manager_id=$request->assis_man_id;
         $emp->save();
 
         $expl=array();
@@ -139,21 +160,41 @@ class EmployeeController extends Controller
         }
        
         else{
-            $validator = Validator::make($request->all(), [
-                'first_name' => 'required',
-                'last_name' => 'required',
-				'man_id' => 'required',
-                'user_name' => 'required|unique:employees,user_name,'.$request->id,
-                'email' => 'required|unique:employees,email,'.$request->id,
-                'role_id' => 'required',
-                'joing_date' => 'required',
-                'phone_no' => 'required',
-            // 'employee_id'=>'required|unique:employees,employee_id,'.$request->id,
-                'company_id' => 'required',
-                'department_id' => 'required',
-                'designation_id' => 'required',
-                'confirm_password'=>'required_with:password|same:password'
-            ]);
+
+            if($request->role_id == 7){
+                    $validator = Validator::make($request->all(), [
+                    'first_name' => 'required',
+                    'last_name' => 'required',
+                    'man_id' => 'required',
+                    'user_name' => 'required|unique:employees,user_name,'.$request->id,
+                    'email' => 'required|unique:employees,email,'.$request->id,
+                    'role_id' => 'required',
+                    'joing_date' => 'required',
+                    'phone_no' => 'required',
+                // 'employee_id'=>'required|unique:employees,employee_id,'.$request->id,
+                    'company_id' => 'required',
+                    'department_id' => 'required',
+                    'designation_id' => 'required',
+                    'confirm_password'=>'required_with:password|same:password'
+                ]);
+            }else{
+                $validator = Validator::make($request->all(), [
+                    'first_name' => 'required',
+                    'last_name' => 'required',
+                    'man_id' => 'required',
+                    'assis_man_id' => 'required',
+                    'user_name' => 'required|unique:employees,user_name,'.$request->id,
+                    'email' => 'required|unique:employees,email,'.$request->id,
+                    'role_id' => 'required',
+                    'joing_date' => 'required',
+                    'phone_no' => 'required',
+                // 'employee_id'=>'required|unique:employees,employee_id,'.$request->id,
+                    'company_id' => 'required',
+                    'department_id' => 'required',
+                    'designation_id' => 'required',
+                    'confirm_password'=>'required_with:password|same:password'
+                ]);
+            }
         }
         if($validator->fails()){
            

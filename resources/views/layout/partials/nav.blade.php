@@ -11,13 +11,15 @@
 						<a  href="{{ url('index') }}"><i class="la la-dashboard"></i><span>Admin Dashboard</span></a>
 						@elseif (Auth::user()->role_id == 2 || Auth::user()->role_id == 6)
 						<a href="{{ url('index') }}"><i class="la la-dashboard"></i><span>Manager Dashboard</span></a>
+						@elseif (Auth::user()->role_id == 7)
+						<a href="{{ url('index') }}"><i class="la la-dashboard"></i><span>Assigntant Dashboard</span></a>
 						@else
 						<a href="{{ url('employee-dashboard') }}"><i class="la la-dashboard"></i><span>Employee Dashboard</span></a>
 						@endif								
 						 </a>								 
 					</li>	
-					@if(Auth::user()->role_id != 3)				 
-					<li class="menu-title"> 
+					@if(Auth::user()->role_id != 3 && Auth::user()->role_id != 7)				 
+					<li class="menu-title">  
 						<span>Employee</span>
 					</li>
 					
@@ -64,16 +66,15 @@
 							@endif -->	
 							@if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2 || Auth::user()->role_id == 5 || Auth::user()->role_id == 6)
 							<li>
-								<a class="{{ Request::is('performance-dashboard') ? 'active' : '' }}" href="{{ url('performance-dashboard') }}"> Performance Dashboard  </a>
-							</li>
-							@endif
-							@if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2 || Auth::user()->role_id == 5 || Auth::user()->role_id == 6)
-							<li>
 								<a class="{{ Request::is('employees-performance') ? 'active' : '' }}" href="{{ url('employees-performance') }}"> Employee Performance </a>
 							</li>
 							@endif	
-								
-							@if (Auth::user()->role_id == 2 || Auth::user()->role_id == 3 || Auth::user()->role_id == 4 || Auth::user()->role_id == 5 || Auth::user()->role_id == 6)
+							@if (Auth::user()->role_id == 1 || Auth::user()->role_id == 2 || Auth::user()->role_id == 5 || Auth::user()->role_id == 6)
+							<li>
+								<a class="{{ Request::is('performance-dashboard') ? 'active' : '' }}" href="{{ url('performance-dashboard') }}"> Performance Dashboard  </a>
+							</li>
+							@endif	
+							@if (Auth::user()->role_id == 2 || Auth::user()->role_id == 3 || Auth::user()->role_id == 4 || Auth::user()->role_id == 5 || Auth::user()->role_id == 6 || Auth::user()->role_id == 7)
 							<li>
 								<a class="{{ Request::is('my-performance') ? 'active' : '' }}" href="{{ route('my-performance', auth()->user()->id) }}">My Performance Review</a>
 							</li>
@@ -106,7 +107,7 @@
 						<span>Leaves</span></a></li>	
 					<li>
 					@endif
-					@if (Auth::user()->role_id == 1 || Auth::user()->role_id==2 || Auth::user()->role_id == 5 || Auth::user()->role_id == 6)
+					@if (Auth::user()->role_id == 1 || Auth::user()->role_id==2 || Auth::user()->role_id == 5 || Auth::user()->role_id == 6 || Auth::user()->role_id == 7)
 					<li>
 						<a class="{{ Request::is('leaves') ? 'active' : '' }}" href="{{ url('leaves') }}"><i class="la la-cube"></i><span>Leaves Approval</span></a></li>								
 	

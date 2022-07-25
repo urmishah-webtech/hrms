@@ -2,6 +2,12 @@
 @section('content')
 <?php use Illuminate\Support\Str;
 ?>
+<style type="text/css">
+    .disabled {
+    pointer-events: none;
+    opacity: 0.4;
+}
+</style>
 <!-- Page Wrapper -->
 <div class="page-wrapper">
 			
@@ -143,6 +149,19 @@
                                             <input class="form-control" type="text" name="last_name" required>
                                         </div>
                                     </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Role</label>
+                                            <select class="form-control" name="role_id" id="edit_role_id" required>
+                                                <option value="">Select Role</option>
+                                                @isset($roles)
+                                                    @foreach ($roles as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->name }}</option> 
+                                                    @endforeach
+                                                @endisset
+                                            </select>
+                                        </div>
+                                    </div>
 									 <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class="col-form-label">Select Manager <span class="text-danger">*</span></label>
@@ -150,6 +169,19 @@
 												<option  value="">Select Manager</option>
 												@isset($manager)
                                                     @foreach ($manager as $item)
+                                                    <option value="{{ $item->id }}">{{ $item->first_name }}  {{$item->last_name }}</option> 
+                                                    @endforeach
+                                                @endisset
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6 add-class" id="assi_manager_hide">
+                                        <div class="form-group">
+                                            <label class="col-form-label">Select Assistant Manager <span class="text-danger">*</span></label>
+                                            <select class="form-control requiredornot" name="assis_man_id" id="assi_manager_id_add">
+                                                <option  value="">Select Assistant Manager</option>
+                                                @isset($assistantmanager)
+                                                    @foreach ($assistantmanager as $item)
                                                     <option value="{{ $item->id }}">{{ $item->first_name }}  {{$item->last_name }}</option> 
                                                     @endforeach
                                                 @endisset
@@ -187,19 +219,6 @@
                                             <input type="hidden" class="form-control" id="employee_id" name="employee_id" required>
                                             <input type="hidden" class="form-control" id="last_emp_id" value="{{ @$last_emp_id->id }}"  name="last_emp_id">
                                             
-                                        </div>
-                                    </div>
-									<div class="col-sm-6">
-                                        <div class="form-group">
-                                            <label class="col-form-label">Role</label>
-                                            <select class="form-control" name="role_id" required>
-												<option value="">Select Role</option>
-												@isset($roles)
-                                                    @foreach ($roles as $item)
-                                                    <option value="{{ $item->id }}">{{ $item->name }}</option> 
-                                                    @endforeach
-                                                @endisset
-                                            </select>
                                         </div>
                                     </div>
                                     <div class="col-sm-6">

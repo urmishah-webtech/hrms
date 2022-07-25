@@ -40,22 +40,22 @@
                             <strong>{{ $message }}</strong>
                         </div>
                         @endif
-                        <div class="table-responsive1">
+                        <div class="table-responsive">
                             <table class="table table-striped custom-table mb-0 datatable">
                                 <thead>
                                     <tr>
                                         <th style="width: 30px;">#</th>
                       
-                                        <th>Warning Level</th>
-                                        @if(Auth::user()->role_id != 3)<th> Employee Name</th> @endif 
+                                        <th>Warming</th>
+                                        @if(Auth::user()->role_id != 3)<th>Employees</th> @endif 
                                         <!--<th>Employee Comments</th>-->
                                         <th>HR's Input</th>
                                         <th>Comments</th>
                                        
                                         <th>Areas for Improvement</th>
-                                        <th>Documents</th>
-                                        <!--<th>Date</th>
-                                        <th>Status</th> -->                                       
+                                        <th>Employee Documents</th>
+                                        <th>Date</th>
+                                        <th>Status</th>                                        
                                         <th class="text-right">Action</th>
                                     </tr>
                                 </thead>
@@ -98,8 +98,8 @@
                                         <a href="{{ route('download-warming-image',$employee_documents_third_json[0]) }}" ><i class="fa fa-download"></i>Download</a> @endif @endif
                                         
 
-                                        </td>  
-                                        <!--<td>{{date('d M Y', strtotime(@$val->updated_at))}}</td>
+                                        </td> 
+                                        <td>{{date('d M Y', strtotime(@$val->updated_at))}}</td>
                                         <td>
                                           <div class="dropdown action-label">
                                                 <a class="btn btn-white btn-sm btn-rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
@@ -110,7 +110,7 @@
                                                     <a class="dropdown-item" href="{{ url('changeFirstWarningstatus').'/0'.'/'.@$val->id }}"><i class="fa fa-dot-circle-o text-success"></i>Withdraw</a>
                                                 </div>
                                             </div>
-                                        </td>-->
+                                        </td>
                                         <td class="text-right">
                                             <div class="dropdown dropdown-action">
                                                 <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>

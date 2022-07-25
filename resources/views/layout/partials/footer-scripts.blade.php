@@ -57,7 +57,21 @@
 		<script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.9/jquery.validate.js"></script>
 		<script>
 		  $(document).ready(function(){
-
+			$("#edit_role_id").change(function() {
+		  		var id = $("#edit_role_id option:selected").val();
+		  		//alert(id)
+;
+			  	if(id == 7){
+			  		//alert('hello');
+			  		$(".add-class").addClass("disabled");
+			  		$('.requiredornot').removeAttr('required');
+			  		//$("#select_emp_id_edit").addClass("edit_warning_pointer");
+			  	}else{
+			  		$(".add-class").removeClass("disabled");
+			  		$('.requiredornot').Attr('required');
+			  		//$("#select_emp_id_edit").addClass("edit_warning_pointer");
+			  	}
+			});	
 		  
 		  	$("#first-select").change(function() {
 		  		var id = $("#first-select option:selected").val();
@@ -1073,19 +1087,35 @@
 	   $('.notification-list').prepend('<li class="notification-message"><a href="'+termination_data.slug+'"><div class="media"><span class="avatar"><img alt="" src="img/profiles/avatar-03.jpg"></span><div class="media-body"><p class="noti-details"><span class="noti-title">'+termination_data.message+'</span> </p><p class="noti-time"><span class="notification-time">a few seconds ago</span></p></div></div></a></li>')
     });
 
-
+	
 	var leave_added_channel = pusher.subscribe('leave-added');
-    var leave_added_channelname = 'leaveadded'
+    var leave_added_channelname = 'leaveadded';
 
-	var leave_added_auth_id={{ Auth::id() }}
-	leave_added_channel.bind(leave_added_channelname, function(leave_added_data) {
-	   if(leave_added_auth_id==leave_added_data.id || jQuery.inArray(leave_added_auth_id, leave_added_data.admin_ids) !== -1){
+	var leave_added_auth_id={{ Auth::id() }}; 
+	leave_added_channel.bind(leave_added_channelname, function(leave_added_data) { 
+	   if(leave_added_auth_id==leave_added_data.id || jQuery.inArray(leave_added_auth_id, leave_added_data.admin_ids) !== -1){  
        var pre = $('#noti-badge').html();
 	   var newcount = parseInt(pre) + parseInt(1);
 	   $('#noti-badge').html(newcount);
 	   $('.notification-list').prepend('<li class="notification-message"><a href="'+leave_added_data.slug+'"><div class="media"><span class="avatar"><img alt="" src="img/profiles/avatar-03.jpg"></span><div class="media-body"><p class="noti-details"><span class="noti-title">'+leave_added_data.message+'</span> </p><p class="noti-time"><span class="notification-time">a few seconds ago</span></p></div></div></a></li>')
 	   }
     });
+	
+	
+	var leave_added_channel1 = pusher.subscribe('leave-leaveAddedbyAssitant');
+    var leave_added_channelname1 = 'leaveAddedbyAssitant';
+
+	var leave_added_auth_id1={{ Auth::id() }}; 
+	leave_added_channel1.bind(leave_added_channelname1, function(leave_added_data1) { 
+	   if(leave_added_auth_id1==leave_added_data1.id || jQuery.inArray(leave_added_auth_id1) !== -1){  
+       var pre = $('#noti-badge').html();
+	   var newcount = parseInt(pre) + parseInt(1);
+	   $('#noti-badge').html(newcount);
+	   $('.notification-list').prepend('<li class="notification-message"><a href="'+leave_added_data1.slug+'"><div class="media"><span class="avatar"><img alt="" src="img/profiles/avatar-03.jpg"></span><div class="media-body"><p class="noti-details"><span class="noti-title">'+leave_added_data1.message+'</span> </p><p class="noti-time"><span class="notification-time">a few seconds ago</span></p></div></div></a></li>')
+	   }
+    });
+	 
+	
 
 	var indistatus_added_channel = pusher.subscribe('indicator-status');
     var indistatus_added_channelname = 'indicatorstatus'

@@ -10,22 +10,27 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use App\Employee;
 
-class EmployeeWarning implements ShouldBroadcastNow
+class leaveAddedbyAssitant implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-    public $message, $user;
-	public $slug;
+    public $message;
+    public $id;
+    
+    public $slug;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($message, $user, $slug)
+    public function __construct($message,$id,$slug)
     {
         $this->message = $message;
-        $this->user = $user;
-		$this->slug = $slug;
+        $this->id = $id;
+        
+        $this->slug=$slug;
+
     }
 
     /**
@@ -35,11 +40,11 @@ class EmployeeWarning implements ShouldBroadcastNow
      */
     public function broadcastOn()
     {
-        return ['employee-warning'];
+        return ['leave-leaveAddedbyAssitant'];
     }
 
     public function broadcastAs()
     {
-        return 'employeewarning-'.$this->user;
+        return 'leaveAddedbyAssitant';
     }
 }

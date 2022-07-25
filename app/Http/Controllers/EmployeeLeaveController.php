@@ -10,6 +10,7 @@ use Auth;
 use Carbon\Carbon;
 use App\Notification;
 use App\Events\leaveAdded;
+use App\Events\leaveAddedbyAssitant;
 use DB;
 
 class EmployeeLeaveController extends Controller
@@ -97,6 +98,7 @@ class EmployeeLeaveController extends Controller
         $el->leave_type_id=$request->leave_type_id;
         $el->employee_id=Auth::id();
         $el->manager_id=Auth::user()->man_id;
+        $el->assis_manager_id=Auth::user()->assi_manager_id;
 		$fileName= NULL;
 		if(isset($request->document_add)){
 			$fileName = time().'.'.$request->document_add->extension();  
@@ -107,18 +109,27 @@ class EmployeeLeaveController extends Controller
 		 
         $el->save();
         $admin_ids=array();
+        $assi_manager_ids=array();
         $admins=Employee::where('role_id',1)->get();
+        $assitant=Employee::where('role_id',7)->get();  
         $message = Auth::user()->first_name.' '.Auth::user()->last_name.' has put leave';
-		$man_leave= "leaves";
+		$man_leave= "leaves";  
+        
         foreach($admins as $val)
         {
-            array_push($admin_ids,$val->id); 
+            array_push($admin_ids,$val->id);
             Notification::create(['employeeid' =>$val->id, 'message' => $message, 'slug' =>$man_leave]);
 
         }
         Notification::create(['employeeid' => Auth::user()->man_id, 'message' => $message, 'slug' =>$man_leave]);
-        event(new leaveAdded($message,Auth::user()->man_id,$admin_ids,$man_leave));
-
+        event(new leaveAdded($message, Auth::user()->man_id, $admin_ids, $assi_manager_ids, $man_leave));
+		 
+			 
+				 
+				Notification::create(['employeeid' => Auth::user()->assi_manager_id, 'message' => $message, 'slug' =>$man_leave]);
+				 event(new leaveAddedbyAssitant($message, Auth::user()->assi_manager_id, $man_leave));
+			  
+        
         return json_encode("1");
     }
     public function delete_leave(Request $request,$id){
