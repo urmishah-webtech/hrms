@@ -633,6 +633,7 @@ Route::get('success_status','EmployeePerformanceController@success_Perfomance_st
 Route::post('employee_document','ProfileController@employee_document')->name('employee_document');
 Route::get('employee_documents_delete/{id}','ProfileController@employee_document_delete')->name('employee_document_delete');
 Route::post('add_Perfomance_status','EmployeePerformanceController@add_Perfomance_status_user')->name('add_Perfomance_status');
+Route::post('add_Perfomance_reject_status','EmployeePerformanceController@add_Perfomance_reject_status')->name('add_Perfomance_reject_status');
 Route::post('add_read_notification_status','NotificationController@add_read_notification_status')->name('add_read_notification_status');
 Route::post('add_Perfomance_status_user_for_employee','EmployeePerformanceController@add_Perfomance_status_user_for_employee')->name('add_Perfomance_status_user_for_employee');
 Route::post('add_Perfomance_date_for_employee','EmployeePerformanceController@add_Perfomance_date_for_employee')->name('add_Perfomance_date_for_employee');

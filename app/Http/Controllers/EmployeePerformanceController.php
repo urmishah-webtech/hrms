@@ -827,6 +827,67 @@ class EmployeePerformanceController extends Controller
         return redirect('success_status');
     }
 	
+	 public function add_Perfomance_reject_status(Request $request)
+    {   	
+        
+        $userd = Auth::user()->id;  
+		$key_date = $request->perfomance_date; 
+		 
+		if($userd != $request->empid){ 
+			$status=KeyprofessionalExcellences::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->first();         
+			$status->complete_perfomance_by_hr=2;   
+			$status->save();
+		}
+		
+		if($userd != $request->empid){ 
+			$status=PersonalExcellence::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->first(); 
+			$status->complete_perfomance_by_hr=2;   
+			$status->save();
+		}
+		
+		if($userd != $request->empid){ 
+			$status=SpecialInitiatives::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->get();
+			foreach($status as $key => $input)
+			{  
+				$score=SpecialInitiatives::where('id',$input->id)->first(); 
+				$score->complete_perfomance_by_hr=2;   
+				$score->save();  
+			}
+        } 
+		
+		if($userd != $request->empid){ 
+		    $status=AppraiseeStrength::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->get(); 
+			foreach($status as $key => $input)
+			{  
+				$score=AppraiseeStrength::where('id',$input->id)->first(); 
+				$score->complete_perfomance_by_hr=2;   
+				$score->save();  
+			}
+		}
+		
+		if($userd != $request->empid){ 
+			$status=OtherGeneralComment::where('emp_id',$request->empid)->where('perfomance_date',$key_date)->get();
+			foreach($status as $key => $input)
+			{  
+				$score=OtherGeneralComment::where('id',$input->id)->first(); 
+				$score->complete_perfomance_by_hr=2;   
+				$score->save();  
+			}
+        }
+		$email_em=Employee::where('id',$request->empid)->first();  
+		$manager_ids = $email_em->man_id; 
+		$man_email = Employee::where('id',$manager_ids)->pluck('email')->first();    
+		$emp_fname = Employee::where('id',$request->empid)->pluck('first_name')->first();  
+		$emp_lname = Employee::where('id',$request->empid)->pluck('last_name')->first();
+		$details = [
+			'title' => 'Performance Status',
+			'body' => $emp_fname ." ". $emp_lname."'s". ' Performance Status has been Rejected' 
+			 
+		]; 
+		Mail::to($man_email)->send(new \App\Mail\RejectStatus($details)); 
+		return back(); 
+	}
+	
 	public function success_Perfomance_status()
 	{
 		return view('success_status');

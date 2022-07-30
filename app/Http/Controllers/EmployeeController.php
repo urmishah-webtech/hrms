@@ -159,7 +159,7 @@ class EmployeeController extends Controller
 				'assis_man_id' => 'required'
             ]); 
         }
-		elseif(Auth::user()->role_id == 2){
+		elseif(Auth::user()->role_id == 2 || Auth::user()->role_id == 6){
 				$validator = Validator::make($request->all(), [
 				'assis_man_id' => 'required'
 				 ]);

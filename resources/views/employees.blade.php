@@ -369,7 +369,7 @@
                                             <input class="form-control" value="" type="text" name="last_name" id="emp_last_name">
                                         </div>
                                     </div>
-									@if(Auth::user()->role_id==2)
+									@if(Auth::user()->role_id==2 || Auth::user()->role_id==6)
                                     @else
 									<div class="col-sm-6">
                                         <div class="form-group">
@@ -413,7 +413,7 @@
                                     </div>
                                     <div class="col-sm-6">
                                         <div class="form-group">
-                                            @if(Auth::user()->role_id==2)
+                                            @if(Auth::user()->role_id==2 || Auth::user()->role_id==6)
                                             <label class="col-form-label">Username <span class="text-danger"></span></label>
                                             <input class="form-control" value="" type="text" disabled name="" id="emp_user_name">
                                             @else
@@ -422,7 +422,7 @@
                                             @endif
                                         </div>
                                     </div>
-                                    @if(Auth::user()->role_id==2)
+                                    @if(Auth::user()->role_id==2 || Auth::user()->role_id==6)
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class="col-form-label">Email <span class="text-danger">*</span></label>
@@ -437,7 +437,7 @@
                                         </div>
                                     </div>
                                     @endif
-                                    @if(Auth::user()->role_id==2)
+                                    @if(Auth::user()->role_id==2 || Auth::user()->role_id==6)
                                     @else
                                     <div class="col-sm-6">
                                         <div class="form-group">
@@ -446,7 +446,7 @@
                                         </div>
                                     </div>
                                     @endif
-                                    @if(Auth::user()->role_id==2)
+                                    @if(Auth::user()->role_id==2 || Auth::user()->role_id==6)
                                     @else
                                     <div class="col-sm-6">
                                         <div class="form-group">
@@ -474,7 +474,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    @if(Auth::user()->role_id==2)
+                                    @if(Auth::user()->role_id==2 || Auth::user()->role_id==6)
                                     <div class="col-sm-6">  
                                         <div class="form-group">
                                             <label class="col-form-label">Joining Date <span class="text-danger">*</span></label>
@@ -499,8 +499,8 @@
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class="col-form-label">Company</label>
-                                            @if(Auth::user()->role_id==2)
-                                            <select class="form-control" id="company_name" name="" disabled>
+                                            @if(Auth::user()->role_id==2 || Auth::user()->role_id==6)
+                                            <select class="form-control" id="company_name" name="company_id" disabled>
                                                 <option value="1">Wazobia Market</option>
                                             </select>
                                             @else
@@ -513,7 +513,7 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Department <span class="text-danger">*</span></label>
-                                            @if(Auth::user()->role_id==2)
+                                            @if(Auth::user()->role_id==2 || Auth::user()->role_id==6)
                                             <select class="form-control" id="edit_depList" name="" disabled>
                                                 <option>Select Department</option>
                                                 @isset($dep)
@@ -536,7 +536,7 @@
                                     </div>
                                     <div class="col-md-6">
                                         <div class="form-group">
-                                            @if(Auth::user()->role_id==2)
+                                            @if(Auth::user()->role_id==2 || Auth::user()->role_id==6)
                                             <label>Designation <span class="text-danger">*</span></label>
                                             <select class="select" name="" disabled id="edit_designationList">
                                                 <option value="">Select Designation</option>
@@ -571,7 +571,7 @@
                                         </div>
                                     </div>
                                 </div>
-								@if(Auth::user()->role_id != 2)
+								@if(Auth::user()->role_id != 2 && Auth::user()->role_id!=6)
                                 <div class="table-responsive m-t-15">
                                     <table class="table table-striped custom-table">
                                         <thead>
@@ -643,19 +643,19 @@
 		<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 		<script type="text/javascript">
 		jQuery(document).ready(function() {
-		<?php  if(Auth::user()->role_id==2){ ?> 
-		jQuery("form.edit_employee_form30 input").css('pointer-events','none!important');
+		<?php  if(Auth::user()->role_id==2 || Auth::user()->role_id==6){ ?> 
+		jQuery("form.edit_employee_form30 input").css('pointer-events','none');
 		jQuery("form.edit_employee_form30 input").css('background-color','#e9ecef!important');
 		 
-		jQuery("form.edit_employee_form30 select#manager_id").css('pointer-events','none!important');
+		jQuery("form.edit_employee_form30 select#manager_id").css('pointer-events','none');
 		jQuery("form.edit_employee_form30 select#manager_id").css('background-color','#e9ecef!important');
-		jQuery("form.edit_employee_form30 select#gender").css('pointer-events','none!important');
+		jQuery("form.edit_employee_form30 select#gender").css('pointer-events','none');
 		jQuery("form.edit_employee_form30 select#gender").css('background-color','#e9ecef!important');
-		jQuery("form.edit_employee_form30 select#edit_depList").css('pointer-events','none!important');
+		jQuery("form.edit_employee_form30 select#edit_depList").css('pointer-events','none');
 		jQuery("form.edit_employee_form30 select#edit_depList").css('background-color','#e9ecef!important');
-		jQuery("form.edit_employee_form30 select#company_name").css('pointer-events','none!important');
+		jQuery("form.edit_employee_form30 select#company_name").css('pointer-events','none');
 		jQuery("form.edit_employee_form30 select#company_name").css('background-color','#e9ecef!important');
-		jQuery("form.edit_employee_form30 select#edit_locList").css('pointer-events','none!important');
+		jQuery("form.edit_employee_form30 select#edit_locList").css('pointer-events','none');
 		jQuery("form.edit_employee_form30 select#edit_locList").css('background-color','#e9ecef!important'); 
 		 
 		 
