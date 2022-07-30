@@ -44,23 +44,42 @@
                                 @csrf
 								{{ csrf_field() }} 
 								 <input type="hidden" value="{{ $data->id }}" name="id" id="edit_hiiden_id">
+								 <?php //dd($total_maternity_taken);?>
                                 <div class="form-group">
                                     <label>Leave Type <span class="text-danger">*</span></label>
                                     <select class="form-control" name="leave_type_id" required id="leave_type_chng">
                                         <option value="">Select Leave Type</option>
                                         @if(@$remaining_leaves>0)
                                             <option value="0" @if( @$data->leave_type_id==0)selected @endif>Casual Leave</option>
-                                           
-                                            <option value="1" @if( @$data->leave_type_id==1)selected @endif >Sick Leave</option>
-                                         
-                                            
-                                            <option value="2" @if( @$data->leave_type_id==2)selected @endif>Hospitalisation leave</option>
-                                           
-                                            @if(Auth::user()->gender==1)
+										
+											@if($data->leave_type_id==1)
+												@if($total_sick_taken<=$sick_days)
+												<option value="1" @if( @$data->leave_type_id==1)selected @endif >Sick Leave</option>
+												@endif
+                                            @elseif($total_sick_taken<$sick_days)
+												<option value="1" @if( @$data->leave_type_id==1)selected @endif >Sick Leave</option>
+											@else
+											@endif
+											
+											@if($data->leave_type_id==2)
+												@if($total_hospitalisation_taken<=$hospitalisation_days)
+												<option value="2" @if( @$data->leave_type_id==2)selected @endif>Hospitalisation leave</option>
+												@endif
+											@elseif($total_hospitalisation_taken<$hospitalisation_days)
+												<option value="2" @if( @$data->leave_type_id==2)selected @endif>Hospitalisation leave</option>
+											@else
+											@endif
+											
+                                           @if( @$data->leave_type_id==3)
+												@if(Auth::user()->gender==1 && $total_maternity_taken<=$maternity_days)
                                                 <option @if( @$data->leave_type_id==3)selected @endif value="3">Maternity leave</option>
-                                            @endif
+												@endif
+											@elseif(Auth::user()->gender==1 && $total_maternity_taken<$maternity_days)
+											@else
+											@endif
+											
                                             @if(Auth::user()->gender==0)
-                                                <option @if( @$data->leave_type_id==4)selected @endif value="4">paternity leave</option>
+                                            <!--    <option @if( @$data->leave_type_id==4)selected @endif value="4">paternity leave</option>-->
                                             @endif
                                         @endif
                                         @if(@$remaining_leaves<=0)
@@ -82,9 +101,9 @@
                                         <input required class="form-control" name="end_date" id="end_date" type="text">
                                     </div>
                                     <span class="end_date_error" style="color:red;display:none">please select proper date</span>
-									<span id="limit_maternity" class="end_date_error" style="color:red;display:none">Please Select another Date</span>
-									<span id="limit_sick" class="end_date_error" style="color:red;display:none">Please Select another Date</span>
-									<span id="limit_hospitalisation" class="end_date_error" style="color:red;display:none">Please Select another Date</span>
+									<span id="limit_maternity" class="end_date_error" style="color:red;display:none">Maximum allowed Maternity Leaves are 40, So Please Select Another Date</span>
+									<span id="limit_sick" class="end_date_error" style="color:red;display:none">Maximum allowed Sick Leaves are 3, So Please Select Another Date</span>
+									<span id="limit_hospitalisation" class="end_date_error" style="color:red;display:none">Maximum allowed Hospitalisation Leaves are 4, So Please Select Another Date</span>
 									<span id="limit_Paternity" class="end_date_error" style="color:red;display:none"> Please Select another Date</span>
                                 </div> 
                                
@@ -165,7 +184,7 @@
     });
     $("#start_date").datepicker('setDate', '{{ $data->from_date }}');
     $( "#end_date" ).datepicker({ dateFormat: "yy-mm-dd",minDate:0,
-        onSelect: function(dateText) {
+        onSelect: function(dateText) { 
             $('.end_date_error').hide()
             var start = $('#start_date').datepicker('getDate');
             var end   = $('#end_date').datepicker('getDate');

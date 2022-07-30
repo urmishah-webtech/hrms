@@ -93,14 +93,15 @@ class EmployeeVerbalWarningController extends Controller
         $hrid = Employee::where('role_id', 5)->first()->id;
 		$empname = Employee::find($request->emp_id)->pluck('first_name')->first();  
         $empmessage = 'You got a first warning from ('.$empname.')';
-        Notification::create(['employeeid' => $warnings_all->emp_id, 'message' => $empmessage]);
-        event(new EmployeeWarning($empmessage, $warnings_all->emp_id));
+		$emp_warning = "employee-warning";
+        Notification::create(['employeeid' => $warnings_all->emp_id, 'message' => $empmessage, 'slug' => $emp_warning]);
+        event(new EmployeeWarning($empmessage, $warnings_all->emp_id, $emp_warning));
         
         $message = $empname.' Received First Warning from '.$man_name.' (Reporting manager)';
-        Notification::create(['employeeid' => $adminid, 'message' => $message]);
-        event(new EmployeeWarning($message, $adminid));
-        Notification::create(['employeeid' => $hrid, 'message' => $message]);
-        event(new EmployeeWarning($message, $hrid));
+        Notification::create(['employeeid' => $adminid, 'message' => $message, 'slug' => $emp_warning]);
+        event(new EmployeeWarning($message, $adminid, $emp_warning));
+        Notification::create(['employeeid' => $hrid, 'message' => $message, 'slug' => $emp_warning]);
+        event(new EmployeeWarning($message, $hrid, $emp_warning));
 
       
         return back();       
@@ -211,13 +212,14 @@ class EmployeeVerbalWarningController extends Controller
             $hrid = Employee::where('role_id', 5)->first()->id;
 			$empname = Employee::find($warnings_all->emp_id)->pluck('first_name')->first(); 
             $empmessage = 'You got a Second warning from ('.$empname.')';
-            Notification::create(['employeeid' => $warnings_all->emp_id, 'message' => $empmessage]);
-            event(new EmployeeWarning($empmessage, $warnings_all->emp_id));             
+			$emp_warning = "employee-warning";
+            Notification::create(['employeeid' => $warnings_all->emp_id, 'message' => $empmessage, 'slug' => $emp_warning]);
+            event(new EmployeeWarning($empmessage, $warnings_all->emp_id, $emp_warning));             
             $message = $empname.' Received Second Warning from '.$man_name.' (Reporting manager)';
-            Notification::create(['employeeid' => $adminid, 'message' => $message]);
-            event(new EmployeeWarning($message, $adminid));
-            Notification::create(['employeeid' => $hrid, 'message' => $message]);
-            event(new EmployeeWarning($message, $hrid));
+            Notification::create(['employeeid' => $adminid, 'message' => $message, 'slug' => $emp_warning]);
+            event(new EmployeeWarning($message, $adminid, $emp_warning));
+            Notification::create(['employeeid' => $hrid, 'message' => $message, 'slug' => $emp_warning]);
+            event(new EmployeeWarning($message, $hrid, $emp_warning));
         }
 
         if($request->status == 3){
@@ -233,13 +235,14 @@ class EmployeeVerbalWarningController extends Controller
             $hrid = Employee::where('role_id', 5)->first()->id;
 			$empname = Employee::find($warnings_all->emp_id)->pluck('first_name')->first(); 
             $empmessage = 'You got a Third warning from ('.$empname.')';
-            Notification::create(['employeeid' => $warnings_all->emp_id, 'message' => $empmessage]);
-            event(new EmployeeWarning($empmessage, $warnings_all->emp_id));             
+			$emp_warning = "employee-warning";
+            Notification::create(['employeeid' => $warnings_all->emp_id, 'message' => $empmessage, 'slug' => $emp_warning]);
+            event(new EmployeeWarning($empmessage, $warnings_all->emp_id, $emp_warning));             
             $message = $empname.' Received Third Warning from '.$man_name.' (Reporting manager)';
-            Notification::create(['employeeid' => $adminid, 'message' => $message]);
-            event(new EmployeeWarning($message, $adminid));
-            Notification::create(['employeeid' => $hrid, 'message' => $message]);
-            event(new EmployeeWarning($message, $hrid));
+            Notification::create(['employeeid' => $adminid, 'message' => $message, 'slug' => $emp_warning]);
+            event(new EmployeeWarning($message, $adminid, $emp_warning));
+            Notification::create(['employeeid' => $hrid, 'message' => $message, 'slug' => $emp_warning]);
+            event(new EmployeeWarning($message, $hrid, $emp_warning));
         }
         $warnings_all->update();  
 
@@ -358,14 +361,15 @@ class EmployeeVerbalWarningController extends Controller
 			$adminid = Employee::where('role_id', 1)->first()->id;
 			$hrid = Employee::where('role_id', 5)->first()->id;
 			$empmessage = 'Your Second Warning Created by '.$man_name.' (Reporting manager)';
-			Notification::create(['employeeid' => $scores->emp_id, 'message' => $empmessage]);
-			event(new EmployeeWarning($empmessage, $scores->emp_id));
+			$emp_warning = "employee-warning";
+			Notification::create(['employeeid' => $scores->emp_id, 'message' => $empmessage, 'slug' => $emp_warning]);
+			event(new EmployeeWarning($empmessage, $scores->emp_id, $emp_warning));
 			$empname = Employee::find($request->emp_id)->pluck('first_name')->first();  
 			$message = $empname.' Received Second Warning from '.$man_name.' (Reporting manager)';
-			Notification::create(['employeeid' => $adminid, 'message' => $message]);
-			event(new EmployeeWarning($message, $adminid));
-			Notification::create(['employeeid' => $hrid, 'message' => $message]);
-			event(new EmployeeWarning($message, $hrid));
+			Notification::create(['employeeid' => $adminid, 'message' => $message, 'slug' => $emp_warning]);
+			event(new EmployeeWarning($message, $adminid, $emp_warning));
+			Notification::create(['employeeid' => $hrid, 'message' => $message, 'slug' => $emp_warning]);
+			event(new EmployeeWarning($message, $hrid, $emp_warning));
         }
         return back();       
     }
@@ -496,14 +500,15 @@ class EmployeeVerbalWarningController extends Controller
 			$adminid = Employee::where('role_id', 1)->first()->id;
 			$hrid = Employee::where('role_id', 5)->first()->id;
 			$empmessage = 'Your Third Warning Created by '.$man_name.' (Reporting manager)';
-			Notification::create(['employeeid' => $scores->emp_id, 'message' => $empmessage]);
-			event(new EmployeeWarning($empmessage, $scores->emp_id));
+			$emp_warning = "employee-warning";
+			Notification::create(['employeeid' => $scores->emp_id, 'message' => $empmessage, 'slug' => $emp_warning]);
+			event(new EmployeeWarning($empmessage, $scores->emp_id, $emp_warning));
 			$empname = Employee::find($request->emp_id)->pluck('first_name')->first();  
 			$message = $empname.' Received Third Warning from '.$man_name.' (Reporting manager)';
-			Notification::create(['employeeid' => $adminid, 'message' => $message]);
-			event(new EmployeeWarning($message, $adminid));
-			Notification::create(['employeeid' => $hrid, 'message' => $message]);
-			event(new EmployeeWarning($message, $hrid));
+			Notification::create(['employeeid' => $adminid, 'message' => $message, 'slug' => $emp_warning]);
+			event(new EmployeeWarning($message, $adminid, $emp_warning));
+			Notification::create(['employeeid' => $hrid, 'message' => $message, 'slug' => $emp_warning]);
+			event(new EmployeeWarning($message, $hrid, $emp_warning));
         }
         return back();       
     }

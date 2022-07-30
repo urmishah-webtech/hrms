@@ -1,5 +1,6 @@
 @extends('layout.mainlayout')
 @section('content')
+<?php use  App\Employee;?>
 <!-- Page Wrapper -->
 <div class="page-wrapper">
 			
@@ -24,10 +25,14 @@
                                 <li class="breadcrumb-item"><a href="index">Dashboard</a></li>
                                 <li class="breadcrumb-item active">Leaves</li>
                             </ul>
-                        </div>
+                        </div>  
+						 
+						 
                         <div class="col-auto float-right ml-auto">
                             <a href="#" class="btn add-btn" data-toggle="modal" data-target="#add_leave"><i class="fa fa-plus"></i> Add Leave</a>
                         </div>
+						 
+						 
                     </div>
                 </div>
                 <!-- /Page Header -->
@@ -38,15 +43,15 @@
                 
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="table-responsive">
+                        <div class="table-responsive1">
                             <table class="table table-striped custom-table mb-0 datatable">
                                 <thead>
                                     <tr>
                                         <th>Leave Type</th>
                                         <th>From</th>
                                         <th>To</th>
-                                        <th>No of Days</th>
-                                        <th>Reason</th>
+                                       <!-- <th>No of Days</th>
+                                        <th>Reason</th>-->
                                         <th class="text-center">Status</th>
                                         <th>Approved by</th>
                                         <th>Manager Comments</th>
@@ -78,12 +83,12 @@
                                             <td>
                                                 {{ @$val->to_date }}
                                             </td>
-                                            <td>
+                                           <!-- <td>
                                                 {{ @$val->number_of_days }} 
                                             </td>
                                             <td>
                                                 {{ @$val->leave_reason }}
-                                            </td>
+                                            </td>-->
                                             <td class="text-center">
                                                 <div class="action-label">
                                                     @if($val->status==1)
@@ -102,12 +107,13 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <h2 class="table-avatar">
-                                                    <a href="profile" class="avatar avatar-xs"><img src="img/profiles/avatar-09.jpg" alt=""></a>
-                                                    <a href="#">{{ @$my_manager_name->first_name }}</a>
-                                                    @empty($my_manager_name)
-                                                        Admin
-                                                    @endempty
+                                                <h2 class="table-avatar"> 
+													<?php $approve_id = $val->approved_by;
+													$appr_nm = Employee::where('id',$approve_id)->pluck('first_name')->first();  ?>
+													@if($appr_nm)
+													<a href="profile" class="avatar avatar-xs"><img src="img/profiles/avatar-09.jpg" alt=""></a> 
+                                                    <a href="#">{{$appr_nm}} </a>
+                                                    @endif 
                                                 </h2>
                                             </td>
                                             <td>{{@$val->manager_comment}}</td>

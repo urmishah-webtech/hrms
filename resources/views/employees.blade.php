@@ -104,7 +104,7 @@
                                     <div class="profile-img">
                                         <a href="{{route('profile_details', $val->id)}}" class="avatar"><img src="img/profiles/avatar-02.jpg" alt=""></a>
                                     </div>
-									 @if(Auth::user()->role_id!=2)
+									 
                                     <div class="dropdown profile-action">
                                         <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                         <div class="dropdown-menu dropdown-menu-right">
@@ -112,7 +112,7 @@
                                             <a class="dropdown-item delEmpBtn" href="#" data-toggle="modal" data-id="{{ @$val->id }}" data-target="#delete_employee"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                                         </div>
                                     </div>
-									@endif
+									 
                                     <h4 class="user-name m-t-10 mb-0 text-ellipsis"><a href="{{route('profile_details', $val->id)}}">{{ @$val->first_name }} {{ @$val->last_name }}</a></h4>
                                     <div class="small text-muted">
                                         {{ @$val->designation->name }}</div>
@@ -353,8 +353,8 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form action="{{ route('update_employee') }}" method="post" enctype="multipart/form-data" >
-                                @csrf
+                            <form class="edit_employee_form30" action="{{ route('update_employee') }}" method="post" enctype="multipart/form-data" >
+                                 <input type="hidden" name="_token" value="{{ csrf_token() }}" id="hidden_from"> 
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <div class="form-group">
@@ -500,7 +500,7 @@
                                         <div class="form-group">
                                             <label class="col-form-label">Company</label>
                                             @if(Auth::user()->role_id==2)
-                                            <select class="select" name="" disabled>
+                                            <select class="form-control" id="company_name" name="" disabled>
                                                 <option value="1">Wazobia Market</option>
                                             </select>
                                             @else
@@ -571,6 +571,7 @@
                                         </div>
                                     </div>
                                 </div>
+								@if(Auth::user()->role_id != 2)
                                 <div class="table-responsive m-t-15">
                                     <table class="table table-striped custom-table">
                                         <thead>
@@ -601,6 +602,7 @@
                                         </tbody>
                                     </table>
                                 </div>
+								@endif
                                 <div class="submit-section">
                                     <button class="btn btn-primary submit-btn">Save</button>
                                 </div>
@@ -638,5 +640,27 @@
             
         </div>
         <!-- /Page Wrapper -->
+		<script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+		<script type="text/javascript">
+		jQuery(document).ready(function() {
+		<?php  if(Auth::user()->role_id==2){ ?> 
+		jQuery("form.edit_employee_form30 input").css('pointer-events','none!important');
+		jQuery("form.edit_employee_form30 input").css('background-color','#e9ecef!important');
 		 
+		jQuery("form.edit_employee_form30 select#manager_id").css('pointer-events','none!important');
+		jQuery("form.edit_employee_form30 select#manager_id").css('background-color','#e9ecef!important');
+		jQuery("form.edit_employee_form30 select#gender").css('pointer-events','none!important');
+		jQuery("form.edit_employee_form30 select#gender").css('background-color','#e9ecef!important');
+		jQuery("form.edit_employee_form30 select#edit_depList").css('pointer-events','none!important');
+		jQuery("form.edit_employee_form30 select#edit_depList").css('background-color','#e9ecef!important');
+		jQuery("form.edit_employee_form30 select#company_name").css('pointer-events','none!important');
+		jQuery("form.edit_employee_form30 select#company_name").css('background-color','#e9ecef!important');
+		jQuery("form.edit_employee_form30 select#edit_locList").css('pointer-events','none!important');
+		jQuery("form.edit_employee_form30 select#edit_locList").css('background-color','#e9ecef!important'); 
+		 
+		 
+		 
+		<?php } ?>
+		});
+		</script>
 @endsection

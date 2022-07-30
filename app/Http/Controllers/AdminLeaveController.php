@@ -20,11 +20,9 @@ class AdminLeaveController extends Controller
 		 
 		$man_comment=EmployeeLeave::where('manager_id',Auth::user()->id)->pluck('id')->toArray();  
 		 		
-        if(Auth::user()->role_id==2 || Auth::user()->role_id==6 ){
-            $view =$this->manger_leave_list();
-            return $view;
-        }else{
-        $data=EmployeeLeave::orderBy('status','asc')->where('assis_manager_id',Auth::user()->id)->get();
+         
+		//$data=EmployeeLeave::orderBy('status','asc')->where('assis_manager_id',Auth::user()->id)->get();
+		$data=EmployeeLeave::orderBy('id','DESC')->get();
         $total_emp=Employee::where('role_id','!=',1)->count();
         $today_date=Carbon::today()->format('Y-m-d'); 
 
@@ -55,7 +53,7 @@ class AdminLeaveController extends Controller
 
         $search_leave_type='';
         return view('leaves',\compact('data','employee_tb','total_emp','present_emp','plan_count','unplan_count','pending_req','man_comment'));
-        }
+         
     }
     public function change_leave_status($type,$id){
         $data=EmployeeLeave::where('id',$id)->first();

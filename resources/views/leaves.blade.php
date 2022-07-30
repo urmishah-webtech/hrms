@@ -149,7 +149,7 @@
                                                         <h2 class="table-avatar">
                                                             <a href="profile" class="avatar"><img alt="" src="img/profiles/avatar-09.jpg"></a>
                                                             {{ @$val->employee->first_name }} <br>
-                                                            <span>{{ @$val->employee->designation->name }}</span>
+                                                            <!--<span>{{ @$val->employee->designation->name }}</span>-->
                                                         </h2>
                                                     </td>
                                                     <td>
@@ -191,13 +191,13 @@
                                                             </a>
                                                             @else
                                                             <a class="btn btn-white btn-sm btn-rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
-                                                                <i class="fa fa-dot-circle-o text-purple"></i> Disapproved
+                                                                <i class="fa fa-dot-circle-o text-purple"></i> Rejected
                                                             </a>
                                                             @endif
                                                             <div class="dropdown-menu dropdown-menu-right">
                                                                 <a class="dropdown-item" href="{{ url('change_leave_status').'/1'.'/'.@$val->id }}"><i class="fa fa-dot-circle-o text-info"></i> Pending</a>
                                                                 <a class="dropdown-item" href="{{ url('change_leave_status').'/2'.'/'.@$val->id  }}"><i class="fa fa-dot-circle-o text-success"></i> Approved</a>
-                                                                <!--<a class="dropdown-item disapproved"  data-id="{{@$val->id}}" data-comment="{{@$val->manager_comment}}"><i class="fa fa-dot-circle-o text-danger"></i> Disapproved</a>
+                                                               <a class="dropdown-item disapproved"  data-id="{{@$val->id}}" data-comment="{{@$val->manager_comment}}"><i class="fa fa-dot-circle-o text-danger"></i> Rejected</a>
                                                                 <!--<a class="dropdown-item disapproved" href="{{ url('change_leave_status').'/3'.'/'.@$val->id  }}"><i class="fa fa-dot-circle-o text-danger"></i> Disapproved</a>-->
                                                             </div>
                                                         </div>

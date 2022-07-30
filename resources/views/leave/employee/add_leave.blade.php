@@ -1,3 +1,4 @@
+<?php use App\EmployeeLeave; ?>
 <div id="add_leave" class="modal custom-modal fade" role="dialog">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -50,9 +51,9 @@
                             <input class="form-control" autocomplete="off" name="end_date" id="end_date" type="text" required>
                         </div>
                         <span class="end_date_error" style="color:red;display:none">Please Select Proper Date</span>
-						<span id="limit_maternity" class="end_date_error" style="color:red;display:none">Please Select another Date</span>
-						<span id="limit_sick" class="end_date_error" style="color:red;display:none">Please Select another Date</span>
-						<span id="limit_hospitalisation" class="end_date_error" style="color:red;display:none"> Please Select another Date</span>
+						<span id="limit_maternity" class="end_date_error" style="color:red;display:none">Maximum allowed Maternity Leaves are 40, So Please Select Another Date</span>
+						<span id="limit_sick" class="end_date_error" style="color:red;display:none">Maximum allowed Sick Leaves are 3, So Please Select Another Date</span>
+						<span id="limit_hospitalisation" class="end_date_error" style="color:red;display:none"> Maximum allowed Hospitalisation Leaves are 4, So Please Select Another Date</span>
 						<span id="limit_Paternity" class="end_date_error" style="color:red;display:none"> Please Select another Date</span>
                     </div>
                     <div class="form-group">
@@ -108,6 +109,7 @@ jQuery(document).ready(function() {
 
     })
 </script>
+<?php $db_start = EmployeeLeave::where('employee_id',Auth::id())->get()->pluck('from_date')->toArray(); //dd($db_start);?>
 <script>
  
     $(function() {
@@ -116,11 +118,13 @@ jQuery(document).ready(function() {
         defaultDate: new Date(),
         minDate: new Date(),
         onSelect: function(dateStr) 
-        {       
+        {      
             $('.end_date_error').hide()
             $("#end_date").val(dateStr);
             $("#end_date").datepicker("option",{ minDate: new Date(dateStr)})
-            var start = $('#start_date').datepicker('getDate');
+            var start = $('#start_date').datepicker('getDate'); 
+			 
+ 		//alert(count_date);
             var end   = $('#end_date').datepicker('getDate');
             var days   = ((end - start)/1000/60/60/24)+1;
             $("#number_of_days").val(days)
@@ -130,7 +134,7 @@ jQuery(document).ready(function() {
         }
         });
         $( "#end_date" ).datepicker({
-        onSelect: function(dateText) {
+        onSelect: function(dateText) { 
             $('.end_date_error').hide()
             var start = $('#start_date').datepicker('getDate');
             var end   = $('#end_date').datepicker('getDate');
@@ -269,3 +273,4 @@ jQuery(document).ready(function() {
 	
 	
 </script>
+ 

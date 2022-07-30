@@ -46,6 +46,7 @@ class EmployeeLeaveController extends Controller
         }
         $data=EmployeeLeave::where('employee_id',Auth::id())->orderBy('id','desc')->get();
         $my_manager_name=Employee::where('id',Auth::user()->man_id)->first();
+         
         
         $total_sicks = EmployeeLeave::where('employee_id',Auth::id())->where('leave_type_id',1)->get();
         $total_sick_taken =0;
@@ -79,10 +80,13 @@ class EmployeeLeaveController extends Controller
             }        
         }
         $remaining_leaves=$total_leaves-$taken_leaves;
-		$remaining_maternity=$maternity_days-$total_maternity_taken;   
-		  
+		$remaining_maternity=$maternity_days-$total_maternity_taken;  
+		$leave_sid = EmployeeLeave::pluck('id')->get('id'); //dd($leave_sid);
+		$leave_add=EmployeeLeave::where('employee_id',Auth::id())->where('status','2')->first();
+		$count_leave=EmployeeLeave::where('employee_id',Auth::id())->where('status','=',1)->count();
+		 
         return view('leaves-employee',compact('total_maternity_taken','total_paternity_taken',
-        'maternity_days','paternity_days','total_hospitalisation_taken','hospitalisation_days','total_sick_taken','sick_days','lt','data','total_leaves','taken_leaves','remaining_leaves','my_manager_name','remaining_maternity'));
+        'maternity_days','paternity_days','total_hospitalisation_taken','hospitalisation_days','total_sick_taken','sick_days','lt','data','total_leaves','taken_leaves','remaining_leaves','my_manager_name','remaining_maternity','leave_add','count_leave'));
     } 
     public function save_leave(Request $request){
 	
@@ -112,7 +116,7 @@ class EmployeeLeaveController extends Controller
         $assi_manager_ids=array();
         $admins=Employee::where('role_id',1)->get();
         $assitant=Employee::where('role_id',7)->get();  
-        $message = Auth::user()->first_name.' '.Auth::user()->last_name.' has put leave';
+        $message = Auth::user()->first_name.' '.Auth::user()->last_name.' has applied for leave.';
 		$man_leave= "leaves";  
         
         foreach($admins as $val)

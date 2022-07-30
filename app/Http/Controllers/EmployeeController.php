@@ -148,8 +148,8 @@ class EmployeeController extends Controller
         }
         return back();
     }
-    public function update_employee(Request $request){
-        if(Auth::user()->role_id==3 || Auth::user()->role_id==2)
+    public function update_employee(Request $request){  
+        if(Auth::user()->role_id==3)
         {
             $validator = Validator::make($request->all(), [
                 /* 'first_name' => 'required',
@@ -159,7 +159,11 @@ class EmployeeController extends Controller
 				'assis_man_id' => 'required'
             ]); 
         }
-       
+		elseif(Auth::user()->role_id == 2){
+				$validator = Validator::make($request->all(), [
+				'assis_man_id' => 'required'
+				 ]);
+			}
         else{
 
             if($request->role_id == 7){
@@ -178,7 +182,8 @@ class EmployeeController extends Controller
                     'designation_id' => 'required',
                     'confirm_password'=>'required_with:password|same:password'
                 ]);
-            }else{
+            } 
+			else{
                 $validator = Validator::make($request->all(), [
                     'first_name' => 'required',
                     'last_name' => 'required',
