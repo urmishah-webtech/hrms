@@ -529,9 +529,9 @@
                                 <thead>
                                     <tr>
                                         <th>First Name </th>
-                                        <th>Last Name </th>
-                                        
+                                        <th>Last Name </th> 
                                         <th>Performance Date</th> 
+                                        <th>Status</th> 
                                     </tr>
                                 </thead>
                                 <tbody>  
@@ -543,9 +543,9 @@
                                         </td>
 										<td>  
                                             <h2><a href="{{route('profile_details', @$item->id)}}">  {{ @$item->last_name }}</a></h2>
-                                        </td>
-                                       
+                                        </td> 
                                         <td>{{@$item->perfomance_date}}</td>
+                                        <td>@if($item->complete_perfomance_by_hr == 2 ) Reject @else Accept @endif</td>
                                     </tr>
                                     @endforeach
                                     @endisset

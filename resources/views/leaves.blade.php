@@ -446,6 +446,9 @@ $(document).on("click",".disapproved",function() {
 	$('#hidden_id').val(id);
 	$('#man_comment_text').val(comment);
 });
+$(document).on("click","button.close",function() {
+	$('#personal_info_modal').css('display', 'none');
+});
 
 </script>
 @endsection    

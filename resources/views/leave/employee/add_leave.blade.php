@@ -109,14 +109,29 @@ jQuery(document).ready(function() {
 
     })
 </script>
-<?php $db_start = EmployeeLeave::where('employee_id',Auth::id())->get()->pluck('from_date')->toArray(); //dd($db_start);?>
+ 
+<?php $db_start_from = EmployeeLeave::where('employee_id',Auth::id())->get()->pluck('from_date')->toArray();  
+$from_dates= implode('","',$db_start_from);
+ 
+ $db_end_to = EmployeeLeave::where('employee_id',Auth::id())->get()->pluck('to_date')->toArray();
+$to_dates= implode('","',$db_end_to);  ?>
 <script>
+ var dates = ["<?php echo $from_dates; ?>","<?php echo $to_dates; ?>"];
+ 
+ 
+function DisableDates(date) {
+    var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
+    return [dates.indexOf(string) == -1];
+}  
+
  
     $(function() {
         var org_rl=$('#remaining_leaves').val()
         $( "#start_date" ).datepicker({
         defaultDate: new Date(),
         minDate: new Date(),
+		 beforeShowDay:  DisableDates, 
+	 
         onSelect: function(dateStr) 
         {      
             $('.end_date_error').hide()

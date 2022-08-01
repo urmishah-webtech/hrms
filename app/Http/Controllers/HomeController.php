@@ -212,7 +212,7 @@ class HomeController extends Controller
         where('si.complete_perfomance_by_manager',1)->where('gc.complete_perfomance_by_manager',1)
         ->where('ke.complete_perfomance_by_hr','!=',1)->where('be.complete_perfomance_by_hr','!=',1)->
         where('si.complete_perfomance_by_hr','!=',1)->where('gc.complete_perfomance_by_hr','!=',1)->
-        select('employees.id','employees.first_name','employees.last_name','ke.perfomance_date')->groupBy('ke.perfomance_date','employees.last_name','employees.first_name')->
+        select('employees.id','employees.first_name','employees.last_name','ke.perfomance_date','ke.complete_perfomance_by_hr')->groupBy('ke.perfomance_date','employees.last_name','employees.first_name')->
         get();  
        
      

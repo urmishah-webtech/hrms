@@ -175,6 +175,7 @@
                                             </select>
                                         </div>
                                     </div>
+									@if(Auth::user()->role_id != 1 && Auth::user()->role_id != 5)
                                     <div class="col-sm-6 add-class" id="assi_manager_hide">
                                         <div class="form-group">
                                             <label class="col-form-label">Select Assistant Manager <span class="text-danger">*</span></label>
@@ -188,6 +189,7 @@
                                             </select>
                                         </div>
                                     </div>
+									@endif
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             <label class="col-form-label">Username <span class="text-danger">*</span></label>
@@ -398,6 +400,7 @@
                                             </select>
                                         </div>
                                     </div>
+									@if(Auth::user()->role_id != 1 && Auth::user()->role_id != 5)
 									<div class="col-sm-6 add-class" id="assi_manager_hide_data">
                                         <div class="form-group">
                                             <label class="col-form-label">Select Assistant Manager<span class="text-danger">*</span></label>
@@ -411,6 +414,7 @@
                                             </select>
                                         </div>
                                     </div>
+									@endif
                                     <div class="col-sm-6">
                                         <div class="form-group">
                                             @if(Auth::user()->role_id==2 || Auth::user()->role_id==6)
