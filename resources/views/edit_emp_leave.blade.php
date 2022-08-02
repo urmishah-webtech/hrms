@@ -1,5 +1,6 @@
 @extends('layout.mainlayout')
 @section('content')
+<?php use App\EmployeeLeave; ?>
 <!-- Page Wrapper -->
 <div class="page-wrapper">
 			
@@ -144,7 +145,19 @@
 <link rel="stylesheet" href="//apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
 <script src="{{ URL::asset('js/jquery-3.5.1.min.js') }}"></script>
 <script src="{{ URL::asset('js/jquery-ui.min.js') }}"></script>
+<?php 
+$db_start_from = EmployeeLeave::where('employee_id',Auth::id())->get()->pluck('to_date','from_date')->toArray();  
+  
+	$date_ranage = array();
+	$i = 0;
+	foreach ($db_start_from as $key => $value) {
+        $date_ranage[$i][] = $key;
+		$date_ranage[$i][] = $value;		
+		$i++;
+    } 
+?>
 <script>
+var date_range = <?php echo json_encode($date_ranage);?>; 
  $(function() {
     var org_rl=parseInt($('#remaining_leaves').val())
     var org_num=parseInt($("#number_of_days").val())
@@ -157,6 +170,24 @@
     $( "#start_date" ).datepicker({
              dateFormat: "yy-mm-dd",
              minDate: new Date(),
+			 beforeShowDay:  function(date) {
+			
+				var string = $.datepicker.formatDate('yy-mm-dd', date);
+
+				for (var i = 0; i < date_range.length; i++) {
+					
+					if (Array.isArray(date_range[i])) {
+						
+						var from = new Date(date_range[i][0]);
+						var to = new Date(date_range[i][1]);
+						var current = new Date(string);
+						
+						if (current >= from && current <= to) return false;
+					}
+					
+				}
+				return [date_range.indexOf(string) == -1]
+			}, 
             onSelect: function(dateStr) 
             {       
                 $('.end_date_error').hide()

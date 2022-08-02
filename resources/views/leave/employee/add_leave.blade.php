@@ -110,27 +110,44 @@ jQuery(document).ready(function() {
     })
 </script>
  
-<?php $db_start_from = EmployeeLeave::where('employee_id',Auth::id())->get()->pluck('from_date')->toArray();  
-$from_dates= implode('","',$db_start_from);
- 
- $db_end_to = EmployeeLeave::where('employee_id',Auth::id())->get()->pluck('to_date')->toArray();
-$to_dates= implode('","',$db_end_to);  ?>
+<?php 
+$db_start_from = EmployeeLeave::where('employee_id',Auth::id())->get()->pluck('to_date','from_date')->toArray();  
+  
+	$date_ranage = array();
+	$i = 0;
+	foreach ($db_start_from as $key => $value) {
+        $date_ranage[$i][] = $key;
+		$date_ranage[$i][] = $value;		
+		$i++;
+    } 
+  ?>
 <script>
- var dates = ["<?php echo $from_dates; ?>","<?php echo $to_dates; ?>"];
- 
- 
-function DisableDates(date) {
-    var string = jQuery.datepicker.formatDate('yy-mm-dd', date);
-    return [dates.indexOf(string) == -1];
-}  
-
- 
+  
+	var date_range = <?php echo json_encode($date_ranage);?>; 
+	
     $(function() {
         var org_rl=$('#remaining_leaves').val()
         $( "#start_date" ).datepicker({
         defaultDate: new Date(),
         minDate: new Date(),
-		 beforeShowDay:  DisableDates, 
+		 beforeShowDay:  function(date) {
+			
+			var string = $.datepicker.formatDate('yy-mm-dd', date);
+
+			for (var i = 0; i < date_range.length; i++) {
+				
+				if (Array.isArray(date_range[i])) {
+					
+					var from = new Date(date_range[i][0]);
+					var to = new Date(date_range[i][1]);
+					var current = new Date(string);
+					
+					if (current >= from && current <= to) return false;
+				}
+				
+			}
+			return [date_range.indexOf(string) == -1]
+		}, 
 	 
         onSelect: function(dateStr) 
         {      
