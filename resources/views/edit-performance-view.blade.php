@@ -135,8 +135,7 @@
                                         $scoredemp = json_decode($prof_excel->points_scored_employee, true);
                                         $achi_man = json_decode($prof_excel->percentage_achieved_manager, true);
                                         $score_man = json_decode($prof_excel->points_scored_manager, true);
-                                        } ?>  
-										@if(Auth::user()->role_id!=1 && Auth::user()->role_id!=5)	
+                                        } ?>                       
                                         <tr>
                                             <td rowspan="2">1</td>
                                             <td rowspan="2">Leadership</td>
@@ -149,10 +148,14 @@
                                             <td rowspan="2"><input type="number" class="form-control achieved_manager" name="percentage_achieved_manager[]" id="achieved_manager1" value="@isset($prof_data){{$achi_man['1']['percentage_achieved_manager']}}@endisset" max="25" @if(Auth::id() != $emps->id) editable @else readonly @endif></td> 
 											
                                             <input type="hidden" class="form-control" name="getid[]" value="">
-                                        </tr> 
+                                        </tr>
                                         <tr>
                                             
-                                            <td>Positive 360 degrees feedback from colleagues</td> 
+                                            <td>Positive 360 degrees feedback from colleagues</td>                                            
+                                            <!-- <td><input type="text" class="form-control achieved_employee" name="percentage_achieved_employee[]" id="achieved_employee12" value=" "  @if (Auth::user()->role_id != 3)readonly @endif></td>
+                                           <!-- <td><input type="text" name="points_scored_employee[]" class="form-control scored_employee" id="scored_employee12" value=" "  @if (Auth::user()->role_id != 3)readonly @endif></td> 
+                                            <td><input type="text" class="form-control achieved_manager" name="percentage_achieved_manager[]" id="achieved_manager12" value=" "></td>
+                                            <!--<td><input type="text" class="form-control scored_manager" name="points_scored_manager[]" id="scored_manager12" value=" "></td>-->
                                             <input type="hidden" class="form-control" name="getid[]" value="">
                                         </tr>
                                         <tr>
@@ -210,8 +213,7 @@
                                             
                                             <td>Team performance</td> 
                                             <input type="hidden" class="form-control" name="getid[]" value=" ">
-                                        </tr>
-										@endif                                       
+                                        </tr>                                         
                                         <tr>
                                             <td colspan="3" class="text-center">Total </td>
                                             <td><input type="text" class="form-control" readonly value="100%"></td>
@@ -270,8 +272,7 @@
                                         $scoredemp = json_decode($per_excel->points_scored_employee, true);
                                         $achi_man = json_decode($per_excel->percentage_achieved_manager, true);
                                         $score_man = json_decode($per_excel->points_scored_manager, true);
-                                        } ?> 
-										@if(Auth::user()->role_id!=1 && Auth::user()->role_id!=5)
+                                        } ?>  
                                         <tr>
                                             <td rowspan="3">1</td>
                                             <td rowspan="3">Customer Oriented</td>
@@ -402,7 +403,6 @@
 										<tr>
                                             <td>Demonstrates personal leadership</td>  
                                         </tr>
-										@endif
                                         <tr>
                                             <td colspan="3" class="text-center">Total </td>
                                             <td><input type="text" class="form-control" readonly value="100%"></td>
@@ -410,7 +410,7 @@
 										   <td><input type="text" class="form-control" readonly  name="total_score_employee" id="total_personal_score_employee" value="{{ @$personal->total_score_employee }}"></td> 
 											@endif
                                             <td><input type="text" class="form-control" readonly name="total_score_manager" id="total_personal_score_manager" value="{{ @$personal->total_score_manager }}" @if (Auth::user()->role_id == 3)readonly @endif></td> 
-                                        </tr> 
+                                        </tr>
                                         <tr>
                                             <td colspan="3" class="text-center"><b>Total Percentage(%)</b></td>
                                             <td></td>
@@ -443,50 +443,7 @@
                         </div>
                     </div>
                 </section>
-				@if(Auth::user()->role_id==1 || Auth::user()->role_id==5)
-				<section class="review-section personal-excellence" id="average_score">
-					<div class="review-header text-center">
-						<h3 class="review-title">Average Score </h3>
-						 
-					</div>
-					<div class="row">
-						<div class="col-md-12">
-							<div class="table-responsive1"> 
-							 <input type="hidden" name="empid" value="1122" required=""> 
-							  <input type="hidden" name="personal_id" value="28" required="">
-							  <input type="hidden" name="perfomance_date" value="2022-07-12" required="">	
-							  <input type="hidden" name="complete_perfomance_by_emp" value=" 0 " required="">	 
-							 <input type="hidden" name="complete_perfomance_by_manager" value=" 1 " required="">	
-							 
-								<table class="table table-bordered review-table mb-0">
-									<thead>
-										<tr>
-											<th style="width:40px;">#</th>
-											<th>Average Score</th>
-											<th>Professional Excellence</th>
-											<th>Personal & Behavioral Excellence</th> 
-										</tr>
-									</thead>
-									<tbody> 
-										<tr>
-											<td colspan="2" class="text-center">Total </td>
-											<td><input type="text" class="form-control" readonly="" value="{{@$prof_excel->total_achieved_manager}}" id="professional_achieved_manager1"></td>
-											<td><input type="text" class="form-control" readonly="" name="total_score_manager" id="personal_score_manager2" value="{{ @$personal->total_score_manager }}"></td> 
-										</tr> 
-										<tr>
-											<td colspan="2" class="text-center"><b>Average Score</b></td>
-											<td></td>
-											<td class="text-center"><input type="text" class="form-control" name="total_percentage_manager" id="average_score_man" readonly="" value=""></td>                                            
-										</tr>
-									</tbody>                                    
-								</table>       
-							 
-							</div>
-						</div>
-					</div>
-				</section>
-				@endif
-				
+
                 <section class="review-section" id="specialInitiatives">
                     <div class="review-header text-center">
                         <h3 class="review-title">Special Initiatives, Achievements, contributions if any</h3>
@@ -735,7 +692,8 @@
                         </div>
                     </div>
                 </section>
-                <div class="row" >
+				
+                <div class="row" style="display:none">
                     <div class="col-md-12">
                         <div class="table-responsive">
                         <form action="{{ route('add_Perfomance_status') }}" method="post">
@@ -847,13 +805,13 @@
 			}
 		});
 		
-		<?php if(Auth::user()->role_id == 1 || Auth::user()->role_id == 5){ ?> 
+		<?php if(Auth::user()->role_id == 1 || Auth::user()->role_id == 5){ ?>
 		jQuery("#Appraisee_validate input").attr('disabled','disabled');
 		jQuery("#professionalExcellence input").attr('disabled','disabled');
 		jQuery("#personal_Behavioralexcel input").attr('disabled','disabled');
 		jQuery("#specialInitiatives_validate input").attr('disabled','disabled');
 		jQuery("#OtherGeneral_validate input").attr('disabled','disabled');
-		<?php } ?> 
+		<?php } ?>
 		</script>
 		 
 @endsection		

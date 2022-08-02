@@ -46,7 +46,11 @@
 								<a class="{{ Request::is('locations') ? 'active' : '' }}" href="{{ url('locations') }}">Locations</a>
 							</li>
 							@endif
-							
+							@if (Auth::user()->role_id == 2 || Auth::user()->role_id == 6)
+							<li>
+								<a class="{{ Request::is('assistant_manager') ? 'active' : '' }}" href="{{ url('assistant_manager') }}">Assistant Manager</a>
+							</li>
+							@endif
 						</ul>
 					</li>
 					@endif	

@@ -93,6 +93,48 @@ class EmployeePerformanceController extends Controller
 		   
 		return view('/edit-performance',compact('emp_id','professional','emps','personal','specialInitiatives','comments_role','add_comments','add_comments_id','add_appraiseest','add_appraiseest_id','add_personalgoal','add_personalgoal_id','professional_achived','professional_forthcoming','training_requirements','general_comment','perfomancemanageruse','add_perfoIdent','manager_user','prof_excel','add_perfoIdent_man','add_perfoIdent_employ','emp_hrcomp','per_excel','date_professional','date_Personal','date_Special','date_Comment','date_Appraisee','url_pdate','professional_id','personal_id','comment_id','appraisee_id'));
 	}
+	
+	public function edit_employees_view($id,$perfomance_date)
+	{    
+		$url_pdate = $perfomance_date;
+		$professional_id = KeyprofessionalExcellences::where('emp_id',$id)->where('perfomance_date', $perfomance_date)->pluck('id')->first();  
+		$personal_id = PersonalExcellence::where('emp_id',$id)->where('perfomance_date', $perfomance_date)->pluck('id')->first();   
+		$appraisee_id = AppraiseeStrength::where('emp_id',$id)->where('perfomance_date', $perfomance_date)->pluck('id')->first();    
+		$comment_id = OtherGeneralComment::where('emp_id',$id)->where('perfomance_date', $perfomance_date)->pluck('id')->first(); 
+		$emp_id = Employee::where('id',$id)->first();
+		$date_professional = KeyprofessionalExcellences::where('emp_id',$id)->where('perfomance_date', $perfomance_date)->first(); 
+		$date_Personal = PersonalExcellence::where('emp_id',$id)->where('perfomance_date', $perfomance_date)->first(); 
+		$date_Special = SpecialInitiatives::where('emp_id',$id)->where('perfomance_date', $perfomance_date)->first(); 
+		$date_Appraisee = AppraiseeStrength::where('emp_id',$id)->where('perfomance_date', $perfomance_date)->first(); 
+		$date_Comment = OtherGeneralComment::where('emp_id',$id)->where('perfomance_date', $perfomance_date)->first(); 
+		$emp_hrcomp = Employee::where('id',$id)->pluck('id')->first();		
+        $userd = Auth::user()->id; 	
+        $emps=Employee::where('id',$id)->first();        
+        $professional=ProfessionalExcellence::where('emp_id', $id)->first();          
+        $personal=PersonalExcellence::where('emp_id', $id)->where('perfomance_date', $perfomance_date)->first(); 
+        $specialInitiatives=SpecialInitiatives::where('emp_id', $id)->where('perfomance_date',$perfomance_date)->get();  
+        $comments_role=CommentsRole::where('emp_id', $id)->get();
+        $add_comments=AdditionCommentRole::where('emp_id', $id)->get()->toArray();
+        $add_comments_id=AdditionCommentRole::where('emp_id', $id)->get();
+        $add_appraiseest=AppraiseeStrength::where('emp_id', $id)->where('perfomance_date',$perfomance_date)->get()->toArray();	
+        $add_appraiseest_id=AppraiseeStrength::where('emp_id', $id)->where('perfomance_date',$perfomance_date)->get();
+        $add_personalgoal=PersonalGoal::where('emp_id', $id)->get()->toArray();	
+        $add_personalgoal_id=PersonalGoal::where('emp_id', $id)->get();
+        $professional_achived=ProfessionalGoalsAchieved::where('emp_id', $id)->get();
+        $professional_forthcoming=ProfessionalGoalsForthcoming::where('emp_id', $id)->get();
+        $training_requirements=TrainingRequirements::where('emp_id', $id)->get();
+        $general_comment=OtherGeneralComment::where('emp_id', $id)->where('perfomance_date',$perfomance_date)->get();
+        $perfomancemanageruse=PerfomanceManagerUse::where('emp_id', $id)->get();
+        $add_perfoIdent=PerformanceIdentity::where('emp_id', $id)->get(); 
+        $add_perfoIdent_man=PerformanceIdentity::where('emp_id', $id)->where('user_role','2')->get(); 
+        $add_perfoIdent_employ=PerformanceIdentity::where('emp_id', $id)->where('user_role','3')->get(); 
+		$manager_user = Employee::where('role_id',2)->orWhere('role_id',6)->orderby('role_id','DESC')->get();
+        $prof_excel=KeyprofessionalExcellences::where('emp_id', $id)->where('perfomance_date',$perfomance_date)->first();
+		$per_excel=PersonalExcellence::where('emp_id', $id)->where('perfomance_date',$perfomance_date)->first();   
+		   
+		return view('/edit-performance-view',compact('emp_id','professional','emps','personal','specialInitiatives','comments_role','add_comments','add_comments_id','add_appraiseest','add_appraiseest_id','add_personalgoal','add_personalgoal_id','professional_achived','professional_forthcoming','training_requirements','general_comment','perfomancemanageruse','add_perfoIdent','manager_user','prof_excel','add_perfoIdent_man','add_perfoIdent_employ','emp_hrcomp','per_excel','date_professional','date_Personal','date_Special','date_Comment','date_Appraisee','url_pdate','professional_id','personal_id','comment_id','appraisee_id'));
+	}
+	
 	public function add_managerid_EmployeeBasicInfo(Request $request)
 	{	$id = $request->id;
 		$man_id=Employee::where('id',$id)->first(); 		
@@ -971,20 +1013,38 @@ class EmployeePerformanceController extends Controller
     }
 	
 	public function performance_dashboard(){
-		$manger_emp = DB::table('employees')->leftJoin('keyprofessional_excellences as ke','employees.id','ke.emp_id')->
-        leftJoin('new_personal_behavioral_excellence as be','employees.id','be.emp_id')->
+		$manger_emp = DB::table('employees')->leftJoin('keyprofessional_excellences as ke','employees.id','ke.emp_id')->leftJoin('new_personal_behavioral_excellence as be','employees.id','be.emp_id')->
         leftJoin('special_initiatives as si','employees.id','si.emp_id')->
         leftJoin('appraisee_strengths as as','employees.id','as.emp_id')->
         leftJoin('other_general_comments as gc','employees.id','gc.emp_id')
         ->where('ke.complete_perfomance_by_manager',1)->where('be.complete_perfomance_by_manager',1)->
         where('si.complete_perfomance_by_manager',1)->where('gc.complete_perfomance_by_manager',1)
-        ->where('ke.complete_perfomance_by_hr','!=',1)->where('be.complete_perfomance_by_hr','!=',1)->
-        where('si.complete_perfomance_by_hr','!=',1)->where('gc.complete_perfomance_by_hr','!=',1)->
-        select('employees.id','employees.first_name','employees.last_name','ke.perfomance_date','ke.complete_perfomance_by_hr')->groupBy('ke.perfomance_date','employees.last_name','employees.first_name')->
-        get();
+        ->where('ke.complete_perfomance_by_hr',0)->where('be.complete_perfomance_by_hr',0)->
+        where('si.complete_perfomance_by_hr',0)->where('gc.complete_perfomance_by_hr',0)->
+        select('employees.id','employees.first_name','employees.last_name','ke.perfomance_date','ke.complete_perfomance_by_hr')->groupBy('ke.perfomance_date','employees.last_name','employees.first_name')->get();
 		
-		$pending_emp = DB::table('employees')->join('keyprofessional_excellences as ke','employees.id','ke.emp_id')->
-        leftJoin('new_personal_behavioral_excellence as be','employees.id','be.emp_id')->
+		$accept_emp = DB::table('employees')->leftJoin('keyprofessional_excellences as ke','employees.id','ke.emp_id')->leftJoin('new_personal_behavioral_excellence as be','employees.id','be.emp_id')->
+        leftJoin('special_initiatives as si','employees.id','si.emp_id')->
+        leftJoin('appraisee_strengths as as','employees.id','as.emp_id')->
+        leftJoin('other_general_comments as gc','employees.id','gc.emp_id')
+        ->where('ke.complete_perfomance_by_manager',1)->where('be.complete_perfomance_by_manager',1)->
+        where('si.complete_perfomance_by_manager',1)->where('gc.complete_perfomance_by_manager',1)
+        ->where('ke.complete_perfomance_by_hr',1)->where('be.complete_perfomance_by_hr',1)->
+        where('si.complete_perfomance_by_hr',1)->where('gc.complete_perfomance_by_hr',1)->
+        select('employees.id','employees.first_name','employees.last_name','ke.perfomance_date','ke.complete_perfomance_by_hr')->groupBy('ke.perfomance_date','employees.last_name','employees.first_name')->get();
+		
+		$reject_emp = DB::table('employees')->leftJoin('keyprofessional_excellences as ke','employees.id','ke.emp_id')->leftJoin('new_personal_behavioral_excellence as be','employees.id','be.emp_id')->
+        leftJoin('special_initiatives as si','employees.id','si.emp_id')->
+        leftJoin('appraisee_strengths as as','employees.id','as.emp_id')->
+        leftJoin('other_general_comments as gc','employees.id','gc.emp_id')
+        ->where('ke.complete_perfomance_by_manager',1)->where('be.complete_perfomance_by_manager',1)->
+        where('si.complete_perfomance_by_manager',1)->where('gc.complete_perfomance_by_manager',1)
+        ->where('ke.complete_perfomance_by_hr',2)->where('be.complete_perfomance_by_hr',2)->
+        where('si.complete_perfomance_by_hr',2)->where('gc.complete_perfomance_by_hr',2)->
+        select('employees.id','employees.first_name','employees.last_name','ke.perfomance_date','ke.complete_perfomance_by_hr')->groupBy('ke.perfomance_date','employees.last_name','employees.first_name')->get();
+		
+		
+		$pending_emp = DB::table('employees')->join('keyprofessional_excellences as ke','employees.id','ke.emp_id')->leftJoin('new_personal_behavioral_excellence as be','employees.id','be.emp_id')->
         leftJoin('special_initiatives as si','employees.id','si.emp_id')->
         leftJoin('appraisee_strengths as as','employees.id','as.emp_id')->
         leftJoin('other_general_comments as gc','employees.id','gc.emp_id')->
@@ -993,8 +1053,19 @@ class EmployeePerformanceController extends Controller
         where('si.complete_perfomance_by_emp',1)->where('gc.complete_perfomance_by_emp',1)
         ->where('ke.complete_perfomance_by_manager','!=',1)->where('be.complete_perfomance_by_manager','!=',1)->
         where('si.complete_perfomance_by_manager','!=',1)->where('gc.complete_perfomance_by_manager','!=',1)->
-        select('employees.id','employees.first_name','employees.last_name','ke.perfomance_date')->groupBy('ke.perfomance_date','employees.last_name','employees.first_name')->
-        get();
-		return view('performance-dashboard',compact('manger_emp','pending_emp'));
+        select('employees.id','employees.first_name','employees.last_name','ke.perfomance_date')->groupBy('ke.perfomance_date','employees.last_name','employees.first_name')->get();
+		
+		$reviewed_emp = DB::table('employees')->join('keyprofessional_excellences as ke','employees.id','ke.emp_id')->leftJoin('new_personal_behavioral_excellence as be','employees.id','be.emp_id')->
+        leftJoin('special_initiatives as si','employees.id','si.emp_id')->
+        leftJoin('appraisee_strengths as as','employees.id','as.emp_id')->
+        leftJoin('other_general_comments as gc','employees.id','gc.emp_id')->
+        where('man_id',Auth::user()->id)
+        ->where('ke.complete_perfomance_by_emp',1)->where('be.complete_perfomance_by_emp',1)->
+        where('si.complete_perfomance_by_emp',1)->where('gc.complete_perfomance_by_emp',1)
+        ->where('ke.complete_perfomance_by_manager',1)->where('be.complete_perfomance_by_manager',1)->
+        where('si.complete_perfomance_by_manager',1)->where('gc.complete_perfomance_by_manager',1)->
+        select('employees.id','employees.first_name','employees.last_name','ke.perfomance_date')->groupBy('ke.perfomance_date','employees.last_name','employees.first_name')->get();
+		
+		return view('performance-dashboard',compact('manger_emp','pending_emp','accept_emp','reject_emp','reviewed_emp'));
 	}
 }

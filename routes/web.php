@@ -79,6 +79,12 @@ Route::get('/file-manager', function () {
 // Route::get('/employees', function () {
 //     return view('employees');
 // });
+
+Route::get('/assistant_manager','AssistantManagerController@Assistant_Manager')->name('assistant_manager');
+Route::post('add_Assistant_Manager','AssistantManagerController@add_Assistant_Manager')->name('add_Assistant_Manager');
+
+
+
 Route::get('/employees','EmployeeController@employees')->name('employees');
 Route::get('/getDesignationAjax','EmployeeController@getDesignationAjax')->name('getDesignationAjax');
 Route::get('/designationList','EmployeeController@designationList')->name('designationList');
@@ -601,6 +607,7 @@ Route::post('add_perfomanceIdentitie','PerformanceIdentitiesController@store_Per
 Route::get('/employees-performance','EmployeePerformanceController@get_employees')->name('employees_perfomance')->middleware('isemployeepermission');
 Route::get('/edit-performance/{id}/{perfomance_date}','EmployeePerformanceController@edit_employees')->name('employees_per')->middleware('isemployeepermission');
 Route::get('/edit-performance/{id}/{perfomance_date}','EmployeePerformanceController@edit_employees')->name('employees_per')->middleware('isemployeepermission');
+Route::get('/edit-performance-view/{id}/{perfomance_date}','EmployeePerformanceController@edit_employees_view')->name('employees_per')->middleware('isemployeepermission');
 Route::get('/add-myperformance/{id}/','MyPerfomanceCycleController@add_myperformance_datewise')->name('add-myperformance');
 Route::get('edit-performance/{id}/{perfomance_date}','EmployeePerformanceController@edit_employees')->name('employees_per');
 Route::post('/edit_man_professionalExcellence','EmployeePerformanceController@add_manager_ProfessionalExcellence')->name('edit_man_professionalExcellence');

@@ -695,6 +695,8 @@
 				$("#total_percentage_man").val(percent);
 			});
 			
+			
+			
 			$('.percentage_achieved_employee').on('change', function() {  
 				var ret = Number($("#percentage_achieved_employee1").val()) + Number($("#percentage_achieved_employee21").val()) + Number($("#percentage_achieved_employee31").val()) + Number($("#percentage_achieved_employee41").val()) + Number($("#percentage_achieved_employee51").val()) + Number($("#percentage_achieved_employee61").val()); 
 				$("#total_personal_score_employee").val(ret);
@@ -702,7 +704,9 @@
 				$("#total_percentage_empl").val(percent);
 			});
 			
-			  
+			var average = Number($("#professional_achieved_manager1").val()) + Number($("#personal_score_manager2").val()); 
+			var average_score = (average/ 2);   
+			$("#average_score_man").val(average_score);  
 			
 			$(document).on("click",".edit_personal_info",function() {
 				var id=$(this).data('id');
@@ -1161,6 +1165,18 @@
 	   var newcount = parseInt(pre) + parseInt(1);
 	   $('#noti-badge').html(newcount);
 	   $('.notification-list').prepend('<li class="notification-message"><a href="activities"><div class="media"><span class="avatar"><img alt="" src="img/profiles/avatar-03.jpg"></span><div class="media-body"><p class="noti-details"><span class="noti-title">'+appraisalstatus_added_data.message+'</span> </p><p class="noti-time"><span class="notification-time">a few seconds ago</span></p></div></div></a></li>')
+	   }
+    });
+	
+	var assignassitant_added_channel = pusher.subscribe('assign-assitantmanager');
+    var assignassitant_added_channelname = 'assignassitantmanager'
+	var assignassitant_added_auth_id={{ Auth::id() }}
+	assignassitant_added_channel.bind(assignassitant_added_channelname, function(assignassitant_added_data) {
+	   if(assignassitant_added_auth_id==assignassitant_added_data.id || jQuery.inArray(assignassitant_added_auth_id) !== -1){
+       var pre = $('#noti-badge').html();
+	   var newcount = parseInt(pre) + parseInt(1);
+	   $('#noti-badge').html(newcount);
+	   $('.notification-list').prepend('<li class="notification-message"><a href="activities"><div class="media"><span class="avatar"><img alt="" src="img/profiles/avatar-03.jpg"></span><div class="media-body"><p class="noti-details"><span class="noti-title">'+assignassitant_added_data.message+'</span> </p><p class="noti-time"><span class="notification-time">a few seconds ago</span></p></div></div></a></li>')
 	   }
     });
 
