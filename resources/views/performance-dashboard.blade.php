@@ -38,19 +38,19 @@
                                     @foreach ($manger_emp as $item) 
                                     <tr>  
                                         <td>  
-                                            <h2><a href="edit-performance/{{@$item->id}}/{{@$item->perfomance_date}}">{{ @$item->first_name }} </a></h2>
+                                            <h2>{{ @$item->first_name }}</h2>
                                         </td>
 										<td>  
-                                            <h2><a href="{{route('profile_details', @$item->id)}}">  {{ @$item->last_name }}</a></h2>
+                                            <h2>{{ @$item->last_name }}</h2>
                                         </td> 
                                         <td>{{@$item->perfomance_date}}</td>
 										<td>@if($item->complete_perfomance_by_hr == 2 ) Reject @else Accept @endif</td>
 										<td>
-											<div class="dropdown profile-action">
+											<div class="">
 												<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
 												<div class="dropdown-menu dropdown-menu-right">
-													<a class="dropdown-item edtEmpBtn" href="#" data-toggle="modal" data-role_id="{{@$val->role_id}}" data-assis_man_id="{{@$val->assi_manager_id}}" data-id="{{ @$val->id }}" data-target="#edit_employee"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-													<a class="dropdown-item delEmpBtn" href="#" data-toggle="modal" data-id="{{ @$val->id }}" data-target="#delete_employee"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+													<a class="dropdown-item edtEmpBtn" href="edit-performance/{{@$item->id}}/{{@$item->perfomance_date}}"    data-id="{{ @$val->id }}" ><i class="fa fa-pencil m-r-5"></i> Change Status</a>
+													<a class="dropdown-item delEmpBtn" href="edit-performance-view/{{@$item->id}}/{{@$item->perfomance_date}}"  data-id="{{ @$val->id }}"><i class="fa fa-trash-o m-r-5"></i> View Details </a>
 												</div>
 											</div>
 										</td>
@@ -87,10 +87,10 @@
                                     @foreach ($accept_emp as $item) 
                                     <tr>  
                                         <td>  
-                                            <h2><a href="edit-performance/{{@$item->id}}/{{@$item->perfomance_date}}">{{ @$item->first_name }} </a></h2>
+                                            <h2>{{ @$item->first_name }} </h2>
                                         </td>
 										<td>  
-                                            <h2><a href="{{route('profile_details', @$item->id)}}">  {{ @$item->last_name }}</a></h2>
+                                            <h2>{{ @$item->last_name }}</h2>
                                         </td> 
                                         <td>{{@$item->perfomance_date}}</td>
 										<td>@if($item->complete_perfomance_by_hr == 2 ) Reject @else Accept @endif</td>
@@ -136,10 +136,10 @@
                                     @foreach ($reject_emp as $item) 
                                     <tr>  
                                         <td>  
-                                            <h2><a href="edit-performance/{{@$item->id}}/{{@$item->perfomance_date}}">{{ @$item->first_name }} </a></h2>
+                                            <h2>{{ @$item->first_name }}</h2>
                                         </td>
 										<td>  
-                                            <h2><a href="{{route('profile_details', @$item->id)}}">  {{ @$item->last_name }}</a></h2>
+                                            <h2>{{ @$item->last_name }}</h2>
                                         </td> 
                                         <td>{{@$item->perfomance_date}}</td>
 										<td>@if($item->complete_perfomance_by_hr == 2 ) Reject @else Accept @endif</td>
@@ -186,10 +186,10 @@
                                     @foreach ($pending_emp as $item)
                                     <tr>
                                         <td>  
-                                            <h2><a href="edit-performance/{{@$item->id}}/{{$item->perfomance_date}}">{{ @$item->first_name }} </a></h2>
+                                            <h2>{{ @$item->first_name }}</h2>
                                         </td>
 										<td>  
-                                            <h2><a href="{{route('profile_details', @$item->id)}}">  {{ @$item->last_name }}</a></h2>
+                                            <h2>{{ @$item->last_name }}</h2>
                                         </td>
                                         <td>{{@$item->perfomance_date}}</td>
 
@@ -224,10 +224,10 @@
                                     @foreach ($reviewed_emp as $item)
                                     <tr>
                                         <td>  
-                                            <h2><a href="edit-performance/{{@$item->id}}/{{$item->perfomance_date}}">{{ @$item->first_name }} </a></h2>
+                                            <h2>{{ @$item->first_name }}</h2>
                                         </td>
 										<td>  
-                                            <h2><a href="{{route('profile_details', @$item->id)}}">  {{ @$item->last_name }}</a></h2>
+                                            <h2>{{ @$item->last_name }}</h2>
                                         </td>
                                         <td>{{@$item->perfomance_date}}</td> 
                                     </tr>

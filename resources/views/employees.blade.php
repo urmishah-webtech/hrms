@@ -104,7 +104,7 @@
                                     <div class="profile-img">
                                         <a href="{{route('profile_details', $val->id)}}" class="avatar"><img src="img/profiles/avatar-02.jpg" alt=""></a>
                                     </div>
-									 
+									@if(Auth::user()->role_id == 1 || Auth::user()->role_id == 5) 
                                     <div class="dropdown profile-action">
                                         <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                         <div class="dropdown-menu dropdown-menu-right">
@@ -112,7 +112,7 @@
                                             <a class="dropdown-item delEmpBtn" href="#" data-toggle="modal" data-id="{{ @$val->id }}" data-target="#delete_employee"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                                         </div>
                                     </div>
-									 
+									@endif 
                                     <h4 class="user-name m-t-10 mb-0 text-ellipsis"><a href="{{route('profile_details', $val->id)}}">{{ @$val->first_name }} {{ @$val->last_name }}</a></h4>
                                     <div class="small text-muted">
                                         {{ @$val->designation->name }}</div>
