@@ -50,7 +50,7 @@
 												<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
 												<div class="dropdown-menu dropdown-menu-right">
 													<a class="dropdown-item edtEmpBtn" href="edit-performance/{{@$item->id}}/{{@$item->perfomance_date}}"    data-id="{{ @$val->id }}" ><i class="fa fa-pencil m-r-5"></i> Change Status</a>
-													<a class="dropdown-item delEmpBtn" href="edit-performance-view/{{@$item->id}}/{{@$item->perfomance_date}}"  data-id="{{ @$val->id }}"><i class="fa fa-trash-o m-r-5"></i> View Details </a>
+													<a class="dropdown-item delEmpBtn" href="edit-performance-view/{{@$item->id}}/{{@$item->perfomance_date}}"  data-id="{{ @$val->id }}"><i class="fa fa-eye m-r-5"></i> View Details </a>
 												</div>
 											</div>
 										</td>
@@ -99,7 +99,7 @@
 												<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
 												<div class="dropdown-menu dropdown-menu-right">
 													<a class="dropdown-item edtEmpBtn" href="edit-performance/{{@$item->id}}/{{@$item->perfomance_date}}"    data-id="{{ @$val->id }}" ><i class="fa fa-pencil m-r-5"></i> Change Status</a>
-													<a class="dropdown-item delEmpBtn" href="edit-performance-view/{{@$item->id}}/{{@$item->perfomance_date}}"  data-id="{{ @$val->id }}"><i class="fa fa-trash-o m-r-5"></i> View Details </a>
+													<a class="dropdown-item delEmpBtn" href="edit-performance-view/{{@$item->id}}/{{@$item->perfomance_date}}"  data-id="{{ @$val->id }}"><i class="fa fa-eye m-r-5"></i> View Details </a>
 												</div>
 											</div>
 										</td>
@@ -148,7 +148,7 @@
 												<a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
 												<div class="dropdown-menu dropdown-menu-right">
 													<a class="dropdown-item edtEmpBtn" href="edit-performance/{{@$item->id}}/{{@$item->perfomance_date}}"    data-id="{{ @$val->id }}" ><i class="fa fa-pencil m-r-5"></i> Change Status</a>
-													<a class="dropdown-item delEmpBtn" href="edit-performance-view/{{@$item->id}}/{{@$item->perfomance_date}}"  data-id="{{ @$val->id }}"><i class="fa fa-trash-o m-r-5"></i> View Details </a>
+													<a class="dropdown-item delEmpBtn" href="edit-performance-view/{{@$item->id}}/{{@$item->perfomance_date}}"  data-id="{{ @$val->id }}"><i class="fa fa-eye m-r-5"></i> View Details </a>
 												</div>
 											</div>
 										</td>
