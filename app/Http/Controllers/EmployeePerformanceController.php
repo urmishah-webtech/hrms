@@ -848,7 +848,7 @@ class EmployeePerformanceController extends Controller
         $status->save();  
 		}
 		
-		$email_em=Employee::where('id',$request->empid)->first();  
+		$email_em=Employee::where('id',$request->empid)->first();   
 		$manager_ids = $email_em->man_id;  
 		//$man_ids = Employee::where('id',$manager_ids)->first();
 		$man_email = Employee::where('id',$manager_ids)->pluck('email')->first();    
@@ -866,7 +866,11 @@ class EmployeePerformanceController extends Controller
 		$myperformance = 'my-performance/'.$request->empid;
         Notification::create(['employeeid' => $email_em->man_id, 'message' => $message, 'slug' => $myperformance]);
         event(new EmployeePerfomanceStatus($message,$email_em->man_id,$myperformance));
+		if(Auth::user()->role_id == 1 || Auth::user()->role_id == 5)
+		{  return redirect('performance-dashboard');
+		}else{
         return redirect('success_status');
+		}
     }
 	
 	 public function add_Perfomance_reject_status(Request $request)

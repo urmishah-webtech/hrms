@@ -26,7 +26,11 @@
                         </div> 
                     </div>
                 </div>
-				
+				@if(session()->has('message'))
+					<div class="alert alert-success">
+						{{ session()->get('message') }}
+					</div>
+				@endif
 				<form action="{{ route('add_Assistant_Manager') }}" method="post">
 				@csrf
 					<div class="row staff-grid-row">

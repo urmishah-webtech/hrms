@@ -16,7 +16,7 @@ class AssistantManagerController extends Controller
 	}
 	
 	public function add_Assistant_Manager(Request $request){
-			
+			 
 		$emp=Employee::where('id',$request->id)->first();
 		$emp->assi_manager_id=$request->assi_manager_id;    
         $emp->save();
@@ -27,6 +27,6 @@ class AssistantManagerController extends Controller
         Notification::create(['employeeid' => $emp->assi_manager_id, 'message' => $message, 'slug' =>$link]);
         event(new AssignAssitantmanager($message,$emp->assi_manager_id,$link));
 		
-		return back();
+		return redirect()->back()->with('message', 'Assistant Manager has been saved successfully!');
 	}
 }

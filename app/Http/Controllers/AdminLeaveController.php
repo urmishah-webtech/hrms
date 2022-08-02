@@ -24,7 +24,7 @@ class AdminLeaveController extends Controller
  		if(Auth::user()->role_id==1 || Auth::user()->role_id==5 ){
         $data=EmployeeLeave::get();  
 		} else{ 
-		$data=EmployeeLeave::where('manager_id',Auth::user()->id)->orwhere('manager_id',$assitant)->orderBy('id','DESC')->get(); 
+		$data=EmployeeLeave::where('manager_id',Auth::user()->id)->orwhere('manager_id',$assitant)->orderBy('id','DESC')->get();  //dd($data);
 		} 		
         $total_emp=Employee::where('role_id','!=',1)->count();
         $today_date=Carbon::today()->format('Y-m-d'); 

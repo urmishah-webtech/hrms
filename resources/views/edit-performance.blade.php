@@ -754,7 +754,7 @@
 						<input type="hidden" name="user_id" value="{{Auth::user()->id}}" id="userid_f">    
 							@if(Auth::user()->role_id==1 || Auth::user()->role_id==5)
 							<div class="review-header text-center" >
-								<button type="submit" id="reject_status" class="btn btn-primary submit-btn"   style="background: #34444c; border: 1px solid #34444c;"><input type="hidden" name="complete_perfomance_by_hr" value="2" id="reject_status_hidden"><span style="font-size: 22px;">Reject </span></button>
+								<button type="submit" id="reject_status" class="btn btn-primary submit-btn"  style="background: #34444c; border: 1px solid #34444c;" disabled><input type="hidden" name="complete_perfomance_by_hr" value="2" id="reject_status_hidden"><span style="font-size: 22px;">Reject </span></button>
 							</div>
 							@endif 
 						</form>
@@ -770,7 +770,7 @@
 	
 
 <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
- 
+ <?php //dd($emp_hrcomp); ?>
 	<script type="text/javascript">
 		jQuery(document).ready(function() {
 		<?php  
@@ -799,7 +799,7 @@
 			$personal1 = PersonalExcellence::where('emp_id',$emp_hrcomp)->where('perfomance_date', $url_pdate)->where('complete_perfomance_by_emp',1)->first();  
 			$special1 = SpecialInitiatives::where('emp_id',$emp_hrcomp)->where('perfomance_date', $url_pdate)->where('complete_perfomance_by_emp',1)->first(); 
 			$comment1 = OtherGeneralComment::where('emp_id',$emp_hrcomp)->where('perfomance_date', $url_pdate)->where('complete_perfomance_by_emp',1)->first();  
-			$auth_manager = DB::table('employees')->where('id',Auth::id())->whereNotNull('man_id')->first();  
+			$auth_manager = DB::table('employees')->where('id',$emp_hrcomp)->whereNotNull('man_id')->pluck('man_id')->first();  
 			if($key_prof1 && $personal1 && $special1 && $comment1 && $auth_manager){  ?>
 			 $('#comple_stat').removeAttr("disabled");
 			 $('#reject_status').removeAttr("disabled");
@@ -814,9 +814,11 @@
 			$special = SpecialInitiatives::where('emp_id',$emp_hrcomp)->where('perfomance_date', $url_pdate)->where('complete_perfomance_by_emp',1)->where('complete_perfomance_by_manager',1)->first();
 			$appraisee = AppraiseeStrength::where('emp_id',$emp_hrcomp)->where('perfomance_date', $url_pdate)->where('complete_perfomance_by_manager',1)->first();
 			$comment = OtherGeneralComment::where('emp_id',$emp_hrcomp)->where('perfomance_date', $url_pdate)->where('complete_perfomance_by_emp',1)->where('complete_perfomance_by_manager',1)->first(); 
-			  			
-		   if($key_prof && $personal && $special && $comment && $appraisee){  ?>
+			$auth_manager = DB::table('employees')->where('id',$emp_hrcomp)->whereNotNull('man_id')->pluck('man_id')->first();
+  			
+		   if($key_prof && $personal && $special && $comment && $appraisee && $auth_manager){  ?>
 			 $('#comple_stat').removeAttr("disabled"); 
+			 $('#reject_status').removeAttr("disabled");
 			 $('#perfomance_datef').removeAttr("disabled");
 			 $('#hidden_from').removeAttr("disabled");
 			 $('#empid_f').removeAttr("disabled");

@@ -186,10 +186,10 @@
                                     @foreach ($pending_emp as $item)
                                     <tr>
                                         <td>  
-                                            <h2>{{ @$item->first_name }}</h2>
+                                            <h2><a href="edit-performance/{{@$item->id}}/{{@$item->perfomance_date}}">{{ @$item->first_name }}</a></h2>
                                         </td>
 										<td>  
-                                            <h2>{{ @$item->last_name }}</h2>
+                                            <h2><a href="edit-performance/{{@$item->id}}/{{@$item->perfomance_date}}">{{ @$item->last_name }}</a></h2>
                                         </td>
                                         <td>{{@$item->perfomance_date}}</td>
 
@@ -204,7 +204,7 @@
                      
                 </div>
             </div>
-			<div class="col-md-12 d-flex">
+			<div class="col-md-12 d-flex" style="display:none!important">
                 <div class="card card-table flex-fill">
                     <div class="card-header">
                         <h3 class="card-title mb-0">Employess Reviewed Completed</h3>
