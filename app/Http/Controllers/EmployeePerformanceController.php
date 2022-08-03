@@ -931,7 +931,7 @@ class EmployeePerformanceController extends Controller
 			 
 		]; 
 		Mail::to($man_email)->send(new \App\Mail\RejectStatus($details)); 
-		return back(); 
+		return redirect('performance-dashboard'); 
 	}
 	
 	public function success_Perfomance_status()

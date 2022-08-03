@@ -89,8 +89,8 @@ class EmployeeLeaveController extends Controller
         'maternity_days','paternity_days','total_hospitalisation_taken','hospitalisation_days','total_sick_taken','sick_days','lt','data','total_leaves','taken_leaves','remaining_leaves','my_manager_name','remaining_maternity','leave_add','count_leave'));
     } 
     public function save_leave(Request $request){
-	
 		
+		$assitant = Employee::where('assi_manager_id',Auth::id())->pluck('id')->first();  
         $el=new EmployeeLeave();
         $el->remaining_leave=$request->remaining_leaves;
         $fdate = strtotime($request->start_date);
@@ -102,7 +102,7 @@ class EmployeeLeaveController extends Controller
         $el->leave_type_id=$request->leave_type_id;
         $el->employee_id=Auth::id();
         $el->manager_id=Auth::user()->man_id;
-        $el->assis_manager_id=Auth::user()->assi_manager_id;
+        $el->assis_manager_id=$assitant;
 		$fileName= NULL;
 		if(isset($request->document_add)){
 			$fileName = time().'.'.$request->document_add->extension();  

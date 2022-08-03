@@ -1,3 +1,4 @@
+<?php use App\Employee;?>
 <div class="main-wrapper">
 	<div class="sidebar" id="sidebar">
 		<div class="sidebar-inner slimscroll">
@@ -111,8 +112,15 @@
 						<span>Leaves</span></a></li>	
 					<li>
 					@endif
-					@if (Auth::user()->role_id == 1 || Auth::user()->role_id==2 || Auth::user()->role_id == 5 || Auth::user()->role_id == 6 || Auth::user()->role_id == 7)
+					@if (Auth::user()->role_id == 1 || Auth::user()->role_id==2 || Auth::user()->role_id == 5 || Auth::user()->role_id == 6)
 					<li>
+						<a class="{{ Request::is('leaves') ? 'active' : '' }}" href="{{ url('leaves') }}"><i class="la la-cube"></i><span>Leaves Approval</span></a></li>								
+	
+					<li>
+					@endif
+					<?php $assitant = Employee::where('assi_manager_id',Auth::id())->pluck('id')->first();?>
+					@if(Auth::user()->role_id == 3 && $assitant)
+						<li>
 						<a class="{{ Request::is('leaves') ? 'active' : '' }}" href="{{ url('leaves') }}"><i class="la la-cube"></i><span>Leaves Approval</span></a></li>								
 	
 					<li>
