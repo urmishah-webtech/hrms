@@ -1176,7 +1176,7 @@
        var pre = $('#noti-badge').html();
 	   var newcount = parseInt(pre) + parseInt(1);
 	   $('#noti-badge').html(newcount);
-	   $('.notification-list').prepend('<li class="notification-message"><a href="activities"><div class="media"><span class="avatar"><img alt="" src="img/profiles/avatar-03.jpg"></span><div class="media-body"><p class="noti-details"><span class="noti-title">'+assignassitant_added_data.message+'</span> </p><p class="noti-time"><span class="notification-time">a few seconds ago</span></p></div></div></a></li>')
+	   $('.notification-list').prepend('<li class="notification-message"><a href="'+assignassitant_added_data.slug+'"><div class="media"><span class="avatar"><img alt="" src="img/profiles/avatar-03.jpg"></span><div class="media-body"><p class="noti-details"><span class="noti-title">'+assignassitant_added_data.message+'</span> </p><p class="noti-time"><span class="notification-time">a few seconds ago</span></p></div></div></a></li>')
 	   }
     });
 
