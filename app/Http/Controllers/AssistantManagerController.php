@@ -11,7 +11,7 @@ use Auth;
 class AssistantManagerController extends Controller
 {
     public function Assistant_Manager(){
-		$assi_manager = Employee::where('man_id',Auth::id())->get(); 
+		$assi_manager = Employee::where('man_id',Auth::id())->where('id','!=',Auth::id())->orwhere('role_id',2)->orwhere('role_id',1)->orwhere('role_id',5)->orwhere('role_id',6)->get(); 
 		return view('assistant_manager',compact('assi_manager')); 
 	}
 	
